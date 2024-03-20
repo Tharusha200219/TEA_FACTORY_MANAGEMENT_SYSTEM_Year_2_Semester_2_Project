@@ -1,6 +1,3 @@
-Here's the HTML code incorporating the provided description:
-
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
