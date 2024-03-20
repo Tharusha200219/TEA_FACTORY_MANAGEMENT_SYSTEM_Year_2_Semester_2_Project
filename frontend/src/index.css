@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.input-field {
+  border: 1px solid #ccc;
+  padding: 0.75rem; /* Increase padding */
+  width: 100%; /* Full width */
+  height: 2.5rem; /* Increase height */
+  transition: border-color 0.3s ease;
+}
+
+.input-field:hover,
+.input-field:focus {
+  border-color: #3FC060;
+}
