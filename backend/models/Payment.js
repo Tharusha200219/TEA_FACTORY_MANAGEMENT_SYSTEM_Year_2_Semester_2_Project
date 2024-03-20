@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
-const Schema = mongoose.Schema;
 
-const PaymentSchema = new Schema({
+const PaymentSchema  = mongoose.Schema(
+{
     supplierId: {
         type: Number,
         required: true,
@@ -21,8 +21,12 @@ const PaymentSchema = new Schema({
     endDate: {
         type: Date,
         required: true,
+    },
+},
+    {
+        timestamps: true,
     }
-});
+);
 
 const Payment = mongoose.model('Employee', PaymentSchema);
 module.exports = Payment;
