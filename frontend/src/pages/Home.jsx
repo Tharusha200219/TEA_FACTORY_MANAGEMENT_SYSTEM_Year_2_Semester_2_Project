@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 const Home = () => {
     return (
         <div
-    className="h-screen bg-cover bg-center "
-    style={{ backgroundImage: "url('./public/images/bcc.jpg')" }}
->
+            className="h-screen bg-cover bg-center"
+            style={{ backgroundImage: "url('./public/images/bcc.jpg')" }}
+        >
             {/* Navigation Bar */}
             <nav className="bg-gray-800 p-4">
                 <div className="container mx-auto flex justify-between items-center">
@@ -18,6 +18,7 @@ const Home = () => {
                         <Link to="/inventorys" className="text-white hover:text-gray-300">Inventory</Link>
                         <Link to="/Productionhome" className="text-white hover:text-gray-300">Production</Link>
                         <Link to="/MachineHome" className="text-white hover:text-gray-300">Machine</Link>
+                        <Link to="/SupplierHome" className="text-white hover:text-gray-300">Supplier</Link>
                     </div>
                 </div>
             </nav>
@@ -38,8 +39,13 @@ const Home = () => {
                             </button>
                         </Link>
                         <Link to="/MachineHome">
-                            <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                            <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-4">
                                 Machine
+                            </button>
+                        </Link>
+                        <Link to="/SupplierHome">
+                            <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                                Supplier
                             </button>
                         </Link>
                     </div>

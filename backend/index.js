@@ -13,6 +13,12 @@ import productionScheduleRoute from "./routes/production_schedule_route.js";
 import teatypeManagementRoute from "./routes/teatype_management_route.js";
 import cors from "cors";
 
+////Import Supplier management model & Route ////
+import { supplier } from "./models/supplierModel.js";
+import supplierRoute from "./routes/supplierRoute.js";
+import { SupplyRecord } from "./models/supplyrecordModel.js";
+import supplyrecordRoute from "./routes/supplyrecordRoute.js";
+
 
 const app = express();
 //this allow express to use json or json to express 
@@ -37,6 +43,9 @@ app.use('/productions',productionScheduleRoute);
 app.use('/teatypes',teatypeManagementRoute);
 app.use('/machines',machineRoute);
 
+// Mounting supplier management routes
+app.use('/suppliers', supplierRoute);
+app.use('/supplyrecords', supplyrecordRoute);
 
 
 
