@@ -19,12 +19,13 @@ const Home = () => {
                         <Link to="/Productionhome" className="text-white hover:text-gray-300">Production</Link>
                         <Link to="/MachineHome" className="text-white hover:text-gray-300">Machine</Link>
                         <Link to="/SupplierHome" className="text-white hover:text-gray-300">Supplier</Link>
+                        <Link to="/OrderHome" className="text-white hover:text-gray-300">Order</Link>
                     </div>
                 </div>
             </nav>
 
             {/* Main Content */}
-            <div className="container mx-auto flex justify-center items-center h-full">
+            <div className="container mx-auto flex justify-center items-center h-full ">
                 <div className="text-center text-white">
                     <h1 className="text-4xl font-bold mb-8">Welcome to Ever Green Tea</h1>
                     <div className="space-y-4">
@@ -48,6 +49,12 @@ const Home = () => {
                                 Supplier
                             </button>
                         </Link>
+                        <Link to="/OrderHome">
+                            <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                                Order
+                            </button>
+                        </Link>
+                        
                     </div>
                 </div>
             </div>
