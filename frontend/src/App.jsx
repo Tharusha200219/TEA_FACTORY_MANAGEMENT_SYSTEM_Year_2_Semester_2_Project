@@ -76,6 +76,7 @@ const App = () => {
       <Route path="/suppliers/details/:id" element={<ShowSupplier />} />
       <Route path="/suppliers/edit/:id" element={<EditSupplier />} />
       <Route path="/suppliers/delete/:id" element={<DeleteSupplier />} />
+      
       <Route path="/supplyrecords/create" element={<CreateSupplyRecord />} />
       <Route path="/supplyrecords/details/:id" element={<ShowSupplyRecord />} />
       <Route path="/supplyrecords/edit/:id" element={<EditSupplyRecord />} />
