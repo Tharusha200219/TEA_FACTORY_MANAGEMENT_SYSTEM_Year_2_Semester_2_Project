@@ -38,6 +38,13 @@ import ShowMachine from './pages/ShowMachine'
 import EditMachine from './pages/EditMachine'
 import DeleteMachine from './pages/DeleteMachine'
 
+//*************Order***************//
+import CreateOrder from './pages/CreateOrder';
+import ShowOrder from './pages/ShowOrder';
+import UpdateOrder from './pages/UpdateOrder';
+import DeleteOrder from './pages/DeleteOrder';
+import OrderHome from './pages/OrderHome';
+
 const App = () => {
   return (
     <Routes>
@@ -81,6 +88,12 @@ const App = () => {
       <Route path="/supplyrecords/details/:id" element={<ShowSupplyRecord />} />
       <Route path="/supplyrecords/edit/:id" element={<EditSupplyRecord />} />
       <Route path="/supplyrecords/delete/:id" element={<DeleteSupplyRecord />} />
+      
+      <Route path="/OrderHome" element={<OrderHome/>}/>
+      <Route path="/orders/create" element={<CreateOrder/>}/>
+      <Route path="/orders/details/:id" element={<ShowOrder/>}/>
+      <Route path="/orders/edit/:id" element={<UpdateOrder/>}/>
+      <Route path="/orders/delete/:id" element={<DeleteOrder/>}/>
       
     </Routes>
   );
