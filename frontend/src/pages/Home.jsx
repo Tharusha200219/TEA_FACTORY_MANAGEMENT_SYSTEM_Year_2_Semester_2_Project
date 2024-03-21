@@ -40,17 +40,17 @@ const Home = () => {
                             </button>
                         </Link>
                         <Link to="/MachineHome">
-                            <button className="bg-blue-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-4">
+                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4">
                                 Machine
                             </button>
                         </Link>
                         <Link to="/SupplierHome">
-                            <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                            <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-4">
                                 Supplier
                             </button>
                         </Link>
                         <Link to="/OrderHome">
-                            <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4">
                                 Order
                             </button>
                         </Link>
