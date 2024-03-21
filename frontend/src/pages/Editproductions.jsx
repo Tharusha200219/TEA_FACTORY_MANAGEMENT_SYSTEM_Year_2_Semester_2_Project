@@ -66,7 +66,7 @@ const Editproductions = () => {
             <label htmlFor='Schedule_no' className='text-lg text-gray-600'>Schedule No</label>
             <input
               id='Schedule_no'
-              type='text'
+              type='number'
               value={Schedule_no}
               onChange={(e) => setSchedule_no(e.target.value)}
               className='input-field'
@@ -99,7 +99,7 @@ const Editproductions = () => {
             <label htmlFor='Machine_assignment' className='text-lg text-gray-600'>Machine Assignment</label>
             <input
               id='Machine_assignment'
-              type='number'
+              type='text'
               value={Machine_assignment}
               onChange={(e) => setMachine_assignment(e.target.value)}
               className='input-field'
