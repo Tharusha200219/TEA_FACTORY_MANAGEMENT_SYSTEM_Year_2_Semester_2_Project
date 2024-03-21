@@ -46,9 +46,6 @@ const Showproductions = () => {
             <strong>Machine_assignment:</strong> {productions.Machine_assignment}
           </div>
           <div style={styles.infoItem}>
-            <strong>Machine_assignment:</strong> {productions.Machine_assignment}
-          </div>
-          <div style={styles.infoItem}>
             <strong>shift_information:</strong> {new Date(productions.shift_information).toLocaleString()}
           </div>
           <div style={styles.infoItem}>
