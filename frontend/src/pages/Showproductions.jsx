@@ -34,7 +34,7 @@ const Showproductions = () => {
             <strong>ID:</strong> {productions._id}
           </div>
           <div style={styles.infoItem}>
-            <strong>Production date:</strong> {productions.Schedule_no}
+            <strong>schedule no:</strong> {productions.Schedule_no}
           </div>
           <div style={styles.infoItem}>
             <strong>Production_date:</strong> {productions.Production_date}
