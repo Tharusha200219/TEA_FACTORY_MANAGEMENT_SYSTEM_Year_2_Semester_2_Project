@@ -7,9 +7,9 @@
 
 </head>
 <body>
-     <div class="container">
+     <div class="container"><br><img src="https://media.licdn.com/dms/image/D4D12AQFJpMehXBXFtg/article-cover_image-shrink_600_2000/0/1709991525351?e=2147483647&v=beta&t=iWrcoZ0C3LdVZhfh6pHZE8ItVg4dGNl8cwlW8sD21NI" alt="Tea Factory Management Logo" style="width: 500px">   <br>
         <div class="logo">
-            <img src="https://github.com/Tharusha200219/TEA_FACTORY_MANAGEMENT_SYSTEM_Year_2_Semester_2_Project/blob/main/frontend/public/images/logo.png?raw=true" alt="Tea Factory Management Logo" style="width: 200px"><h1>EVER GREEN TEA FACTORY MANAGEMENT SYSTEM</h1>      
+            <img src="https://github.com/Tharusha200219/TEA_FACTORY_MANAGEMENT_SYSTEM_Year_2_Semester_2_Project/blob/main/frontend/public/images/logo.png?raw=true" alt="Tea Factory Management Logo" style="width: 200px"><h1>EVER GREEN TEA FACTORY MANAGEMENT SYSTEM</h1>   
         </div>
         <h1>Welcome to our project!</h1>
         <p>The goal of the tea factory management system is to streamline and optimize the operations of a tea manufacturing facility. By integrating various functions such as employee management, supplier management, equipment maintenance, production planning, inventory management, payment management, vehicle management, and order processing into a cohesive system, the project aims to enhance efficiency, productivity, and overall management of the tea factory. The system enables seamless coordination between different departments, facilitates data-driven decision-making, and ensures smooth functioning of the entire tea production process from raw material procurement to product delivery. Ultimately, the purpose of the project is to improve tea production processes, reduce operational costs, and enhance the competitiveness of the tea factory in the market.</p>
