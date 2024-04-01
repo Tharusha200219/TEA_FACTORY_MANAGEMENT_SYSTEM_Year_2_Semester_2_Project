@@ -28,5 +28,5 @@ const TeatypeSchema = mongoose.Schema(
     }
 );
 
-const Teatypee = mongoose.model('Teatype', TeatypeSchema);
-export default Teatypee;
+const Teatypes= mongoose.model('Teatype', TeatypeSchema);
+export default Teatypes;

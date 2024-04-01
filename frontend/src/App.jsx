@@ -16,6 +16,8 @@ import Showteatypes from './pages/Showteatypes';
 import Teatypehome from "./pages/Teatypehome";
 import Productionhome from "./pages/Productionhome";
 import Home from "./pages/Home.jsx";
+import Production from "./pages/production.jsx";
+
 
 /*********Supplier***********/
 import CreateSupplier from './pages/CreateSupplier';
@@ -56,6 +58,9 @@ const App = () => {
       <Route path = '/inventory/edit/:id' element={<EditInvenory/>}  />
       <Route path = '/inventory/delete/:id' element={<DeleteInventory/>}  />
       
+      <Route path = '/Production' element={<Production/>} />
+
+
       <Route path = '/productions/creates' element={<Createproductions/>} />
       <Route path = '/productions/details/:id' element={<Showproductions/>}  />
       <Route path = '/productions/edit/:id' element={<Editproductions/>}  />
