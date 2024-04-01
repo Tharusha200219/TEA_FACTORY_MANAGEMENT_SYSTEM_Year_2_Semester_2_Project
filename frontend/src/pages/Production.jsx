@@ -21,7 +21,7 @@ const Production = () => {
       </header>
       <div className="button-container" style={styles.buttonContainer}>
         <Link to="/production-schedule">
-          <button className="button" style={modeStyle.button}>Production Schedule</button>
+          <button className="button" style={modeStyle.button}>Production Schedule..</button>
         </Link>
         <Link to="/tea-type">
           <button className="button" style={modeStyle.button}>Tea Type</button>
