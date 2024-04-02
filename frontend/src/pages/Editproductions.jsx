@@ -10,6 +10,7 @@ const Editproductions = () => {
   const [Quantity, setQuantity] = useState('');
   const [Machine_assignment, setMachine_assignment] = useState('');
   const [shift_information, setShift_information] = useState('');
+  const [Status, setStatus] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
@@ -23,6 +24,7 @@ const Editproductions = () => {
         setQuantity(response.data.Quantity);
         setMachine_assignment(response.data.Machine_assignment);
         setShift_information(response.data.shift_information);
+        setStatus(response.data.Status);
         setLoading(false);
       })
       .catch((error) => {
@@ -39,6 +41,7 @@ const Editproductions = () => {
       Quantity,
       Machine_assignment,
       shift_information,
+      Status,
     };
     setLoading(true);
     axios.put(`http://localhost:5555/productions/${id}`, data)
@@ -77,7 +80,7 @@ const Editproductions = () => {
             <label htmlFor='Production_date' className='text-lg text-gray-600'>Production Date</label>
             <input
               id='Production_date'
-              type='text'
+              type='date'
               value={Production_date}
               onChange={(e) => setProduction_date(e.target.value)}
               className='input-field'
@@ -111,6 +114,17 @@ const Editproductions = () => {
             <input
               id='shift_information'
               type='number'
+              value={shift_information}
+              onChange={(e) => setShift_information(e.target.value)}
+              className='input-field'
+            />
+          </div>
+
+          <div className='mb-4'>
+            <label htmlFor='Status' className='text-lg text-gray-600'>Status</label>
+            <input
+              id='Status'
+              type='text'
               value={shift_information}
               onChange={(e) => setShift_information(e.target.value)}
               className='input-field'
