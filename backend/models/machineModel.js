@@ -26,6 +26,11 @@ const machineSchema = mongoose.Schema(
             required : true,
         },
 
+        Status: { 
+            type : String,
+            required : false,
+        },
+
 
 
     },
