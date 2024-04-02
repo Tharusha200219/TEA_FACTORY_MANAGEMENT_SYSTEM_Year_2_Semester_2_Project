@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Spinner from '../components/Spinner';
 import { Link } from 'react-router-dom';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { BsInfoCircle } from 'react-icons/bs';
 import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Productionhome = () => {
     const [productions, setProductions] = useState([]);
@@ -15,7 +17,7 @@ const Productionhome = () => {
         axios
             .get('http://localhost:5555/productions')
             .then((response) => {
-                setProductions(response.data.data);
+                setProductions(response.data.data.map(prod => ({...prod, timerDurationInSeconds: 0, timerRunning: false, remainingTime: 0})));
                 setLoading(false);
             })
             .catch((error) => {
@@ -23,6 +25,67 @@ const Productionhome = () => {
                 setLoading(false);
             });
     }, []);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setProductions(prevProductions => {
+                return prevProductions.map(prod => {
+                    if (prod.timerRunning && prod.remainingTime > 0) {
+                        return {...prod, remainingTime: prod.remainingTime - 1};
+                    } else if (prod.timerRunning && prod.remainingTime === 0) {
+                        return {...prod, timerRunning: false};
+                    }
+                    return prod;
+                });
+            });
+        }, 1000);
+
+        // Clear interval on component unmount
+        return () => clearInterval(interval);
+    }, []);
+
+    const handleTimerChange = (index, value) => {
+        setProductions(prevProductions => {
+            const updatedProductions = [...prevProductions];
+            updatedProductions[index].timerDurationInSeconds = parseInt(value);
+            return updatedProductions;
+        });
+    };
+
+    const handleStartTimer = (index) => {
+        setProductions(prevProductions => {
+            const updatedProductions = [...prevProductions];
+            updatedProductions[index].timerRunning = true;
+            updatedProductions[index].remainingTime = updatedProductions[index].timerDurationInSeconds;
+            return updatedProductions;
+        });
+    };
+
+    useEffect(() => {
+        // Filter productions with timer running out
+        const productionsToUpdate = productions.filter(prod => prod.timerRunning && prod.remainingTime === 0);
+
+        // Update the database for each production
+        productionsToUpdate.forEach(prod => {
+            axios.put(`http://localhost:5555/productions/${prod._id}`, { ...prod, Status: "done" })
+                .then(response => {
+                    console.log("Production updated successfully:", response.data);
+                    // Notify user
+                    notify(prod.Schedule_no);
+                })
+                .catch(error => {
+                    console.log("Error updating production:", error);
+                });
+        });
+    }, [productions]);
+
+    const notify = (scheduleNo) => {
+        toast(`Schedule No ${scheduleNo} production is done!`, { autoClose: 5000 });
+    };
+
+    const Timer = ({ remainingTime }) => {
+        return <span>{remainingTime}</span>;
+    };
 
     return (
         <div>
@@ -63,6 +126,8 @@ const Productionhome = () => {
                                     <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Quantity</th>
                                     <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Machine Assignment</th>
                                     <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Shift Information</th>
+                                    <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Status</th>
+                                    <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Timer (seconds)</th>
                                     <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Actions</th>
                                 </tr>
                             </thead>
@@ -74,8 +139,18 @@ const Productionhome = () => {
                                         <td className='px-6 py-4 whitespace-nowrap'>{production.Quantity}</td>
                                         <td className='px-6 py-4 whitespace-nowrap'>{production.Machine_assignment}</td>
                                         <td className='px-6 py-4 whitespace-nowrap'>{production.shift_information}</td>
+                                        <td className='px-6 py-4 whitespace-nowrap'>{production.Status}</td>
+                                        <td className='px-6 py-4 whitespace-nowrap'>
+                                            <input
+                                                type="number"
+                                                value={production.timerDurationInSeconds}
+                                                onChange={(e) => handleTimerChange(index, e.target.value)}
+                                            />
+                                        </td>
                                         <td className='px-6 py-4 whitespace-nowrap'>
                                             <div className='flex justify-center gap-x-4'>
+                                                <button onClick={() => handleStartTimer(index)}>Start Timer</button>
+                                                <Timer remainingTime={production.remainingTime} />
                                                 <Link to={`/productions/details/${production._id}`}>
                                                     <BsInfoCircle className='text-2xl text-green-800' />
                                                 </Link>
@@ -107,6 +182,9 @@ const Productionhome = () => {
                     </div>
                 </div>
             </footer>
+
+            {/* Toast Container for Notifications */}
+            <ToastContainer position="bottom-right" />
         </div>
     );
 }
