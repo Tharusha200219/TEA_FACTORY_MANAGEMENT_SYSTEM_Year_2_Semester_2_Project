@@ -36,7 +36,7 @@ const Teatypehome = () => {
                         <div className="flex space-x-4">
                             <Link to="/" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
                             <Link to="/Productionhome" className="text-gray-300 bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">productions</Link>
-                            <Link to="/productions/creates" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">create table</Link>
+                            <Link to="/teatypes/creates" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">create table</Link>
                             <Link to="/pending-shipments" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">production machine availability</Link>
                             <Link to="/pending-new-stocks" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">production report genarate</Link>
                         </div>
@@ -46,7 +46,7 @@ const Teatypehome = () => {
 
             <div className='p-4'>
                 <div className='flex justify-between items-center'>
-                    <h1 className='text-3xl my-8'>Production List</h1>
+                    <h1 className='text-3xl my-8'>Tea Type List</h1>
                     <Link to='/productions/creates'>
                         <MdOutlineAddBox className='text-sky-800 text-4xl' />
                     </Link>

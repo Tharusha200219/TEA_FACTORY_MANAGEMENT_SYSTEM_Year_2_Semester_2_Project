@@ -34,7 +34,7 @@ const Home = () => {
                                 Inventory
                             </button>
                         </Link>
-                        <Link to="/production">
+                        <Link to="/P_home">
                             <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-4">
                                 Production
                             </button>
