@@ -122,13 +122,15 @@ const Editproductions = () => {
 
           <div className='mb-4'>
             <label htmlFor='Status' className='text-lg text-gray-600'>Status</label>
-            <input
+            <select
               id='Status'
-              type='text'
-              value={shift_information}
-              onChange={(e) => setShift_information(e.target.value)}
+              value={Status}
+              onChange={(e) => setStatus(e.target.value)}
               className='input-field'
-            />
+            >
+              <option value='done'>Done</option>
+              <option value='not done'>Not Done</option>
+            </select>
           </div>
 
           <button

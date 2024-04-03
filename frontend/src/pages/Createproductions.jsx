@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import BackButtonForCreateProduction from '../components/backbutton_for_create_production';
-import Spinner from '../components/Spinner';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import Spinner from '../components/Spinner';
 
 const Createproductions = () => {
     const [Schedule_no, setSchedule_no] = useState('');
@@ -11,21 +9,47 @@ const Createproductions = () => {
     const [Quantity, setQuantity] = useState('');
     const [Machine_assignment, setMachine_assignment] = useState('');
     const [shift_information, setShift_information] = useState('');
+    const [Status, setStatus] = useState('not done');
     const [loading, setLoading] = useState(false);
+    const [machines, setMachines] = useState([]);
+    const [selectedMachine, setSelectedMachine] = useState('');
     const navigate = useNavigate();
+
+    useEffect(() => {
+        setLoading(true);
+        axios
+            .get('http://localhost:5555/machines')
+            .then((response) => {
+                setMachines(response.data.data.filter(machine => machine.Status === 'Available'));
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.log(error);
+                setLoading(false);
+            });
+    }, []);
 
     const handleSaveproductions = () => {
         const data = {
             Schedule_no,
             Production_date,
             Quantity,
-            Machine_assignment,
+            Machine_assignment: selectedMachine,
             shift_information,
+            Status,
         };
         setLoading(true);
         axios.post('http://localhost:5555/productions', data)
             .then(() => {
                 setLoading(false);
+                setSchedule_no('');
+                setProduction_date('');
+                setQuantity('');
+                setMachine_assignment('');
+                setShift_information('');
+                setStatus('');
+                setSelectedMachine('');
+                
                 navigate('/Productionhome');
             })
             .catch((error) => {
@@ -37,27 +61,7 @@ const Createproductions = () => {
 
     return (
         <div>
-            {/* Navigation Bar */}
-            <nav style={{ backgroundColor: '#3FC060' }} className="p-4">
-                <div className="container mx-auto">
-                    <div className="flex justify-between items-center">
-                        <div className="text-white text-xl font-bold">
-                            Ever Green Tea
-                        </div>
-                        <div className="flex space-x-4">
-                            <Link to="/" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
-                            <Link to="/Productionhome" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">productions</Link>
-                            <Link to="/productions/creates" className="text-gray-300 bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">create table</Link>
-                            <Link to="/teatypes" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">production machine availability</Link>
-                            <Link to="/pending-new-stocks" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">production report genarate</Link>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-
-            {/* Main Content */}
             <div className='flex flex-col items-center justify-center min-h-screen bg-gray-100'>
-                <BackButtonForCreateProduction />
                 <div className='max-w-md mx-auto bg-white rounded-lg shadow-md p-8 mt-8'>
                     <h1 className='text-3xl mb-4 font-bold text-gray-800 text-center'>Create Production Schedule</h1>
 
@@ -99,13 +103,17 @@ const Createproductions = () => {
 
                         <div className='mb-4'>
                             <label htmlFor='Machine_assignment' className='text-lg text-gray-600'>Machine Assignment</label>
-                            <input
+                            <select
                                 id='Machine_assignment'
-                                type='text'
-                                value={Machine_assignment}
-                                onChange={(e) => setMachine_assignment(e.target.value)}
+                                value={selectedMachine}
+                                onChange={(e) => setSelectedMachine(e.target.value)}
                                 className='input-field'
-                            />
+                            >
+                                <option value='' disabled>Select machine</option>
+                                {machines.map((machine) => (
+                                    <option key={machine._id} value={machine.machineNumber}> {machine.machineName}</option>
+                                ))}
+                            </select>
                         </div>
 
                         <div className='mb-4'>
@@ -115,6 +123,17 @@ const Createproductions = () => {
                                 type='number'
                                 value={shift_information}
                                 onChange={(e) => setShift_information(e.target.value)}
+                                className='input-field'
+                            />
+                        </div>
+
+                        <div className='mb-4'>
+                            <label htmlFor='Status' className='text-lg text-gray-600'>Status</label>
+                            <input
+                                id='Status'
+                                type='text'
+                                value={Status}
+                                readOnly
                                 className='input-field'
                             />
                         </div>

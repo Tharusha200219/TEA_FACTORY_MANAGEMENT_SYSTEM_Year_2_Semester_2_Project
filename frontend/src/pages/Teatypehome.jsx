@@ -7,15 +7,16 @@ import { BsInfoCircle } from 'react-icons/bs';
 import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
 
 const Teatypehome = () => {
-    const [teatypes, setteatypes] = useState([]);
+    const [teatypes, setTeatypes] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
         setLoading(true);
         axios
             .get('http://localhost:5555/teatypes')
             .then((response) => {
-                setteatypes(response.data.data);
+                setTeatypes(response.data.data);
                 setLoading(false);
             })
             .catch((error) => {
@@ -23,6 +24,21 @@ const Teatypehome = () => {
                 setLoading(false);
             });
     }, []);
+
+    const handleSearchChange = (event) => {
+        setSearchTerm(event.target.value);
+    };
+
+    const filteredTeatypes = teatypes.filter(teatype => {
+        return (
+            (teatype.Schedule_no && teatype.Schedule_no.toString().includes(searchTerm)) ||
+            (teatype.black_tea && typeof teatype.black_tea === 'string' && teatype.black_tea.toLowerCase().includes(searchTerm.toLowerCase())) ||
+            (teatype.green_tea && typeof teatype.green_tea === 'string' && teatype.green_tea.toLowerCase().includes(searchTerm.toLowerCase())) ||
+            (teatype.oolong_tea && typeof teatype.oolong_tea === 'string' && teatype.oolong_tea.toLowerCase().includes(searchTerm.toLowerCase())) ||
+            (teatype.white_tea && typeof teatype.white_tea === 'string' && teatype.white_tea.toLowerCase().includes(searchTerm.toLowerCase()))
+        );
+    });
+    
 
     return (
         <div>
@@ -51,6 +67,15 @@ const Teatypehome = () => {
                         <MdOutlineAddBox className='text-sky-800 text-4xl' />
                     </Link>
                 </div>
+                <div className="mb-4">
+                    <input
+                        type="text"
+                        placeholder="Search by schedule no or tea type"
+                        value={searchTerm}
+                        onChange={handleSearchChange}
+                        className="px-3 py-2 border border-gray-300 focus:outline-none focus:border-gray-500 rounded-md"
+                    />
+                </div>
                 {loading ? (
                     <Spinner />
                 ) : (
@@ -67,7 +92,7 @@ const Teatypehome = () => {
                                 </tr>
                             </thead>
                             <tbody className="bg-white divide-y divide-gray-200">
-                                {teatypes.map((teatype, index) => (
+                                {filteredTeatypes.map((teatype, index) => (
                                     <tr key={teatype._id} className='h-8'>
                                         <td className='px-6 py-4 whitespace-nowrap'>{teatype.Schedule_no}</td>
                                         <td className='px-6 py-4 whitespace-nowrap'>{teatype.black_tea}</td>
