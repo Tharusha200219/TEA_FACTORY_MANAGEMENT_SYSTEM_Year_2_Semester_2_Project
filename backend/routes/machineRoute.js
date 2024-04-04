@@ -3,6 +3,24 @@ import Machine from '../models/machineModel.js';
 
 const router = express.Router();
 
+// Route for getting a specific Machine by ID
+router.get('/:id', async (request, response) => {
+    try {
+        const { id } = request.params;
+
+        const machine = await Machine.findById(id);
+
+        if (!machine) {
+            return response.status(404).json({ message: 'Machine not found' });
+        }
+
+        return response.status(200).json(machine);
+    } catch (error) {
+        console.log(error.message);
+        return response.status(500).send({ message: error.message });
+    }
+});
+
 // Route for Save a new Machine
 router.post('/', async (request, response) => {
     try {
@@ -80,6 +98,6 @@ router.get('/', async (request, response) => {
     }
 });
 
-// Other routes for getting, updating, and deleting individual machines
+// Other routes for getting, updating, and deleting individual machines...
 
 export default router;
