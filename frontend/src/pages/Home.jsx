@@ -20,6 +20,7 @@ const Home = () => {
                         <Link to="/MachineHome" className="text-white hover:text-gray-300">Machine</Link>
                         <Link to="/SupplierHome" className="text-white hover:text-gray-300">Supplier</Link>
                         <Link to="/OrderHome" className="text-white hover:text-gray-300">Order</Link>
+                        <Link to="/MaintenanceHome" className="text-white hover:text-gray-300">Maintenance</Link>
                     </div>
                 </div>
             </nav>
@@ -58,6 +59,11 @@ const Home = () => {
                         <Link to="/Vehiclehome">
                             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4">
                             Vehiclehome
+                            </button>
+                        </Link>
+                        <Link to="/MaintenanceHome">
+                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4">
+                            Maintenance
                             </button>
                         </Link>
                         
