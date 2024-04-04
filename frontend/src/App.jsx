@@ -6,6 +6,7 @@ import EditInvenory from "./pages/EditInventory";
 import ShowInventory from "./pages/ShowInventory";
 import Inventorys from "./pages/Inventorys";
 
+
 import Vehiclehome from './pages/Vehiclehome'; 
 import CreateBook from './pages/CreateBooks';
 import ShowBook from './pages/ShowBook';
@@ -22,12 +23,14 @@ import Editteatypes from './pages/Editteatypes';
 import Showproductions from './pages/Showproductions';
 import ProductionReport from "./pages/ProductionReport.jsx";
 
+
 import Showteatypes from './pages/Showteatypes';
 import Teatypehome from "./pages/Teatypehome";
 import Productionhome from "./pages/Productionhome";
 import Home from "./pages/Home.jsx";
 import P_home from "./pages/P_home.jsx";
 import TeaTypeReport from "./pages/TeaTypeReport.jsx";
+
 
 /*********Supplier***********/
 import CreateSupplier from './pages/CreateSupplier';
@@ -43,12 +46,12 @@ import SupplyRecordTable from './pages/SupplyRecordTable';
 import SupplierHome from './pages/SupplierHome';
 
 
-
 import MachineHome from './pages/MachineHome'
 import CreateMachine from './pages/CreateMachine'
 import ShowMachine from './pages/ShowMachine'
 import EditMachine from './pages/EditMachine'
 import DeleteMachine from './pages/DeleteMachine'
+
 
 //*************Order***************//
 import CreateOrder from './pages/CreateOrder';
@@ -56,6 +59,7 @@ import ShowOrder from './pages/ShowOrder';
 import UpdateOrder from './pages/UpdateOrder';
 import DeleteOrder from './pages/DeleteOrder';
 import OrderHome from './pages/OrderHome';
+
 
 const App = () => {
   return (
@@ -69,7 +73,6 @@ const App = () => {
       <Route path = '/inventory/delete/:id' element={<DeleteInventory/>}  />
       
       <Route path = '/P_home' element={<P_home/>} />
-
 
       <Route path = '/productions/creates' element={<Createproductions/>} />
       <Route path = '/productions/details/:id' element={<Showproductions/>}  />
@@ -90,8 +93,6 @@ const App = () => {
       <Route path = '/machines/details/:id' element={<ShowMachine/>}  />
       <Route path = '/machines/edit/:id' element={<EditMachine/>}  />
       <Route path = '/machines/delete/:id' element={<DeleteMachine/>}  />
-
-
 
       <Route path='/Vehiclehome' element={<Vehiclehome />} />
       <Route path='/books/create' element={<CreateBook />} />
@@ -121,5 +122,6 @@ const App = () => {
     </Routes>
   );
 };
+
 
 export default App;
