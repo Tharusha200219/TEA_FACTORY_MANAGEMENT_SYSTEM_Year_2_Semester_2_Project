@@ -6,6 +6,12 @@ import EditInvenory from "./pages/EditInventory";
 import ShowInventory from "./pages/ShowInventory";
 import Inventorys from "./pages/Inventorys";
 
+import Vehiclehome from './pages/Vehiclehome'; 
+import CreateBook from './pages/CreateBooks';
+import ShowBook from './pages/ShowBook';
+import EditBook from './pages/EditBook';
+import DeleteBook from './pages/DeleteBook';
+
 
 import Createproductions from './pages/Createproductions';
 import Createteatypes from './pages/Createteatypes';
@@ -86,6 +92,12 @@ const App = () => {
       <Route path = '/machines/delete/:id' element={<DeleteMachine/>}  />
 
 
+
+      <Route path='/Vehiclehome' element={<Vehiclehome />} />
+      <Route path='/books/create' element={<CreateBook />} />
+      <Route path='/books/details/:id' element={<ShowBook />} />
+      <Route path='/books/edit/:id' element={<EditBook />} />
+      <Route path='/books/delete/:id' element={<DeleteBook />} />
 
       <Route path="/SupplierHome" element={<SupplierHome />} />
       {/* <Route path="/SupplierTable" element={<SupplierTable />} />  */}
