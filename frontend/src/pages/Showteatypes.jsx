@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import BackButtonForCreateProduction from '../components/backbutton_for_create_production';
 import Spinner from '../components/Spinner';
+import NavigationBar from '../components/NavigationBar'; // Import NavigationBar component
 
 const Showteatypes = () => {
   const [teatypes, setteatypes] = useState({});
@@ -23,40 +25,57 @@ const Showteatypes = () => {
   }, [id]);
 
   return (
+    <div><NavigationBar />
+    {/* Navigation Bar */}
+    <nav style={{ backgroundColor: '#3FC060' }} className="p-4">
+      <div className="container mx-auto">
+        <div className=" mx-auto flex justify-center items-center">
+          <div className="flex space-x-4">
+            <Link to="/" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">Home</Link>
+            <Link to="/Teatypehome" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">Tea Type</Link>
+            <Link to="/teatypes/creates" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">Create Table</Link>
+            <Link to="/pending-shipments" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">Production Machine Availability</Link>
+            <Link to="/TeaTypeReport" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">Tea Type Report Generate</Link>
+          </div>
+        </div>
+      </div>
+    </nav>
     <div style={styles.container}>
+      
+
       <BackButtonForCreateProduction />
       {loading ? (
         <Spinner />
       ) : (
-        <div style={styles.teatypesdetails}>
-          <h2 style={styles.title}>teatypes Details</h2>
+        <div style={styles.productiondetails}>
+          <h2 style={styles.title}>Tea Types Details</h2>
           <div style={styles.infoItem}>
             <strong>ID:</strong> {teatypes._id}
           </div>
           <div style={styles.infoItem}>
-            <strong>schedule no:</strong> {teatypes.Schedule_no}
+            <strong>Schedule No:</strong> {teatypes.Schedule_no}
           </div>
           <div style={styles.infoItem}>
-            <strong>Production_date:</strong> {teatypes.black_tea}
+            <strong>Black Tea:</strong> {teatypes.black_tea}
           </div>
           <div style={styles.infoItem}>
-            <strong>Quantity:</strong> {teatypes.green_tea}
+            <strong>Green Tea:</strong> {teatypes.green_tea}
           </div>
           <div style={styles.infoItem}>
-            <strong>Machine_assignment:</strong> {teatypes.oolong_tea}
+            <strong>Oolong Tea:</strong> {teatypes.oolong_tea}
           </div>
           <div style={styles.infoItem}>
-            <strong>shift_information:</strong> {new Date(teatypes.white_tea).toLocaleString()}
+            <strong>White Tea:</strong> {new Date(teatypes.white_tea).toLocaleString()}
           </div>
           <div style={styles.infoItem}>
-  <strong>Created At:</strong> {new Date(teatypes.createdAt).toLocaleString()}
-</div>
-<div style={styles.infoItem}>
-  <strong>Updated At:</strong> {new Date(teatypes.updatedAt).toLocaleString()}
-</div>
-
+            <strong>Created At:</strong> {new Date(teatypes.createdAt).toLocaleString()}
+          </div>
+          <div style={styles.infoItem}>
+            <strong>Updated At:</strong> {new Date(teatypes.updatedAt).toLocaleString()}
+          </div>
         </div>
       )}
+    </div>
     </div>
   );
 };

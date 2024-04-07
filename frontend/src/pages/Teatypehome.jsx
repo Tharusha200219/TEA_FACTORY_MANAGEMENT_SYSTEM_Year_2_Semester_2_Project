@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { BsInfoCircle } from 'react-icons/bs';
 import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
+import NavigationBar from '../components/NavigationBar';
 
 const Teatypehome = () => {
     const [teatypes, setTeatypes] = useState([]);
@@ -42,16 +43,15 @@ const Teatypehome = () => {
 
     return (
         <div>
+            <NavigationBar />
             {/* Navigation Bar */}
             <nav style={{ backgroundColor: '#3FC060' }} className="p-4">
                 <div className="container mx-auto">
-                    <div className="flex justify-between items-center">
-                        <div className="text-white text-xl font-bold">
-                            Ever Green Tea
-                        </div>
+                    <div className=" mx-auto flex justify-center items-center">
+                        
                         <div className="flex space-x-4">
                             <Link to="/" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
-                            <Link to="/Productionhome" className="text-gray-300 bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">productions</Link>
+                            <Link to="/Teatypehome" className="text-gray-300 bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Tea Type</Link>
                             <Link to="/teatypes/creates" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">create table</Link>
                             <Link to="/pending-shipments" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">production machine availability</Link>
                             <Link to="/TeaTypeReport" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">tea type report genarate</Link>
