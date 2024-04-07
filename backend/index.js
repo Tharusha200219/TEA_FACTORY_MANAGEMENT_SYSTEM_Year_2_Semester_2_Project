@@ -7,6 +7,7 @@ import { waste } from "./models/wastemodel.js";
 import Production from './models/production_schedule_model_t.js';
 import  Teatype  from "./models/teatype_management_model.js";
 import  Machine  from "./models/machineModel.js";
+import { Vehicle } from './models/VehicleModels.js';
 import machineRoute from "./routes/machineRoute.js";
 import inventoryRoute from "./routes/inventoryRoute.js";
 import wasteRoute from "./routes/wasteRoute.js";
@@ -20,6 +21,8 @@ import { supplier } from "./models/supplierModel.js";
 import supplierRoute from "./routes/supplierRoute.js";
 import { SupplyRecord } from "./models/supplyrecordModel.js";
 import supplyrecordRoute from "./routes/supplyrecordRoute.js";
+import VehicleRoute from './routes/VehicleRoute.js';
+
 
 
 const app = express();
@@ -46,6 +49,7 @@ app.use('/teatypes',teatypeManagementRoute);
 app.use('/machines',machineRoute);
 app.use('/orders',orderRoute);
 
+app.use("/Vehicle", VehicleRoute);
 
 // Mounting supplier management routes
 app.use('/suppliers', supplierRoute);

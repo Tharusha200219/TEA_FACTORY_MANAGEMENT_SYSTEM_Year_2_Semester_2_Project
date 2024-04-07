@@ -4,16 +4,7 @@ import CreateInventory from "./pages/CreateInventory";
 import DeleteInventory from "./pages/DeleteInventory";
 import EditInvenory from "./pages/EditInventory";
 import ShowInventory from "./pages/ShowInventory";
-import Inventorys from "./pages/Inventorys";
-
-import Vehiclehome from './pages/Vehiclehome'; 
-import CreateBook from './pages/CreateBooks';
-import ShowBook from './pages/ShowBook';
-import EditBook from './pages/EditBook';
-import DeleteBook from './pages/DeleteBook';
-
-
-import Createproductions from './pages/Createproductions';
+import Inventorys from "./pages/Inventorys";import Createproductions from './pages/Createproductions';
 import Createteatypes from './pages/Createteatypes';
 import Deleteproductions from './pages/Deleteproductions';
 import Deleteteatypes from './pages/Deleteteatypes';
@@ -42,7 +33,11 @@ import DeleteSupplyRecord from './pages/DeleteSupplyRecord';
 import SupplyRecordTable from './pages/SupplyRecordTable';
 import SupplierHome from './pages/SupplierHome';
 
-
+import VehicleHome from './pages/VehicleHome';
+import CreateVehicle from './pages/CreateVehicle';
+import ShowVehicle from './pages/ShowVehicle';
+import EditVehicle from './pages/EditVehicle';
+import DeleteVehicle from './pages/DeleteVehicle';
 
 import MachineHome from './pages/MachineHome'
 import CreateMachine from './pages/CreateMachine'
@@ -83,7 +78,7 @@ const App = () => {
       <Route path = '/teatypes/edit/:id' element={<Editteatypes/>}  />
       <Route path = '/teatypes/delete/:id' element={<Deleteteatypes/>}  />
       <Route path = '/Teatypehome' element={<Teatypehome/>}  />
-      <Route path = '/TeaTypeReport' element={<TeaTypeReport/>}  />
+      <Route path = '/TeaTypeReport'element={<TeaTypeReport/>}  />
 
       <Route path = '/MachineHome' element={<MachineHome/>}  />
       <Route path = '/machines/creates' element={<CreateMachine/>} />
@@ -91,13 +86,11 @@ const App = () => {
       <Route path = '/machines/edit/:id' element={<EditMachine/>}  />
       <Route path = '/machines/delete/:id' element={<DeleteMachine/>}  />
 
-
-
-      <Route path='/Vehiclehome' element={<Vehiclehome />} />
-      <Route path='/books/create' element={<CreateBook />} />
-      <Route path='/books/details/:id' element={<ShowBook />} />
-      <Route path='/books/edit/:id' element={<EditBook />} />
-      <Route path='/books/delete/:id' element={<DeleteBook />} />
+      <Route path = '/VehicleHome' element={<VehicleHome/>}  />
+      <Route path = '/vehicles/create' element={<CreateVehicle/>} />
+      <Route path = '/vehicles/details/:id' element={<ShowVehicle/>}  />
+<Route path = '/vehicles/edit/:id' element={<EditVehicle/>}  />
+      <Route path = '/vehicles/delete/:id' element={<DeleteVehicle/>}  />
 
       <Route path="/SupplierHome" element={<SupplierHome />} />
       {/* <Route path="/SupplierTable" element={<SupplierTable />} />  */}

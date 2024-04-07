@@ -5,20 +5,20 @@ import { Link } from 'react-router-dom';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { BsInfoCircle } from 'react-icons/bs';
 import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
-import BooksTable from '../components/home/BooksTable';
-import BooksCard from '../components/home/BooksCard';
+import VehiclesTable from '../components/VehiclesTable';
+import VehiclesCard from '../components/VehiclesCard';
 
 const Home = () => {
-  const [books, setBooks] = useState([]);
+  const [vehicles, setVehicles] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showType, setShowType] = useState('table');
 
   useEffect(() => {
     setLoading(true);
     axios
-      .get('http://localhost:5555/books')
+      .get('http://localhost:5555/vehicles')
       .then((response) => {
-        setBooks(response.data.data);
+        setVehicles(response.data);
         setLoading(false);
       })
       .catch((error) => {
@@ -45,16 +45,16 @@ const Home = () => {
       </div>
       <div className='flex justify-between items-center'>
         <h1 className='text-3xl my-8'>Vehicle List</h1>
-        <Link to='/books/create'>
+        <Link to='/vehicles/create'>
           <MdOutlineAddBox className='text-sky-800 text-4xl' />
         </Link>
       </div>
-      {loading ? (
+      {loading? (
         <Spinner />
-      ) : showType === 'table' ? (
-        <BooksTable books={books} />
+      ) : showType === 'table'? (
+        <VehiclesTable vehicles={vehicles} />
       ) : (
-        <BooksCard books={books} />
+        <VehiclesCard vehicles={vehicles} />
       )}
     </div>
   );

@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import BackButton from '../components/BackButton_c';
-
+import BackButton from '../components/BackButtonVehicle';
 import Spinner from '../components/Spinner';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 
-const EditBook = () => {
-  const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
-  const [publishYear, setPublishYear] = useState('');
+const EditVehicle = () => {
+  const [type, setType] = useState('');
+  const [regnum, setRegnum] = useState('');
+  const [maxkgs, setMaxkgs] = useState('');
+  const [date, setDate] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const {id} = useParams();
@@ -17,11 +17,12 @@ const EditBook = () => {
 
   useEffect(() => {
     setLoading(true);
-    axios.get(`http://localhost:5555/books/${id}`)
-    .then((response) => {
-        setAuthor(response.data.author);
-        setPublishYear(response.data.publishYear)
-        setTitle(response.data.title)
+    axios.get(`http://localhost:5555/vehicles/${id}`)
+   .then((response) => {
+        setRegnum(response.data.regnum);
+        setMaxkgs(response.data.maxkgs);
+        setDate(response.data.date)
+        setType(response.data.type)
         setLoading(false);
       }).catch((error) => {
         setLoading(false);
@@ -29,22 +30,23 @@ const EditBook = () => {
         console.log(error);
       });
   }, [])
-  
-  const handleEditBook = () => {
+
+  const handleEditVehicle = () => {
     const data = {
-      title,
-      author,
-      publishYear,
+      type,
+      regnum,
+      maxkgs: parseInt(maxkgs),
+      date,
     };
     setLoading(true);
     axios
-      .put(`http://localhost:5555/books/${id}`, data)
-      .then(() => {
+     .put(`http://localhost:5555/vehicles/${id}`, data)
+     .then(() => {
         setLoading(false);
-        enqueueSnackbar('Book Edited successfully', { variant: 'success' });
+        enqueueSnackbar('Vehicle Edited successfully', { variant: 'success' });
         navigate('/');
       })
-      .catch((error) => {
+     .catch((error) => {
         setLoading(false);
         // alert('An error happened. Please Chack console');
         enqueueSnackbar('Error', { variant: 'error' });
@@ -56,14 +58,14 @@ const EditBook = () => {
     <div className='p-4'>
       <BackButton />
       <h1 className='text-3xl my-4'>Edit Vehicle</h1>
-      {loading ? <Spinner /> : ''}
+      {loading? <Spinner /> : ''}
       <div className='flex flex-col border-2 border-sky-400 rounded-xl w-[600px] p-4 mx-auto'>
         <div className='my-4'>
           <label className='text-xl mr-4 text-gray-500'>Type</label>
           <input
             type='text'
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            value={type}
+            onChange={(e) => setType(e.target.value)}
             className='border-2 border-gray-500 px-4 py-2 w-full'
           />
         </div>
@@ -71,21 +73,30 @@ const EditBook = () => {
           <label className='text-xl mr-4 text-gray-500'>Reg Num</label>
           <input
             type='text'
-            value={author}
-            onChange={(e) => setAuthor(e.target.value)}
+            value={regnum}
+            onChange={(e) => setRegnum(e.target.value)}
             className='border-2 border-gray-500 px-4 py-2  w-full '
           />
         </div>
         <div className='my-4'>
-          <label className='text-xl mr-4 text-gray-500'>Added Year</label>
+          <label className='text-xl mr-4 text-gray-500'>Max Kgs</label>
           <input
             type='number'
-            value={publishYear}
-            onChange={(e) => setPublishYear(e.target.value)}
+            value={maxkgs}
+            onChange={(e) => setMaxkgs(e.target.value)}
             className='border-2 border-gray-500 px-4 py-2  w-full '
           />
         </div>
-        <button className='p-2 bg-sky-300 m-8' onClick={handleEditBook}>
+        <div className='my-4'>
+          <label className='text-xl mr-4 text-gray-500'>Date</label>
+          <input
+            type='date'
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            className='border-2 border-gray-500 px-4 py-2  w-full '
+          />
+        </div>
+        <button className='p-2 bg-sky-300 m-8' onClick={handleEditVehicle}>
           Save
         </button>
       </div>
@@ -93,4 +104,4 @@ const EditBook = () => {
   )
 }
 
-export default EditBook
+export default EditVehicle

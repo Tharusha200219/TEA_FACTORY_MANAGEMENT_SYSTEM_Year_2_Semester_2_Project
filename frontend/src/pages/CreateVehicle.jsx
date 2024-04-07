@@ -1,36 +1,36 @@
 import React, { useState } from 'react';
-import BackButton from '../components/BackButton_c';
-
+import BackButton from '../components/BackButtonVehicle';
 import Spinner from '../components/Spinner';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 
-const CreateBooks = () => {
-  const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
-  const [publishYear, setPublishYear] = useState('');
+const CreateVehicle = () => {
+  const [type, setType] = useState('');
+  const [regnum, setRegnum] = useState('');
+  const [maxkgs, setMaxkgs] = useState('');
+  const [date, setDate] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
-  const handleSaveBook = () => {
+  const handleSaveVehicle = () => {
     const data = {
-      title,
-      author,
-      publishYear,
+      type,
+      regnum,
+      maxkgs: parseInt(maxkgs),
+      date,
     };
     setLoading(true);
     axios
-      .post('http://localhost:5555/books', data)
+      .post('http://localhost:5555/vehicles', data)
       .then(() => {
         setLoading(false);
-        enqueueSnackbar('Book Created successfully', { variant: 'success' });
+        enqueueSnackbar('Vehicle Created successfully', { variant: 'success' });
         navigate('/');
       })
       .catch((error) => {
         setLoading(false);
-        // alert('An error happened. Please Chack console');
         enqueueSnackbar('Error', { variant: 'error' });
         console.log(error);
       });
@@ -46,8 +46,8 @@ const CreateBooks = () => {
           <label className='text-xl mr-4 text-gray-500'>Type</label>
           <input
             type='text'
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+value={type}
+            onChange={(e) => setType(e.target.value)}
             className='border-2 border-gray-500 px-4 py-2 w-full'
           />
         </div>
@@ -55,21 +55,30 @@ const CreateBooks = () => {
           <label className='text-xl mr-4 text-gray-500'>Reg Num</label>
           <input
             type='text'
-            value={author}
-            onChange={(e) => setAuthor(e.target.value)}
+            value={regnum}
+            onChange={(e) => setRegnum(e.target.value)}
             className='border-2 border-gray-500 px-4 py-2  w-full '
           />
         </div>
         <div className='my-4'>
-          <label className='text-xl mr-4 text-gray-500'>Added Year</label>
+          <label className='text-xl mr-4 text-gray-500'>Max Kgs</label>
           <input
             type='number'
-            value={publishYear}
-            onChange={(e) => setPublishYear(e.target.value)}
+            value={maxkgs}
+            onChange={(e) => setMaxkgs(e.target.value)}
             className='border-2 border-gray-500 px-4 py-2  w-full '
           />
         </div>
-        <button className='p-2 bg-sky-300 m-8' onClick={handleSaveBook}>
+        <div className='my-4'>
+          <label className='text-xl mr-4 text-gray-500'>Date</label>
+          <input
+            type='date'
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            className='border-2 border-gray-500 px-4 py-2  w-full '
+          />
+        </div>
+        <button className='p-2 bg-sky-300 m-8' onClick={handleSaveVehicle}>
           Save
         </button>
       </div>
@@ -77,4 +86,4 @@ const CreateBooks = () => {
   );
 }
 
-export default CreateBooks
+export default CreateVehicle

@@ -20,6 +20,7 @@ const Home = () => {
                         <Link to="/MachineHome" className="text-white hover:text-gray-300">Machine</Link>
                         <Link to="/SupplierHome" className="text-white hover:text-gray-300">Supplier</Link>
                         <Link to="/OrderHome" className="text-white hover:text-gray-300">Order</Link>
+                        <Link to="/VehicleHome" className="text-white hover:text-gray-300">Vehicles</Link>
                     </div>
                 </div>
             </nav>
@@ -54,12 +55,13 @@ const Home = () => {
                                 Order
                             </button>
                         </Link>
-
-                        <Link to="/Vehiclehome">
+                        <Link to="/VehicleHome">
                             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4">
-                            Vehiclehome
+                                Vehicle
                             </button>
                         </Link>
+
+                        
                         
                     </div>
                 </div>

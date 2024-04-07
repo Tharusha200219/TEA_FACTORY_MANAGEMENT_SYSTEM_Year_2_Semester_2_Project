@@ -1,22 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import BackButton from '../components/BackButton_c';
-
-
+import BackButton from '../components/BackButtonVehicle';
 import Spinner from '../components/Spinner';
 
-const ShowBook = () => {
-  const [book, setBook] = useState({});
+const ShowVehicle = () => {
+  const [vehicle, setVehicle] = useState({});
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
 
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`http://localhost:5555/books/${id}`)
+      .get(`http://localhost:5555/vehicles/${id}`)
       .then((response) => {
-        setBook(response.data);
+        setVehicle(response.data);
         setLoading(false);
       })
       .catch((error) => {
@@ -28,31 +26,34 @@ const ShowBook = () => {
   return (
     <div className='p-4'>
       <BackButton />
-      <h1 className='text-3xl my-4'>Show vehicle</h1>
+      <h1 className='text-3xl my-4'>Show Vehicle</h1>
       {loading ? (
         <Spinner />
       ) : (
         <div className='flex flex-col border-2 border-sky-400 rounded-xl w-fit p-4'>
-        
           <div className='my-4'>
             <span className='text-xl mr-4 text-gray-500'>Type</span>
-            <span>{book.title}</span>
+            <span>{vehicle.type}</span>
           </div>
           <div className='my-4'>
             <span className='text-xl mr-4 text-gray-500'>Reg Num</span>
-            <span>{book.author}</span>
+            <span>{vehicle.regnum}</span>
           </div>
           <div className='my-4'>
-            <span className='text-xl mr-4 text-gray-500'>Added Year</span>
-            <span>{book.publishYear}</span>
+            <span className='text-xl mr-4 text-gray-500'>Max Kgs</span>
+            <span>{vehicle.maxkgs}</span>
+          </div>
+          <div className='my-4'>
+            <span className='text-xl mr-4 text-gray-500'>Date</span>
+            <span>{vehicle.date}</span>
           </div>
           <div className='my-4'>
             <span className='text-xl mr-4 text-gray-500'>Create Time</span>
-            <span>{new Date(book.createdAt).toString()}</span>
+            <span>{new Date(vehicle.createdAt).toString()}</span>
           </div>
           <div className='my-4'>
             <span className='text-xl mr-4 text-gray-500'>Last Update Time</span>
-            <span>{new Date(book.updatedAt).toString()}</span>
+            <span>{new Date(vehicle.updatedAt).toString()}</span>
           </div>
         </div>
       )}
@@ -60,4 +61,4 @@ const ShowBook = () => {
   );
 };
 
-export default ShowBook;
+export default ShowVehicle;
