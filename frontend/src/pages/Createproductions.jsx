@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Spinner from '../components/Spinner';
+import NavigationBar from '../components/NavigationBar'; // Import the NavigationBar component
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
 const Createproductions = () => {
     const [Schedule_no, setSchedule_no] = useState('');
@@ -61,6 +63,20 @@ const Createproductions = () => {
 
     return (
         <div>
+            {/* Navigation Bar */}
+            <NavigationBar />
+            <nav style={{ backgroundColor: '#3FC060' }} className="p-4">
+                <div className="container mx-auto flex justify-center items-center">
+                    <div className="flex space-x-4">
+                        <Link to="/" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
+                        <Link to="/Productionhome" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Productions</Link>
+                        <Link to="/productions/creates" className="text-gray-300 bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Create Table</Link>
+                        <Link to="/pending-shipments" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Production Machine Availability</Link>
+                        <Link to="/ProductionReport" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Production Report Generate</Link>
+                    </div>
+                </div>
+            </nav>
+
             <div className='flex flex-col items-center justify-center min-h-screen bg-gray-100'>
                 <div className='max-w-md mx-auto bg-white rounded-lg shadow-md p-8 mt-8'>
                     <h1 className='text-3xl mb-4 font-bold text-gray-800 text-center'>Create Production Schedule</h1>
