@@ -10,7 +10,21 @@ const Home = () => {
             style={{ backgroundImage: "url('./public/images/bcc.jpg')" }}
         >
             {/* Navigation Bar */}
-            <NavigationBar />
+            <nav className="bg-gray-800 p-4">
+                <div className="container mx-auto flex justify-between items-center">
+                    <div className="text-white text-xl font-bold">
+                        Ever Green Tea
+                    </div>
+                    <div className="flex space-x-4">
+                        <Link to="/" className="text-white hover:text-gray-300">Home</Link>
+                        <Link to="/inventorys" className="text-white hover:text-gray-300">Inventory</Link>
+                        <Link to="/Productionhome" className="text-white hover:text-gray-300">Production</Link>
+                        <Link to="/MachineHome" className="text-white hover:text-gray-300">Machine</Link>
+                        <Link to="/SupplierHome" className="text-white hover:text-gray-300">Supplier</Link>
+                        <Link to="/OrderHome" className="text-white hover:text-gray-300">Order</Link>
+                    </div>
+                </div>
+            </nav>
 
             {/* Main Content */}
             <div className="container mx-auto flex justify-center items-center h-full ">
@@ -46,6 +60,11 @@ const Home = () => {
                         <Link to="/Vehiclehome">
                             <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4">
                             Vehiclehome
+                            </button>
+                        </Link>
+                        <Link to="/MaintenanceHome">
+                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4">
+                            Maintenance
                             </button>
                         </Link>
                         
