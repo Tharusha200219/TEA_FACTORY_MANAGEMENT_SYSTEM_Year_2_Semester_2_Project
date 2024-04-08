@@ -4,16 +4,16 @@ import { useParams } from 'react-router-dom';
 
 import Spinner from '../components/Spinner';
 
-const Showmachine = () => {
-  const [machines, setMachine] = useState({});
+const Showmaintenance = () => {
+  const [maintenances, setMaintenance] = useState({});
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
 
   useEffect(() => {
     setLoading(true);
-    axios.get(`http://localhost:5555/machines/${id}`)
+    axios.get(`http://localhost:5555/maintenances/${id}`)
       .then((response) => {
-        setMachine(response.data);
+        setMaintenance(response.data);
         setLoading(false);
       })
       .catch((error) => {
@@ -29,31 +29,31 @@ const Showmachine = () => {
         <Spinner />
       ) : (
         <div style={styles.productiondetails}>
-          <h2 style={styles.title}>Machine Details</h2>
+          <h2 style={styles.title}>production Details</h2>
           <div style={styles.infoItem}>
-            <strong>ID:</strong> {machines._id}
+            <strong>ID:</strong> {maintenances._id}
           </div>
           <div style={styles.infoItem}>
-            <strong>machineNumber:</strong> {machines.machineNumber}
+            <strong>machineNumber:</strong> {maintenances.machineNumber}
           </div>
           <div style={styles.infoItem}>
-            <strong>machineName:</strong> {machines.machineName}
+            <strong>machineName:</strong> {maintenances.machineName}
           </div>
           <div style={styles.infoItem}>
-            <strong>machineType:</strong> {machines.machineType}
+            <strong>description:</strong> {maintenances.description}
           </div>
           <div style={styles.infoItem}>
-            <strong>installationDate:</strong> {machines.installationDate}
+            <strong>maintenanceDate:</strong> {maintenances.maintenanceDate}
           </div>
           <div style={styles.infoItem}>
-            <strong>warrentyInformation:</strong> {machines.warrentyInformation}
+            <strong>frequencyInDays:</strong> {maintenances.frequencyInDays}
           </div>
          
           <div style={styles.infoItem}>
-  <strong>Created At:</strong> {new Date(machines.createdAt).toLocaleString()}
+  <strong>Created At:</strong> {new Date(maintenances.createdAt).toLocaleString()}
 </div>
 <div style={styles.infoItem}>
-  <strong>Updated At:</strong> {new Date(machines.updatedAt).toLocaleString()}
+  <strong>Updated At:</strong> {new Date(maintenances.updatedAt).toLocaleString()}
 </div>
 
         </div>
@@ -87,4 +87,4 @@ const styles = {
   },
 };
 
-export default Showmachine;
+export default Showmaintenance;

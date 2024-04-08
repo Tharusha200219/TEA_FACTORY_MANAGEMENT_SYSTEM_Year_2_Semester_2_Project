@@ -4,30 +4,28 @@ import Spinner from '../components/Spinner';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const CreateMachine = () => {
+const CreateMaintenance = () => {
     const [machineNumber, setmachineNumber] = useState('');
     const [machineName, setmachineName] = useState('');
-    const [machineType, setmachineType] = useState('');
-    const [installationDate, setinstallationDate] = useState('');
-    const [warrentyInformation, setwarrentyInformation] = useState('');
-    
+    const [description, setdescription] = useState('');
+    const [maintenanceDate, setmaintenanceDate] = useState('');
+    const [frequencyInDays, setfrequencyInDays] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
-    const handleSavemachines = () => {
+    const handleSavemaintenances = () => {
         const data = {
           machineNumber,
           machineName,
-          machineType,
-          installationDate,
-          warrentyInformation,
-          Status: 'Available'
+          description,
+          maintenanceDate,
+          frequencyInDays,
         };
         setLoading(true);
-        axios.post('http://localhost:5555/machines', data)
+        axios.post('http://localhost:5555/maintenances', data)
             .then(() => {
                 setLoading(false);
-                navigate('/MachineHome');
+                navigate('/MaintenanceHome');
             })
             .catch((error) => {
                 alert('An error occurred');
@@ -40,7 +38,7 @@ const CreateMachine = () => {
         <div className='flex flex-col items-center justify-center min-h-screen bg-gray-100'>
             
             <div className='max-w-md mx-auto bg-white rounded-lg shadow-md p-8 mt-8'>
-                <h1 className='text-3xl mb-4 font-bold text-gray-800 text-center'>Create Machine Schedule</h1>
+                <h1 className='text-3xl mb-4 font-bold text-gray-800 text-center'>Create Maintenance Schedule</h1>
 
                 {loading && <Spinner />}
 
@@ -68,41 +66,41 @@ const CreateMachine = () => {
                     </div>
 
                     <div className='mb-4'>
-                        <label htmlFor='machineType' className='text-lg text-gray-600'>machineType</label>
+                        <label htmlFor='description' className='text-lg text-gray-600'>description</label>
                         <input
-                            id='machineType'
+                            id='description'
                             type='text'
-                            value={machineType}
-                            onChange={(e) => setmachineType(e.target.value)}
+                            value={description}
+                            onChange={(e) => setdescription(e.target.value)}
                             className='input-field'
                         />
                     </div>
 
                     <div className='mb-4'>
-                        <label htmlFor='installationDate' className='text-lg text-gray-600'>installationDate</label>
+                        <label htmlFor='maintenanceDate' className='text-lg text-gray-600'>maintenanceDate</label>
                         <input
-                            id='installationDate'
+                            id='maintenanceDate'
                             type='date'
-                            value={installationDate}
-                            onChange={(e) => setinstallationDate(e.target.value)}
+                            value={maintenanceDate}
+                            onChange={(e) => setmaintenanceDate(e.target.value)}
                             className='input-field'
                         />
                     </div>
 
                     <div className='mb-4'>
-                        <label htmlFor='warrentyInformation' className='text-lg text-gray-600'>warrentyInformation</label>
+                        <label htmlFor='frequencyInDays' className='text-lg text-gray-600'>frequencyInDays</label>
                         <input
-                            id='warrentyInformation'
-                            type='text'
-                            value={warrentyInformation}
-                            onChange={(e) => setwarrentyInformation(e.target.value)}
+                            id='frequencyInDays'
+                            type='number'
+                            value={frequencyInDays}
+                            onChange={(e) => setfrequencyInDays(e.target.value)}
                             className='input-field'
                         />
                     </div>
 
                     <button
                         className='bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300 w-full'
-                        onClick={handleSavemachines}
+                        onClick={handleSavemaintenances}
                     >
                         Save
                     </button>
@@ -112,4 +110,4 @@ const CreateMachine = () => {
     );
 };
 
-export default CreateMachine;
+export default CreateMaintenance;
