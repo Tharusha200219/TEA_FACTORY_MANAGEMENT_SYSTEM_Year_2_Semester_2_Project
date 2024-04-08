@@ -28,6 +28,7 @@ import Editteatypes from './pages/Editteatypes';
 import Showproductions from './pages/Showproductions';
 import ProductionReport from "./pages/ProductionReport.jsx";
 import Productionstatus from "./pages/Productionstatus.jsx";
+import Productionmachineavailability from "./pages/Productionmachineavailability.jsx";
 
 import Showteatypes from './pages/Showteatypes';
 import Teatypehome from "./pages/Teatypehome";
@@ -93,6 +94,7 @@ const App = () => {
       <Route path = '/Productionhome' element={<Productionhome/>}  />
       <Route path = '/ProductionReport' element={<ProductionReport/>}  />
       <Route path = '/Productionstatus' element={<Productionstatus/>}  />
+      <Route path = '/Productionmachineavailability' element={<Productionmachineavailability/>}  />
 
       <Route path = '/teatypes/creates' element={<Createteatypes/>} />
       <Route path = '/teatypes/details/:id' element={<Showteatypes/>}  />
