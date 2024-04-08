@@ -178,7 +178,7 @@ const Productionhome = () => {
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
                                             <div className='flex justify-center gap-x-4'>
-                                                <button onClick={() => handleStartTimer(index)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline">Start Timer</button>
+                                                <button onClick={() => handleStartTimer(index)} className="bg-black hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline">Start Timer</button>
                                                 <Timer remainingTime={production.remainingTime} />
                                                 <Link to={`/productions/details/${production._id}`}>
                                                     <BsInfoCircle className='text-2xl text-green-800' />
