@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import BackButtonForCreateProduction from '../components/backbutton_for_create_production';
-import Spinner from '../components/Spinner';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import BackButtonForCreateProduction from '../components/backbutton_for_create_production';
+import Spinner from '../components/Spinner';
+import NavigationBar from '../components/NavigationBar'; // Import NavigationBar component
 
 const Editteatypes = () => {
   const [Schedule_no, setSchedule_no] = useState('');
@@ -54,7 +56,24 @@ const Editteatypes = () => {
   };
 
   return (
+    <dev> <NavigationBar />
+    {/* Navigation Bar */}
+    <nav style={{ backgroundColor: '#3FC060' }} className="p-4">
+      <div className="container mx-auto">
+        <div className=" mx-auto flex justify-center items-center">
+          <div className="flex space-x-4">
+            <Link to="/" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">Home</Link>
+            <Link to="/Teatypehome" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">Tea Type</Link>
+            <Link to="/teatypes/creates" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">Create Table</Link>
+            <Link to="/pending-shipments" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">Production Machine Availability</Link>
+            <Link to="/TeaTypeReport" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">Tea Type Report Generate</Link>
+          </div>
+        </div>
+      </div>
+    </nav>
     <div className='flex flex-col items-center justify-center min-h-screen' style={{ backgroundColor: 'gray' }}>
+     
+
       <BackButtonForCreateProduction />
       <div className='max-w-md mx-auto bg-white rounded-lg shadow-md p-8 mt-8'>
         <h1 className='text-3xl mb-6 font-bold text-gray-800 text-center'>Edit Tea Type</h1>
@@ -126,6 +145,7 @@ const Editteatypes = () => {
         </div>
       </div>
     </div>
+    </dev>
   );
 };
 

@@ -7,17 +7,24 @@ import { BsInfoCircle } from 'react-icons/bs';
 import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import NavigationBar from '../components/NavigationBar';
 
 const Productionhome = () => {
     const [productions, setProductions] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
         setLoading(true);
         axios
             .get('http://localhost:5555/productions')
             .then((response) => {
-                setProductions(response.data.data.map(prod => ({...prod, timerDurationInSeconds: 0, timerRunning: false, remainingTime: 0})));
+                // Remove T00:00:00.000Z from the date and format it as YYYY-MM-DD
+                const formattedProductions = response.data.data.map(prod => ({
+                    ...prod,
+                    Production_date: new Date(prod.Production_date).toISOString().split('T')[0]
+                }));
+                setProductions(formattedProductions);
                 setLoading(false);
             })
             .catch((error) => {
@@ -31,9 +38,9 @@ const Productionhome = () => {
             setProductions(prevProductions => {
                 return prevProductions.map(prod => {
                     if (prod.timerRunning && prod.remainingTime > 0) {
-                        return {...prod, remainingTime: prod.remainingTime - 1};
+                        return { ...prod, remainingTime: prod.remainingTime - 1 };
                     } else if (prod.timerRunning && prod.remainingTime === 0) {
-                        return {...prod, timerRunning: false};
+                        return { ...prod, timerRunning: false };
                     }
                     return prod;
                 });
@@ -87,69 +94,91 @@ const Productionhome = () => {
         return <span>{remainingTime}</span>;
     };
 
+    // Filter productions based on search term
+    const filteredProductions = productions.filter(production => {
+        const searchTermLowerCase = searchTerm.toLowerCase();
+        // Check if search term matches any field or if it's a number matching Schedule_no
+        return (
+            (typeof production.Schedule_no === 'string' && production.Schedule_no.toLowerCase().includes(searchTermLowerCase)) ||
+            (typeof production.Production_date === 'string' && production.Production_date.toLowerCase().includes(searchTermLowerCase)) ||
+            (typeof production.Quantity === 'string' && production.Quantity.toString().toLowerCase().includes(searchTermLowerCase)) ||
+            (typeof production.Machine_assignment === 'string' && production.Machine_assignment.toLowerCase().includes(searchTermLowerCase)) ||
+            (typeof production.shift_information === 'string' && production.shift_information.toLowerCase().includes(searchTermLowerCase)) ||
+            (typeof production.Status === 'string' && production.Status.toLowerCase().includes(searchTermLowerCase)) ||
+            (typeof production.Schedule_no === 'number' && production.Schedule_no === parseInt(searchTermLowerCase))
+        );
+    });
+
     return (
         <div>
             {/* Navigation Bar */}
+            <NavigationBar />
             <nav style={{ backgroundColor: '#3FC060' }} className="p-4">
-                <div className="container mx-auto">
-                    <div className="flex justify-between items-center">
-                        <div className="text-white text-xl font-bold">
-                            Ever Green Tea
-                        </div>
-                        <div className="flex space-x-4">
-                            <Link to="/" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
-                            <Link to="/Productionhome" className="text-gray-300 bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">productions</Link>
-                            <Link to="/productions/creates" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">create table</Link>
-                            <Link to="/teatypes" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">production machine availability</Link>
-                            <Link to="/pending-new-stocks" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">production report genarate</Link>
-                        </div>
+                <div className="container mx-auto flex justify-center items-center">
+                    <div className="flex space-x-4">
+                        <Link to="/" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
+                        <Link to="/Productionhome" className="text-gray-300 bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Productions</Link>
+                        <Link to="/productions/creates" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Create Table</Link>
+                        <Link to="/Productionmachineavailability" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Production Machine Availability</Link>
+                        <Link to="/ProductionReport" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Production Report Generate</Link>
+                        <Link to="/Productionstatus" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Production Status</Link>
                     </div>
                 </div>
             </nav>
 
+
+            {/* Search Input */}
+            <div className="px-4 py-2">
+                <input
+                    type="text"
+                    placeholder="Search..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
+                />
+            </div>
+
+            {/* Table */}
             <div className='p-4'>
-                <div className='flex justify-between items-center'>
-                    <h1 className='text-3xl my-8'>Production List</h1>
-                    <Link to='/productions/creates'>
-                        <MdOutlineAddBox className='text-sky-800 text-4xl' />
-                    </Link>
-                </div>
                 {loading ? (
                     <Spinner />
                 ) : (
                     <div className="overflow-x-auto">
                         <table className='min-w-full divide-y divide-gray-200'>
+                            {/* Table header */}
                             <thead className="bg-gray-50">
                                 <tr>
-                                    <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Schedule No</th>
-                                    <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Production Date</th>
-                                    <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Quantity</th>
-                                    <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Machine Assignment</th>
-                                    <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Shift Information</th>
-                                    <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Status</th>
-                                    <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Timer (seconds)</th>
-                                    <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Actions</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Schedule No</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Production Date</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Quantity</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Machine Assignment</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Shift Information</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Timer (seconds)</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                                 </tr>
                             </thead>
+                            {/* Table body */}
                             <tbody className="bg-white divide-y divide-gray-200">
-                                {productions.map((production, index) => (
-                                    <tr key={production._id} className='h-8'>
-                                        <td className='px-6 py-4 whitespace-nowrap'>{production.Schedule_no}</td>
-                                        <td className='px-6 py-4 whitespace-nowrap'>{production.Production_date}</td>
-                                        <td className='px-6 py-4 whitespace-nowrap'>{production.Quantity}</td>
-                                        <td className='px-6 py-4 whitespace-nowrap'>{production.Machine_assignment}</td>
-                                        <td className='px-6 py-4 whitespace-nowrap'>{production.shift_information}</td>
-                                        <td className='px-6 py-4 whitespace-nowrap'>{production.Status}</td>
-                                        <td className='px-6 py-4 whitespace-nowrap'>
+                                {filteredProductions.map((production, index) => (
+                                    <tr key={index} className='h-8'>
+                                        <td className="px-6 py-4 whitespace-nowrap">{production.Schedule_no}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap">{production.Production_date}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap">{production.Quantity}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap">{production.Machine_assignment}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap">{production.shift_information}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap">{production.Status}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap">
                                             <input
                                                 type="number"
                                                 value={production.timerDurationInSeconds}
                                                 onChange={(e) => handleTimerChange(index, e.target.value)}
+                                                className="border rounded-md px-2 py-1 focus:outline-none focus:ring focus:border-blue-300"
                                             />
                                         </td>
-                                        <td className='px-6 py-4 whitespace-nowrap'>
+                                        <td className="px-6 py-4 whitespace-nowrap">
                                             <div className='flex justify-center gap-x-4'>
-                                                <button onClick={() => handleStartTimer(index)}>Start Timer</button>
+                                                <button onClick={() => handleStartTimer(index)} className="bg-black hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline">Start Timer</button>
                                                 <Timer remainingTime={production.remainingTime} />
                                                 <Link to={`/productions/details/${production._id}`}>
                                                     <BsInfoCircle className='text-2xl text-green-800' />
@@ -172,15 +201,7 @@ const Productionhome = () => {
 
             {/* Footer */}
             <footer style={{ backgroundColor: '#3FC060' }} className="text-white py-4 mt-8">
-                <div className="container mx-auto flex justify-between items-center">
-                    <div>
-                        <p>&copy; 1998-{new Date().getFullYear()} Ever Green Tea Factory. All rights reserved.</p>
-                        <p>Contact: 0112787678</p>
-                    </div>
-                    <div>
-                        {/* Add any additional footer content here */}
-                    </div>
-                </div>
+                {/* Footer content */}
             </footer>
 
             {/* Toast Container for Notifications */}
