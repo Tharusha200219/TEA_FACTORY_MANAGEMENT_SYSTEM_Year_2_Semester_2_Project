@@ -7,7 +7,9 @@ import { waste } from "./models/wastemodel.js";
 import Production from './models/production_schedule_model_t.js';
 import  Teatype  from "./models/teatype_management_model.js";
 import  Machine  from "./models/machineModel.js";
+import  Maintenance  from "./models/maintenanceModel.js";
 import machineRoute from "./routes/machineRoute.js";
+import maintenanceRoute from "./routes/maintenanceRoute.js";
 import inventoryRoute from "./routes/inventoryRoute.js";
 import wasteRoute from "./routes/wasteRoute.js";
 import orderRoute from "./routes/orderRoute.js";
@@ -44,6 +46,7 @@ app.use('/waste',wasteRoute)
 app.use('/productions',productionScheduleRoute);
 app.use('/teatypes',teatypeManagementRoute);
 app.use('/machines',machineRoute);
+app.use('/maintenances',maintenanceRoute);
 app.use('/orders',orderRoute);
 
 

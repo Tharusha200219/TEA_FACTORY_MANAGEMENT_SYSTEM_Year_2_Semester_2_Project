@@ -51,11 +51,18 @@ import SupplyRecordTable from './pages/SupplyRecordTable';
 import SupplierHome from './pages/SupplierHome';
 
 
+
 import MachineHome from './pages/MachineHome'
 import CreateMachine from './pages/CreateMachine'
 import ShowMachine from './pages/ShowMachine'
 import EditMachine from './pages/EditMachine'
 import DeleteMachine from './pages/DeleteMachine'
+
+import MaintenanceHome from './pages/MaintenanceHome'
+import CreateMaintenance from './pages/CreateMaintenance'
+import ShowMaintenance from './pages/ShowMaintenance'
+import EditMaintenance from './pages/EditMaintenance'
+import DeleteMaintenance from './pages/DeleteMaintenance'
 
 
 //*************Order***************//
@@ -99,6 +106,15 @@ const App = () => {
       <Route path = '/machines/details/:id' element={<ShowMachine/>}  />
       <Route path = '/machines/edit/:id' element={<EditMachine/>}  />
       <Route path = '/machines/delete/:id' element={<DeleteMachine/>}  />
+
+      <Route path = '/MaintenanceHome' element={<MaintenanceHome/>}  />
+      <Route path = '/maintenances/creates' element={<CreateMaintenance/>} />
+      <Route path = '/maintenances/details/:id' element={<ShowMaintenance/>}  />
+      <Route path = '/maintenances/edit/:id' element={<EditMaintenance/>}  />
+      <Route path = '/maintenances/delete/:id' element={<DeleteMaintenance/>}  />
+
+
+
 
       <Route path='/Vehiclehome' element={<Vehiclehome />} />
       <Route path='/books/create' element={<CreateBook />} />
