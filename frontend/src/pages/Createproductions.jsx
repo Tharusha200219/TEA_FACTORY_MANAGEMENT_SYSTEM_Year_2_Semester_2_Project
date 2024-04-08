@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Spinner from '../components/Spinner';
-import NavigationBar from '../components/NavigationBar'; // Import the NavigationBar component
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import NavigationBar from '../components/NavigationBar';
+import { Link } from 'react-router-dom';
 
 const Createproductions = () => {
     const [Schedule_no, setSchedule_no] = useState('');
@@ -15,6 +15,7 @@ const Createproductions = () => {
     const [loading, setLoading] = useState(false);
     const [machines, setMachines] = useState([]);
     const [selectedMachine, setSelectedMachine] = useState('');
+    const [error, setError] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -31,7 +32,45 @@ const Createproductions = () => {
             });
     }, []);
 
+    // Function to generate unique schedule numbers in ascending order
+    const generateUniqueScheduleNo = () => {
+        axios.get('http://localhost:5555/productions')
+            .then((response) => {
+                const existingScheduleNos = response.data.data.map(item => item.Schedule_no);
+                const allScheduleNos = Array.from({ length: 1000 }, (_, index) => index + 1);
+                const availableScheduleNos = allScheduleNos.filter(num => !existingScheduleNos.includes(num));
+                if (availableScheduleNos.length > 0) {
+                    setSchedule_no(availableScheduleNos[0].toString());
+                } else {
+                    alert('All schedule numbers from 1 to 1000 are used.');
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+    // Call the function to generate unique schedule number on component mount
+    useEffect(() => {
+        generateUniqueScheduleNo();
+    }, []);
+
     const handleSaveproductions = () => {
+        if (!selectedMachine) {
+            alert('Please select a machine.');
+            return;
+        }
+
+        if (!Quantity.includes('kg') && !Quantity.includes('KG') && !Quantity.includes('Kg')) {
+            alert('Quantity must be in kilograms (e.g., 10 kg).');
+            return;
+        }
+
+        if (!/^\d+$/.test(shift_information)) {
+            setError('Shift Information must be a valid number in hours.');
+            return;
+        }
+
         const data = {
             Schedule_no,
             Production_date,
@@ -51,6 +90,7 @@ const Createproductions = () => {
                 setShift_information('');
                 setStatus('');
                 setSelectedMachine('');
+                setError('');
                 
                 navigate('/Productionhome');
             })
@@ -73,6 +113,7 @@ const Createproductions = () => {
                         <Link to="/productions/creates" className="text-gray-300 bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Create Table</Link>
                         <Link to="/pending-shipments" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Production Machine Availability</Link>
                         <Link to="/ProductionReport" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Production Report Generate</Link>
+                        <Link to="/Productionstatus" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Production Status</Link>
                     </div>
                 </div>
             </nav>
@@ -90,7 +131,7 @@ const Createproductions = () => {
                                 id='Schedule_no'
                                 type='number'
                                 value={Schedule_no}
-                                onChange={(e) => setSchedule_no(e.target.value)}
+                                readOnly
                                 className='input-field'
                             />
                         </div>
@@ -107,7 +148,7 @@ const Createproductions = () => {
                         </div>
 
                         <div className='mb-4'>
-                            <label htmlFor='Quantity' className='text-lg text-gray-600'>Quantity</label>
+                            <label htmlFor='Quantity' className='text-lg text-gray-600'>Quantity (in kg)</label>
                             <input
                                 id='Quantity'
                                 type='text'
@@ -133,14 +174,15 @@ const Createproductions = () => {
                         </div>
 
                         <div className='mb-4'>
-                            <label htmlFor='shift_information' className='text-lg text-gray-600'>Shift Information</label>
+                            <label htmlFor='shift_information' className='text-lg text-gray-600'>Shift Information (in hours)</label>
                             <input
                                 id='shift_information'
-                                type='number'
+                                type='text'
                                 value={shift_information}
                                 onChange={(e) => setShift_information(e.target.value)}
                                 className='input-field'
                             />
+                            {error && <p className='text-red-500'>{error}</p>}
                         </div>
 
                         <div className='mb-4'>

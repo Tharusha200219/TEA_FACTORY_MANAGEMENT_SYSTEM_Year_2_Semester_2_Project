@@ -1,4 +1,9 @@
 import { Routes, Route } from "react-router-dom";
+
+import ContactUs from "./pages/ContactUs.jsx";
+import AboutUs from "./pages/Aboutus.jsx";
+
+
 import Inventoryhome from "./pages/Inventoryhome";
 import CreateInventory from "./pages/CreateInventory";
 import DeleteInventory from "./pages/DeleteInventory";
@@ -22,7 +27,7 @@ import Editproductions from './pages/Editproductions';
 import Editteatypes from './pages/Editteatypes';
 import Showproductions from './pages/Showproductions';
 import ProductionReport from "./pages/ProductionReport.jsx";
-
+import Productionstatus from "./pages/Productionstatus.jsx";
 
 import Showteatypes from './pages/Showteatypes';
 import Teatypehome from "./pages/Teatypehome";
@@ -87,6 +92,7 @@ const App = () => {
       <Route path = '/productions/delete/:id' element={<Deleteproductions/>}  />
       <Route path = '/Productionhome' element={<Productionhome/>}  />
       <Route path = '/ProductionReport' element={<ProductionReport/>}  />
+      <Route path = '/Productionstatus' element={<Productionstatus/>}  />
 
       <Route path = '/teatypes/creates' element={<Createteatypes/>} />
       <Route path = '/teatypes/details/:id' element={<Showteatypes/>}  />
@@ -134,6 +140,15 @@ const App = () => {
       <Route path="/orders/details/:id" element={<ShowOrder/>}/>
       <Route path="/orders/edit/:id" element={<UpdateOrder/>}/>
       <Route path="/orders/delete/:id" element={<DeleteOrder/>}/>
+
+
+
+
+
+
+
+      <Route path = '/ContactUs' element={<ContactUs/>}  />
+      <Route path = '/AboutUs' element={<AboutUs/>}  />
       
     </Routes>
   );
