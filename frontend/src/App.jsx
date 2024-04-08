@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 
 import ContactUs from "./pages/ContactUs.jsx";
-import AboutUs from "./pages/Aboutus.jsx";
+
 import HomePage from "./pages/HomePage.jsx";
 
 import Inventoryhome from "./pages/Inventoryhome";
@@ -154,7 +154,7 @@ const App = () => {
 
 
       <Route path = '/ContactUs' element={<ContactUs/>}  />
-      <Route path = '/AboutUs' element={<AboutUs/>}  />
+      <Route path = '/' element={</>}  />
       
     </Routes>
   );
