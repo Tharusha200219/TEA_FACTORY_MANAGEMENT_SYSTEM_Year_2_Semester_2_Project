@@ -47,7 +47,7 @@ import CreateSupplyRecord from './pages/CreateSupplyRecord';
 import ShowSupplyRecord from './pages/ShowSupplyRecord';
 import EditSupplyRecord from './pages/EditSupplyRecord';
 import DeleteSupplyRecord from './pages/DeleteSupplyRecord';
-// import SupplierTable from './pages/SupplierManagement/SupplierTable';
+// import SupplierTable from './pages/SupplierTable';
 import SupplyRecordTable from './pages/SupplyRecordTable';
 import SupplierHome from './pages/SupplierHome';
 
@@ -122,20 +122,14 @@ const App = () => {
 
 
 
-      <Route path='/Vehiclehome' element={<Vehiclehome />} />
-      <Route path='/books/create' element={<CreateBook />} />
-      <Route path='/books/details/:id' element={<ShowBook />} />
-      <Route path='/books/edit/:id' element={<EditBook />} />
-      <Route path='/books/delete/:id' element={<DeleteBook />} />
-
       <Route path="/SupplierHome" element={<SupplierHome />} />
       {/* <Route path="/SupplierTable" element={<SupplierTable />} />  */}
-      <Route path="/SupplyRecordTable" element={<SupplyRecordTable />} />
       <Route path="/suppliers/create" element={<CreateSupplier />} />
       <Route path="/suppliers/details/:id" element={<ShowSupplier />} />
       <Route path="/suppliers/edit/:id" element={<EditSupplier />} />
       <Route path="/suppliers/delete/:id" element={<DeleteSupplier />} />
       
+      <Route path="/SupplyRecordTable" element={<SupplyRecordTable />} />
       <Route path="/supplyrecords/create" element={<CreateSupplyRecord />} />
       <Route path="/supplyrecords/details/:id" element={<ShowSupplyRecord />} />
       <Route path="/supplyrecords/edit/:id" element={<EditSupplyRecord />} />

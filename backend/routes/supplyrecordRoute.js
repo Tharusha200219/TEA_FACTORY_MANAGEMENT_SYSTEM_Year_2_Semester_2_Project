@@ -3,13 +3,13 @@ import { SupplyRecord } from "../models/supplyrecordModel.js";
 
 const router = express.Router();
 
-// Route to save a new supply record entry
+// save new supply record 
 router.post('/', async (req, res) => {
     try {
         const { supplier, date, quantity, unitPrice } = req.body;
 
         if (!supplier || !date || !quantity || !unitPrice) {
-            return res.status(400).send({ message: 'Please provide all required fields: supplier, date, quantity, unitPrice' });
+            return res.status(400).send({ message: 'Send all required fields: supplier, date, quantity, unitPrice'});
         }
 
         const newSupplyRecord = new SupplyRecord({
@@ -19,68 +19,74 @@ router.post('/', async (req, res) => {
             unitPrice
         });
 
-        const savedSupplyRecord = await newSupplyRecord.save();
-
-        return res.status(201).json(savedSupplyRecord);
+        const savedRecord = await newSupplyRecord.save();
+        return res.status(201).json(savedRecord);
     } catch (error) {
         console.error(error.message);
-        res.status(500).send({ message: 'Error creating supply record' });
+        res.status(500).send({ message: error.message });
     }
 });
 
-// Route to get all supply record entries
+// get all records from database
 router.get('/', async (req, res) => {
     try {
         const allSupplyRecords = await SupplyRecord.find({});
         return res.status(200).json(allSupplyRecords);
-    } catch (error) {
+    }
+     catch (error) {
         console.error(error.message);
-        res.status(500).send({ message: 'Error retrieving supply records' });
+        res.status(500).send({ message: error.message });
     }
 });
 
-// Route to get a supply record entry by ID
+// get supply record by ID
 router.get('/:id', async (req, res) => {
     try {
         const { id } = req.params;
         const supplyRecord = await SupplyRecord.findById(id);
+       
         if (!supplyRecord) {
             return res.status(404).send({ message: 'Supply record not found' });
         }
         return res.status(200).json(supplyRecord);
-    } catch (error) {
+    } 
+    catch (error) {
         console.error(error.message);
-        res.status(500).send({ message: 'Error retrieving supply record' });
+        res.status(500).send({ message: error.message });
     }
 });
 
-// Route to update a supply record entry by ID
+// update record
 router.put('/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        const updatedSupplyRecord = await SupplyRecord.findByIdAndUpdate(id, req.body, { new: true });
-        if (!updatedSupplyRecord) {
+        const updateRecord = await SupplyRecord.findByIdAndUpdate(id, req.body, { new: true });
+       
+        if (!updateRecord) {
             return res.status(404).send({ message: 'Supply record not found' });
         }
-        return res.status(200).json(updatedSupplyRecord);
-    } catch (error) {
+        return res.status(200).json(updateRecord);
+    } 
+    catch (error) {
         console.error(error.message);
-        res.status(500).send({ message: 'Error updating supply record' });
+        res.status(500).send({ message: error.message });
     }
 });
 
-// Route to delete a supply record entry by ID
+// delete record
 router.delete('/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        const deletedSupplyRecord = await SupplyRecord.findByIdAndDelete(id);
-        if (!deletedSupplyRecord) {
+        const deleteRecord = await SupplyRecord.findByIdAndDelete(id);
+
+        if (!deleteRecord) {
             return res.status(404).send({ message: 'Supply record not found' });
         }
         return res.status(200).send({ message: 'Supply record deleted successfully' });
-    } catch (error) {
+    } 
+    catch (error) {
         console.error(error.message);
-        res.status(500).send({ message: 'Error deleting supply record' });
+        res.status(500).send({ message: error.message });
     }
 });
 
