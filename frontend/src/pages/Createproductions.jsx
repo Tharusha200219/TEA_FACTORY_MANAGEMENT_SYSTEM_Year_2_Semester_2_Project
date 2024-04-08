@@ -102,7 +102,7 @@ const Createproductions = () => {
     };
 
     return (
-        <div>
+        <div className='bg-gray-100 min-h-screen'>
             {/* Navigation Bar */}
             <NavigationBar />
             <nav style={{ backgroundColor: '#3FC060' }} className="p-4">
@@ -118,7 +118,7 @@ const Createproductions = () => {
                 </div>
             </nav>
 
-            <div className='flex flex-col items-center justify-center min-h-screen bg-gray-100'>
+            <div className='flex flex-col items-center justify-center'>
                 <div className='max-w-md mx-auto bg-white rounded-lg shadow-md p-8 mt-8'>
                     <h1 className='text-3xl mb-4 font-bold text-gray-800 text-center'>Create Production Schedule</h1>
 
@@ -154,6 +154,7 @@ const Createproductions = () => {
                                 type='text'
                                 value={Quantity}
                                 onChange={(e) => setQuantity(e.target.value)}
+                                placeholder='e.g., 100 kg'
                                 className='input-field'
                             />
                         </div>
@@ -180,6 +181,7 @@ const Createproductions = () => {
                                 type='text'
                                 value={shift_information}
                                 onChange={(e) => setShift_information(e.target.value)}
+                                placeholder='e.g., 8'
                                 className='input-field'
                             />
                             {error && <p className='text-red-500'>{error}</p>}
