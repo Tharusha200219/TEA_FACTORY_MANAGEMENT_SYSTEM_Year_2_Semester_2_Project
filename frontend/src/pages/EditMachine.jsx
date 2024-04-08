@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
+
 import Spinner from '../components/Spinner';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const EditMachine = () => {
-  const [machineNumber, setMachineNumber] = useState('');
-  const [machineName, setMachineName] = useState('');
-  const [machineType, setMachineType] = useState('');
-  const [installationDate, setInstallationDate] = useState('');
-  const [warrantyInformation, setWarrantyInformation] = useState('');
-  const [status, setStatus] = useState('');
+  const [machineNumber, setmachineNumber] = useState('');
+  const [machineName, setmachineName] = useState('');
+  const [machineType, setmachineType] = useState('');
+  const [installationDate, setinstallationDate] = useState('');
+  const [warrentyInformation, setwarrentyInformation] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
@@ -18,52 +18,44 @@ const EditMachine = () => {
     setLoading(true);
     axios.get(`http://localhost:5555/machines/${id}`)
       .then((response) => {
-        const machineData = response.data;
-        setMachineNumber(machineData.machineNumber || '');
-        setMachineName(machineData.machineName || '');
-        setMachineType(machineData.machineType || '');
-        setInstallationDate(formatDate(machineData.installationDate) || '');
-        setWarrantyInformation(machineData.warrentyInformation || ''); // Changed to warrentyInformation
-        setStatus(machineData.Status || '');
+        setmachineNumber(response.data.machineNumber);
+        setmachineName(response.data.machineName);
+        setmachineType(response.data.machineType);
+        setinstallationDate(response.data.installationDate);
+        setwarrentyInformation(response.data.warrentyInformation);
         setLoading(false);
       })
       .catch((error) => {
         setLoading(false);
-        console.error('Error fetching machine:', error);
+        alert('There was an error. Please check the console.');
+        console.log(error);
       });
   }, [id]);
 
-  const formatDate = (dateString) => {
-    if (!dateString) return '';
-    const date = new Date(dateString);
-    return date.toISOString().split('T')[0];
-  };
-
-  const handleEditMachine = async (e) => {
-    e.preventDefault();
+  const handleEditMachine = () => {
     const data = {
       machineNumber,
       machineName,
       machineType,
       installationDate,
-      warrentyInformation: warrantyInformation, // Changed to warrentyInformation
-      Status: status,
+      warrentyInformation,
     };
-    console.log('Data being sent:', data);
-    try {
-      setLoading(true);
-      await axios.put(`http://localhost:5555/machines/${id}`, data);
-      setLoading(false);
-      navigate('/MachineHome');
-    } catch (error) {
-      setLoading(false);
-      console.error('Error editing machine:', error.response);
-      alert('An error occurred. Please check the console.');
-    }
+    setLoading(true);
+    axios.put(`http://localhost:5555/machines/${id}`, data)
+      .then(() => {
+        setLoading(false);
+        navigate('/MachineHome');
+      })
+      .catch((error) => {
+        setLoading(false);
+        alert('An error occurred. Please check the console.');
+        console.log(error);
+      });
   };
 
   return (
     <div className='flex flex-col items-center justify-center min-h-screen' style={{ backgroundColor: 'gray' }}>
+      
       <div className='max-w-md mx-auto bg-white rounded-lg shadow-md p-8 mt-8'>
         <h1 className='text-3xl mb-6 font-bold text-gray-800 text-center'>Edit Machine</h1>
 
@@ -71,67 +63,56 @@ const EditMachine = () => {
 
         <div className='space-y-4'>
           <div className='mb-4'>
-            <label htmlFor='machineNumber' className='text-lg text-gray-600'>Machine Number</label>
+            <label htmlFor='machineNumber' className='text-lg text-gray-600'>machineNumber No</label>
             <input
               id='machineNumber'
               type='number'
               value={machineNumber}
-              onChange={(e) => setMachineNumber(e.target.value)}
+              onChange={(e) => setmachineNumber(e.target.value)}
               className='input-field'
             />
           </div>
 
           <div className='mb-4'>
-            <label htmlFor='machineName' className='text-lg text-gray-600'>Machine Name</label>
+            <label htmlFor='machineName' className='text-lg text-gray-600'>machineName</label>
             <input
               id='machineName'
               type='text'
               value={machineName}
-              onChange={(e) => setMachineName(e.target.value)}
+              onChange={(e) => setmachineName(e.target.value)}
               className='input-field'
             />
           </div>
 
           <div className='mb-4'>
-            <label htmlFor='machineType' className='text-lg text-gray-600'>Machine Type</label>
+            <label htmlFor='machineType' className='text-lg text-gray-600'>machineType</label>
             <input
               id='machineType'
               type='text'
               value={machineType}
-              onChange={(e) => setMachineType(e.target.value)}
+              onChange={(e) => setmachineType(e.target.value)}
               className='input-field'
             />
           </div>
 
           <div className='mb-4'>
-            <label htmlFor='installationDate' className='text-lg text-gray-600'>Installation Date</label>
+            <label htmlFor='installationDate' className='text-lg text-gray-600'>installationDate</label>
             <input
               id='installationDate'
-              type='date'
+              type='text'
               value={installationDate}
-              onChange={(e) => setInstallationDate(e.target.value)}
+              onChange={(e) => setinstallationDate(e.target.value)}
               className='input-field'
             />
           </div>
 
           <div className='mb-4'>
-            <label htmlFor='warrantyInformation' className='text-lg text-gray-600'>Warranty Information</label>
+            <label htmlFor='warrentyInformation' className='text-lg text-gray-600'>warrentyInformation</label>
             <input
-              id='warrantyInformation'
+              id='warrentyInformation'
               type='text'
-              value={warrantyInformation}
-              onChange={(e) => setWarrantyInformation(e.target.value)}
-              className='input-field'
-            />
-          </div>
-
-          <div className='mb-4'>
-            <label htmlFor='status' className='text-lg text-gray-600'>Status</label>
-            <input
-              id='status'
-              type='text'
-              value={status}
-              onChange={(e) => setStatus(e.target.value)}
+              value={warrentyInformation}
+              onChange={(e) => setwarrentyInformation(e.target.value)}
               className='input-field'
             />
           </div>
