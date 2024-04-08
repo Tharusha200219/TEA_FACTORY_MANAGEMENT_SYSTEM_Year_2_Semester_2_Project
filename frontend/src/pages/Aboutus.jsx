@@ -1,7 +1,7 @@
 import React from 'react';
 import NavigationBar from '../components/NavigationBar';
 
-const AboutUs = () => {
+const AboutUS = () => {
     return (
         <div>
             {/* Navigation Bar */}
@@ -102,4 +102,4 @@ const AboutUs = () => {
     );
 };
 
-export default AboutUs;
+export default AboutUS;
