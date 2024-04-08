@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import NavigationBar from '../components/NavigationBar';
+
 
 const Home = () => {
     return (
@@ -8,21 +10,7 @@ const Home = () => {
             style={{ backgroundImage: "url('./public/images/bcc.jpg')" }}
         >
             {/* Navigation Bar */}
-            <nav className="bg-gray-800 p-4">
-                <div className="container mx-auto flex justify-between items-center">
-                    <div className="text-white text-xl font-bold">
-                        Ever Green Tea
-                    </div>
-                    <div className="flex space-x-4">
-                        <Link to="/" className="text-white hover:text-gray-300">Home</Link>
-                        <Link to="/inventorys" className="text-white hover:text-gray-300">Inventory</Link>
-                        <Link to="/Productionhome" className="text-white hover:text-gray-300">Production</Link>
-                        <Link to="/MachineHome" className="text-white hover:text-gray-300">Machine</Link>
-                        <Link to="/SupplierHome" className="text-white hover:text-gray-300">Supplier</Link>
-                        <Link to="/OrderHome" className="text-white hover:text-gray-300">Order</Link>
-                    </div>
-                </div>
-            </nav>
+            <NavigationBar />
 
             {/* Main Content */}
             <div className="container mx-auto flex justify-center items-center h-full ">
