@@ -1,4 +1,9 @@
 import { Routes, Route } from "react-router-dom";
+
+import ContactUs from "./pages/ContactUs.jsx";
+import Aboutus from "./pages/Aboutus.jsx"
+import HomePage from "./pages/HomePage.jsx";
+
 import Inventoryhome from "./pages/Inventoryhome";
 import CreateInventory from "./pages/CreateInventory";
 import DeleteInventory from "./pages/DeleteInventory";
@@ -22,7 +27,8 @@ import Editproductions from './pages/Editproductions';
 import Editteatypes from './pages/Editteatypes';
 import Showproductions from './pages/Showproductions';
 import ProductionReport from "./pages/ProductionReport.jsx";
-
+import Productionstatus from "./pages/Productionstatus.jsx";
+import Productionmachineavailability from "./pages/Productionmachineavailability.jsx";
 
 import Showteatypes from './pages/Showteatypes';
 import Teatypehome from "./pages/Teatypehome";
@@ -71,6 +77,10 @@ import OrderHome from './pages/OrderHome';
 const App = () => {
   return (
     <Routes>
+
+      <Route path = '/P_home' element={<P_home/>} />
+      <Route path = '/HomePage' element={<HomePage/>} />
+
       <Route path = '/' element={<Home/>}  />
       <Route path = '/Inventorys' element={<Inventorys/>}  />
       <Route path = '/Inventoryhome' element={<Inventoryhome/>}  />
@@ -79,7 +89,7 @@ const App = () => {
       <Route path = '/inventory/edit/:id' element={<EditInvenory/>}  />
       <Route path = '/inventory/delete/:id' element={<DeleteInventory/>}  />
       
-      <Route path = '/P_home' element={<P_home/>} />
+      
 
       <Route path = '/productions/creates' element={<Createproductions/>} />
       <Route path = '/productions/details/:id' element={<Showproductions/>}  />
@@ -87,6 +97,8 @@ const App = () => {
       <Route path = '/productions/delete/:id' element={<Deleteproductions/>}  />
       <Route path = '/Productionhome' element={<Productionhome/>}  />
       <Route path = '/ProductionReport' element={<ProductionReport/>}  />
+      <Route path = '/Productionstatus' element={<Productionstatus/>}  />
+      <Route path = '/Productionmachineavailability' element={<Productionmachineavailability/>}  />
 
       <Route path = '/teatypes/creates' element={<Createteatypes/>} />
       <Route path = '/teatypes/details/:id' element={<Showteatypes/>}  />
@@ -134,6 +146,15 @@ const App = () => {
       <Route path="/orders/details/:id" element={<ShowOrder/>}/>
       <Route path="/orders/edit/:id" element={<UpdateOrder/>}/>
       <Route path="/orders/delete/:id" element={<DeleteOrder/>}/>
+
+
+
+
+
+
+
+      <Route path = '/ContactUs' element={<ContactUs/>}  />
+      <Route path = '/Aboutus' element={<Aboutus/>}  />
       
     </Routes>
   );

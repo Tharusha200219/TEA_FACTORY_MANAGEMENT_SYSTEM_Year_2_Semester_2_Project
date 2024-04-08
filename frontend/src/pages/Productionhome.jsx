@@ -7,6 +7,7 @@ import { BsInfoCircle } from 'react-icons/bs';
 import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import NavigationBar from '../components/NavigationBar';
 
 const Productionhome = () => {
     const [productions, setProductions] = useState([]);
@@ -37,9 +38,9 @@ const Productionhome = () => {
             setProductions(prevProductions => {
                 return prevProductions.map(prod => {
                     if (prod.timerRunning && prod.remainingTime > 0) {
-                        return {...prod, remainingTime: prod.remainingTime - 1};
+                        return { ...prod, remainingTime: prod.remainingTime - 1 };
                     } else if (prod.timerRunning && prod.remainingTime === 0) {
-                        return {...prod, timerRunning: false};
+                        return { ...prod, timerRunning: false };
                     }
                     return prod;
                 });
@@ -111,22 +112,20 @@ const Productionhome = () => {
     return (
         <div>
             {/* Navigation Bar */}
+            <NavigationBar />
             <nav style={{ backgroundColor: '#3FC060' }} className="p-4">
-                <div className="container mx-auto">
-                    <div className="flex justify-between items-center">
-                        <div className="text-white text-xl font-bold">
-                            Ever Green Tea
-                        </div>
-                        <div className="flex space-x-4">
-                            <Link to="/" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
-                            <Link to="/Productionhome" className="text-gray-300 bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">productions</Link>
-                            <Link to="/productions/creates" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">create table</Link>
-                            <Link to="/pending-shipments" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">production machine availability</Link>
-                            <Link to="/ProductionReport" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">production report genarate</Link>
-                        </div>
+                <div className="container mx-auto flex justify-center items-center">
+                    <div className="flex space-x-4">
+                        <Link to="/" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
+                        <Link to="/Productionhome" className="text-gray-300 bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Productions</Link>
+                        <Link to="/productions/creates" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Create Table</Link>
+                        <Link to="/Productionmachineavailability" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Production Machine Availability</Link>
+                        <Link to="/ProductionReport" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Production Report Generate</Link>
+                        <Link to="/Productionstatus" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Production Status</Link>
                     </div>
                 </div>
             </nav>
+
 
             {/* Search Input */}
             <div className="px-4 py-2">
@@ -179,7 +178,7 @@ const Productionhome = () => {
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
                                             <div className='flex justify-center gap-x-4'>
-                                                <button onClick={() => handleStartTimer(index)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline">Start Timer</button>
+                                                <button onClick={() => handleStartTimer(index)} className="bg-black hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline">Start Timer</button>
                                                 <Timer remainingTime={production.remainingTime} />
                                                 <Link to={`/productions/details/${production._id}`}>
                                                     <BsInfoCircle className='text-2xl text-green-800' />
