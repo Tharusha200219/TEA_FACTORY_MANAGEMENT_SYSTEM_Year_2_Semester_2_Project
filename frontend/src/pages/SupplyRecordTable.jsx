@@ -7,10 +7,11 @@ import { BsInfoCircle } from 'react-icons/bs';
 import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
 import SupplierSearch from '../components/SupplierSearch';
 import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 import html2canvas from 'html2canvas';
 
 const SupplyRecordTable = () => {
-    const [supplyrecord, setSupplyRecord] = useState([]); 
+    const [supplyrecords, setSupplyRecords] = useState([]); 
     const [loading, setLoading] = useState(false);
     const [searchInput, setSearchInput] = useState('');
     const [searchType, setSearchType] = useState(''); 
@@ -21,7 +22,7 @@ const SupplyRecordTable = () => {
         setLoading(true);
         axios.get('http://localhost:5555/supplyrecords')
             .then((response) => {
-                setSupplyRecord(response.data); 
+                setSupplyRecords(response.data); 
                 setLoading(false);
             })
             .catch((error) => {
@@ -39,7 +40,7 @@ const SupplyRecordTable = () => {
         if (searchInput.trim() === '') {
             setfilterdSupplyRecords([]);
         } else {
-            const filtered = supplyrecord.filter(record => {
+            const filtered = supplyrecords.filter(record => {
                return record.supplier.toLowerCase().includes(searchInput.toLowerCase()); 
             });
             setfilterdSupplyRecords(filtered);
@@ -48,21 +49,32 @@ const SupplyRecordTable = () => {
 
     //report generate function
     const downloadPDF = () => {
-        const tableContent = document.getElementById('pdf-content');
-        html2canvas(tableContent)
-        .then((canvas) => {
-                const pdf = new jsPDF('p', 'mm', 'a4');
-                const imgData = canvas.toDataURL('image/png');
-                const imgWidth = 190; 
-                const imgHeight = canvas.height * imgWidth / canvas.width;
-                const marginLeft = 10;
-                const marginTop = 10;
-                
-                pdf.addImage(imgData, 'PNG', marginLeft, marginTop, imgWidth, imgHeight);
-                pdf.save('supplyrecords.pdf');
-            });
-    };
+        try {
+            const doc = new jsPDF();
+            const tableData = supplyrecords.map(supplyrecord => [supplyrecord.supplier, supplyrecord.date, supplyrecord.quantity, supplyrecord.unitPrice ]);
+    
+            doc.setFontSize(16);
+            const topic = 'Supply Records Report';
+            const topicX = 15; 
+            const topicY = 15; 
+    
+            doc.text(topic, topicX, topicY);
 
+            doc.autoTable({
+                head: [['Supplier', 'Date', 'Quantity', 'UnitPrice']],
+                body: tableData,
+                margin: { top: 25 }, 
+                columnStyles: {
+                    0: { cellWidth: 'auto' } 
+                }
+            });
+            
+            doc.save('Supply Report.pdf');
+        } catch (error) {
+            console.error('Error generating PDF:', error);
+        }
+    }; 
+    
     return (
         <div style={{ minHeight: '100vh', position: 'relative' }}>
             {/* Navigation Bar */}
@@ -113,16 +125,16 @@ const SupplyRecordTable = () => {
                 <table className='w-full border-collapse border border-gray-300'>
                     <thead className='bg-gray-200'>
                         <tr>
-                            <th className='border border-gray-300 p-4 text-left'>Supplier</th>
-                            <th className='border border-gray-300 p-4 text-left'>Date</th>
-                            <th className='border border-gray-300 p-4 text-left'>Quantity (KG)</th>
-                            <th className='border border-gray-300 p-4'>Unit price</th>
-                            <th className='bg-slate-300 border border-gray-300 p-4'>Cost</th>
-                            <th className='border border-gray-300 p-4'>Actions</th>
+                            <th className='border border-gray-300 p-4 text-left'>SUPPLIER</th>
+                            <th className='border border-gray-300 p-4 text-left'>DATE</th>
+                            <th className='border border-gray-300 p-4 text-left'>QUANTITY (KG)</th>
+                            <th className='border border-gray-300 p-4 text-left'>UNIT PRICE</th>
+                            <th className='bg-slate-300 border border-gray-300 p-4 text-left'>Cost</th>
+                            <th className='border border-gray-300 p-4 text-left'>ACTIONS</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {(filterdSupplyRecords.length > 0 ? filterdSupplyRecords : supplyrecord).map((item, index) => ( 
+                        {(filterdSupplyRecords.length > 0 ? filterdSupplyRecords : supplyrecords).map((item, index) => ( 
                             <tr key={item._id} className='border border-gray-300'>
                                 <td className='border border-gray-300 p-4'>{item.supplier}</td>
                                 <td className='border border-gray-300 p-4'>{item.date}</td>
