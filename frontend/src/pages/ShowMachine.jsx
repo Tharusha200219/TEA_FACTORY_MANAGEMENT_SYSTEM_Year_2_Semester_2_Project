@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-
 import Spinner from '../components/Spinner';
 
-const Showmachine = () => {
-  const [machines, setMachine] = useState({});
+const ShowMachine = () => {
+  const [machine, setMachine] = useState({});
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
 
@@ -17,45 +16,42 @@ const Showmachine = () => {
         setLoading(false);
       })
       .catch((error) => {
-        console.error(error);
+        console.error('Error fetching machine:', error);
         setLoading(false);
       });
   }, [id]);
 
   return (
     <div style={styles.container}>
-      
       {loading ? (
         <Spinner />
       ) : (
-        <div style={styles.productiondetails}>
+        <div style={styles.machineDetails}>
           <h2 style={styles.title}>Machine Details</h2>
           <div style={styles.infoItem}>
-            <strong>ID:</strong> {machines._id}
+            <strong>ID:</strong> {machine._id}
           </div>
           <div style={styles.infoItem}>
-            <strong>machineNumber:</strong> {machines.machineNumber}
+            <strong>Machine Number:</strong> {machine.machineNumber}
           </div>
           <div style={styles.infoItem}>
-            <strong>machineName:</strong> {machines.machineName}
+            <strong>Machine Name:</strong> {machine.machineName}
           </div>
           <div style={styles.infoItem}>
-            <strong>machineType:</strong> {machines.machineType}
+            <strong>Machine Type:</strong> {machine.machineType}
           </div>
           <div style={styles.infoItem}>
-            <strong>installationDate:</strong> {machines.installationDate}
+            <strong>Installation Date:</strong> {machine.installationDate}
           </div>
           <div style={styles.infoItem}>
-            <strong>warrentyInformation:</strong> {machines.warrentyInformation}
+            <strong>Warranty Information:</strong> {machine.warrantyInformation}
           </div>
-         
           <div style={styles.infoItem}>
-  <strong>Created At:</strong> {new Date(machines.createdAt).toLocaleString()}
-</div>
-<div style={styles.infoItem}>
-  <strong>Updated At:</strong> {new Date(machines.updatedAt).toLocaleString()}
-</div>
-
+            <strong>Created At:</strong> {new Date(machine.createdAt).toLocaleString()}
+          </div>
+          <div style={styles.infoItem}>
+            <strong>Updated At:</strong> {new Date(machine.updatedAt).toLocaleString()}
+          </div>
         </div>
       )}
     </div>
@@ -68,7 +64,7 @@ const styles = {
     background: '#f4f4f4',
     minHeight: '100vh',
   },
-  productiondetails: {
+  machineDetails: {
     marginTop: '20px',
     background: '#fff',
     padding: '20px',
@@ -87,4 +83,4 @@ const styles = {
   },
 };
 
-export default Showmachine;
+export default ShowMachine;
