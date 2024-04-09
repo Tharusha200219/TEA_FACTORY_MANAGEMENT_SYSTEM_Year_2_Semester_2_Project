@@ -76,6 +76,13 @@ import DeleteOrder from './pages/DeleteOrder';
 import OrderHome from './pages/OrderHome';
 
 
+//*************Payment***************//
+import PaymentsHome from "./pages/PaymentsHome.jsx";
+import PaymentsEmployee from "./pages/PaymentsEmployee.jsx";
+import PaymentSupplierCreate from "./pages/PaymentSupplierCreate.jsx";
+import PaymentSupplierEdit from "./pages/PaymentsSupplierEdit.jsx";
+
+
 const App = () => {
   return (
     <Routes>
@@ -143,6 +150,12 @@ const App = () => {
       <Route path="/orders/details/:id" element={<ShowOrder/>}/>
       <Route path="/orders/edit/:id" element={<UpdateOrder/>}/>
       <Route path="/orders/delete/:id" element={<DeleteOrder/>}/>
+
+
+      <Route path = '/PaymentsHome' element={<PaymentsHome/>} />
+      <Route path = '/PaymentsEmployee' element={<PaymentsEmployee/>} />
+      <Route path = '/payments/supplier/create' element={<PaymentSupplierCreate/>} />
+      <Route path = '/payments/supplier/edit/:id' element={<PaymentSupplierEdit/>} />
 
 
 
