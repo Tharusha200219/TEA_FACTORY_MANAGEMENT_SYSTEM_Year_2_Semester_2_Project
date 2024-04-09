@@ -61,6 +61,11 @@ const HomePage = () => {
                             home
                             </button>
                         </Link>
+                        <Link to="/PaymentsHome">
+                            <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-4">
+                                Payments
+                            </button>
+                        </Link>
                         
                     </div>
                 </div>

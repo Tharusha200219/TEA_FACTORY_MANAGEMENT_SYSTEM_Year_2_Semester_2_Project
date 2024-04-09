@@ -76,6 +76,10 @@ import DeleteOrder from './pages/DeleteOrder';
 import OrderHome from './pages/OrderHome';
 
 
+//*************Payment***************//
+
+
+
 const App = () => {
   return (
     <Routes>
@@ -143,6 +147,9 @@ const App = () => {
       <Route path="/orders/details/:id" element={<ShowOrder/>}/>
       <Route path="/orders/edit/:id" element={<UpdateOrder/>}/>
       <Route path="/orders/delete/:id" element={<DeleteOrder/>}/>
+
+
+     
 
 
 
