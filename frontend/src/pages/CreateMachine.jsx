@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import Spinner from '../components/Spinner';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import NavigationBar from '../components/NavigationBar';
 
 const CreateMachine = () => {
     const [machineNumber, setmachineNumber] = useState('');
@@ -11,6 +10,7 @@ const CreateMachine = () => {
     const [machineType, setmachineType] = useState('');
     const [installationDate, setinstallationDate] = useState('');
     const [warrentyInformation, setwarrentyInformation] = useState('');
+    
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -21,6 +21,7 @@ const CreateMachine = () => {
           machineType,
           installationDate,
           warrentyInformation,
+          Status: 'Available'
         };
         setLoading(true);
         axios.post('http://localhost:5555/machines', data)
@@ -36,9 +37,6 @@ const CreateMachine = () => {
     };
 
     return (
-        <div> {/* Navigation Bar */}
-        <NavigationBar />
-        
         <div className='flex flex-col items-center justify-center min-h-screen bg-gray-100'>
             
             <div className='max-w-md mx-auto bg-white rounded-lg shadow-md p-8 mt-8'>
@@ -110,7 +108,6 @@ const CreateMachine = () => {
                     </button>
                 </div>
             </div>
-        </div>
         </div>
     );
 };
