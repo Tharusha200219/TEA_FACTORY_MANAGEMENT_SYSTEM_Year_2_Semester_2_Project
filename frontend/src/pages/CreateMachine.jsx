@@ -11,6 +11,7 @@ const CreateMachine = () => {
     const [machineType, setmachineType] = useState('');
     const [installationDate, setinstallationDate] = useState('');
     const [warrentyInformation, setwarrentyInformation] = useState('');
+    
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -21,6 +22,7 @@ const CreateMachine = () => {
           machineType,
           installationDate,
           warrentyInformation,
+          Status: 'Available'
         };
         setLoading(true);
         axios.post('http://localhost:5555/machines', data)
