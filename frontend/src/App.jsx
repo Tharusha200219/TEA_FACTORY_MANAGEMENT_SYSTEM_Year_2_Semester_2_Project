@@ -79,6 +79,7 @@ import OrderHome from './pages/OrderHome';
 //*************Payment***************//
 import PaymentsHome from "./pages/PaymentsHome.jsx";
 import PaymentsEmployee from "./pages/PaymentsEmployee.jsx";
+import PaymentSupplierCreate from "./pages/PaymentSupplierCreate.jsx";
 
 
 const App = () => {
@@ -152,6 +153,7 @@ const App = () => {
 
       <Route path = '/PaymentsHome' element={<PaymentsHome/>} />
       <Route path = '/PaymentsEmployee' element={<PaymentsEmployee/>} />
+      <Route path = '/payments/supplier/create' element={<PaymentSupplierCreate/>} />
 
 
      
