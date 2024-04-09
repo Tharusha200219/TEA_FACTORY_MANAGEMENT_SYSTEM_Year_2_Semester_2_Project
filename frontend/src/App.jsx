@@ -64,6 +64,8 @@ import CreateMaintenance from './pages/CreateMaintenance'
 import ShowMaintenance from './pages/ShowMaintenance'
 import EditMaintenance from './pages/EditMaintenance'
 import DeleteMaintenance from './pages/DeleteMaintenance'
+import MaintenanceReport from "./pages/MaintenanceReport.jsx";
+
 
 
 //*************Order***************//
@@ -118,6 +120,7 @@ const App = () => {
       <Route path = '/maintenances/details/:id' element={<ShowMaintenance/>}  />
       <Route path = '/maintenances/edit/:id' element={<EditMaintenance/>}  />
       <Route path = '/maintenances/delete/:id' element={<DeleteMaintenance/>}  />
+      <Route path = '/MaintenanceReport' element={<MaintenanceReport/>}  />
 
 
 
