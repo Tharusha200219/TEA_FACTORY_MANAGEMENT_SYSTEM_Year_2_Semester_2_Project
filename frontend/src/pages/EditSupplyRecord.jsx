@@ -72,7 +72,7 @@ const EditSupplyRecord = () => {
                     <input
                         type="text"
                         value={selectedSupplier}
-                        readOnly // Make it readonly
+                        readOnly // read only
                         className='border-2 border-gray-500 px-4 py-2 w-full'
                         style={{ backgroundColor: '#f2f2f2' }}
                     />

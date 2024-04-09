@@ -11,7 +11,8 @@ router.post('/', async (request, response) => {
             !request.body.Production_date ||
             !request.body.Quantity ||
             !request.body.Machine_assignment ||
-            !request.body.shift_information
+            !request.body.shift_information ||
+            !request.body.Status
         ) {
             return response.status(400).send({
                 message: 'send all required fields: Schedule_no, Production_date, Quantity, Machine_assignment, shift_information'
@@ -23,6 +24,7 @@ router.post('/', async (request, response) => {
             Quantity: request.body.Quantity,
             Machine_assignment: request.body.Machine_assignment,
             shift_information: request.body.shift_information,
+            Status: request.body.Status,
         };
         const production = await Production.create(new_schedule)
         return response.status(201).send(production)
@@ -67,7 +69,8 @@ router.put('/:id', async (request, response) => {
             !request.body.Production_date ||
             !request.body.Quantity ||
             !request.body.Machine_assignment ||
-            !request.body.shift_information
+            !request.body.shift_information ||
+            !request.body.Status
         ) {
             return response.status(400).send({
                 message: 'send all required fields: Schedule_no, Production_date, Quantity, Machine_assignment, shift_information'
