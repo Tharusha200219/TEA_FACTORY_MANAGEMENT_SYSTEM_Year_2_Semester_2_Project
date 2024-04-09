@@ -43,23 +43,21 @@ const MaintenanceHome = () => {
         <NavigationBar />
 
         <div>
-            {/* Navigation Bar */}
-            <nav className="bg-green-500 p-4">
-    <div className="container mx-auto">
+ {/* Navigation Bar */}
+<nav className="bg-green-500 p-4">
+    <div className="container mx-auto flex justify-center"> {/* Add justify-center class */}
         <div className="flex justify-between items-center">
-            <div className="text-white text-xl font-bold">
-                Ever Green Tea
-            </div>
             <div className="flex space-x-4">
                 <Link to="/" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
                 <Link to="/MaintenanceHome" className="text-gray-300 bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">maintenances</Link>
                 <Link to="/maintenances/creates" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">create table</Link>
-                <Link to="/pending-shipments" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Availability </Link>
-                <Link to="/MaintenanceReport" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">maintenance report generate  </Link>
+                <Link to="/pending-shipments" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Availability</Link>
+                <Link to="/MaintenanceReport" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">maintenance report generate</Link>
             </div>
         </div>
     </div>
 </nav>
+
 
 
             {/* Main Content */}
