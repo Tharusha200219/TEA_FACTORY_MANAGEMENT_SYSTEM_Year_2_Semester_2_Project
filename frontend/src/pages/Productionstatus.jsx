@@ -1,0 +1,99 @@
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import Spinner from '../components/Spinner';
+import { Link } from 'react-router-dom';
+import NavigationBar from '../components/NavigationBar';
+
+const Productionstatus = () => {
+    const [loading, setLoading] = useState(false);
+    const [pendingProductions, setPendingProductions] = useState([]);
+    const [finishedProductions, setFinishedProductions] = useState([]);
+
+    useEffect(() => {
+        setLoading(true);
+        axios
+            .get('http://localhost:5555/productions')
+            .then((response) => {
+                const allProductions = response.data.data;
+                const pending = allProductions.filter(prod => prod.Status === 'not done');
+                const finished = allProductions.filter(prod => prod.Status === 'done');
+                setPendingProductions(pending);
+                setFinishedProductions(finished);
+                setLoading(false);
+            })
+            .catch((error) => {
+                console.log(error);
+                setLoading(false);
+            });
+    }, []);
+
+    const renderProductionTable = (productions, type) => {
+        return (
+            <div className="p-4">
+                <h2 className='text-2xl font-bold text-gray-800 mb-2'>{type === 'pending' ? 'Pending Schedules' : 'Finished Schedules'}</h2>
+                {loading ? (
+                    <Spinner />
+                ) : (
+                    <div className="overflow-x-auto">
+                        <table className='min-w-full divide-y divide-gray-200'>
+                            <thead className="bg-gray-50">
+                                <tr>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Schedule No</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Production Date</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Quantity</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Machine Assignment</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Shift Information</th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody className="bg-white divide-y divide-gray-200">
+                                {productions.map((production, index) => (
+                                    <tr key={index} className='h-8'>
+                                        <td className="px-6 py-4 whitespace-nowrap">{production.Schedule_no}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap">{production.Production_date}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap">{production.Quantity}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap">{production.Machine_assignment}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap">{production.shift_information}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap">{production.Status}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                )}
+            </div>
+        );
+    };
+
+    return (
+        <div>
+            {/* Navigation Bar */}
+            <NavigationBar />
+            <nav style={{ backgroundColor: '#3FC060' }} className="p-4">
+                <div className="container mx-auto flex justify-center items-center">
+                    <div className="flex space-x-4">
+                        <Link to="/" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
+                        <Link to="/Productionhome" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Productions</Link>
+                        <Link to="/productions/creates" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Create Table</Link>
+                        <Link to="/Productionmachineavailability" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Production Machine Availability</Link>
+                        <Link to="/ProductionReport" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Production Report Generate</Link>
+                        <Link to="/Productionstatus" className="text-gray-300 bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Production Status</Link>
+                    </div>
+                </div>
+            </nav>
+
+            {/* Pending Schedules Table */}
+            {renderProductionTable(pendingProductions, 'pending')}
+
+            {/* Finished Schedules Table */}
+            {renderProductionTable(finishedProductions, 'finished')}
+
+            {/* Footer */}
+            <footer style={{ backgroundColor: '#3FC060' }} className="text-white py-4 mt-8">
+                {/* Footer content */}
+            </footer>
+        </div>
+    );
+}
+
+export default Productionstatus;

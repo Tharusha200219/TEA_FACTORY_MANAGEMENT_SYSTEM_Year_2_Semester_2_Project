@@ -34,16 +34,13 @@ const Showproductions = () => {
             <strong>ID:</strong> {productions._id}
           </div>
           <div style={styles.infoItem}>
-            <strong>Production date:</strong> {productions.Schedule_no}
+            <strong>schedule no:</strong> {productions.Schedule_no}
           </div>
           <div style={styles.infoItem}>
             <strong>Production_date:</strong> {productions.Production_date}
           </div>
           <div style={styles.infoItem}>
             <strong>Quantity:</strong> {productions.Quantity}
-          </div>
-          <div style={styles.infoItem}>
-            <strong>Machine_assignment:</strong> {productions.Machine_assignment}
           </div>
           <div style={styles.infoItem}>
             <strong>Machine_assignment:</strong> {productions.Machine_assignment}

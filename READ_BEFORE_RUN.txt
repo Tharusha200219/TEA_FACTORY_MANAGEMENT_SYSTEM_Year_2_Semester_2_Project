@@ -1,0 +1,88 @@
+
+▒▒▒▒▒▒▐███████▌
+▒▒▒▒▒▒▐░▀░▀░▀░▌
+▒▒▒▒▒▒▐▄▄▄▄▄▄▄▌
+▄▀▀▀█▒▐░▀▀▄▀▀░▌▒█▀▀▀▄
+▌▌▌▌▐▒▄▌░▄▄▄░▐▄▒▌▐▐▐▐    
+
+
+█▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀█
+█░░╦─╦╔╗╦─╔╗╔╗╔╦╗╔╗░░█
+█░░║║║╠─║─║─║║║║║╠─░░█
+█░░╚╩╝╚╝╚╝╚╝╚╝╩─╩╚╝░░█
+█▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄█
+
+
+
+# Project README
+
+This README provides instructions on how to run our project locally.
+
+## Prerequisites
+
+- [Visual Studio Code](https://code.visualstudio.com/) installed on your machine.
+- [Node.js](https://nodejs.org/) installed on your machine.
+
+## Getting Started
+
+1. Clone the repository:
+
+
+2. Create a new branch with the following naming convention:
+
+example IT22225788/Sandakelum_PATR
+
+
+3. Open Visual Studio Code and ensure you are in your newly created branch.
+        "click the open with visualstudio code in githubdesktop application"
+
+4. Open a terminal in Visual Studio Code.
+
+### Backend
+
+5. Navigate to the backend directory:
+
+cd backend
+
+
+6. Install dependencies:
+
+
+npm i
+
+
+7. Run the backend server:
+
+
+npm run dev
+
+
+### Frontend
+
+8. Open a new terminal in Visual Studio Code.
+
+9. Navigate to the frontend directory:
+
+
+cd frontend
+
+
+10. Install dependencies:
+
+
+npm i
+
+
+11. Run the frontend development server:
+
+
+npm run dev
+
+
+===========================================================================================
+
+
+
+You should now have both the backend and frontend servers running locally. You can access the application through your web browser. If you encounter any issues, please refer to the documentation or contact the project team for assistance.
+
+

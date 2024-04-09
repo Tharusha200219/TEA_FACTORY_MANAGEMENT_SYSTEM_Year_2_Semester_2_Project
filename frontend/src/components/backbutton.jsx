@@ -14,3 +14,4 @@ const BackButton = ({ destination = '/' }) => {
 };
 
 export default BackButton;
+
