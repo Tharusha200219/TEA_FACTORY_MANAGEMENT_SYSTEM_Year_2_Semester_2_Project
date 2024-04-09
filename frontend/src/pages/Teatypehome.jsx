@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Spinner from '../components/Spinner';
 import { Link } from 'react-router-dom';
@@ -11,6 +11,7 @@ const Teatypehome = () => {
     const [teatypes, setTeatypes] = useState([]);
     const [loading, setLoading] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
+    const [searchColumn, setSearchColumn] = useState('Schedule_no');
 
     useEffect(() => {
         setLoading(true);
@@ -30,32 +31,29 @@ const Teatypehome = () => {
         setSearchTerm(event.target.value);
     };
 
+    const handleSearchColumnChange = (event) => {
+        setSearchColumn(event.target.value);
+    };
+
     const filteredTeatypes = teatypes.filter(teatype => {
         return (
-            (teatype.Schedule_no && teatype.Schedule_no.toString().includes(searchTerm)) ||
-            (teatype.black_tea && typeof teatype.black_tea === 'string' && teatype.black_tea.toLowerCase().includes(searchTerm.toLowerCase())) ||
-            (teatype.green_tea && typeof teatype.green_tea === 'string' && teatype.green_tea.toLowerCase().includes(searchTerm.toLowerCase())) ||
-            (teatype.oolong_tea && typeof teatype.oolong_tea === 'string' && teatype.oolong_tea.toLowerCase().includes(searchTerm.toLowerCase())) ||
-            (teatype.white_tea && typeof teatype.white_tea === 'string' && teatype.white_tea.toLowerCase().includes(searchTerm.toLowerCase()))
+            (teatype[searchColumn] && teatype[searchColumn].toString().includes(searchTerm)) ||
+            (typeof teatype[searchColumn] === 'string' && teatype[searchColumn].toLowerCase().includes(searchTerm.toLowerCase()))
         );
     });
-    
 
     return (
         <div>
             <NavigationBar />
             {/* Navigation Bar */}
             <nav style={{ backgroundColor: '#3FC060' }} className="p-4">
-                <div className="container mx-auto">
-                    <div className=" mx-auto flex justify-center items-center">
-                        
-                        <div className="flex space-x-4">
-                            <Link to="/" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
-                            <Link to="/Teatypehome" className="text-gray-300 bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Tea Type</Link>
-                            <Link to="/teatypes/creates" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">create table</Link>
-                            <Link to="/pending-shipments" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">production machine availability</Link>
-                            <Link to="/TeaTypeReport" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">tea type report genarate</Link>
-                        </div>
+                <div className="container mx-auto flex justify-center items-center">
+                    <div className="flex space-x-4">
+                        <Link to="/" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
+                        <Link to="/Teatypehome" className="text-gray-300 bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Tea Type</Link>
+                        <Link to="/teatypes/creates" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Create Table</Link>
+                        <Link to="/pending-shipments" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Production Machine Availability</Link>
+                        <Link to="/TeaTypeReport" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Tea Type Report Generate</Link>
                     </div>
                 </div>
             </nav>
@@ -67,14 +65,30 @@ const Teatypehome = () => {
                         <MdOutlineAddBox className='text-sky-800 text-4xl' />
                     </Link>
                 </div>
-                <div className="mb-4">
+                <div className="mb-4 flex items-center">
                     <input
                         type="text"
-                        placeholder="Search by schedule no or tea type"
+                        placeholder="Search..."
                         value={searchTerm}
                         onChange={handleSearchChange}
-                        className="px-3 py-2 border border-gray-300 focus:outline-none focus:border-gray-500 rounded-md"
+                        className="px-3 py-2 border border-gray-300 focus:outline-none focus:border-gray-500 rounded-md mr-2"
                     />
+                    <div className="relative">
+                        <select
+                            value={searchColumn}
+                            onChange={handleSearchColumnChange}
+                            className="px-3 py-2 border border-gray-300 focus:outline-none focus:border-gray-500 rounded-md appearance-none"
+                        >
+                            <option value="Schedule_no">Schedule No</option>
+                            <option value="black_tea">Black Tea</option>
+                            <option value="green_tea">Green Tea</option>
+                            <option value="oolong_tea">Oolong Tea</option>
+                            <option value="white_tea">White Tea</option>
+                        </select>
+                        <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                            <svg className="w-4 h-4 fill-current text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fillRule="evenodd" d="M9.293 14.293a1 1 0 0 1-1.414-1.414L9.586 10 8.88 9.293a1 1 0 1 1 1.414-1.414l1 1a1 1 0 0 1 0 1.414l-1 1a1 1 0 0 1-.707.293z"/></svg>
+                        </div>
+                    </div>
                 </div>
                 {loading ? (
                     <Spinner />
@@ -84,10 +98,10 @@ const Teatypehome = () => {
                             <thead className="bg-gray-50">
                                 <tr>
                                     <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Schedule No</th>
-                                    <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>black_tea</th>
-                                    <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>green_tea</th>
-                                    <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>oolong_tea</th>
-                                    <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>white_tea</th>
+                                    <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Black Tea</th>
+                                    <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Green Tea</th>
+                                    <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Oolong Tea</th>
+                                    <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>White Tea</th>
                                     <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Actions</th>
                                 </tr>
                             </thead>
