@@ -77,7 +77,7 @@ import OrderHome from './pages/OrderHome';
 
 
 //*************Payment***************//
-
+import PaymentsHome from "./pages/PaymentsHome.jsx";
 
 
 const App = () => {
@@ -147,6 +147,9 @@ const App = () => {
       <Route path="/orders/details/:id" element={<ShowOrder/>}/>
       <Route path="/orders/edit/:id" element={<UpdateOrder/>}/>
       <Route path="/orders/delete/:id" element={<DeleteOrder/>}/>
+
+
+      <Route path = '/PaymentsHome' element={<PaymentsHome/>} />
 
 
      
