@@ -3,7 +3,7 @@ import { orders } from '../models/orderModel.js';
 
 const router=express.Router();
 
-//Route to save new orders
+
 router.post('/',async(request,response)=>{
     try{
         if(
@@ -46,13 +46,15 @@ router.get('/', async (request, response) => {
 
 router.get('/:id', async (request, response) => {
     try {
+        const { id } = request.params;
+        const Order = await orders.findById(id);
 
-        const{id}=request.params;
-        const Order=await orders.findById(id);
+        if (!Order) {
+            return response.status(404).json({ message: 'Order not found' });
+        }
         
         return response.status(200).json({
-            count:Order.length,
-            data:Order
+            data: Order
         });
     } catch (error) { 
         console.log(error.message);
@@ -60,7 +62,8 @@ router.get('/:id', async (request, response) => {
     }
 });
 
-//Route to update a book
+
+
 router.put('/:id',async (request, response) => {
     try {
         if(
