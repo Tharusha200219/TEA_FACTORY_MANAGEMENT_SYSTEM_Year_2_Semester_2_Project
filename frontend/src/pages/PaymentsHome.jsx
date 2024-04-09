@@ -173,7 +173,7 @@ const PaymentsHome = () => {
                     <table className='w-full border-collapse border border-gray-300 '>
                         <thead className='bg-gray-200'>
                             <tr>
-                                <th className='border border-gray-300 p-4 text-left'>Supplier ID</th>
+                                <th className='border border-gray-300 p-4 text-left'>Supplier Name</th>
                                 <th className='border border-gray-300 p-4 text-left'>Amount</th>
                                 <th className='border border-gray-300 p-4 text-left'>Method</th>
                                 <th className='border border-gray-300 p-4 text-left'>Start Date</th>
