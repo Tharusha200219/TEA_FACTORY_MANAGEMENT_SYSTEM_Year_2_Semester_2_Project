@@ -1,13 +1,13 @@
-import React, { useEffect,useState } from 'react';
-import BackButton from '../components/backbutton';
+import React, { useEffect, useState } from 'react';
+import BackButtonOrder from '../components/backbuttonOrder';
 import Spinner from '../components/Spinner';
 import axios from 'axios';
-import{useParams} from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+
 
 
 const ShowOrder = () => {
-  const [order, setOrder] = useState({});
+  const [Order, setOrder] = useState({});
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
 
@@ -22,49 +22,68 @@ const ShowOrder = () => {
         console.error(error);
         setLoading(false);
       });
-  }, []);
+  }, [id]);
   return (
-    <div className='p-4'>
-      <BackButton/>
-      <h1 className='text-3xl my-4'>Show Order</h1>
-      {loading?(
-        <Spinner/>
-      ):(
-        <div className='flex flex-col border-2 border-sky-400 rounded-x1 w-fit p-4'>
-           <div className='my-4'>
-            <span className='text-x1 mr-4 text-gray-500'>OrderId</span>
-            <span>{order._id}</span>
-            </div>
-          <div className='my-4'>
-            <span className='text-x1 mr-4 text-gray-500'>Orderno</span>
-            <span>{order.orderno}</span>
-            </div>
-            <div className='my-4'>
-            <span className='text-x1 mr-4 text-gray-500'>DueDate</span>
-            <span>{order.duedate}</span>
-            </div>
-            <div className='my-4'>
-            <span className='text-x1 mr-4 text-gray-500'>Quantity</span>
-            <span>{order.quantity}</span>
-            </div>
-            <div className='my-4'>
-            <span className='text-x1 mr-4 text-gray-500'>Category</span>
-            <span>{order.category}</span>
-            </div>
-            <div className='my-4'>
-            <span className='text-x1 mr-4 text-gray-500'>Create Time</span>
-            <span>{new Date(order.createdAt).toString()}</span>
-            </div>
-            <div className='my-4'>
-            <span className='text-x1 mr-4 text-gray-500'>Last Update Time</span>
-            <span>{new Date(order.updatedAt).toString()}</span>
-            </div>
+    <div style={styles.container}>
+      <BackButtonOrder />
+
+      {loading ? (
+        <Spinner />
+      ) : (
+        <div style={styles.orderdetails}>
+          <h2 style={styles.title}>Order Details</h2>
+          <div style={styles.infoItem}>
+            <strong>ID:</strong> {Order.orderno}
+          </div>
+          <div style={styles.infoItem}>
+            <strong>DueDate:</strong> {Order.duedate}
+          </div>
+          <div style={styles.infoItem}>
+            <strong>Quantity:</strong> {Order.quantity}
+          </div>
+          <div style={styles.infoItem}>
+            <strong>Category:</strong> {Order.category}
           </div>
 
-      
+          <div style={styles.infoItem}>
+            <strong>Created At:</strong> {new Date(Order.createdAt).toLocaleString()}
+          </div>
+          <div style={styles.infoItem}>
+            <strong>Updated At:</strong> {new Date(Order.updatedAt).toLocaleString()}
+          </div>
+
+        </div>
+
+
       )}
     </div>
   )
-}
+};
+const styles = {
+  container: {
+    padding: '20px',
+    background: '#f4f4f4',
+    minHeight: '100vh',
+  },
+  orderdetails: {
+    marginTop: '20px',
+    background: '#fff',
+    padding: '20px',
+    borderRadius: '8px',
+    boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+  },
+  title: {
+    fontSize: '28px',
+    fontWeight: 'bold',
+    marginBottom: '20px',
+    color: '#333',
+  },
+  infoItem: {
+    marginBottom: '10px',
+    fontSize: '16px',
+  },
+};
 
-export default ShowOrder
+
+
+export default ShowOrder;

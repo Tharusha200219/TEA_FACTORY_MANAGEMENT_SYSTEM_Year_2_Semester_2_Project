@@ -8,6 +8,7 @@ import Spinner from '../components/Spinner';
 import { useParams } from 'react-router-dom';
 import SupplierSearch from '../components/SupplierSearch';
 import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 import html2canvas from 'html2canvas';
 
 const SupplierHome = () => {
@@ -52,23 +53,33 @@ const SupplierHome = () => {
         }
     };
 
-    //report generate function
     const downloadPDF = () => {
-        const tableContent = document.getElementById('pdf-content');
-        html2canvas(tableContent)
-        .then((canvas) => {
-                const pdf = new jsPDF('p', 'mm', 'a4');
-                const imgData = canvas.toDataURL('image/png');
-                const imgWidth = 190; 
-                const imgHeight = canvas.height * imgWidth / canvas.width;
-                const marginLeft = 10;
-                const marginTop = 10;
-                
-                pdf.addImage(imgData, 'PNG', marginLeft, marginTop, imgWidth, imgHeight);
-                pdf.save('suppliers.pdf');
-            });
-    };
+        try {
+            const doc = new jsPDF();
+            const tableData = suppliers.map(supplier => [supplier.supplierid, supplier.name, supplier.address, supplier.contact, supplier.email]);
+    
+            doc.setFontSize(16);
+            const topic = 'Suppliers Report';
+            const topicX = 15;
+            const topicY = 15;
 
+            doc.text(topic, topicX, topicY);
+    
+            doc.autoTable({
+                head: [['Supplier id', 'Name', 'Address', 'ContactNo', 'Email']],
+                body: tableData,
+                margin: { top: 25 }, 
+                columnStyles: {
+                    0: { cellWidth: 30 } 
+                }
+            });
+
+            doc.save('Supplier Report.pdf');
+        } catch (error) {
+            console.error('Error generating PDF:', error);
+        }
+    };    
+    
     return (
         <div style={{ minHeight: '100vh', position: 'relative' }}>
             {/* Navigation Bar */}
@@ -120,16 +131,15 @@ const SupplierHome = () => {
                         <table className='w-full border-collapse border border-gray-300 '>
                             <thead className='bg-gray-200'>
                                 <tr>
-                                    <th className='border border-gray-300 p-4 text-left'>Supplier ID</th>
-                                    <th className='border border-gray-300 p-4 text-left'>Name</th>
-                                    <th className='border border-gray-300 p-4 text-left'>Address</th>
-                                    <th className='border border-gray-300 p-4'>ContactNo</th>
-                                    <th className='border border-gray-300 p-4'>Email</th>
-                                    <th className='border border-gray-300 p-4'>Actions</th>
+                                    <th className='border border-gray-300 p-4 text-left'>SUPPLIER ID</th>
+                                    <th className='border border-gray-300 p-4 text-left'>NAME</th>
+                                    <th className='border border-gray-300 p-4 text-left'>ADDRESS</th>
+                                    <th className='border border-gray-300 p-4 text-left'>CONTACT NO</th>
+                                    <th className='border border-gray-300 p-4 text-left'>EMAIL</th>
+                                    <th className='border border-gray-300 p-4 text-left'>ACTIONS</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {/* Table rows */}
                                 {(filteredSuppliers.length > 0 ? filteredSuppliers : suppliers).map((item, index) => (
                                     <tr key={item._id} className='border border-gray-300'>
                                         <td className='border border-gray-300 p-4'>{item.supplierid}</td>
@@ -139,14 +149,14 @@ const SupplierHome = () => {
                                         <td className='border border-gray-300 p-4'>{item.email}</td>
                                         <td className='border border-gray-300 p-4'>
                                             <div className='flex justify-center gap-x-4'>
-                                                <Link to={`/suppliers/details/${item._id}`} className='text-2xl text-green-800'>
-                                                    <BsInfoCircle />
+                                                <Link to={`/suppliers/details/${item._id}`} >
+                                                    <BsInfoCircle className='text-2xl text-green-800'/>
                                                 </Link>
-                                                <Link to={`/suppliers/edit/${item._id}`} className='text-2xl text-yellow-600'>
-                                                    <AiOutlineEdit />
+                                                <Link to={`/suppliers/edit/${item._id}`} >
+                                                    <AiOutlineEdit className='text-2xl text-yellow-600'/>
                                                 </Link>
-                                                <Link to={`/suppliers/delete/${item._id}`} className='text-2xl text-red-600'>
-                                                    <MdOutlineDelete />
+                                                <Link to={`/suppliers/delete/${item._id}`} >
+                                                    <MdOutlineDelete className='text-2xl text-red-600'/>
                                                 </Link>
                                             </div>
                                         </td>

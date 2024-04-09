@@ -1,5 +1,5 @@
 import React, { useState,useEffect} from 'react';
-import BackButton from '../components/backbutton';
+import BackButtonOrder from '../components/backbuttonOrder';
 import Spinner from '../components/Spinner';
 import axios from 'axios';
 import { useNavigate,useParams } from 'react-router-dom';
@@ -42,7 +42,7 @@ const UpdateOrder = () => {
     axios.put('http://localhost:5555/orders/${id}', data)
       .then(() => {
         setLoading(false);
-        navigate('/');
+        navigate('/OrderHome');
       })
       .catch((error) => {
         setLoading(false);
@@ -53,7 +53,7 @@ const UpdateOrder = () => {
 
   return (
     <div className='p-4'>
-      <BackButton />
+      <BackButtonOrder/>
       <h1 className=' text-3xl my-4'>Update Order</h1>
 
       {loading ? <Spinner /> : ''}
