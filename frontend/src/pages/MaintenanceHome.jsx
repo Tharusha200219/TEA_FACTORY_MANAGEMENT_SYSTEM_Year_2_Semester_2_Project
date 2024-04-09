@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { BsInfoCircle } from 'react-icons/bs';
 import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
+import NavigationBar from '../components/NavigationBar';
 
 const MaintenanceHome = () => {
     const [maintenances, setMaintenances] = useState([]);
@@ -38,24 +39,28 @@ const MaintenanceHome = () => {
     });
 
     return (
+        <div> {/* Navigation Bar */}
+        <NavigationBar />
+
         <div>
             {/* Navigation Bar */}
-            <nav className="bg-gray-800 p-4">
-                <div className="container mx-auto">
-                    <div className="flex justify-between items-center">
-                        <div className="text-white text-xl font-bold">
-                            Ever Green Tea
-                        </div>
-                        <div className="flex space-x-4">
-                            <Link to="/" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
-                            <Link to="/MaintenanceHome" className="text-gray-300   bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">maintenances</Link>
-                            <Link to="/maintenances/creates" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">create table</Link>
-                            <Link to="/pending-shipments" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Availability </Link>
-                            <Link to="/pending-new-stocks" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">maintenance report generate  </Link>
-                        </div>
-                    </div>
-                </div>
-            </nav>
+            <nav className="bg-green-500 p-4">
+    <div className="container mx-auto">
+        <div className="flex justify-between items-center">
+            <div className="text-white text-xl font-bold">
+                Ever Green Tea
+            </div>
+            <div className="flex space-x-4">
+                <Link to="/" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
+                <Link to="/MaintenanceHome" className="text-gray-300 bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">maintenances</Link>
+                <Link to="/maintenances/creates" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">create table</Link>
+                <Link to="/pending-shipments" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Availability </Link>
+                <Link to="/pending-new-stocks" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">maintenance report generate  </Link>
+            </div>
+        </div>
+    </div>
+</nav>
+
 
             {/* Main Content */}
             <div className='p-4'>
@@ -130,6 +135,7 @@ const MaintenanceHome = () => {
                     </div>
                 </div>
             </footer>
+        </div>
         </div>
     );
 }
