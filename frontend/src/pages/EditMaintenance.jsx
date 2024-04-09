@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Spinner from '../components/Spinner';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
+import NavigationBar from '../components/NavigationBar';
 
 const EditMaintenance = () => {
   const [machineNumber, setmachineNumber] = useState('');
@@ -54,6 +55,8 @@ const EditMaintenance = () => {
   };
 
   return (
+    <div> {/* Navigation Bar */}
+        <NavigationBar />
     <div className='flex flex-col items-center justify-center min-h-screen' style={{ backgroundColor: 'gray' }}>
       
       <div className='max-w-md mx-auto bg-white rounded-lg shadow-md p-8 mt-8'>
@@ -125,6 +128,7 @@ const EditMaintenance = () => {
           </button>
         </div>
       </div>
+    </div>
     </div>
   );
 };
