@@ -19,6 +19,7 @@
     "@mui/material": "^5.15.15",
     "@react-pdf/renderer": "^3.4.2",
     "axios": "^1.6.8",
+
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.8.2",
     "notistack": "^3.0.1",

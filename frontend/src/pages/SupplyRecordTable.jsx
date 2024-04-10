@@ -9,6 +9,7 @@ import SupplierSearch from '../components/SupplierSearch';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import html2canvas from 'html2canvas';
+import NavigationBar from '../components/NavigationBar';
 
 const SupplyRecordTable = () => {
     const [supplyrecords, setSupplyRecords] = useState([]); 
@@ -22,7 +23,11 @@ const SupplyRecordTable = () => {
         setLoading(true);
         axios.get('http://localhost:5555/supplyrecords')
             .then((response) => {
-                setSupplyRecords(response.data); 
+                const formattedRecords = response.data.map(record => ({
+                    ...record,
+                    date: record.date.split('T')[0] 
+                }));
+                setSupplyRecords(formattedRecords); 
                 setLoading(false);
             })
             .catch((error) => {
@@ -78,17 +83,13 @@ const SupplyRecordTable = () => {
     return (
         <div style={{ minHeight: '100vh', position: 'relative' }}>
             {/* Navigation Bar */}
+            <NavigationBar />
             <nav style={{ backgroundColor: '#3FC060' }} className="p-4">
-                <div className="container mx-auto">
-                    <div className="flex justify-between items-center">
-                        <div className="text-white text-xl font-bold">
-                            Ever Green Tea
-                        </div>
-                        <div className="flex space-x-4">
-                            <Link to="/" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
-                            <Link to="/SupplierHome" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Suppliers</Link>
-                            <Link to="/SupplyRecordTable" className="text-gray-300 bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Supply Records</Link>
-                        </div>
+                <div className="container mx-auto flex justify-center items-center">
+                    <div className="flex space-x-4">
+                        <Link to="/" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
+                        <Link to="/SupplierHome" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Suppliers</Link>
+                        <Link to="/SupplyRecordTable" className="text-gray-300 bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Supply Records</Link>
                     </div>
                 </div>
             </nav>
@@ -108,61 +109,60 @@ const SupplyRecordTable = () => {
                     </div>
                 </div>
 
-                 {/* SupplierSearch component */}
-                 <SupplierSearch
+                {/* SupplierSearch component */}
+                <SupplierSearch
                     searchInput={searchInput}
                     setSearchInput={setSearchInput}
                     searchType={searchType}
                     setSearchType={setSearchType}
-                    // handleButtonClick={handleButtonClick}
                     showSearchType={false}
                 />
 
-            {loading ? (
-                <Spinner />
-            ) : (
-                <div id="pdf-content" ref={tableRef}>
-                <table className='w-full border-collapse border border-gray-300'>
-                    <thead className='bg-gray-200'>
-                        <tr>
-                            <th className='border border-gray-300 p-4 text-left'>SUPPLIER</th>
-                            <th className='border border-gray-300 p-4 text-left'>DATE</th>
-                            <th className='border border-gray-300 p-4 text-left'>QUANTITY (KG)</th>
-                            <th className='border border-gray-300 p-4 text-left'>UNIT PRICE</th>
-                            <th className='bg-slate-300 border border-gray-300 p-4 text-left'>Cost</th>
-                            <th className='border border-gray-300 p-4 text-left'>ACTIONS</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {(filterdSupplyRecords.length > 0 ? filterdSupplyRecords : supplyrecords).map((item, index) => ( 
-                            <tr key={item._id} className='border border-gray-300'>
-                                <td className='border border-gray-300 p-4'>{item.supplier}</td>
-                                <td className='border border-gray-300 p-4'>{item.date}</td>
-                                <td className='border border-gray-300 p-4'>{item.quantity}</td>
-                                <td className='border border-gray-300 p-4'>{item.unitPrice}</td>
-                                <td className='border border-gray-300 p-4'>{item.quantity * item.unitPrice}</td>
-                                <td className='border border-gray-300 p-4'>
-                                    <div className='flex justify-center gap-x-4'>
-                                        <Link to={`/supplyrecords/details/${item._id}`} className='text-2xl text-green-800'>
-                                            <BsInfoCircle />
-                                        </Link>
-                                        <Link to={`/supplyrecords/edit/${item._id}`} className='text-2xl text-yellow-600'>
-                                            <AiOutlineEdit />
-                                        </Link>
-                                        <Link to={`/supplyrecords/delete/${item._id}`} className='text-2xl text-red-600'>
-                                            <MdOutlineDelete />
-                                        </Link>
-                                    </div>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-             </div>
-            )}
-        </div>
-         {/* Footer */}
-             <footer style={{ backgroundColor: '#3FC060', position: 'absolute', bottom: 0, left: 0, right: 0 }} className="text-white py-4">
+                {loading ? (
+                    <Spinner />
+                ) : (
+                    <div id="pdf-content" ref={tableRef}>
+                        <table className='w-full border-collapse border border-gray-300'>
+                            <thead className='bg-gray-200'>
+                                <tr>
+                                    <th className='border border-gray-300 p-4 text-left'>SUPPLIER</th>
+                                    <th className='border border-gray-300 p-4 text-left'>SUPPLY DATE</th>
+                                    <th className='border border-gray-300 p-4 text-left'>QUANTITY (KG)</th>
+                                    <th className='border border-gray-300 p-4 text-left'>UNIT PRICE</th>
+                                    <th className='bg-slate-300 border border-gray-300 p-4 text-left'>COST</th>
+                                    <th className='border border-gray-300 p-4 text-left'>ACTIONS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {(filterdSupplyRecords.length > 0 ? filterdSupplyRecords : supplyrecords).map((item, index) => ( 
+                                    <tr key={item._id} className='border border-gray-300'>
+                                        <td className='border border-gray-300 p-4'>{item.supplier}</td>
+                                        <td className='border border-gray-300 p-4'>{item.date}</td>
+                                        <td className='border border-gray-300 p-4'>{item.quantity}</td>
+                                        <td className='border border-gray-300 p-4'>{item.unitPrice}</td>
+                                        <td className='border border-gray-300 p-4'>{item.quantity * item.unitPrice}</td>
+                                        <td className='border border-gray-300 p-4'>
+                                            <div className='flex justify-center gap-x-4'>
+                                                <Link to={`/supplyrecords/details/${item._id}`} >
+                                                    <BsInfoCircle className='text-2xl text-green-800'/>
+                                                </Link>
+                                                <Link to={`/supplyrecords/edit/${item._id}`} >
+                                                    <AiOutlineEdit className='text-2xl text-yellow-600'/>
+                                                </Link>
+                                                <Link to={`/supplyrecords/delete/${item._id}`} >
+                                                    <MdOutlineDelete className='text-2xl text-red-600'/>
+                                                </Link>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                )}
+            </div>
+            {/* Footer */}
+            <footer style={{ backgroundColor: '#3FC060', position: 'absolute', bottom: 0, left: 0, right: 0 }} className="text-white py-4">
                 <div className="container mx-auto flex justify-between items-center">
                     <div>
                         <p>&copy; 1998-{new Date().getFullYear()} Ever Green Tea Factory. All rights reserved.</p>
