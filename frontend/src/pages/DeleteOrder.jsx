@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import backbutton from '../components/backbutton';
+import BackButtonOrder from '../components/backbuttonOrder';
 import { Link } from 'react-router-dom';
 import Spinner from '../components/Spinner';
 import { useNavigate,useParams } from 'react-router-dom';
@@ -17,7 +17,7 @@ const DeleteOrders = () => {
       .delete(`http://localhost:5555/orders/${id}`)
       .then(()=>{
         setLoading(false);
-        navigate('/');
+        navigate('/OrderHome');
       })
       .catch((error)=>{
         setLoading(false);
@@ -48,7 +48,7 @@ const DeleteOrders = () => {
         </div>
         </nav>
       <div className='p-4'>
-        <backbutton/>
+        <BackButtonOrder/>
         <h1 className='tet-3xl my-4'>Delete Order</h1>
         {loading?<Spinner/>:''}
         <div className='flex flex-col items-center border-2 border-sky-400 rounded-xl w-[600px] p-8 mx-auto'>
