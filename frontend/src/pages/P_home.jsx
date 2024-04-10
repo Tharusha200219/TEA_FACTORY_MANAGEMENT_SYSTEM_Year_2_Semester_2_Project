@@ -1,82 +1,126 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSun, faMoon } from '@fortawesome/free-solid-svg-icons';
 import NavigationBar from '../components/NavigationBar';
 
 const P_home = () => {
-  const [darkMode, setDarkMode] = useState(false);
-
-  const toggleMode = () => {
-    setDarkMode(!darkMode);
-  };
-
-  const modeStyle = darkMode ? darkStyles : lightStyles;
-  const icon = darkMode ? faSun : faMoon;
-
   return (
-    <div className="home-page" style={{...modeStyle.homePage}}>
+    <div>
       <NavigationBar />
-    
-
-      <div className="button-container" style={{...styles.buttonContainer, marginBottom: '20px', textAlign: 'center'}}>
-        <Link to="/Productionhome">
-          <button className="button" style={{...modeStyle.button, ...styles.button}}>Production Schedule</button>
-        </Link>
-        <Link to="/Teatypehome">
-          <button className="button" style={{...modeStyle.button, ...styles.button}}>Tea Type</button>
-        </Link>
+      <div style={styles.background}>
+        <div style={styles.container}>
+          <header style={styles.header}>
+            <h1 style={styles.title}>Production Planning and Scheduling</h1>
+          </header>
+          <main style={styles.main}>
+            <section style={styles.section}>
+              <h2 style={styles.sectionTitle}>Welcome to Production Planning and Scheduling System!</h2>
+              <p style={styles.sectionDescription}>
+                Welcome to the production planning and scheduling system. Our system helps streamline tea factory production process, optimize resource allocation, and improve overall efficiency.
+              </p>
+            </section>
+            <section style={styles.section}>
+              <h2 style={styles.sectionTitle}>Key Features</h2>
+              <div style={styles.featureList}>
+                <div style={styles.feature}>
+                  <img src="./public/images/tea_type.jpg" alt="Feature 1" style={styles.featureImage} />
+                  <h3 style={styles.featureTitle}>Tea Type Management</h3>
+                  <p style={styles.featureDescription}>Efficiently manage Tea types,.</p>
+                  <Link to="/Teatypehome" style={styles.btn}>ADD TEA TYPES</Link>
+                </div>
+                <div style={styles.feature}>
+                  <img src="./public/images/production.jpg" alt="Feature 2" style={styles.featureImage} />
+                  <h3 style={styles.featureTitle}>Production Scheduling</h3>
+                  <p style={styles.featureDescription}>Plan and schedule production tasks dynamically to meet demand while minimizing idle time and maximizing throughput.</p>
+                  <Link to="/Productionhome" style={styles.btn}>ADD PRODUCTION SCHEDULE</Link>
+                </div>
+                {/* Add more features as needed */}
+              </div>
+            </section>
+          </main>
+          <footer style={styles.footer}>
+            <p style={styles.footerText}>© 2024 Production Planning and Scheduling</p>
+          </footer>
+        </div>
       </div>
     </div>
   );
 };
 
-const lightStyles = {
-  homePage: {
-    color: '#000',
-    backgroundColor: '#fff',
-    backgroundImage: `url('./public/images/production_bc_light.jpg')`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    minHeight: '100vh', // Ensure the content fills the entire viewport height
-    display: 'flex', // Remove flex properties
-    flexDirection: 'column',
-  },
-  button: {
-    backgroundColor: '#007bff',
-    color: '#fff',
-    padding: '15px 30px',
-    borderRadius: '8px',
-    boxShadow: '2px 2px 5px rgba(0, 0, 0, 0.2)',
-    margin: '0 10px',
-  },
-};
-
-const darkStyles = {
-  homePage: {
-    color: '#fff',
-    backgroundColor: '#333',
-    backgroundImage: `url('./public/images/production_bc_dark.jpg')`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    minHeight: '100vh', // Ensure the content fills the entire viewport height
-    display: 'flex', // Remove flex properties
-    flexDirection: 'column',
-  },
-  button: {
-    backgroundColor: '#333',
-    color: '#fff',
-    padding: '15px 30px',
-    borderRadius: '8px',
-    boxShadow: '2px 2px 5px rgba(255, 255, 255, 0.2)',
-    margin: '0 10px',
-  },
-};
+export default P_home;
 
 const styles = {
-  buttonContainer: {
-    marginTop: '20px',
+  background: {
+    backgroundImage: 'url("./public/images/production-background.jpg")', // Replace with the path to your background image
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+    minHeight: '100vh',
+  },
+  container: {
+    maxWidth: '960px',
+    margin: '0 auto',
+    padding: '20px',
+  },
+  header: {
+    textAlign: 'center',
+    marginBottom: '40px',
+  },
+  title: {
+    fontSize: '2.5rem',
+    color: '#333',
+  },
+  main: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  section: {
+    marginBottom: '40px',
+  },
+  sectionTitle: {
+    fontSize: '1.8rem',
+    marginBottom: '20px',
+  },
+  sectionDescription: {
+    fontSize: '1.1rem',
+    color: '#555',
+    marginBottom: '20px',
+  },
+  btn: {
+    display: 'inline-block',
+    padding: '10px 20px',
+    backgroundColor: '#007bff',
+    color: '#fff',
+    textDecoration: 'none',
+    borderRadius: '5px',
+  },
+  btnPrimary: {
+    backgroundColor: '#007bff',
+  },
+  btnHover: {
+    backgroundColor: '#0056b3',
+  },
+  featureList: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  feature: {
+    flex: '1 1 300px',
+    marginRight: '20px',
+    marginBottom: '20px',
+  },
+  featureImage: {
+    width: '100%',
+    borderRadius: '5px',
+  },
+  featureTitle: {
+    fontSize: '1.2rem',
+    marginTop: '10px',
+  },
+  featureDescription: {
+    color: '#555',
+  },
+  footer: {
+    marginTop: '40px',
+    textAlign: 'center',
+    color: '#777',
   },
 };
-
-export default P_home;
