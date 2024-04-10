@@ -96,7 +96,7 @@ const Editproductions = () => {
               <label htmlFor='Production_date' className='text-lg text-gray-600'>Production Date</label>
               <input
                 id='Production_date'
-                type='date'
+                type='text'
                 value={Production_date}
                 onChange={(e) => setProduction_date(e.target.value)}
                 className='input-field'

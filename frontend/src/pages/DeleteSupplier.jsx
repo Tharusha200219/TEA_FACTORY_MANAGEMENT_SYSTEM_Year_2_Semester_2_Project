@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Spinner from '../components/Spinner';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
+import BackButtonSupplierHome from '../components/backbtnSupplierHome';
 
 const DeleteSupplier = () => {
   const [loading, setLoading] = useState(false);
@@ -25,12 +26,15 @@ const DeleteSupplier = () => {
   };
 
   return (
-    <div className='p-4'>
-      {/* <BackButton /> */}
-      <h1 className='text-3xl my-4'>Delete Supplier</h1>
+    <div className='mt-10 mx-3'>
+      <div className='m-5'>
+         <BackButtonSupplierHome/>
+      </div>
+    <div className='p-30'>
       {loading ? <Spinner /> : ''}
-      <div className='flex flex-col items-center border-2 border-sky-400 rounded-xl w-[600px] p-8 mx-auto shadow-lg'>
-        <h3 className='text-2xl'>Are you sure you want to delete this Supplier?</h3>
+      <div className='flex flex-col items-center border-2 border-sky-400 rounded-xl w-[600px] p-8 mx-auto shadow-lg mt-8'>
+      <h1 className='text-3xl font-bold text-center my-4'>Delete Supplier</h1>
+        <h3 className='text-2xl mt-8'>Are you sure you want to delete this Supplier?</h3>
         <button
           onClick={handleDeleteSupplier}
           className='bg-red-500 text-white p-2 mt-4 rounded-md hover:bg-red-600 transition-all'
@@ -38,6 +42,7 @@ const DeleteSupplier = () => {
         Confirm
         </button>
       </div>
+    </div>
     </div>
   );
 };

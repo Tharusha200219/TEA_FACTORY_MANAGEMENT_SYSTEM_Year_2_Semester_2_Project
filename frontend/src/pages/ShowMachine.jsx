@@ -29,7 +29,7 @@ const Showmachine = () => {
         <Spinner />
       ) : (
         <div style={styles.productiondetails}>
-          <h2 style={styles.title}>production Details</h2>
+          <h2 style={styles.title}>Machine Details</h2>
           <div style={styles.infoItem}>
             <strong>ID:</strong> {machines._id}
           </div>
