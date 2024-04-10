@@ -9,13 +9,13 @@ const MaintenanceHome = () => {
             <div style={styles.background}>
                 <div style={styles.container}>
                     <header style={styles.header}>
-                        <h1 style={styles.title}>Machine and Equipment Maintenance</h1>
+                        <h1 style={styles.title}>Machine and Maintenance Management</h1>
                     </header>
                     <main style={styles.main}>
                         <section style={styles.section}>
-                            <h2 style={styles.sectionTitle}>Welcome to Machine and Equipment Maintenance System!</h2>
+                            <h2 style={styles.sectionTitle}>Welcome to Machine and  Maintenance System!</h2>
                             <p style={styles.sectionDescription}>
-                                Welcome to the machine and equipment maintenance system. Our system helps streamline maintenance tasks, manage equipment downtime, and improve overall equipment efficiency.
+                                Welcome to the machine and  maintenance system. Our system helps streamline maintenance tasks, manage equipment downtime, and improve overall equipment efficiency.
                             </p>
                         </section>
                         <section style={styles.section}>
@@ -23,22 +23,22 @@ const MaintenanceHome = () => {
                             <div style={styles.featureList}>
                                 <div style={styles.feature}>
                                     <img src="./public/images/machine.jpg" alt="Feature 1" style={styles.featureImage} />
-                                    <h3 style={styles.featureTitle}>Machine Maintenance</h3>
+                                    <h3 style={styles.featureTitle}>Machine Management</h3>
                                     <p style={styles.featureDescription}>Efficiently manage machine maintenance schedules and tasks.</p>
-                                    <Link to="/MachineHome" style={styles.btn}>Schedule Maintenance</Link>
+                                    <Link to="/MachineHome" style={styles.btn}>Schedule Machine</Link>
                                 </div>
                                 <div style={styles.feature}>
                                     <img src="./public/images/equipment.jpg" alt="Feature 2" style={styles.featureImage} />
-                                    <h3 style={styles.featureTitle}>Equipment Maintenance</h3>
+                                    <h3 style={styles.featureTitle}> Maintenance Management</h3>
                                     <p style={styles.featureDescription}>Manage equipment maintenance procedures and checklists.</p>
-                                    <Link to="/MaintenanceHome" style={styles.btn}>Manage Equipment</Link>
+                                    <Link to="/MaintenanceHome" style={styles.btn}>Schedule Maintenance</Link>
                                 </div>
                                 {/* Add more features as needed */}
                             </div>
                         </section>
                     </main>
                     <footer style={styles.footer}>
-                        <p style={styles.footerText}>© {new Date().getFullYear()} Machine and Equipment Maintenance</p>
+                        <p style={styles.footerText}>© {new Date().getFullYear()} Machine and  Maintenance</p>
                     </footer>
                 </div>
             </div>
