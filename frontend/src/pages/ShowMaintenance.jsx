@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
 import Spinner from '../components/Spinner';
+import NavigationBar from '../components/NavigationBar';
 
 const Showmaintenance = () => {
   const [maintenances, setMaintenance] = useState({});
@@ -23,6 +24,9 @@ const Showmaintenance = () => {
   }, [id]);
 
   return (
+    <div> {/* Navigation Bar */}
+    <NavigationBar />
+
     <div style={styles.container}>
       
       {loading ? (
@@ -58,6 +62,7 @@ const Showmaintenance = () => {
 
         </div>
       )}
+    </div>
     </div>
   );
 };

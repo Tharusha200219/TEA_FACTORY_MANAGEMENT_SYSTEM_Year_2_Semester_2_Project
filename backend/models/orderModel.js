@@ -6,17 +6,17 @@ const orderSchema = mongoose.Schema(
             type:String,
             required:true,
         },
-        duedate : {
+        duedate: {
             type : String,
             required : true,
         },
 
-        quantity : {
+        quantity: {
             type : Number,
             required : true,
         },
         
-        category : {
+        category: {
             type : String,
             required : true,
         },

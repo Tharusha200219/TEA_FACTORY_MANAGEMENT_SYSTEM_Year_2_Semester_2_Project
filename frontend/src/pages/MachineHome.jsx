@@ -5,10 +5,12 @@ import { Link } from 'react-router-dom';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { BsInfoCircle } from 'react-icons/bs';
 import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
+import NavigationBar from '../components/NavigationBar';
 
 const MachineHome = () => {
     const [machines, setMachines] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
         setLoading(true);
@@ -23,6 +25,18 @@ const MachineHome = () => {
                 setLoading(false);
             });
     }, []);
+
+    // Function to handle search input change
+    const handleSearchChange = (event) => {
+        setSearchQuery(event.target.value);
+    };
+
+    // Filter machines based on search query
+    const filteredMachines = machines.filter((machine) => {
+        return Object.values(machine).some((value) =>
+            value.toString().toLowerCase().includes(searchQuery.toLowerCase())
+        );
+    });
 
     const updateStatus = (machineId, status) => {
         axios.put(`http://localhost:5555/machines/${machineId}`, { Status: status })
@@ -44,29 +58,36 @@ const MachineHome = () => {
 
     return (
         <div>
+            <NavigationBar />
             {/* Navigation Bar */}
-            <nav className="bg-gray-800 p-4">
-                <div className="container mx-auto">
-                    <div className="flex justify-between items-center">
-                        <div className="text-white text-lg font-bold"> {/* Reduced text size */}
-                            Ever Green Tea
-                        </div>
-                        <div className="flex space-x-4">
-                            <Link to="/" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
-                            <Link to="/MachineHome" className="text-gray-300   bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">machines</Link>
-                            <Link to="/machines/creates" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">create table</Link>
-                            <Link to="/pending-shipments" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Availability </Link>
-                            <Link to="/pending-new-stocks" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">machine report generate  </Link>
-                        </div>
+            <nav className="bg-green-500 p-4"> {/* Change bg-gray-800 to bg-green-500 */}
+                <div className="container mx-auto flex justify-center">
+                    <div className="flex space-x-4">
+                        <Link to="/" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
+                        <Link to="/MachineHome" className="text-gray-300 bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">machines</Link>
+                        <Link to="/machines/creates" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">create table</Link>
+                        <Link to="/pending-shipments" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Availability </Link>
+                        <Link to="/MachineReport" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">machine report generate  </Link>
                     </div>
                 </div>
             </nav>
+
+
             <div className='p-4'>
                 <div className='flex justify-between items-center'>
                     <h1 className='text-2xl my-8'>Machine List</h1> {/* Reduced text size */}
                     <Link to='/books/create'>
                         <MdOutlineAddBox className='text-sky-800 text-5xl' /> {/* Increased icon size */}
                     </Link>
+                </div>
+                <div className="flex items-center mb-4">
+                    <input
+                        type="text"
+                        placeholder="Search..."
+                        value={searchQuery}
+                        onChange={handleSearchChange}
+                        className="border border-gray-300 rounded-md px-3 py-1 mr-2"
+                    />
                 </div>
                 {loading ? (
                     <Spinner />
@@ -85,7 +106,7 @@ const MachineHome = () => {
                                 </tr>
                             </thead>
                             <tbody className="bg-white divide-y divide-gray-200">
-                                {machines.map((machine, index) => (
+                                {filteredMachines.map((machine, index) => (
                                     <tr key={machine._id} className='h-10'> {/* Increased row height */}
                                         <td className='px-4 py-4 whitespace-nowrap'>{machine.machineNumber}</td> {/* Reduced padding */}
                                         <td className='px-4 py-4 whitespace-nowrap'>{machine.machineName}</td> {/* Reduced padding */}

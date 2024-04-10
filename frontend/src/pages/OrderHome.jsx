@@ -5,15 +5,18 @@ import { Link } from 'react-router-dom';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { BsInfoCircle } from 'react-icons/bs';
 import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
-
+import OrderSearchBar from '../components/OrderSearchBar';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 const OrderHome = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [searchInput, setSearchInput] = useState('');
+  const [filteredOrders, setFilteredOrders] = useState([]);
 
   useEffect(() => {
     setLoading(true);
-
     axios.get(`http://localhost:5555/orders`)
       .then((response) => {
         setOrders(response.data.data);
@@ -23,12 +26,46 @@ const OrderHome = () => {
         console.error('Error fetching data:', error);
         setLoading(false);
       });
-
   }, []);
+
+  const handleSearch = (input) => {
+    setSearchInput(input);
+    const filtered = orders.filter(order => order.orderno.includes(input));
+    setFilteredOrders(filtered);
+  };
+
+  const handleButtonClick = () => {
+    const exactMatch = orders.filter(order => order.orderno === searchInput);
+    setFilteredOrders(exactMatch.length > 0 ? exactMatch : []);
+  };
+  const handleButtonOnClick = () => {
+    try {
+      const doc = new jsPDF();
+      const tableData = orders.map(orders => [orders.orderno, orders.duedate, orders.quantity, orders.category]);
+      
+      doc.autoTable({
+        head: [['Order id', 'Due date', 'Quantity', 'Category']],
+        body: tableData,
+      });
+  
+      doc.save('Order report.pdf');
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+      
+    }
+  };
+  
+
+  useEffect(() => {
+    if (searchInput === '') {
+      setFilteredOrders([]);
+    }
+  }, [searchInput]);
+
+  
 
   return (
     <div>
-      {/* Navigation Bar */}
       <nav className="bg-gray-800 p-4">
         <div className="container mx-auto">
           <div className="flex justify-between items-center">
@@ -45,39 +82,47 @@ const OrderHome = () => {
         </div>
       </nav>
 
-      {/* Main Content */}
       <div className='p-4'>
         <div className='flex justify-between items-center'>
-          <h1 className='text-3xl my-8'>Order List</h1>
-          <Link to='/CreateOrder'>
+          <h1 className='text-3xl my-8'>Orders List</h1>
+          <Link to='/orders/create'>
             <MdOutlineAddBox className='text-sky-800 text-4xl' />
           </Link>
         </div>
+        <div className='flex items-baseline justify-between'>
+          <div style={{ flex: '1' }}>
+            <OrderSearchBar
+              searchInput={searchInput}
+              setSearchInput={handleSearch}
+              handleSearch={handleSearch}
+              handleButtonClick={handleButtonClick}
+            />
+          </div>
+          <button onClick={handleButtonOnClick} className="text-white bg-blue-500 hover:bg-blue-700 px-3 py-2 rounded-md text-sm font-medium">Report Generate</button>
 
+        </div>
         {loading ? (
           <Spinner />
         ) : (
-          <table className='w-full border-separate border-spacing-2'>
+          <table className='w-full border-collapse'>
             <thead className='bg-gray-200'>
               <tr>
-                <th className='border border-slate-600 rounded-md'>Order id</th>
-                <th className='border border-slate-600 rounded-md'>Order no</th>
-                <th className='border border-slate-600 rounded-md'>Due date</th>
-                <th className='border border-slate-600 rounded-md'>Quantity</th>
-                <th className='border border-slate-600 rounded-md'>Category</th>
-
+                <th className='border border-gray-400 rounded-md'>Order id</th>
+                <th className='border border-gray-400 rounded-md'>Due date</th>
+                <th className='border border-gray-400 rounded-md'>Quantity</th>
+                <th className='border border-gray-400 rounded-md'>Category</th>
+                <th className='border border-gray-400 rounded-md'>Actions</th>
               </tr>
             </thead>
             <tbody>
-              {orders.map((order, index) => (
+              {(searchInput === '' ? orders : filteredOrders).map((order, index) => (
                 <tr key={order._id} className='h-8'>
-                  <td className='border border-slate-700 rounded-md text-center'>{index + 1}</td>
-                  <td className='border border-slate-700 rounded-md text-center'>{order.orderno}</td>
-                  <td className='border border-slate-700 rounded-md text-center'>{order.duedate}</td>
-                  <td className='border border-slate-700 rounded-md text-center'>{order.quantity}</td>
-                  <td className='border border-slate-700 rounded-md text-center'>{order.category}</td>
-                  <td className='border border-slate-700 rounded-md text-center'>
-                    <div className='flex justify-center gap-x-4'>
+                  <td className='border border-gray-400 rounded-md text-center'>{order.orderno}</td>
+                  <td className='border border-gray-400 rounded-md text-center'>{order.duedate}</td>
+                  <td className='border border-gray-400 rounded-md text-center'>{order.quantity}</td>
+                  <td className='border border-gray-400 rounded-md text-center'>{order.category}</td>
+                  <td className='border border-gray-400 rounded-md text-center'>
+                    <div className='flex justify-center space-x-4'>
                       <Link to={`/orders/details/${order._id}`}>
                         <BsInfoCircle className='text-2xl text-green-800' />
                       </Link>
@@ -91,13 +136,11 @@ const OrderHome = () => {
                   </td>
                 </tr>
               ))}
-
             </tbody>
           </table>
         )}
       </div>
 
-      {/* Footer */}
       <footer className="bg-gray-800 text-white py-4 mt-8">
         <div className="container mx-auto flex justify-between items-center">
           <div>
@@ -105,7 +148,7 @@ const OrderHome = () => {
             <p>Contact: 0112787678</p>
           </div>
           <div>
-            {/* Add any additional footer content here */}
+            
           </div>
         </div>
       </footer>
