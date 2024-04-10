@@ -61,7 +61,7 @@ const CreateMachine = () => {
 
                     <div className='space-y-4'>
                         <div className='mb-4'>
-                            <label htmlFor='machineNumber' className='text-lg text-gray-600'>machineNumber</label>
+                            <label htmlFor='machineNumber' className='text-lg text-gray-600'>Machine Number</label>
                             <input
                                 id='machineNumber'
                                 type='number'
@@ -72,7 +72,7 @@ const CreateMachine = () => {
                         </div>
 
                         <div className='mb-4'>
-                            <label htmlFor='machineName' className='text-lg text-gray-600'>machineName</label>
+                            <label htmlFor='machineName' className='text-lg text-gray-600'>Machine Name</label>
                             <input
                                 id='machineName'
                                 type='text'
@@ -83,7 +83,7 @@ const CreateMachine = () => {
                         </div>
 
                         <div className='mb-4'>
-                            <label htmlFor='machineType' className='text-lg text-gray-600'>machineType</label>
+                            <label htmlFor='machineType' className='text-lg text-gray-600'>Machine Type</label>
                             <input
                                 id='machineType'
                                 type='text'
@@ -94,7 +94,7 @@ const CreateMachine = () => {
                         </div>
 
                         <div className='mb-4'>
-                            <label htmlFor='installationDate' className='text-lg text-gray-600'>installationDate</label>
+                            <label htmlFor='installationDate' className='text-lg text-gray-600'>Installation Date</label>
                             <input
                                 id='installationDate'
                                 type='date'
@@ -105,7 +105,7 @@ const CreateMachine = () => {
                         </div>
 
                         <div className='mb-4'>
-                            <label htmlFor='warrentyInformation' className='text-lg text-gray-600'>warrentyInformation</label>
+                            <label htmlFor='warrentyInformation' className='text-lg text-gray-600'>Warrenty Information</label>
                             <input
                                 id='warrentyInformation'
                                 type='text'
