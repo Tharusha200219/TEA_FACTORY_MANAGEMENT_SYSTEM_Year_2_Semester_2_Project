@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Spinner from '../components/Spinner';
 import { useNavigate } from 'react-router-dom';
+import NavigationBar from '../components/NavigationBar';
+import BackButtonSupplierHome from '../components/backbtnSupplierHome';
 
 const CreateSupplier = () => {
     const [supplierid, setSupplierID] = useState('');
@@ -46,7 +48,6 @@ const CreateSupplier = () => {
         return '';
     };
     
-
     const validateContact = (value) => {
         if (!value.trim()) {
             return 'Contact number is required';
@@ -73,13 +74,63 @@ const CreateSupplier = () => {
             ...prevErrors,
             [name]: error,
         }));
+        console.log(errors);
     };
 
+    const validate = () => {
+        const errors = {};
+
+        if (!supplierid.trim()) {
+            errors.supplierid = 'Supplier ID is required';
+        }
+        if (!name.trim()) {
+            errors.name = 'Name is required';
+        }
+        if (!address.trim()) {
+            errors.address = 'Address is required';
+        }
+        if (!contact.trim()) {
+            errors.contact = 'Contact number is required';
+        }
+        if (!email.trim()) {
+            errors.email = 'Email is required';
+        }
+
+        setErrors((prevErrors) => ({
+            ...prevErrors,
+            ...errors
+        }));
+        console.log(errors);
+    };
+
+    // const generateUniqueSupplierID = () => {
+    //     axios.get('http://localhost:5555/suppliers')
+    //         .then((response) => {
+    //             const existingSupplierIDs = response.data.data.map(item => item.supplierid);
+    //             const availableNumbers = Array.from({ length: 1000 }, (_, index) => index + 1);
+    //             const availableSupplierIDs = availableNumbers.map(num => `SID${num.toString().padStart(4, '0')}`)
+    //                 .filter(id => !existingSupplierIDs.includes(id));
+
+    //             if (availableSupplierIDs.length > 0) {
+    //                 setSupplierID(availableSupplierIDs[0]);
+    //             } else {
+    //                 alert('All supplier IDs from SID0001 to SID1000 are used.');
+    //             }
+    //         })
+    //         .catch((error) => {
+    //             console.log(error);
+    //         });
+    // };
+
+    // useEffect(() => {
+    //     generateUniqueSupplierID();
+    // }, []);
+
     const handleSaveSupplier = () => {
+        validate();
         const isValid = Object.values(errors).every((error) => error === '');
 
         if (isValid) {
-            
             const data = { 
                 supplierid,
                 name,
@@ -95,18 +146,21 @@ const CreateSupplier = () => {
                 })
                 .catch(error => {
                     setLoading(false);
-                    alert('An error occurred');
                     console.error(error);
-                });
-                    
+                });          
         }
     };
 
     return (
-        <div className='p-4'>
-            <h1 className='text-3xl my-4'>Add New Supplier</h1>
+        <div className='bg-gray-100 min-h-screen'>
+            <NavigationBar />
+            <div className='m-2'>
+                <BackButtonSupplierHome/>
+            </div>
+            
             {loading && <Spinner />}
-            <div className='flex flex-col border-2 border-sky-400 rounded-xl w-[600px] p-4 mx-auto'>
+            <div className='flex flex-col border-2 border-sky-400 rounded-xl w-[600px] p-4 mx-auto mt-8'>
+            <h1 className='text-3xl font-bold text-center my-4'>Add New Supplier</h1>
                 <div className='px-4 my-2'>
                     <label className='text-xl mr-4 text-gray-500'>Supplier ID</label>
                     <input

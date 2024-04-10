@@ -10,6 +10,7 @@ import SupplierSearch from '../components/SupplierSearch';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import html2canvas from 'html2canvas';
+import NavigationBar from '../components/NavigationBar';
 
 const SupplierHome = () => {
     const [suppliers, setSuppliers] = useState([]);
@@ -83,19 +84,15 @@ const SupplierHome = () => {
     return (
         <div style={{ minHeight: '100vh', position: 'relative' }}>
             {/* Navigation Bar */}
+            <NavigationBar />
             <nav style={{ backgroundColor: '#3FC060' }} className="p-4">
-                <div className="container mx-auto">
-                    <div className="flex justify-between items-center">
-                        <div className="text-white text-xl font-bold">
-                            Ever Green Tea
-                        </div>
-                        <div className="flex space-x-4">
+            <div className="container mx-auto flex justify-center items-center">
+                    <div className="flex space-x-4">
                             <Link to="/" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
                             <Link to="/SupplierHome" className="text-gray-300 bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Suppliers</Link>
                             <Link to="/SupplyRecordTable" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Supply Records</Link>
                         </div>
                     </div>
-                </div>
             </nav>
 
             <div className='p-16' style={{ paddingBottom: '100px' }}>
@@ -119,7 +116,6 @@ const SupplierHome = () => {
                     setSearchInput={setSearchInput}
                     searchType={searchType}
                     setSearchType={setSearchType}
-                    // handleButtonClick={handleButtonClick}
                     showSearchType={true}
                 />
 
