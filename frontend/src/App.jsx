@@ -39,17 +39,19 @@ import TeaTypeReport from "./pages/TeaTypeReport.jsx";
 
 
 /*********Supplier***********/
+import SupplierHome from './pages/SupplierHome';
 import CreateSupplier from './pages/CreateSupplier';
 import ShowSupplier from './pages/ShowSupplier';
 import EditSupplier from './pages/EditSupplier';
 import DeleteSupplier from './pages/DeleteSupplier';
+import SupplyRecordTable from './pages/SupplyRecordTable';
 import CreateSupplyRecord from './pages/CreateSupplyRecord';
 import ShowSupplyRecord from './pages/ShowSupplyRecord';
 import EditSupplyRecord from './pages/EditSupplyRecord';
 import DeleteSupplyRecord from './pages/DeleteSupplyRecord';
 // import SupplierTable from './pages/SupplierTable';
-import SupplyRecordTable from './pages/SupplyRecordTable';
-import SupplierHome from './pages/SupplierHome';
+
+
 
 
 
@@ -121,7 +123,6 @@ const App = () => {
 
 
 
-
       <Route path="/SupplierHome" element={<SupplierHome />} />
       {/* <Route path="/SupplierTable" element={<SupplierTable />} />  */}
       <Route path="/suppliers/create" element={<CreateSupplier />} />
@@ -134,16 +135,14 @@ const App = () => {
       <Route path="/supplyrecords/details/:id" element={<ShowSupplyRecord />} />
       <Route path="/supplyrecords/edit/:id" element={<EditSupplyRecord />} />
       <Route path="/supplyrecords/delete/:id" element={<DeleteSupplyRecord />} />
+
+
       
       <Route path="/OrderHome" element={<OrderHome/>}/>
       <Route path="/orders/create" element={<CreateOrder/>}/>
       <Route path="/orders/details/:id" element={<ShowOrder/>}/>
       <Route path="/orders/edit/:id" element={<UpdateOrder/>}/>
       <Route path="/orders/delete/:id" element={<DeleteOrder/>}/>
-
-
-
-
 
 
 
