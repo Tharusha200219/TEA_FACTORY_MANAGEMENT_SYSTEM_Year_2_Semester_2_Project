@@ -40,6 +40,7 @@ import TeaTypeReport from "./pages/TeaTypeReport.jsx";
 
 
 /*********Supplier***********/
+import S_home from "./pages/S_home.jsx";
 import SupplierHome from './pages/SupplierHome';
 import CreateSupplier from './pages/CreateSupplier';
 import ShowSupplier from './pages/ShowSupplier';
@@ -145,7 +146,7 @@ const App = () => {
 
 
 
-
+      <Route path="/S_home" element={<S_home />} />
       <Route path="/SupplierHome" element={<SupplierHome />} />
       {/* <Route path="/SupplierTable" element={<SupplierTable />} />  */}
       <Route path="/suppliers/create" element={<CreateSupplier />} />
