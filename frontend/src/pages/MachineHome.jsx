@@ -10,6 +10,7 @@ import NavigationBar from '../components/NavigationBar';
 const MachineHome = () => {
     const [machines, setMachines] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
 
     useEffect(() => {
         setLoading(true);
@@ -24,6 +25,18 @@ const MachineHome = () => {
                 setLoading(false);
             });
     }, []);
+
+    // Function to handle search input change
+    const handleSearchChange = (event) => {
+        setSearchQuery(event.target.value);
+    };
+
+    // Filter machines based on search query
+    const filteredMachines = machines.filter((machine) => {
+        return Object.values(machine).some((value) =>
+            value.toString().toLowerCase().includes(searchQuery.toLowerCase())
+        );
+    });
 
     const updateStatus = (machineId, status) => {
         axios.put(`http://localhost:5555/machines/${machineId}`, { Status: status })
@@ -54,7 +67,7 @@ const MachineHome = () => {
                         <Link to="/MachineHome" className="text-gray-300 bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">machines</Link>
                         <Link to="/machines/creates" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">create table</Link>
                         <Link to="/pending-shipments" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Availability </Link>
-                        <Link to="/pending-new-stocks" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">machine report generate  </Link>
+                        <Link to="/MachineReport" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">machine report generate  </Link>
                     </div>
                 </div>
             </nav>
@@ -66,6 +79,15 @@ const MachineHome = () => {
                     <Link to='/books/create'>
                         <MdOutlineAddBox className='text-sky-800 text-5xl' /> {/* Increased icon size */}
                     </Link>
+                </div>
+                <div className="flex items-center mb-4">
+                    <input
+                        type="text"
+                        placeholder="Search..."
+                        value={searchQuery}
+                        onChange={handleSearchChange}
+                        className="border border-gray-300 rounded-md px-3 py-1 mr-2"
+                    />
                 </div>
                 {loading ? (
                     <Spinner />
@@ -84,7 +106,7 @@ const MachineHome = () => {
                                 </tr>
                             </thead>
                             <tbody className="bg-white divide-y divide-gray-200">
-                                {machines.map((machine, index) => (
+                                {filteredMachines.map((machine, index) => (
                                     <tr key={machine._id} className='h-10'> {/* Increased row height */}
                                         <td className='px-4 py-4 whitespace-nowrap'>{machine.machineNumber}</td> {/* Reduced padding */}
                                         <td className='px-4 py-4 whitespace-nowrap'>{machine.machineName}</td> {/* Reduced padding */}
