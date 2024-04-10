@@ -13,7 +13,7 @@ const HomePage = () => {
                 <div className="text-center text-white">
                     <h1 className="text-4xl font-bold mb-8">Welcome to Ever Green Tea</h1>
                     <div className="space-y-4">
-                        <Link to="/inventorys">
+                        <Link to="/I_home">
                             <button
                                 className="bg-white text-black font-bold py-2 px-4 rounded mr-4 hover:bg-gray-200"
                                 style={{
@@ -35,7 +35,7 @@ const HomePage = () => {
                                 Production
                             </button>
                         </Link>
-                        <Link to="/MachineHome">
+                        <Link to="/M_home">
                             <button
                                 className="bg-white text-black font-bold py-2 px-4 rounded mr-4 hover:bg-gray-200"
                                 style={{
@@ -46,7 +46,7 @@ const HomePage = () => {
                                 Machine
                             </button>
                         </Link>
-                        <Link to="/SupplierHome">
+                        <Link to="/S_home">
                             <button
                                 className="bg-white text-black font-bold py-2 px-4 rounded mr-4 hover:bg-gray-200"
                                 style={{
@@ -57,7 +57,7 @@ const HomePage = () => {
                                 Supplier
                             </button>
                         </Link>
-                        <Link to="/OrderHome">
+                        <Link to="/O_home">
                             <button
                                 className="bg-white text-black font-bold py-2 px-4 rounded mr-4 hover:bg-gray-200"
                                 style={{
@@ -68,7 +68,7 @@ const HomePage = () => {
                                 Order
                             </button>
                         </Link>
-                        <Link to="/Vehiclehome">
+                        <Link to="/V_home">
                             <button
                                 className="bg-white text-black font-bold py-2 px-4 rounded mr-4 hover:bg-gray-200"
                                 style={{
@@ -76,22 +76,12 @@ const HomePage = () => {
                                     transition: 'transform 0.3s ease'
                                 }}
                             >
-                                Vehiclehome
-                            </button>
-                        </Link>
-                        <Link to="/MaintenanceHome">
-                            <button
-                                className="bg-white text-black font-bold py-2 px-4 rounded mr-4 hover:bg-gray-200"
-                                style={{
-                                    animation: 'fadeIn 0.5s ease forwards',
-                                    transition: 'transform 0.3s ease'
-                                }}
-                            >
-                                Maintenance
+                                Vehicle
                             </button>
                         </Link>
                         
-                        <Link to="/PaymentsHome">
+                        
+                        <Link to="/Py_home">
                             <button
                                 className="bg-white text-black font-bold py-2 px-4 rounded mr-4 hover:bg-gray-200"
                                 style={{
@@ -100,6 +90,17 @@ const HomePage = () => {
                                 }}
                             >
                                 Payments
+                            </button>
+                        </Link>
+                        <Link to="/E_home">
+                            <button
+                                className="bg-white text-black font-bold py-2 px-4 rounded mr-4 hover:bg-gray-200"
+                                style={{
+                                    animation: 'fadeIn 0.5s ease forwards',
+                                    transition: 'transform 0.3s ease'
+                                }}
+                            >
+                                employee
                             </button>
                         </Link>
                     </div>
