@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Spinner from '../components/Spinner';
+import BackButtonSupplyRecords from '../components/backbtnSupplyRecordTable';
 
 const ShowSupplyRecord = () => {
     const [supplyRecord, setSupplyRecord] = useState({});
@@ -23,7 +24,10 @@ const ShowSupplyRecord = () => {
     
     return (
         <div style={styles.container}>
-            {/* <BackButton/> */}
+            <div className='m-5'>
+                <BackButtonSupplyRecords/>
+            </div>
+
             {loading ? (
                 <Spinner />
             ) : (
