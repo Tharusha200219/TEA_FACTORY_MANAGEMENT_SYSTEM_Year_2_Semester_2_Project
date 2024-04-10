@@ -162,16 +162,17 @@ const Createproductions = () => {
                         <div className='mb-4'>
                             <label htmlFor='Machine_assignment' className='text-lg text-gray-600'>Machine Assignment</label>
                             <select
-                                id='Machine_assignment'
-                                value={selectedMachine}
-                                onChange={(e) => setSelectedMachine(e.target.value)}
-                                className='input-field'
-                            >
-                                <option value='' disabled>Select machine</option>
-                                {machines.map((machine) => (
-                                    <option key={machine._id} value={machine.machineNumber}> {machine.machineName}</option>
-                                ))}
-                            </select>
+    id='Machine_assignment'
+    value={selectedMachine}
+    onChange={(e) => setSelectedMachine(e.target.value)}
+    className='input-field'
+>
+    <option value='' disabled>Select machine</option>
+    {machines.map((machine) => (
+        <option key={machine._id} value={machine.machineName}>{machine.machineName}</option>
+    ))}
+</select>
+
                         </div>
 
                         <div className='mb-4'>

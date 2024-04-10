@@ -2,66 +2,106 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import NavigationBar from '../components/NavigationBar';
 
-
 const HomePage = () => {
     return (
-        <div
-            className="h-screen bg-cover bg-center"
-            style={{ backgroundImage: "url('./public/images/bcc.jpg')" }}
-        >
+        <div className="h-screen bg-cover bg-center" style={{ backgroundImage: "url('./public/images/bcc.jpg')" }}>
             {/* Navigation Bar */}
             <NavigationBar />
-
             
-
-
             {/* Main Content */}
             <div className="container mx-auto flex justify-center items-center h-full ">
                 <div className="text-center text-white">
                     <h1 className="text-4xl font-bold mb-8">Welcome to Ever Green Tea</h1>
                     <div className="space-y-4">
                         <Link to="/inventorys">
-                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4">
+                            <button
+                                className="bg-white text-black font-bold py-2 px-4 rounded mr-4 hover:bg-gray-200"
+                                style={{
+                                    animation: 'fadeIn 0.5s ease forwards',
+                                    transition: 'transform 0.3s ease'
+                                }}
+                            >
                                 Inventory
                             </button>
                         </Link>
                         <Link to="/P_home">
-                            <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-4">
+                            <button
+                                className="bg-white text-black font-bold py-2 px-4 rounded mr-4 hover:bg-gray-200"
+                                style={{
+                                    animation: 'fadeIn 0.5s ease forwards',
+                                    transition: 'transform 0.3s ease'
+                                }}
+                            >
                                 Production
                             </button>
                         </Link>
                         <Link to="/MachineHome">
-                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4">
+                            <button
+                                className="bg-white text-black font-bold py-2 px-4 rounded mr-4 hover:bg-gray-200"
+                                style={{
+                                    animation: 'fadeIn 0.5s ease forwards',
+                                    transition: 'transform 0.3s ease'
+                                }}
+                            >
                                 Machine
                             </button>
                         </Link>
                         <Link to="/SupplierHome">
-                            <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-4">
+                            <button
+                                className="bg-white text-black font-bold py-2 px-4 rounded mr-4 hover:bg-gray-200"
+                                style={{
+                                    animation: 'fadeIn 0.5s ease forwards',
+                                    transition: 'transform 0.3s ease'
+                                }}
+                            >
                                 Supplier
                             </button>
                         </Link>
                         <Link to="/OrderHome">
-                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4">
+                            <button
+                                className="bg-white text-black font-bold py-2 px-4 rounded mr-4 hover:bg-gray-200"
+                                style={{
+                                    animation: 'fadeIn 0.5s ease forwards',
+                                    transition: 'transform 0.3s ease'
+                                }}
+                            >
                                 Order
                             </button>
                         </Link>
-
                         <Link to="/Vehiclehome">
-                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4">
-                            Vehiclehome
+                            <button
+                                className="bg-white text-black font-bold py-2 px-4 rounded mr-4 hover:bg-gray-200"
+                                style={{
+                                    animation: 'fadeIn 0.5s ease forwards',
+                                    transition: 'transform 0.3s ease'
+                                }}
+                            >
+                                Vehiclehome
                             </button>
                         </Link>
                         <Link to="/MaintenanceHome">
-                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4">
-                            Maintenance
-                            </button>
-                        </Link>
-                        <Link to="/HomePage">
-                            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4">
-                            home
+                            <button
+                                className="bg-white text-black font-bold py-2 px-4 rounded mr-4 hover:bg-gray-200"
+                                style={{
+                                    animation: 'fadeIn 0.5s ease forwards',
+                                    transition: 'transform 0.3s ease'
+                                }}
+                            >
+                                Maintenance
                             </button>
                         </Link>
                         
+                        <Link to="/PaymentsHome">
+                            <button
+                                className="bg-white text-black font-bold py-2 px-4 rounded mr-4 hover:bg-gray-200"
+                                style={{
+                                    animation: 'fadeIn 0.5s ease forwards',
+                                    transition: 'transform 0.3s ease'
+                                }}
+                            >
+                                Payments
+                            </button>
+                        </Link>
                     </div>
                 </div>
             </div>
@@ -83,4 +123,3 @@ const HomePage = () => {
 };
 
 export default HomePage;
-

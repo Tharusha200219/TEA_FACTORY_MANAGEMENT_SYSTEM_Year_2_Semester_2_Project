@@ -1,6 +1,7 @@
-const express = require("express");
+import express from "express";
+import Payment from "../models/Payment.js";
+
 const router = express.Router();
-const Payment = require("../models/Payment");
 
 // Add new payment
 router.post("/add", async (req, res) => {
@@ -85,4 +86,4 @@ router.delete("/delete/:id", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

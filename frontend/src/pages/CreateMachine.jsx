@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-
 import Spinner from '../components/Spinner';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom'; // Import Link component
 import NavigationBar from '../components/NavigationBar';
 
 const CreateMachine = () => {
@@ -11,6 +10,7 @@ const CreateMachine = () => {
     const [machineType, setmachineType] = useState('');
     const [installationDate, setinstallationDate] = useState('');
     const [warrentyInformation, setwarrentyInformation] = useState('');
+    
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -21,6 +21,7 @@ const CreateMachine = () => {
           machineType,
           installationDate,
           warrentyInformation,
+          Status: 'Available'
         };
         setLoading(true);
         axios.post('http://localhost:5555/machines', data)
@@ -36,81 +37,93 @@ const CreateMachine = () => {
     };
 
     return (
-        <div> {/* Navigation Bar */}
-        <NavigationBar />
+        <div>
+            <NavigationBar />
+            {/* Navigation Bar */}
+            <nav className="bg-green-500 p-4">
+                <div className="container mx-auto flex justify-center">
+                    <div className="flex space-x-4">
+                        <Link to="/" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
+                        <Link to="/MachineHome" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">machines</Link>
+                        <Link to="/machines/creates" className="text-gray-300 bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">create table</Link>
+                        <Link to="/pending-shipments" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Availability</Link>
+                        <Link to="/pending-new-stocks" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">machine report generate</Link>
+                    </div>
+                </div>
+            </nav>
+            {/* End Navigation Bar */}
         
-        <div className='flex flex-col items-center justify-center min-h-screen bg-gray-100'>
-            
-            <div className='max-w-md mx-auto bg-white rounded-lg shadow-md p-8 mt-8'>
-                <h1 className='text-3xl mb-4 font-bold text-gray-800 text-center'>Create Machine Schedule</h1>
+            <div className='flex flex-col items-center justify-center min-h-screen bg-gray-100'>
+                <div className='max-w-md mx-auto bg-white rounded-lg shadow-md p-8 mt-8'>
+                    <h1 className='text-3xl mb-4 font-bold text-gray-800 text-center'>Create Machine Schedule</h1>
 
-                {loading && <Spinner />}
+                    {loading && <Spinner />}
 
-                <div className='space-y-4'>
-                    <div className='mb-4'>
-                        <label htmlFor='machineNumber' className='text-lg text-gray-600'>machineNumber</label>
-                        <input
-                            id='machineNumber'
-                            type='number'
-                            value={machineNumber}
-                            onChange={(e) => setmachineNumber(e.target.value)}
-                            className='input-field'
-                        />
+                    <div className='space-y-4'>
+                        <div className='mb-4'>
+                            <label htmlFor='machineNumber' className='text-lg text-gray-600'>machineNumber</label>
+                            <input
+                                id='machineNumber'
+                                type='number'
+                                value={machineNumber}
+                                onChange={(e) => setmachineNumber(e.target.value)}
+                                className='input-field'
+                            />
+                        </div>
+
+                        <div className='mb-4'>
+                            <label htmlFor='machineName' className='text-lg text-gray-600'>machineName</label>
+                            <input
+                                id='machineName'
+                                type='text'
+                                value={machineName}
+                                onChange={(e) => setmachineName(e.target.value)}
+                                className='input-field'
+                            />
+                        </div>
+
+                        <div className='mb-4'>
+                            <label htmlFor='machineType' className='text-lg text-gray-600'>machineType</label>
+                            <input
+                                id='machineType'
+                                type='text'
+                                value={machineType}
+                                onChange={(e) => setmachineType(e.target.value)}
+                                className='input-field'
+                            />
+                        </div>
+
+                        <div className='mb-4'>
+                            <label htmlFor='installationDate' className='text-lg text-gray-600'>installationDate</label>
+                            <input
+                                id='installationDate'
+                                type='date'
+                                value={installationDate}
+                                onChange={(e) => setinstallationDate(e.target.value)}
+                                className='input-field'
+                            />
+                        </div>
+
+                        <div className='mb-4'>
+                            <label htmlFor='warrentyInformation' className='text-lg text-gray-600'>warrentyInformation</label>
+                            <input
+                                id='warrentyInformation'
+                                type='text'
+                                value={warrentyInformation}
+                                onChange={(e) => setwarrentyInformation(e.target.value)}
+                                className='input-field'
+                            />
+                        </div>
+
+                        <button
+                            className='bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300 w-full'
+                            onClick={handleSavemachines}
+                        >
+                            Save
+                        </button>
                     </div>
-
-                    <div className='mb-4'>
-                        <label htmlFor='machineName' className='text-lg text-gray-600'>machineName</label>
-                        <input
-                            id='machineName'
-                            type='text'
-                            value={machineName}
-                            onChange={(e) => setmachineName(e.target.value)}
-                            className='input-field'
-                        />
-                    </div>
-
-                    <div className='mb-4'>
-                        <label htmlFor='machineType' className='text-lg text-gray-600'>machineType</label>
-                        <input
-                            id='machineType'
-                            type='text'
-                            value={machineType}
-                            onChange={(e) => setmachineType(e.target.value)}
-                            className='input-field'
-                        />
-                    </div>
-
-                    <div className='mb-4'>
-                        <label htmlFor='installationDate' className='text-lg text-gray-600'>installationDate</label>
-                        <input
-                            id='installationDate'
-                            type='date'
-                            value={installationDate}
-                            onChange={(e) => setinstallationDate(e.target.value)}
-                            className='input-field'
-                        />
-                    </div>
-
-                    <div className='mb-4'>
-                        <label htmlFor='warrentyInformation' className='text-lg text-gray-600'>warrentyInformation</label>
-                        <input
-                            id='warrentyInformation'
-                            type='text'
-                            value={warrentyInformation}
-                            onChange={(e) => setwarrentyInformation(e.target.value)}
-                            className='input-field'
-                        />
-                    </div>
-
-                    <button
-                        className='bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300 w-full'
-                        onClick={handleSavemachines}
-                    >
-                        Save
-                    </button>
                 </div>
             </div>
-        </div>
         </div>
     );
 };
