@@ -48,7 +48,7 @@ const ContactUs = () => {
                     <h2 className="text-4xl font-bold mb-6">Follow Us on Facebook</h2>
                     <p className="text-lg mb-8">Stay updated with our latest news and updates on Facebook.</p>
                     <a
-                        href="https://www.facebook.com/your-facebook-page"
+                        href="https://m.facebook.com/100082278460558/"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-block bg-white py-2 px-4 text-green-600 font-semibold rounded-lg shadow-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-gray-100"
