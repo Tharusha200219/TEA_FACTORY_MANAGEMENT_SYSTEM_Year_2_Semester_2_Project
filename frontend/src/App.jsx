@@ -62,6 +62,7 @@ import ShowMachine from './pages/ShowMachine'
 import EditMachine from './pages/EditMachine'
 import DeleteMachine from './pages/DeleteMachine'
 import MachineReport from "./pages/MachineReport.jsx";
+import MaintenanceAvailability from "./pages/MaintenanceAvailability.jsx"
 
 import MaintenanceHome from './pages/MaintenanceHome'
 import CreateMaintenance from './pages/CreateMaintenance'
@@ -135,6 +136,7 @@ const App = () => {
       <Route path = '/machines/edit/:id' element={<EditMachine/>}  />
       <Route path = '/machines/delete/:id' element={<DeleteMachine/>}  />
       <Route path = '/MachineReport' element={<MachineReport/>}  />
+      <Route path = '/MaintenanceAvailability' element={<MaintenanceAvailability/>}  />
 
       <Route path = '/MaintenanceHome' element={<MaintenanceHome/>}  />
       <Route path = '/maintenances/creates' element={<CreateMaintenance/>} />
