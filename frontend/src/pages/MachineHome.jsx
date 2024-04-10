@@ -75,7 +75,7 @@ const MachineHome = () => {
 
             <div className='p-4'>
                 <div className='flex justify-between items-center'>
-                    <h1 className='text-2xl my-8'>Machine List</h1> {/* Reduced text size */}
+                    <h1 className='text-2xl my-8'>Machine Table</h1> {/* Reduced text size */}
                     <Link to='/books/create'>
                         <MdOutlineAddBox className='text-sky-800 text-5xl' /> {/* Increased icon size */}
                     </Link>
@@ -96,11 +96,11 @@ const MachineHome = () => {
                         <table className='min-w-full divide-y divide-gray-200'>
                             <thead className="bg-gray-50">
                                 <tr>
-                                    <th className='px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>machineNumber</th> {/* Reduced padding */}
-                                    <th className='px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>machineName</th> {/* Reduced padding */}
-                                    <th className='px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>machineType</th> {/* Reduced padding */}
-                                    <th className='px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>installationDate</th> {/* Reduced padding */}
-                                    <th className='px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>warrentyInformation</th> {/* Reduced padding */}
+                                    <th className='px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>machine Number</th> {/* Reduced padding */}
+                                    <th className='px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>machine Name</th> {/* Reduced padding */}
+                                    <th className='px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>machine Type</th> {/* Reduced padding */}
+                                    <th className='px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>installation Date</th> {/* Reduced padding */}
+                                    <th className='px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>warrenty Information</th> {/* Reduced padding */}
                                     <th className='px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Status</th> {/* Reduced padding */}
                                     <th className='px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Actions</th> {/* Reduced padding */}
                                 </tr>
