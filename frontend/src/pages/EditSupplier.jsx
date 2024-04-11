@@ -113,7 +113,6 @@ const EditSupplier = () => {
     };
 
     const handleEditSupplier = () => {
-
         validate();
         const isValid = Object.values(errors).every((error) => error === '');
 
@@ -156,9 +155,8 @@ const EditSupplier = () => {
                         type="text"
                         value={supplierid}
                         onChange={(e) => setSupplierID(e.target.value)}
-                        className='input-field'
-                        // style={{ backgroundColor: '#f2f2f2' }}
-                        // disabled // Disable input field
+                        className='input-field bg-slate-200'
+                        disabled
                     />
                 </div>
                 <div className='px-4 my-2'>

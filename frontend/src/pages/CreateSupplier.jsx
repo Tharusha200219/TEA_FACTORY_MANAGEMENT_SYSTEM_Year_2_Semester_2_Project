@@ -15,15 +15,6 @@ const CreateSupplier = () => {
     const [errors, setErrors] = useState({});
     const navigate = useNavigate();
 
-    const validateSupplierID = (value) => {
-        if (!value.trim()) {
-            return 'Supplier ID is required';
-        } else if (!value.match(/^SID\d{4}$/)) {
-            return 'Invalid Supplier ID format (e.g., SID1000)';
-        }
-        return '';
-    };
-
     const validateName = (value) => {
         const minLength = 5; 
         const maxlength = 20; 
@@ -74,15 +65,11 @@ const CreateSupplier = () => {
             ...prevErrors,
             [name]: error,
         }));
-        console.log(errors);
     };
 
     const validate = () => {
         const errors = {};
 
-        if (!supplierid.trim()) {
-            errors.supplierid = 'Supplier ID is required';
-        }
         if (!name.trim()) {
             errors.name = 'Name is required';
         }
@@ -100,31 +87,30 @@ const CreateSupplier = () => {
             ...prevErrors,
             ...errors
         }));
-        console.log(errors);
     };
 
-    // const generateUniqueSupplierID = () => {
-    //     axios.get('http://localhost:5555/suppliers')
-    //         .then((response) => {
-    //             const existingSupplierIDs = response.data.data.map(item => item.supplierid);
-    //             const availableNumbers = Array.from({ length: 1000 }, (_, index) => index + 1);
-    //             const availableSupplierIDs = availableNumbers.map(num => `SID${num.toString().padStart(4, '0')}`)
-    //                 .filter(id => !existingSupplierIDs.includes(id));
+    const generateUniqueSupplierID = () => {
+        axios.get('http://localhost:5555/suppliers')
+            .then((response) => {
+                const existingSIDs = response.data.map(item => item.supplierid);
+                const availableNumbers = Array.from({ length: 1000 }, (_, index) => index + 1);
+                const availableSIDs = availableNumbers.map(num => `SID${num.toString().padStart(4, '0')}`)
+                    .filter(id => !existingSIDs.includes(id));
 
-    //             if (availableSupplierIDs.length > 0) {
-    //                 setSupplierID(availableSupplierIDs[0]);
-    //             } else {
-    //                 alert('All supplier IDs from SID0001 to SID1000 are used.');
-    //             }
-    //         })
-    //         .catch((error) => {
-    //             console.log(error);
-    //         });
-    // };
+                if (availableSIDs.length > 0) {
+                    setSupplierID(availableSIDs[0]);
+                } else {
+                    alert('All supplier IDs from SID0001 to SID1000 are used.');
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
 
-    // useEffect(() => {
-    //     generateUniqueSupplierID();
-    // }, []);
+    useEffect(() => {
+        generateUniqueSupplierID();
+    }, []);
 
     const handleSaveSupplier = () => {
         validate();
@@ -167,11 +153,11 @@ const CreateSupplier = () => {
                         type="text"
                         name="supplierid"
                         value={supplierid}
+                        readOnly
+                        className='input-field bg-slate-200'
                         onChange={(e) => {
                             setSupplierID(e.target.value);
-                            handleInputChange(e, validateSupplierID);
                         }}
-                        className='border-2 border-gray-500 px-4 py-2 w-full'
                     />
                     {errors.supplierid && <p className="text-red-500">{errors.supplierid}</p>}
                 </div>
