@@ -54,6 +54,10 @@ const Teatypehome = () => {
                         <Link to="/teatypes/creates" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Create Table</Link>
                         <Link to="/pending-shipments" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Production Machine Availability</Link>
                         <Link to="/TeaTypeReport" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Tea Type Report Generate</Link>
+                        <Link to="/user-profile-page" className="absolute right-10 flex  space-x-2">
+                            <img src="/images/user.png" alt="User Profile" className="w-8 h-8 rounded-full" />
+                            {/* You can replace "example-profile-image.jpg" with the actual path to your user profile image */}
+                        </Link>
                     </div>
                 </div>
             </nav>
@@ -61,9 +65,7 @@ const Teatypehome = () => {
             <div className='p-4'>
                 <div className='flex justify-between items-center'>
                     <h1 className='text-3xl my-8'>Tea Type List</h1>
-                    <Link to='/productions/creates'>
-                        <MdOutlineAddBox className='text-sky-800 text-4xl' />
-                    </Link>
+                    
                 </div>
                 <div className="mb-4 flex items-center">
                     <input
@@ -77,7 +79,7 @@ const Teatypehome = () => {
                         <select
                             value={searchColumn}
                             onChange={handleSearchColumnChange}
-                            className="px-3 py-2 border border-gray-300 focus:outline-none focus:border-gray-500 rounded-md appearance-none"
+                            className="appearance-none pl-4 pr-8 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
                         >
                             <option value="Schedule_no">Schedule No</option>
                             <option value="black_tea">Black Tea</option>
@@ -85,9 +87,9 @@ const Teatypehome = () => {
                             <option value="oolong_tea">Oolong Tea</option>
                             <option value="white_tea">White Tea</option>
                         </select>
-                        <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
-                            <svg className="w-4 h-4 fill-current text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fillRule="evenodd" d="M9.293 14.293a1 1 0 0 1-1.414-1.414L9.586 10 8.88 9.293a1 1 0 1 1 1.414-1.414l1 1a1 1 0 0 1 0 1.414l-1 1a1 1 0 0 1-.707.293z"/></svg>
-                        </div>
+                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                        <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" fillRule="evenodd"></path></svg>
+                    </div>
                     </div>
                 </div>
                 {loading ? (
@@ -97,12 +99,13 @@ const Teatypehome = () => {
                         <table className='min-w-full divide-y divide-gray-200'>
                             <thead className="bg-gray-50">
                                 <tr>
-                                    <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Schedule No</th>
-                                    <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Black Tea</th>
-                                    <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Green Tea</th>
-                                    <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Oolong Tea</th>
-                                    <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>White Tea</th>
-                                    <th className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Actions</th>
+                                    <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Schedule No</th>
+                                    <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Black Tea</th>
+                                    <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Green Tea</th>
+                                    <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Oolong Tea</th>
+                                    <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>White Tea</th>
+                                    <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Actions</th>
+
                                 </tr>
                             </thead>
                             <tbody className="bg-white divide-y divide-gray-200">
