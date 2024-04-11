@@ -4,7 +4,7 @@ import Spinner from '../components/Spinner';
 import { Link } from 'react-router-dom';
 import { MdOutlineAddBox } from 'react-icons/md';
 import NavigationBar from '../components/NavigationBar'; // Import NavigationBar component
-
+import Footer from '../components/Footer';
 const MachineHome = () => {
     const [machines, setMachines] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -71,8 +71,12 @@ const MachineHome = () => {
                 )}
             </div>
             
+<Footer />
         </div>
+       
     );
+    
 }
+
 
 export default MachineHome;

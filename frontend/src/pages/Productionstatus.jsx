@@ -3,6 +3,7 @@ import axios from 'axios';
 import Spinner from '../components/Spinner';
 import { Link } from 'react-router-dom';
 import NavigationBar from '../components/NavigationBar';
+import Footer from '../components/Footer';
 
 const Productionstatus = () => {
     const [loading, setLoading] = useState(false);
@@ -89,9 +90,7 @@ const Productionstatus = () => {
             {renderProductionTable(finishedProductions, 'finished')}
 
             {/* Footer */}
-            <footer style={{ backgroundColor: '#3FC060' }} className="text-white py-4 mt-8">
-                {/* Footer content */}
-            </footer>
+            <Footer />
         </div>
     );
 }

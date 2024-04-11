@@ -6,7 +6,7 @@ import { AiOutlineEdit } from 'react-icons/ai';
 import { BsInfoCircle } from 'react-icons/bs';
 import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
 import NavigationBar from '../components/NavigationBar';
-
+import Footer from '../components/Footer';
 const Teatypehome = () => {
     const [teatypes, setTeatypes] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -135,17 +135,7 @@ const Teatypehome = () => {
             </div>
 
             {/* Footer */}
-            <footer style={{ backgroundColor: '#3FC060' }} className="text-white py-4 mt-8">
-                <div className="container mx-auto flex justify-between items-center">
-                    <div>
-                        <p>&copy; 1998-{new Date().getFullYear()} Ever Green Tea Factory. All rights reserved.</p>
-                        <p>Contact: 0112787678</p>
-                    </div>
-                    <div>
-                        {/* Add any additional footer content here */}
-                    </div>
-                </div>
-            </footer>
+            <Footer />
         </div>
     );
 }
