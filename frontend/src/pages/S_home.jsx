@@ -15,7 +15,7 @@ const S_home = () => {
                         <section style={styles.section}>
                             <h2 style={styles.sectionTitle}>Welcome to Supplier Management System!</h2>
                             <p style={styles.sectionDescription}>
-                                Welcome to the supplier management system. Our system helps streamline supplier relationships, manage inventory, and improve overall supply chain efficiency.
+                                Welcome to the supplier management system. Our system helps streamline supplier relationships and improve overall supply chain efficiency.
                             </p>
                         </section>
                         <section style={styles.section}>
@@ -23,9 +23,9 @@ const S_home = () => {
                             <div style={styles.featureList}>
                                 <div style={styles.feature}>
                                     <img src="./public/images/supplier.jpg" alt="Feature 1" style={styles.featureImage} />
-                                    <h3 style={styles.featureTitle}>Supplier Database</h3>
+                                    <h3 style={styles.featureTitle}>Supplier & Records Database</h3>
                                     <p style={styles.featureDescription}>Efficiently manage supplier information, track deliveries, and handle contracts.</p>
-                                    <Link to="/SupplierHome" style={styles.btn}>Manage Suppliers</Link>
+                                    <Link to="/SupplierHome" style={styles.btn}>Manage Suppliers & Records</Link>
                                 </div>
                                 
                                 {/* Add more features as needed */}

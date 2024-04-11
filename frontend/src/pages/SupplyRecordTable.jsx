@@ -8,7 +8,6 @@ import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
 import SupplierSearch from '../components/SupplierSearch';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
-import html2canvas from 'html2canvas';
 import NavigationBar from '../components/NavigationBar';
 
 const SupplyRecordTable = () => {
