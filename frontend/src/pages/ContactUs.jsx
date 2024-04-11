@@ -1,7 +1,7 @@
 import React from 'react';
 import NavigationBar from '../components/NavigationBar';
 import { IoLocationOutline, IoMailOutline, IoPhonePortraitOutline } from 'react-icons/io5';
-
+import Footer from '../components/Footer';
 const ContactUs = () => {
     return (
         <div>
@@ -59,11 +59,8 @@ const ContactUs = () => {
             </section>
 
             {/* Footer */}
-            <footer className="bg-green-600 text-white py-4 mt-8">
-                <div className="container mx-auto text-center">
-                    <p>&copy; 2024 Ever Green Tea. All rights reserved.</p>
-                </div>
-            </footer>
+            <Footer />
+            
         </div>
     );
 };

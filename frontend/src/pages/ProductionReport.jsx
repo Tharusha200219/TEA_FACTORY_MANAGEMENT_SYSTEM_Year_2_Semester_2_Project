@@ -4,6 +4,7 @@ import Spinner from '../components/Spinner';
 import { Link } from 'react-router-dom';
 import { PDFDownloadLink, Document, Page, View, Text, StyleSheet } from '@react-pdf/renderer'; // Import PDF related components
 import NavigationBar from '../components/NavigationBar';
+import Footer from '../components/Footer';
 
 // Define styles for PDF
 const styles = StyleSheet.create({
@@ -182,9 +183,7 @@ const ProductionReport = () => {
             </div>
 
             {/* Footer */}
-            <footer style={{ backgroundColor: '#3FC060' }} className="text-white py-4 mt-8">
-                {/* Footer content */}
-            </footer>
+            <Footer />
         </div>
     );
 }
