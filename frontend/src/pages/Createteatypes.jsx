@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import NavigationBar from '../components/NavigationBar';
+import Footer from '../components/Footer';
 
 const Createteatypes = () => {
     const [Schedule_no, setSchedule_no] = useState('');
@@ -127,6 +128,7 @@ const Createteatypes = () => {
                     </div>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 };

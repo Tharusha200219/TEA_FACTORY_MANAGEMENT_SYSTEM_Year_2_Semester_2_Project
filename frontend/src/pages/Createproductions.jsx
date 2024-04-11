@@ -4,6 +4,7 @@ import axios from 'axios';
 import Spinner from '../components/Spinner';
 import NavigationBar from '../components/NavigationBar';
 import { Link } from 'react-router-dom';
+import Footer from '../components/Footer';
 
 const Createproductions = () => {
     const [Schedule_no, setSchedule_no] = useState('');
@@ -208,6 +209,8 @@ const Createproductions = () => {
                     </div>
                 </div>
             </div>
+            <br></br>
+            <Footer />
         </div>
     );
 };

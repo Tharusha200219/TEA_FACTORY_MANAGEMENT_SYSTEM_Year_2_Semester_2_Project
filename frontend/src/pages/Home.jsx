@@ -1,6 +1,6 @@
 import React from 'react';
 import NavigationBar from '../components/NavigationBar';
-
+import Footer from '../components/Footer';
 function Home() {
     const pageStyles = {
         fontFamily: 'Arial, sans-serif',
@@ -151,9 +151,7 @@ function Home() {
                 </div>
             </section>
 
-            <footer className="footer" style={footerStyles}>
-                <p>&copy; 2024 Ever Green Tea. All rights reserved.</p>
-            </footer>
+            <Footer />
         </div>
     );
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import NavigationBar from '../components/NavigationBar';
+import Footer from '../components/Footer';
 
 const P_home = () => {
   return (
@@ -21,27 +22,28 @@ const P_home = () => {
             <section style={styles.section}>
               <h2 style={styles.sectionTitle}>Key Features</h2>
               <div style={styles.featureList}>
+              <div style={styles.feature}>
+                  <img src="./public/images/production.jpg" alt="Feature 2" style={styles.featureImage} />
+                  <h3 style={styles.featureTitle}>Production Scheduling</h3>
+                  <p style={styles.featureDescription}>Plan and schedule production tasks dynamically to meet demand while minimizing idle time and maximizing throughput.</p>
+                  <Link to="/Productionhome" style={styles.btn}>ADD PRODUCTION SCHEDULE</Link>
+                </div>
                 <div style={styles.feature}>
                   <img src="./public/images/tea_type.jpg" alt="Feature 1" style={styles.featureImage} />
                   <h3 style={styles.featureTitle}>Tea Type Management</h3>
                   <p style={styles.featureDescription}>Efficiently manage Tea types,.</p>
                   <Link to="/Teatypehome" style={styles.btn}>ADD TEA TYPES</Link>
                 </div>
-                <div style={styles.feature}>
-                  <img src="./public/images/production.jpg" alt="Feature 2" style={styles.featureImage} />
-                  <h3 style={styles.featureTitle}>Production Scheduling</h3>
-                  <p style={styles.featureDescription}>Plan and schedule production tasks dynamically to meet demand while minimizing idle time and maximizing throughput.</p>
-                  <Link to="/Productionhome" style={styles.btn}>ADD PRODUCTION SCHEDULE</Link>
-                </div>
+                
                 {/* Add more features as needed */}
               </div>
             </section>
           </main>
-          <footer style={styles.footer}>
-            <p style={styles.footerText}>© 2024 Production Planning and Scheduling</p>
-          </footer>
+          
         </div>
+        <Footer />
       </div>
+      
     </div>
   );
 };
