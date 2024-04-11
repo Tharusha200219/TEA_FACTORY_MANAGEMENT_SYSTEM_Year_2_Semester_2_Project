@@ -10,18 +10,18 @@ const CreateMachine = () => {
     const [machineType, setmachineType] = useState('');
     const [installationDate, setinstallationDate] = useState('');
     const [warrentyInformation, setwarrentyInformation] = useState('');
-    
+
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const handleSavemachines = () => {
         const data = {
-          machineNumber,
-          machineName,
-          machineType,
-          installationDate,
-          warrentyInformation,
-          Status: 'Available'
+            machineNumber,
+            machineName,
+            machineType,
+            installationDate,
+            warrentyInformation,
+            Status: 'Available'
         };
         setLoading(true);
         axios.post('http://localhost:5555/machines', data)
@@ -44,15 +44,15 @@ const CreateMachine = () => {
                 <div className="container mx-auto flex justify-center">
                     <div className="flex space-x-4">
                         <Link to="/" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
-                        <Link to="/MachineHome" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">machines</Link>
-                        <Link to="/machines/creates" className="text-gray-300 bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">create table</Link>
-                        <Link to="/pending-shipments" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Availability</Link>
-                        <Link to="/MachineReport" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">machine report generate</Link>
+                        <Link to="/MachineHome" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Machines</Link>
+                        <Link to="/machines/creates" className="text-gray-300 bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Create table</Link>
+                        
+                        <Link to="/MachineReport" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Machine report generate</Link>
                     </div>
                 </div>
             </nav>
             {/* End Navigation Bar */}
-        
+
             <div className='flex flex-col items-center justify-center min-h-screen bg-gray-100'>
                 <div className='max-w-md mx-auto bg-white rounded-lg shadow-md p-8 mt-8'>
                     <h1 className='text-3xl mb-4 font-bold text-gray-800 text-center'>Create Machine Schedule</h1>

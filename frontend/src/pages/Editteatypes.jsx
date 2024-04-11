@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import BackButtonForCreateProduction from '../components/backbutton_for_create_production';
 import Spinner from '../components/Spinner';
 import NavigationBar from '../components/NavigationBar'; // Import NavigationBar component
+import Footer from '../components/Footer';
 
 const Editteatypes = () => {
   const [Schedule_no, setSchedule_no] = useState('');
@@ -145,6 +146,7 @@ const Editteatypes = () => {
         </div>
       </div>
     </div>
+    <Footer />
     </dev>
   );
 };

@@ -3,6 +3,8 @@ import { Routes, Route } from "react-router-dom";
 import ContactUs from "./pages/ContactUs.jsx";
 import Aboutus from "./pages/Aboutus.jsx"
 import HomePage from "./pages/HomePage.jsx";
+import Service from "./pages/Service.jsx";
+
 
 import Inventoryhome from "./pages/Inventoryhome";
 import I_home from "./pages/I_home.jsx";
@@ -62,6 +64,7 @@ import ShowMachine from './pages/ShowMachine'
 import EditMachine from './pages/EditMachine'
 import DeleteMachine from './pages/DeleteMachine'
 import MachineReport from "./pages/MachineReport.jsx";
+import MaintenanceAvailability from "./pages/MaintenanceAvailability.jsx"
 
 import MaintenanceHome from './pages/MaintenanceHome'
 import CreateMaintenance from './pages/CreateMaintenance'
@@ -135,6 +138,7 @@ const App = () => {
       <Route path = '/machines/edit/:id' element={<EditMachine/>}  />
       <Route path = '/machines/delete/:id' element={<DeleteMachine/>}  />
       <Route path = '/MachineReport' element={<MachineReport/>}  />
+      <Route path = '/MaintenanceAvailability' element={<MaintenanceAvailability/>}  />
 
       <Route path = '/MaintenanceHome' element={<MaintenanceHome/>}  />
       <Route path = '/maintenances/creates' element={<CreateMaintenance/>} />
@@ -181,7 +185,7 @@ const App = () => {
 
       <Route path = '/ContactUs' element={<ContactUs/>}  />
       <Route path = '/Aboutus' element={<Aboutus/>}  />
-      
+      <Route path = '/Service' element={<Service/>}  />
     </Routes>
   );
 };

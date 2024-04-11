@@ -8,6 +8,7 @@ import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import NavigationBar from '../components/NavigationBar';
+import Footer from '../components/Footer';
 
 const Productionhome = () => {
     const [productions, setProductions] = useState([]);
@@ -210,9 +211,7 @@ const Productionhome = () => {
                 )}
             </div>
 
-            <footer style={{ backgroundColor: '#3FC060' }} className="text-white py-4 mt-8">
-                {/* Footer content */}
-            </footer>
+            <Footer />
 
             <ToastContainer position="bottom-right" />
         </div>

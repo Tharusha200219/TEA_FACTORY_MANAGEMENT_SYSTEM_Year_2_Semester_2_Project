@@ -21,7 +21,7 @@ const NavigationBar = () => {
                 </Typography>
                 <Button color="inherit" component={Link} to="/" >Home</Button>
                 <Button color="inherit" component={Link} to="/AboutUs">About</Button>
-                <Button color="inherit" component={Link} to="/">Services</Button>
+                <Button color="inherit" component={Link} to="/Service">Services</Button>
                 <Button color="inherit" component={Link} to="/ContactUs">Contact</Button>
                 
             </Toolbar>
