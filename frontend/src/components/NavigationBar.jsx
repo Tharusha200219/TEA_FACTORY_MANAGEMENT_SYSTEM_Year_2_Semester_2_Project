@@ -11,19 +11,23 @@ const StyledAppBar = styled(AppBar)({
 const NavigationBar = () => {
     return (
         <StyledAppBar position="static">
-            <Toolbar>
-                <IconButton edge="start" color="inherit" aria-label="menu">
-                    <MenuIcon />
-                    
-                </IconButton>
-                <Typography variant="h6" sx={{ flexGrow: 1 }}>
-                    Ever Green Tea
-                </Typography>
-                <Button color="inherit" component={Link} to="/" >Home</Button>
-                <Button color="inherit" component={Link} to="/AboutUs">About</Button>
-                <Button color="inherit" component={Link} to="/Service">Services</Button>
-                <Button color="inherit" component={Link} to="/ContactUs">Contact</Button>
-                
+            <Toolbar style={{ justifyContent: 'space-between' }}>
+                {/* Flex container for logo and company name */}
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                    {/* Company logo */}
+                    <img src="/images/logo.png" alt="Company Logo" style={{ height: '40px', marginRight: '10px' }} />
+                    {/* Company name */}
+                    <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
+                        Ever Green Tea
+                    </Typography>
+                </div>
+                {/* Navigation buttons */}
+                <div>
+                    <Button color="inherit" component={Link} to="/" >Home</Button>
+                    <Button color="inherit" component={Link} to="/AboutUs">About</Button>
+                    <Button color="inherit" component={Link} to="/Service">Services</Button>
+                    <Button color="inherit" component={Link} to="/ContactUs">Contact</Button>
+                </div>
             </Toolbar>
         </StyledAppBar>
     );
