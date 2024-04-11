@@ -9,7 +9,6 @@ import { useParams } from 'react-router-dom';
 import SupplierSearch from '../components/SupplierSearch';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
-import html2canvas from 'html2canvas';
 import NavigationBar from '../components/NavigationBar';
 
 const SupplierHome = () => {
@@ -110,7 +109,8 @@ const SupplierHome = () => {
                     </div>
                 </div>
 
-                {/* SupplierSearch component */}
+            <div className='flex items-baseline justify-between'>
+                <div style={{ flex: '1' }}>   
                 <SupplierSearch
                     searchInput={searchInput}
                     setSearchInput={setSearchInput}
@@ -118,7 +118,8 @@ const SupplierHome = () => {
                     setSearchType={setSearchType}
                     showSearchType={true}
                 />
-
+                </div>
+            </div>    
                 {/* show filtered or all suppliers */}
                 {loading ? (
                     <Spinner />
