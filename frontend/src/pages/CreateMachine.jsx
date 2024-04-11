@@ -10,18 +10,18 @@ const CreateMachine = () => {
     const [machineType, setmachineType] = useState('');
     const [installationDate, setinstallationDate] = useState('');
     const [warrentyInformation, setwarrentyInformation] = useState('');
-    
+
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const handleSavemachines = () => {
         const data = {
-          machineNumber,
-          machineName,
-          machineType,
-          installationDate,
-          warrentyInformation,
-          Status: 'Available'
+            machineNumber,
+            machineName,
+            machineType,
+            installationDate,
+            warrentyInformation,
+            Status: 'Available'
         };
         setLoading(true);
         axios.post('http://localhost:5555/machines', data)
@@ -52,7 +52,7 @@ const CreateMachine = () => {
                 </div>
             </nav>
             {/* End Navigation Bar */}
-        
+
             <div className='flex flex-col items-center justify-center min-h-screen bg-gray-100'>
                 <div className='max-w-md mx-auto bg-white rounded-lg shadow-md p-8 mt-8'>
                     <h1 className='text-3xl mb-4 font-bold text-gray-800 text-center'>Create Machine Schedule</h1>
