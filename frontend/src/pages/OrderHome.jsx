@@ -30,12 +30,12 @@ const OrderHome = () => {
 
   const handleSearch = (input) => {
     setSearchInput(input);
-    const filtered = orders.filter(order => order.orderno.includes(input));
+    const filtered = orders.filter(order => order.orderno.toString().includes(input));
     setFilteredOrders(filtered);
   };
 
   const handleButtonClick = () => {
-    const exactMatch = orders.filter(order => order.orderno === searchInput);
+    const exactMatch = orders.filter(order => order.orderno === parseInt(searchInput));
     setFilteredOrders(exactMatch.length > 0 ? exactMatch : []);
   };
   const handleButtonOnClick = () => {
@@ -157,3 +157,4 @@ const OrderHome = () => {
 };
 
 export default OrderHome;
+

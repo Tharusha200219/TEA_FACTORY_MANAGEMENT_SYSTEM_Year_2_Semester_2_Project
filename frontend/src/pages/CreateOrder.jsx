@@ -79,6 +79,7 @@ const CreateOrder = () => {
             type="text"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
+            
             className='border-2 border-gray-500 px-4 py-2 w-full'
           />
         </div>
