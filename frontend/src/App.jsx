@@ -95,6 +95,17 @@ import V_home from "./pages/V_home.jsx";
 
 import E_home from "./pages/E_home.jsx";
 
+import DepartmentHome from './pages/DepartmentHome';
+import CreateDepartment from './pages/CreateDepartment';
+import ShowDepartment from './pages/ShowDepartment';
+import EditDepartment from './pages/EditDepartment';
+import DeleteDepartment from './pages/DeleteDepartment';
+import EmployeeHome from './pages/EmployeeHome';
+import CreateEmployee from './pages/CreateEmployee'; // Make sure to import CreateEmployee
+import ShowEmployee from './pages/ShowEmployee';
+import EditEmployee from './pages/EditEmployee';
+import DeleteEmployee from './pages/DeleteEmployee';
+
 
 const App = () => {
   return (
@@ -165,6 +176,20 @@ const App = () => {
       <Route path="/supplyrecords/delete/:id" element={<DeleteSupplyRecord />} />
 
 
+
+      
+      <Route path='/' element={<HomePage />} />
+      <Route path='/DepartmentHome' element={<DepartmentHome />} />
+      <Route path='/departments/create' element={<CreateDepartment />} />
+      <Route path='/departments/details/:id' element={<ShowDepartment />} />
+      <Route path='/departments/edit/:id' element={<EditDepartment />} />
+      <Route path='/departments/delete/:id' element={<DeleteDepartment />} />
+      <Route path='/EmployeeHome' element={<EmployeeHome />} />
+      <Route path='/employees/create' element={<CreateEmployee />} /> {/* Ensure the route for CreateEmployee is defined */}
+      <Route path='/employees/details/:id' element={<ShowEmployee />} />
+      <Route path='/employees/edit/:id' element={<EditEmployee />} />
+      <Route path='/employees/delete/:id' element={<DeleteEmployee />} />
+    
       
       <Route path="/OrderHome" element={<OrderHome/>}/>
       <Route path="/orders/create" element={<CreateOrder/>}/>

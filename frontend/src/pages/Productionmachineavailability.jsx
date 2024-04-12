@@ -39,6 +39,10 @@ const MachineHome = () => {
                         <Link to="/Productionmachineavailability" className="text-gray-300 bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Production Machine Availability</Link>
                         <Link to="/ProductionReport" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Production Report Generate</Link>
                         <Link to="/Productionstatus" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Production Status</Link>
+                        <Link to="/user-profile-page" className="absolute right-10 flex  space-x-2">
+                    <img src="/images/user.png" alt="User Profile" className="w-8 h-8 rounded-full" />
+                
+                </Link>
                     </div>
                 </div>
             </nav>
@@ -54,8 +58,8 @@ const MachineHome = () => {
                         <table className='min-w-full divide-y divide-gray-200'>
                             <thead className="bg-gray-50">
                                 <tr>
-                                    <th className='px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>machineNumber</th> {/* Reduced padding */}
-                                    <th className='px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>machineName</th> {/* Reduced padding */}
+                                    <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>machineNumber</th> {/* Reduced padding */}
+                                    <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>machineName</th> {/* Reduced padding */}
                                 </tr>
                             </thead>
                             <tbody className="bg-white divide-y divide-gray-200">
