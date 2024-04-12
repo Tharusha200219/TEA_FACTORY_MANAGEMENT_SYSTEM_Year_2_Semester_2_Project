@@ -24,6 +24,10 @@ import supplierRoute from "./routes/supplierRoute.js";
 import { SupplyRecord } from "./models/supplyrecordModel.js";
 import supplyrecordRoute from "./routes/supplyrecordRoute.js";
 
+import { Department } from "./models/departmentModel.js";
+import { Employee }  from "./models/employeeModel.js";
+import departmentRoute from "./routes/departmentRoute.js";
+import employeeRoute from "./routes/employeeRoute.js";
 
 const app = express();
 //this allow express to use json or json to express 
@@ -57,7 +61,8 @@ app.use('/suppliers', supplierRoute);
 app.use('/supplyrecords', supplyrecordRoute);
 
 
-
+app.use('/departments', departmentRoute);
+app.use('/employees', employeeRoute);
 
 
 
