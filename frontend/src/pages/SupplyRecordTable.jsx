@@ -9,6 +9,7 @@ import SupplierSearch from '../components/SupplierSearch';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import NavigationBar from '../components/NavigationBar';
+import Footer from '../components/Footer';
 
 const SupplyRecordTable = () => {
     const [supplyrecords, setSupplyRecords] = useState([]); 
@@ -108,7 +109,6 @@ const SupplyRecordTable = () => {
                     </div>
                 </div>
 
-                {/* SupplierSearch component */}
                 <SupplierSearch
                     searchInput={searchInput}
                     setSearchInput={setSearchInput}
@@ -124,23 +124,24 @@ const SupplyRecordTable = () => {
                         <table className='w-full border-collapse border border-gray-300'>
                             <thead className='bg-gray-200'>
                                 <tr>
-                                    <th className='border border-gray-300 p-4 text-left'>SUPPLIER</th>
-                                    <th className='border border-gray-300 p-4 text-left'>SUPPLY DATE</th>
-                                    <th className='border border-gray-300 p-4 text-left'>QUANTITY (KG)</th>
-                                    <th className='border border-gray-300 p-4 text-left'>UNIT PRICE</th>
-                                    <th className='bg-slate-300 border border-gray-300 p-4 text-left'>COST</th>
-                                    <th className='border border-gray-300 p-4 text-left'>ACTIONS</th>
+                                    <th className='px-6 py-3 text-sm font-medium border border-gray-300 text-left text-white  bg-black'>SUPPLIER</th>
+                                    <th className='px-6 py-3 text-sm font-medium border border-gray-300 text-left text-white  bg-black'>SUPPLY DATE</th>
+                                    <th className='px-6 py-3 text-sm font-medium border border-gray-300 text-left text-white  bg-black'>QUANTITY (KG)</th>
+                                    <th className='px-6 py-3 text-sm font-medium border border-gray-300 text-left text-white  bg-black'>UNIT PRICE</th>
+                                    <th className='px-6 py-3 text-sm font-medium border border-gray-300 text-left text-white  bg-black'>COST</th>
+                                    <th className='px-6 py-3 text-sm font-medium border border-gray-300 text-left text-white  bg-black'>ACTIONS</th>
+                                    
                                 </tr>
                             </thead>
                             <tbody>
                                 {(filterdSupplyRecords.length > 0 ? filterdSupplyRecords : supplyrecords).map((item, index) => ( 
                                     <tr key={item._id} className='border border-gray-300'>
-                                        <td className='border border-gray-300 p-4'>{item.supplier}</td>
-                                        <td className='border border-gray-300 p-4'>{item.date}</td>
-                                        <td className='border border-gray-300 p-4'>{item.quantity}</td>
-                                        <td className='border border-gray-300 p-4'>{item.unitPrice}</td>
-                                        <td className='border border-gray-300 p-4'>{item.quantity * item.unitPrice}</td>
-                                        <td className='border border-gray-300 p-4'>
+                                        <td className='px-6 py-4 border border-gray-300'>{item.supplier}</td>
+                                        <td className='px-6 py-4 border border-gray-300'>{item.date}</td>
+                                        <td className='px-6 py-4 border border-gray-300'>{item.quantity}</td>
+                                        <td className='px-6 py-4 border border-gray-300'>{item.unitPrice}</td>
+                                        <td className='px-6 py-4 border border-gray-300'>{item.quantity * item.unitPrice}</td>
+                                        <td className='px-6 py-4 border border-gray-300'>
                                             <div className='flex justify-center gap-x-4'>
                                                 <Link to={`/supplyrecords/details/${item._id}`} >
                                                     <BsInfoCircle className='text-2xl text-green-800'/>
@@ -160,15 +161,7 @@ const SupplyRecordTable = () => {
                     </div>
                 )}
             </div>
-            {/* Footer */}
-            <footer style={{ backgroundColor: '#3FC060', position: 'absolute', bottom: 0, left: 0, right: 0 }} className="text-white py-4">
-                <div className="container mx-auto flex justify-between items-center">
-                    <div>
-                        <p>&copy; 1998-{new Date().getFullYear()} Ever Green Tea Factory. All rights reserved.</p>
-                        <p>Contact: 0112787678</p>
-                    </div>
-                </div>
-            </footer>
+            <Footer />
         </div>
     );
 }

@@ -12,14 +12,14 @@ router.post('/', async (request, response) => {
             return response.status(400).send({ message: 'Send all required fields: supplier, date, quantity, unitPrice'});
         }
 
-        const newSupplyRecord = new SupplyRecord({
+        const newRecord = new SupplyRecord({
             supplier,
             date,
             quantity,
-            unitPrice
+            unitPrice  
         });
 
-        const savedRecord = await newSupplyRecord.save();
+        const savedRecord = await newRecord.save();
         return response.status(201).json(savedRecord);
     } catch (error) {
         console.error(error.message);

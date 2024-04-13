@@ -10,6 +10,7 @@ import SupplierSearch from '../components/SupplierSearch';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import NavigationBar from '../components/NavigationBar';
+import Footer from '../components/Footer';
 
 const SupplierHome = () => {
     const [suppliers, setSuppliers] = useState([]);
@@ -109,8 +110,8 @@ const SupplierHome = () => {
                     </div>
                 </div>
 
-            <div className='flex items-baseline justify-between'>
-                <div style={{ flex: '1' }}>   
+            {/* <div className='flex items-baseline justify-between'>
+                <div style={{ flex: '1' }}>    */}
                 <SupplierSearch
                     searchInput={searchInput}
                     setSearchInput={setSearchInput}
@@ -118,33 +119,34 @@ const SupplierHome = () => {
                     setSearchType={setSearchType}
                     showSearchType={true}
                 />
-                </div>
-            </div>    
-                {/* show filtered or all suppliers */}
+                {/* </div>
+            </div>    */}
+
                 {loading ? (
                     <Spinner />
                 ) : (
                     <div id="pdf-content" ref={tableRef}>
-                        <table className='w-full border-collapse border border-gray-300 '>
-                            <thead className='bg-gray-200'>
+                        <div className="overflow-x-auto">
+                        <table className='min-w-full divide-y divide-gray-200'>
+                            <thead className='bg-gray-50'>
                                 <tr>
-                                    <th className='border border-gray-300 p-4 text-left'>SUPPLIER ID</th>
-                                    <th className='border border-gray-300 p-4 text-left'>NAME</th>
-                                    <th className='border border-gray-300 p-4 text-left'>ADDRESS</th>
-                                    <th className='border border-gray-300 p-4 text-left'>CONTACT NO</th>
-                                    <th className='border border-gray-300 p-4 text-left'>EMAIL</th>
-                                    <th className='border border-gray-300 p-4 text-left'>ACTIONS</th>
+                                    <th className='px-6 py-3 text-sm font-medium border border-gray-300 text-left text-white  bg-black'>SUPPLIER ID</th>
+                                    <th className='px-6 py-3 text-sm font-medium border border-gray-300 text-left text-white  bg-black'>NAME</th>
+                                    <th className='px-6 py-3 text-sm font-medium border border-gray-300 text-left text-white  bg-black'>ADDRESS</th>
+                                    <th className='px-6 py-3 text-sm font-medium border border-gray-300 text-left text-white  bg-black'>CONTACT NO</th>
+                                    <th className='px-6 py-3 text-sm font-medium border border-gray-300 text-left text-white  bg-black'>EMAIL</th>
+                                    <th className='px-6 py-3 text-sm font-medium border border-gray-300 text-left text-white  bg-black'>ACTIONS</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {(filteredSuppliers.length > 0 ? filteredSuppliers : suppliers).map((item, index) => (
                                     <tr key={item._id} className='border border-gray-300'>
-                                        <td className='border border-gray-300 p-4'>{item.supplierid}</td>
-                                        <td className='border border-gray-300 p-4'>{item.name}</td>
-                                        <td className='border border-gray-300 p-4'>{item.address}</td>
-                                        <td className='border border-gray-300 p-4'>{item.contact}</td>
-                                        <td className='border border-gray-300 p-4'>{item.email}</td>
-                                        <td className='border border-gray-300 p-4'>
+                                        <td className='px-6 py-4 border border-gray-300'>{item.supplierid}</td>
+                                        <td className='px-6 py-4 border border-gray-300 capitalize'>{item.name}</td>
+                                        <td className='px-6 py-4 border border-gray-300 capitalize'>{item.address}</td>
+                                        <td className='px-6 py-4 border border-gray-300'>{item.contact}</td>
+                                        <td className='px-6 py-4 border border-gray-300'>{item.email}</td>
+                                        <td className='px-6 py-4 border border-gray-300'>
                                             <div className='flex justify-center gap-x-4'>
                                                 <Link to={`/suppliers/details/${item._id}`} >
                                                     <BsInfoCircle className='text-2xl text-green-800'/>
@@ -162,18 +164,10 @@ const SupplierHome = () => {
                             </tbody>
                         </table>
                     </div>
+                    </div>
                 )}
             </div>
-
-             {/* Footer */}
-             <footer style={{ backgroundColor: '#3FC060', position: 'absolute', bottom: 0, left: 0, right: 0 }} className="text-white py-4">
-                <div className="container mx-auto flex justify-between items-center">
-                    <div>
-                        <p>&copy; 1998-{new Date().getFullYear()} Ever Green Tea Factory. All rights reserved.</p>
-                        <p>Contact: 0112787678</p>
-                    </div>
-                </div>
-            </footer>
+            <Footer />
         </div>
     );
 }
