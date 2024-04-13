@@ -25,13 +25,13 @@ const E_home = () => {
                                     <img src="./public/images/employee.jpg" alt="Feature 1" style={styles.featureImage} />
                                     <h3 style={styles.featureTitle}>Employee Information</h3>
                                     <p style={styles.featureDescription}>Efficiently manage employee profiles, track attendance, and handle HR documents.</p>
-                                    <Link to="/EmployeeInformation" style={styles.btn}>Manage Employees</Link>
+                                    <Link to="/EmployeeHome" style={styles.btn}>Manage Employees</Link>
                                 </div>
                                 <div style={styles.feature}>
                                     <img src="./public/images/attendance.jpg" alt="Feature 2" style={styles.featureImage} />
                                     <h3 style={styles.featureTitle}>Attendance Tracking</h3>
                                     <p style={styles.featureDescription}>Track employee attendance, manage leave requests, and generate attendance reports.</p>
-                                    <Link to="/AttendanceTracking" style={styles.btn}>Track Attendance</Link>
+                                    <Link to="/DepartmentHome" style={styles.btn}>Track Attendance</Link>
                                 </div>
                                 {/* Add more features as needed */}
                             </div>

@@ -92,7 +92,7 @@ const Editteatypes = () => {
               id='Schedule_no'
               type='number'
               value={Schedule_no}
-              onChange={(e) => setSchedule_no(e.target.value)}
+              readOnly
               className='input-field'
             />
           </div>
