@@ -103,7 +103,8 @@ const Createproductions = () => {
     };
 
     return (
-        <div className='bg-gray-100 min-h-screen'>
+        <div className='bg-gray-100 min-h-screen' style={{ backgroundImage: "url('/images/create.png')" }}>
+
             {/* Navigation Bar */}
             <NavigationBar />
             <nav style={{ backgroundColor: '#3FC060' }} className="p-4">
