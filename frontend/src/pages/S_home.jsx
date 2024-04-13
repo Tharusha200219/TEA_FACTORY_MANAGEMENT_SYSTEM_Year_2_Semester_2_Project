@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import NavigationBar from '../components/NavigationBar';
+import Footer from '../components/Footer';
 
 const S_home = () => {
     return (
@@ -36,11 +37,9 @@ const S_home = () => {
                         </div>
                         </section>
                     </main>
-                    <footer style={styles.footer}>
-                        <p style={styles.footerText}>© {new Date().getFullYear()} Supplier Management</p>
-                    </footer>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 };
