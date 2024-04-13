@@ -20,7 +20,7 @@ const supplyrecordSchema = mongoose.Schema(
     },
   },
   {
-      timestamps: true,
+    timestamps: true,
   }
 );
 
