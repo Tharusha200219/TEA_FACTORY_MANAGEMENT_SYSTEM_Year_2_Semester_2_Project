@@ -36,7 +36,6 @@ const CreateSupplyRecord = () => {
     };
 
     const validateQuantity = (value) => {
-        console.log(value, 'validate quantity');
         if (!value) {
             return 'Quantity is required';
         } else if (parseInt(value) <= 0) {
@@ -57,7 +56,6 @@ const CreateSupplyRecord = () => {
     const handleInputChange = (e, validator) => {
         const { name, value } = e.target;
         const error = validator(value);
-        console.log(error);
         setErrors((prevErrors) => ({
             ...prevErrors,
             [name]: error,
@@ -87,10 +85,8 @@ const CreateSupplyRecord = () => {
     };
     
     const handleSaveSupplyRecord = () => {
-
         validate();
         const isValid = Object.values(errors).every((error) => error === '');
-        console.log(isValid);
         if (isValid) {
             const data = {
                 supplier: selectedSupplier,
@@ -98,7 +94,6 @@ const CreateSupplyRecord = () => {
                 quantity,
                 unitPrice,
             };
-            console.log(data);
             setLoading(true);
             axios.post('http://localhost:5555/supplyrecords', data)
                 .then(() => {
@@ -187,7 +182,7 @@ const CreateSupplyRecord = () => {
                 <button 
                  className='p-2 bg-sky-300 m-8' 
                  onClick={handleSaveSupplyRecord}
-                //  disabled={!(unitPrice && date && selectedSupplier && quantity)}
+                 //  disabled={!(unitPrice && date && selectedSupplier && quantity)}
                  >
                     Save
                 </button>
@@ -198,4 +193,3 @@ const CreateSupplyRecord = () => {
 };
 
 export default CreateSupplyRecord;
-

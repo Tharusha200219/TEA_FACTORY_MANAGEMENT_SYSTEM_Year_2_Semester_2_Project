@@ -109,7 +109,6 @@ const EditSupplyRecord = () => {
                 navigate('/SupplyRecordTable');
             })
             .catch((error) => {
-                alert('An error occurred');
                 console.log(error);
             });
         }
