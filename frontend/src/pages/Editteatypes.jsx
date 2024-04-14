@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import BackButtonForCreateProduction from '../components/backbutton_for_create_production';
 import Spinner from '../components/Spinner';
 import NavigationBar from '../components/NavigationBar'; // Import NavigationBar component
+import Footer from '../components/Footer';
 
 const Editteatypes = () => {
   const [Schedule_no, setSchedule_no] = useState('');
@@ -67,6 +68,10 @@ const Editteatypes = () => {
             <Link to="/teatypes/creates" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">Create Table</Link>
             <Link to="/pending-shipments" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">Production Machine Availability</Link>
             <Link to="/TeaTypeReport" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">Tea Type Report Generate</Link>
+            <Link to="/user-profile-page" className="absolute right-10 flex  space-x-2">
+                    <img src="/images/user.png" alt="User Profile" className="w-8 h-8 rounded-full" />
+                    {/* You can replace "example-profile-image.jpg" with the actual path to your user profile image */}
+                </Link>
           </div>
         </div>
       </div>
@@ -87,7 +92,7 @@ const Editteatypes = () => {
               id='Schedule_no'
               type='number'
               value={Schedule_no}
-              onChange={(e) => setSchedule_no(e.target.value)}
+              readOnly
               className='input-field'
             />
           </div>
@@ -145,6 +150,7 @@ const Editteatypes = () => {
         </div>
       </div>
     </div>
+    <Footer />
     </dev>
   );
 };

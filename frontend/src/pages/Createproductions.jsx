@@ -4,6 +4,7 @@ import axios from 'axios';
 import Spinner from '../components/Spinner';
 import NavigationBar from '../components/NavigationBar';
 import { Link } from 'react-router-dom';
+import Footer from '../components/Footer';
 
 const Createproductions = () => {
     const [Schedule_no, setSchedule_no] = useState('');
@@ -102,7 +103,8 @@ const Createproductions = () => {
     };
 
     return (
-        <div className='bg-gray-100 min-h-screen'>
+        <div className='bg-gray-100 min-h-screen' style={{ backgroundImage: "url('/images/create.png')" }}>
+
             {/* Navigation Bar */}
             <NavigationBar />
             <nav style={{ backgroundColor: '#3FC060' }} className="p-4">
@@ -114,6 +116,10 @@ const Createproductions = () => {
                         <Link to="/Productionmachineavailability" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Production Machine Availability</Link>
                         <Link to="/ProductionReport" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Production Report Generate</Link>
                         <Link to="/Productionstatus" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Production Status</Link>
+                        <Link to="/user-profile-page" className="absolute right-10 flex  space-x-2">
+                    <img src="/images/user.png" alt="User Profile" className="w-8 h-8 rounded-full" />
+                    {/* You can replace "example-profile-image.jpg" with the actual path to your user profile image */}
+                </Link>
                     </div>
                 </div>
             </nav>
@@ -208,6 +214,8 @@ const Createproductions = () => {
                     </div>
                 </div>
             </div>
+            <br></br>
+            <Footer />
         </div>
     );
 };

@@ -4,89 +4,89 @@ import { SupplyRecord } from "../models/supplyrecordModel.js";
 const router = express.Router();
 
 // save new supply record 
-router.post('/', async (req, res) => {
+router.post('/', async (request, response) => {
     try {
-        const { supplier, date, quantity, unitPrice } = req.body;
+        const { supplier, date, quantity, unitPrice } = request.body;
 
         if (!supplier || !date || !quantity || !unitPrice) {
-            return res.status(400).send({ message: 'Send all required fields: supplier, date, quantity, unitPrice'});
+            return response.status(400).send({ message: 'Send all required fields: supplier, date, quantity, unitPrice'});
         }
 
-        const newSupplyRecord = new SupplyRecord({
+        const newRecord = new SupplyRecord({
             supplier,
             date,
             quantity,
-            unitPrice
+            unitPrice  
         });
 
-        const savedRecord = await newSupplyRecord.save();
-        return res.status(201).json(savedRecord);
+        const savedRecord = await newRecord.save();
+        return response.status(201).json(savedRecord);
     } catch (error) {
         console.error(error.message);
-        res.status(500).send({ message: error.message });
+        response.status(500).send({ message: error.message });
     }
 });
 
 // get all records from database
-router.get('/', async (req, res) => {
+router.get('/', async (request, response) => {
     try {
         const allSupplyRecords = await SupplyRecord.find({});
-        return res.status(200).json(allSupplyRecords);
+        return response.status(200).json(allSupplyRecords);
     }
      catch (error) {
         console.error(error.message);
-        res.status(500).send({ message: error.message });
+        response.status(500).send({ message: error.message });
     }
 });
 
-// get supply record by ID
-router.get('/:id', async (req, res) => {
+// get supply record 
+router.get('/:id', async (request, response) => {
     try {
-        const { id } = req.params;
+        const { id } = request.params;
         const supplyRecord = await SupplyRecord.findById(id);
        
         if (!supplyRecord) {
-            return res.status(404).send({ message: 'Supply record not found' });
+            return response.status(404).send({ message: 'Supply record not found' });
         }
-        return res.status(200).json(supplyRecord);
+        return response.status(200).json(supplyRecord);
     } 
     catch (error) {
         console.error(error.message);
-        res.status(500).send({ message: error.message });
+        response.status(500).send({ message: error.message });
     }
 });
 
 // update record
-router.put('/:id', async (req, res) => {
+router.put('/:id', async (request, response) => {
     try {
-        const { id } = req.params;
-        const updateRecord = await SupplyRecord.findByIdAndUpdate(id, req.body, { new: true });
+        const { id } = request.params;
+        const updateRecord = await SupplyRecord.findByIdAndUpdate(id, request.body, { new: true });
        
         if (!updateRecord) {
-            return res.status(404).send({ message: 'Supply record not found' });
+            return response.status(404).send({ message: 'Supply record not found' });
         }
-        return res.status(200).json(updateRecord);
+        return response.status(200).json(updateRecord);
     } 
     catch (error) {
         console.error(error.message);
-        res.status(500).send({ message: error.message });
+        response.status(500).send({ message: error.message });
     }
 });
 
 // delete record
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', async (request, response) => {
     try {
-        const { id } = req.params;
+        const { id } = request.params;
         const deleteRecord = await SupplyRecord.findByIdAndDelete(id);
 
         if (!deleteRecord) {
-            return res.status(404).send({ message: 'Supply record not found' });
+            return response.status(404).send({ message: 'Supply record not found' });
         }
-        return res.status(200).send({ message: 'Supply record deleted successfully' });
+        return response.status(200).send({ message: 'Supply record deleted successfully' });
     } 
     catch (error) {
         console.error(error.message);
-        res.status(500).send({ message: error.message });
+        response.status(500).send({ message: error.message });
     }
 });
 

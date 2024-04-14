@@ -3,7 +3,7 @@ import { supplier } from "../models/supplierModel.js";
 
 const router = express.Router();
 
-// Route to save a new supplier entry
+// Add new supplier
 router.post('/', async (request, response) => {
     try {
         const { supplierid, name, address, contact, email } = request.body;
@@ -20,68 +20,67 @@ router.post('/', async (request, response) => {
             email,
         };
 
-        const createdSupplierEntry = await supplier.create(newSupplier);
-
-        return response.status(201).send(createdSupplierEntry);
+        const createSupplier = await supplier.create(newSupplier);
+        return response.status(201).send(createSupplier);
     } catch (error) {
         console.error(error.message);
-        response.status(500).send({ message: 'Error creating supplier entry' });
+        response.status(500).send({ message: error.message });
     }
 });
 
-// Route to get all supplier entries
+// get all suppliers
 router.get('/', async (request, response) => {
     try {
-        const allSupplierEntries = await supplier.find({});
-        return response.status(200).json(allSupplierEntries);
+        const allSuppliers = await supplier.find({});
+        return response.status(200).json(allSuppliers);
     } catch (error) {
         console.error(error.message);
-        response.status(500).send({ message: 'Error retrieving supplier entries' });
+        response.status(500).send({ message: error.message });
     }
 });
 
-// Route to get one supplier entry by ID
+// get one supplier 
 router.get('/:id', async (request, response) => {
     try {
         const { id } = request.params;
-        const singleSupplierEntry = await supplier.findById(id);
-        if (!singleSupplierEntry) {
+        const oneSupplier = await supplier.findById(id);
+        if (!oneSupplier) {
             return response.status(404).send({ message: 'Supplier not found' });
         }
-        return response.status(200).json(singleSupplierEntry);
+        return response.status(200).json(oneSupplier);
     } catch (error) {
         console.error(error.message);
-        response.status(500).send({ message: 'Error retrieving supplier entry' });
+        response.status(500).send({ message: error.message });
     }
 });
 
-// Route to update a supplier entry by ID
+// update supplier 
 router.put('/:id', async (request, response) => {
     try {
         const { id } = request.params;
-        const updatedSupplierEntry = await supplier.findByIdAndUpdate(id, request.body, { new: true });
-        if (!updatedSupplierEntry) {
+        const updateSupplier = await supplier.findByIdAndUpdate(id, request.body, { new: true });
+        if (!updateSupplier) {
             return response.status(404).send({ message: 'Supplier not found' });
         }
-        return response.status(200).send(updatedSupplierEntry);
+        return response.status(200).send(updateSupplier);
     } catch (error) {
         console.error(error.message);
-        response.status(500).send({ message: 'Error updating supplier entry' });
+        response.status(500).send({ message: error.message });
     }
 });
 
-// Route to delete a supplier entry by ID
+// delete supplier 
 router.delete('/:id', async (request, response) => {
     try {
         const { id } = request.params;
-        const deletedSupplierEntry = await supplier.findByIdAndDelete(id);
-        if (!deletedSupplierEntry) {
+        const deleteSupplier = await supplier.findByIdAndDelete(id);
+        if (!deleteSupplier) {
             return response.status(404).send({ message: 'Supplier not found' });
         }
         return response.status(200).send({ message: 'Supplier deleted successfully!' });
     } catch (error) {
         console.error(error.message);
-        response.status(500).send({ message: 'Error deleting supplier entry' });
+        response.status(500).send({ message: error.message });
     }
 });
 

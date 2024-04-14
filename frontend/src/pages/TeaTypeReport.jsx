@@ -3,6 +3,7 @@ import axios from 'axios';
 import { PDFDownloadLink, Document, Page, View, Text, StyleSheet } from '@react-pdf/renderer';
 import NavigationBar from '../components/NavigationBar'; // Import NavigationBar component
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import Footer from '../components/Footer';
 
 const styles = StyleSheet.create({
     page: {
@@ -17,32 +18,36 @@ const styles = StyleSheet.create({
         backgroundColor: '#4CAF50',
         color: 'white',
         padding: 10,
-        fontSize: 14,
+        fontSize: 18,
         marginBottom: 10,
         textAlign: 'center',
     },
     table: {
         width: '100%',
-        border: '1px solid #000',
+        border: '1px solid #ddd',
         borderCollapse: 'collapse',
+        marginTop: 20,
     },
     tableRow: {
         flexDirection: 'row',
-        borderBottom: '1px solid #000',
+        borderBottom: '1px solid #ddd',
     },
     tableColHeader: {
         width: '20%',
-        padding: '8px',
+        padding: '12px',
         textAlign: 'center',
-        borderRight: '1px solid #000',
+        borderRight: '1px solid #ddd',
         backgroundColor: '#4CAF50',
         color: 'white',
+        fontWeight: 'bold',
+        fontSize: 16,
     },
     tableCol: {
         width: '20%',
-        padding: '8px',
+        padding: '12px',
         textAlign: 'center',
-        borderRight: '1px solid #000',
+        borderRight: '1px solid #ddd',
+        fontSize: 14,
     },
 });
 
@@ -107,13 +112,17 @@ const TeaTypeReport = () => {
                             <Link to="/teatypes/creates" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Create Table</Link>
                             <Link to="/pending-shipments" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Production Machine Availability</Link>
                             <Link to="/TeaTypeReport" className="text-gray-300 bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Tea Type Report Generate</Link>
+                            <Link to="/user-profile-page" className="absolute right-10 flex  space-x-2">
+                    <img src="/images/user.png" alt="User Profile" className="w-8 h-8 rounded-full" />
+                    {/* You can replace "example-profile-image.jpg" with the actual path to your user profile image */}
+                </Link>
                         </div>
                     </div>
                 </div>
             </nav>
 
             <div>
-                <h1 style={{ textAlign: 'center', color: '#4CAF50' }}>Tea Type Report</h1>
+                <h1 style={{ textAlign: 'center', color: '#000000', fontSize: 24, marginTop: 20 }}>Tea Type Report</h1>
                 {loading ? (
                     <p>Loading...</p>
                 ) : (
@@ -126,10 +135,12 @@ const TeaTypeReport = () => {
                                 textDecoration: 'none',
                                 padding: '10px',
                                 color: '#FFF',
-                                backgroundColor: '#4CAF50',
+                                backgroundColor: '#000000',
                                 borderRadius: '5px',
                                 display: 'inline-block',
-                                marginBottom: '10px',
+                                marginBottom: '20px',
+                                marginTop: '20px',
+                                marginLeft: '10px',
                             }}
                         >
                             {({ loading }) =>
@@ -138,31 +149,31 @@ const TeaTypeReport = () => {
                         </PDFDownloadLink>
 
                         {/* Display report data */}
-                        <div style={{ maxWidth: '100%', margin: 'auto' }}>
+                        <div style={{ maxWidth: '100%', margin: 'auto', overflowX: 'auto' }}>
                             <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '20px' }}>
                                 <thead>
-                                    <tr style={{ backgroundColor: '#4CAF50', color: 'white' }}>
-                                        <th style={{ padding: '8px', textAlign: 'center', borderBottom: '1px solid #ddd', width: '20%' }}>Schedule No</th>
-                                        <th style={{ padding: '8px', textAlign: 'center', borderBottom: '1px solid #ddd', width: '20%' }}>Black Tea</th>
-                                        <th style={{ padding: '8px', textAlign: 'center', borderBottom: '1px solid #ddd', width: '20%' }}>Green Tea</th>
-                                        <th style={{ padding: '8px', textAlign: 'center', borderBottom: '1px solid #ddd', width: '20%' }}>Oolong Tea</th>
-                                        <th style={{ padding: '8px', textAlign: 'center', borderBottom: '1px solid #ddd', width: '20%' }}>White Tea</th>
+                                    <tr style={{ backgroundColor: '#000000', color: 'white' }}>
+                                        <th style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid #ddd', width: '20%' }}>Schedule No</th>
+                                        <th style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid #ddd', width: '20%' }}>Black Tea</th>
+                                        <th style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid #ddd', width: '20%' }}>Green Tea</th>
+                                        <th style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid #ddd', width: '20%' }}>Oolong Tea</th>
+                                        <th style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid #ddd', width: '20%' }}>White Tea</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {Array.isArray(reportData) && reportData.length > 0 ? (
                                         reportData.map((teatype) => (
-                                            <tr key={teatype._id}>
-                                                <td style={{ padding: '8px', textAlign: 'center', borderBottom: '1px solid #ddd', width: '20%' }}>{teatype.Schedule_no}</td>
-                                                <td style={{ padding: '8px', textAlign: 'center', borderBottom: '1px solid #ddd', width: '20%' }}>{teatype.black_tea}</td>
-                                                <td style={{ padding: '8px', textAlign: 'center', borderBottom: '1px solid #ddd', width: '20%' }}>{teatype.green_tea}</td>
-                                                <td style={{ padding: '8px', textAlign: 'center', borderBottom: '1px solid #ddd', width: '20%' }}>{teatype.oolong_tea}</td>
-                                                <td style={{ padding: '8px', textAlign: 'center', borderBottom: '1px solid #ddd', width: '20%' }}>{teatype.white_tea}</td>
+                                            <tr key={teatype._id} style={{ backgroundColor: '#f2f2f2' }}>
+                                                <td style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid #ddd' }}>{teatype.Schedule_no}</td>
+                                                <td style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid #ddd' }}>{teatype.black_tea}</td>
+                                                <td style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid #ddd' }}>{teatype.green_tea}</td>
+                                                <td style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid #ddd' }}>{teatype.oolong_tea}</td>
+                                                <td style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid #ddd' }}>{teatype.white_tea}</td>
                                             </tr>
                                         ))
                                     ) : (
                                         <tr>
-                                            <td style={{ padding: '8px', textAlign: 'center', borderBottom: '1px solid #ddd' }} colSpan="5">No data available</td>
+                                            <td style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid #ddd' }} colSpan="5">No data available</td>
                                         </tr>
                                     )}
                                 </tbody>
@@ -171,6 +182,7 @@ const TeaTypeReport = () => {
                     </div>
                 )}
             </div>
+            <Footer />
         </div>
     );
 }

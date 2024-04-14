@@ -1,19 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import BackButtonForCreateProduction from '../components/backbutton_for_create_production';
 import Spinner from '../components/Spinner';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import NavigationBar from '../components/NavigationBar';
+import Footer from '../components/Footer';
 
 const Createteatypes = () => {
-    const [Schedule_no, setSchedule_no] = useState('');
+    const [Schedule_no, setSchedule_no] = useState(1); // Initialize Schedule_no to 1
     const [black_tea, setblack_tea] = useState('');
     const [green_tea, setgreen_tea] = useState('');
     const [oolong_tea, setoolong_tea] = useState('');
     const [white_tea, setwhite_tea] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        // Fetch the last schedule number from the server and increment it by 1
+        axios.get('http://localhost:5555/teatypes')
+            .then((response) => {
+                const lastScheduleNo = response.data.data.length + 1; // Add 1 to get the next schedule number
+                setSchedule_no(lastScheduleNo);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, []);
 
     const handleSaveteatypes = () => {
         const data = {
@@ -50,12 +63,17 @@ const Createteatypes = () => {
                             <Link to="/teatypes/creates" className="text-gray-300 bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">create table</Link>
                             <Link to="/pending-shipments" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">production machine availability</Link>
                             <Link to="/TeaTypeReport" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">tea type report genarate</Link>
+                            <Link to="/user-profile-page" className="absolute right-10 flex  space-x-2">
+                    <img src="/images/user.png" alt="User Profile" className="w-8 h-8 rounded-full" />
+                    {/* You can replace "example-profile-image.jpg" with the actual path to your user profile image */}
+                </Link>
                         </div>
                     </div>
                 </div>
             </nav>
 
-            <div className='flex flex-col items-center justify-center min-h-screen bg-gray-100'>
+            <div className='flex flex-col items-center justify-center min-h-screen bg-gray-100' style={{ backgroundImage: "url('/images/create.png')" }}>
+            
                 <BackButtonForCreateProduction />
                 <div className='max-w-md mx-auto bg-white rounded-lg shadow-md p-8 mt-8'>
                     <h1 className='text-3xl mb-4 font-bold text-gray-800 text-center'>Create tea type Schedule</h1>
@@ -69,7 +87,7 @@ const Createteatypes = () => {
                                 id='Schedule_no'
                                 type='number'
                                 value={Schedule_no}
-                                onChange={(e) => setSchedule_no(e.target.value)}
+                                readOnly // Make it read-only to prevent user input
                                 className='input-field'
                             />
                         </div>
@@ -127,6 +145,7 @@ const Createteatypes = () => {
                     </div>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 };

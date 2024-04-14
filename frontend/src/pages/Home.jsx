@@ -1,6 +1,6 @@
 import React from 'react';
 import NavigationBar from '../components/NavigationBar';
-
+import Footer from '../components/Footer';
 function Home() {
     const pageStyles = {
         fontFamily: 'Arial, sans-serif',
@@ -142,6 +142,31 @@ function Home() {
                     <p>Manage relationships with tea suppliers and ensure quality</p>
                 </div>
             </section>
+            <div className="container mx-auto px-4 py-8" style={{ maxWidth: '1300px' }}>
+    {/* Hero Section */}
+    <div className="text-center">
+        <p className="text-lg text-gray-700 mb-8">Discover our variety of teas and experience the essence of nature.</p>
+    </div>
+    {/* Tea Types Section */}
+    <div className="grid grid-cols-4 gap-10">
+        <div className="text-center bg-green-500 text-white py-8 rounded-md">
+            <h2 className="text-2xl font-semibold mb-4">Black Tea</h2>
+            <img src="/images/black.jpg" alt="Black Tea" className="w-full h-auto rounded-md" />
+        </div>
+        <div className="text-center bg-green-500 text-white py-8 rounded-md">
+            <h2 className="text-2xl font-semibold mb-4">Green Tea</h2>
+            <img src="/images/green.jpg" alt="Green Tea" className="w-full h-auto rounded-md" />
+        </div>
+        <div className="text-center bg-green-500 text-white py-8 rounded-md">
+            <h2 className="text-2xl font-semibold mb-4">Oolong Tea</h2>
+            <img src="/images/oolong.jpg" alt="Oolong Tea" className="w-full h-auto rounded-md" />
+        </div>
+        <div className="text-center bg-green-500 text-white py-8 rounded-md">
+            <h2 className="text-2xl font-semibold mb-4">White Tea</h2>
+            <img src="/images/white.jpg" alt="White Tea" className="w-full h-auto rounded-md" />
+        </div>
+    </div>
+</div>
 
             <section id="about" className="about" style={aboutStyles}>
                 <div className="about-content" style={aboutContentStyles}>
@@ -151,9 +176,7 @@ function Home() {
                 </div>
             </section>
 
-            <footer className="footer" style={footerStyles}>
-                <p>&copy; 2024 Ever Green Tea. All rights reserved.</p>
-            </footer>
+            <Footer />
         </div>
     );
 }
