@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import NavigationBar from '../components/NavigationBar';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import Footer from '../components/Footer';
 
 const MachineReport = () => {
     const [machines, setMachines] = useState([]);
@@ -86,6 +87,7 @@ const MachineReport = () => {
                     </table>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 };

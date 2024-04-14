@@ -6,6 +6,7 @@ import { AiOutlineEdit } from 'react-icons/ai';
 import { BsInfoCircle } from 'react-icons/bs';
 import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
 import NavigationBar from '../components/NavigationBar';
+import Footer from '../components/Footer';
 
 const MachineHome = () => {
     const [machines, setMachines] = useState([]);
@@ -76,9 +77,7 @@ const MachineHome = () => {
             <div className='p-4'>
                 <div className='flex justify-between items-center'>
                     <h1 className='text-2xl my-8'>Machine Table</h1> {/* Reduced text size */}
-                    <Link to='/books/create'>
-                        <MdOutlineAddBox className='text-sky-800 text-5xl' /> {/* Increased icon size */}
-                    </Link>
+                    
                 </div>
                 <div className="flex items-center mb-4">
                     <input
@@ -152,18 +151,7 @@ const MachineHome = () => {
                     </div>
                 )}
             </div>
-            {/* Footer */}
-            <footer className="bg-gray-800 text-white py-4 mt-8">
-                <div className="container mx-auto flex justify-between items-center">
-                    <div>
-                        <p>&copy; 1998-{new Date().getFullYear()} Ever Green Tea Factory. All rights reserved.</p>
-                        <p>Contact: 0112787678</p>
-                    </div>
-                    <div>
-                        {/* Add any additional footer content here */}
-                    </div>
-                </div>
-            </footer>
+            <Footer />
         </div>
     );
 }

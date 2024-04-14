@@ -4,6 +4,7 @@ import Spinner from '../components/Spinner';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import NavigationBar from '../components/NavigationBar';
+import Footer from '../components/Footer';
 
 const EditMaintenance = () => {
   const [machineNumber, setmachineNumber] = useState('');
@@ -66,7 +67,7 @@ const EditMaintenance = () => {
 
         <div className='space-y-4'>
           <div className='mb-4'>
-            <label htmlFor='machineNumber' className='text-lg text-gray-600'>machineNumber No</label>
+            <label htmlFor='machineNumber' className='text-lg text-gray-600'>Machine Number</label>
             <input
               id='machineNumber'
               type='number'
@@ -77,7 +78,7 @@ const EditMaintenance = () => {
           </div>
 
           <div className='mb-4'>
-            <label htmlFor='machineName' className='text-lg text-gray-600'>machineName</label>
+            <label htmlFor='machineName' className='text-lg text-gray-600'>Machine Name</label>
             <input
               id='machineName'
               type='text'
@@ -88,7 +89,7 @@ const EditMaintenance = () => {
           </div>
 
           <div className='mb-4'>
-            <label htmlFor='description' className='text-lg text-gray-600'>description</label>
+            <label htmlFor='description' className='text-lg text-gray-600'>Description</label>
             <input
               id='description'
               type='text'
@@ -99,7 +100,7 @@ const EditMaintenance = () => {
           </div>
 
           <div className='mb-4'>
-            <label htmlFor='maintenanceDate' className='text-lg text-gray-600'>maintenanceDate</label>
+            <label htmlFor='maintenanceDate' className='text-lg text-gray-600'>Maintenance Date</label>
             <input
               id='maintenanceDate'
               type='text'
@@ -110,7 +111,7 @@ const EditMaintenance = () => {
           </div>
 
           <div className='mb-4'>
-            <label htmlFor='frequencyInDays' className='text-lg text-gray-600'>frequencyInDays</label>
+            <label htmlFor='frequencyInDays' className='text-lg text-gray-600'>Frequency In Days</label>
             <input
               id='frequencyInDays'
               type='number'
@@ -129,6 +130,7 @@ const EditMaintenance = () => {
         </div>
       </div>
     </div>
+    <Footer />
     </div>
   );
 };

@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import Spinner from '../components/Spinner';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
+import NavigationBar from '../components/NavigationBar';
+import Footer from '../components/Footer';
 
 const EditMachine = () => {
   const [machineNumber, setmachineNumber] = useState('');
@@ -54,6 +56,10 @@ const EditMachine = () => {
   };
 
   return (
+    <div>
+       <NavigationBar />
+       
+       
     <div className='flex flex-col items-center justify-center min-h-screen' style={{ backgroundColor: 'gray' }}>
       
       <div className='max-w-md mx-auto bg-white rounded-lg shadow-md p-8 mt-8'>
@@ -63,7 +69,7 @@ const EditMachine = () => {
 
         <div className='space-y-4'>
           <div className='mb-4'>
-            <label htmlFor='machineNumber' className='text-lg text-gray-600'>machineNumber No</label>
+            <label htmlFor='machineNumber' className='text-lg text-gray-600'>Machine Number</label>
             <input
               id='machineNumber'
               type='number'
@@ -74,7 +80,7 @@ const EditMachine = () => {
           </div>
 
           <div className='mb-4'>
-            <label htmlFor='machineName' className='text-lg text-gray-600'>machineName</label>
+            <label htmlFor='machineName' className='text-lg text-gray-600'>Machine Name</label>
             <input
               id='machineName'
               type='text'
@@ -85,7 +91,7 @@ const EditMachine = () => {
           </div>
 
           <div className='mb-4'>
-            <label htmlFor='machineType' className='text-lg text-gray-600'>machineType</label>
+            <label htmlFor='machineType' className='text-lg text-gray-600'>Machine Type</label>
             <input
               id='machineType'
               type='text'
@@ -96,7 +102,7 @@ const EditMachine = () => {
           </div>
 
           <div className='mb-4'>
-            <label htmlFor='installationDate' className='text-lg text-gray-600'>installationDate</label>
+            <label htmlFor='installationDate' className='text-lg text-gray-600'>Installation Date</label>
             <input
               id='installationDate'
               type='text'
@@ -107,7 +113,7 @@ const EditMachine = () => {
           </div>
 
           <div className='mb-4'>
-            <label htmlFor='warrentyInformation' className='text-lg text-gray-600'>warrentyInformation</label>
+            <label htmlFor='warrentyInformation' className='text-lg text-gray-600'>Warrenty Information</label>
             <input
               id='warrentyInformation'
               type='text'
@@ -125,6 +131,8 @@ const EditMachine = () => {
           </button>
         </div>
       </div>
+      </div>
+      <Footer />
     </div>
   );
 };
