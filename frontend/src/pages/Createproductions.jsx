@@ -92,7 +92,7 @@ const Createproductions = () => {
                 setStatus('');
                 setSelectedMachine('');
                 setError('');
-                
+
                 navigate('/Productionhome');
             })
             .catch((error) => {
@@ -116,9 +116,9 @@ const Createproductions = () => {
                         <Link to="/ProductionReport" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Production Report Generate</Link>
                         <Link to="/Productionstatus" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Production Status</Link>
                         <Link to="/user-profile-page" className="absolute right-10 flex  space-x-2">
-                    <img src="/images/user.png" alt="User Profile" className="w-8 h-8 rounded-full" />
-                    {/* You can replace "example-profile-image.jpg" with the actual path to your user profile image */}
-                </Link>
+                            <img src="/images/user.png" alt="User Profile" className="w-8 h-8 rounded-full" />
+                            {/* You can replace "example-profile-image.jpg" with the actual path to your user profile image */}
+                        </Link>
                     </div>
                 </div>
             </nav>
@@ -167,16 +167,16 @@ const Createproductions = () => {
                         <div className='mb-4'>
                             <label htmlFor='Machine_assignment' className='text-lg text-gray-600'>Machine Assignment</label>
                             <select
-    id='Machine_assignment'
-    value={selectedMachine}
-    onChange={(e) => setSelectedMachine(e.target.value)}
-    className='input-field'
->
-    <option value='' disabled>Select machine</option>
-    {machines.map((machine) => (
-        <option key={machine._id} value={machine.machineName}>{machine.machineName}</option>
-    ))}
-</select>
+                                id='Machine_assignment'
+                                value={selectedMachine}
+                                onChange={(e) => setSelectedMachine(e.target.value)}
+                                className='input-field'
+                            >
+                                <option value='' disabled>Select machine</option>
+                                {machines.map((machine) => (
+                                    <option key={machine._id} value={machine.machineName}>{machine.machineName}</option>
+                                ))}
+                            </select>
 
                         </div>
 
