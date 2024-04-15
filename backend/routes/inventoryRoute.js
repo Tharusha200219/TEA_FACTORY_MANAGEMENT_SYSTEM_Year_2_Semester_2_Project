@@ -6,15 +6,15 @@ const router = express.Router();
 // Route to save a new inventory entry
 router.post('/', async (request, response) => {
     try {
-        const { batchid, catogory, inventorynumber, quantity } = request.body;
+        const { batchid, category, inventorynumber, quantity } = request.body;
 
-        if (!batchid || !catogory || !inventorynumber || !quantity) {
+        if (!batchid || !category || !inventorynumber || !quantity) {
             return response.status(400).send({ message: 'Please provide all required fields: batchid, category, inventorynumber, quantity' });
         }
 
         const newInventoryEntry = {
             batchid,
-            catogory,
+            category,
             inventorynumber,
             quantity,
         };

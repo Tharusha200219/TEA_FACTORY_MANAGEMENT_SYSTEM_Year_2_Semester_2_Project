@@ -1,21 +1,39 @@
 import express from "express";
 import { waste } from "../models/wastemodel.js";
+import { inventory } from "../models/inventorymodel.js";
 
 const router = express.Router();
 
 // Route to save a new waste entry
 router.post('/', async (request, response) => {
     try {
-        const { wasteid, teatype, inventorynumber, quantity } = request.body;
+        const { wasteid, teatype, batchid, quantity } = request.body;
 
-        if (!wasteid || !teatype || !inventorynumber || !quantity) {
-            return response.status(400).send({ message: 'Please provide wasteid, teatype, inventorynumber, and quantity' });
+        if (!wasteid || !teatype || !batchid || !quantity) {
+            return response.status(400).send({ message: 'Please provide wasteid, teatype, batchid, and quantity' });
         }
 
+        // Find the corresponding inventory item by batch ID
+        const inventoryItem = await inventory.findOne({ batchid });
+        if (!inventoryItem) {
+            return response.status(404).send({ message: 'Inventory item not found' });
+        }
+
+        // Check if the quantity is sufficient
+        if (inventoryItem.quantity < quantity || quantity < 1) {
+            return response.status(400).send({ message: 'Insufficient quantity in inventory or invalid waste quantity' });
+        }
+
+        // Deduct quantity from the inventory
+        inventoryItem.quantity -= quantity;
+        await inventoryItem.save();
+
+        // Create the new waste entry
         const newWasteEntry = {
             wasteid,
             teatype,
-            inventorynumber,
+            batchid,
+            inventorynumber: inventoryItem.inventorynumber, // Use inventory number from inventory item
             quantity,
         };
 
