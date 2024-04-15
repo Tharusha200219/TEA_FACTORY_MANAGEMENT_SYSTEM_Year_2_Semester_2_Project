@@ -4,6 +4,7 @@ import Spinner from '../components/Spinner';
 import { useNavigate, useParams } from 'react-router-dom';
 import NavigationBar from '../components/NavigationBar';
 import BackButtonSupplyRecords from '../components/backbtnSupplyRecordTable';
+import Footer from '../components/Footer';
 
 const EditSupplyRecord = () => {
     const [selectedSupplier, setSelectedSupplier] = useState('');
@@ -184,8 +185,9 @@ const EditSupplyRecord = () => {
                 <button className='p-2 bg-sky-300 m-8' onClick={handleEditSupplyRecord}>
                     Save
                 </button>
-
             </div>
+            <br></br>
+            <Footer />
         </div>
     );
 };

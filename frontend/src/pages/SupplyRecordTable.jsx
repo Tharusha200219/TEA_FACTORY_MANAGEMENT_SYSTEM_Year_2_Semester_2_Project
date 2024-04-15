@@ -122,14 +122,14 @@ const SupplyRecordTable = () => {
                 ) : (
                     <div id="pdf-content" ref={tableRef}>
                         <table className='w-full border-collapse border border-gray-300'>
-                            <thead className='bg-gray-200'>
+                            <thead className='bg-gray-50'>
                                 <tr>
-                                    <th className='px-6 py-3 text-sm font-medium border border-gray-300 text-left text-white  bg-black'>SUPPLIER</th>
+                                    <th className='pl-6 py-3 pr-3 text-sm font-medium border border-gray-300 text-left text-white  bg-black'>SUPPLIER</th>
                                     <th className='px-6 py-3 text-sm font-medium border border-gray-300 text-left text-white  bg-black'>SUPPLY DATE</th>
-                                    <th className='px-6 py-3 text-sm font-medium border border-gray-300 text-left text-white  bg-black'>QUANTITY (KG)</th>
+                                    <th className='pl-6 py-3 pr-3 text-sm font-medium border border-gray-300 text-left text-white  bg-black'>RAW QUANTITY (KG)</th>
                                     <th className='px-6 py-3 text-sm font-medium border border-gray-300 text-left text-white  bg-black'>UNIT PRICE</th>
                                     <th className='px-6 py-3 text-sm font-medium border border-gray-300 text-left text-white  bg-black'>COST</th>
-                                    <th className='px-6 py-3 text-sm font-medium border border-gray-300 text-left text-white  bg-black'>ACTIONS</th>
+                                    <th className='pl-9 py-3 text-sm font-medium border border-gray-300 text-left text-white  bg-black'>ACTIONS</th>
                                     
                                 </tr>
                             </thead>
