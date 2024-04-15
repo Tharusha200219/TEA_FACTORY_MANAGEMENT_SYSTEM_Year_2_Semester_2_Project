@@ -7,6 +7,7 @@ import { useSnackbar } from 'notistack';
 
 const EditEmployee = () => {
   const [employeeName, setEmployeeName] = useState('');
+  const [employeeEmail, setEmployeeEmail] = useState('');
   const [employeeMobile, setEmployeeMobile] = useState('');
   const [employeeAddress, setEmployeeAddress] = useState('');
   const [employeeRoles, setEmployeeRoles] = useState('');
@@ -23,6 +24,7 @@ const EditEmployee = () => {
       .then((response) => {
         const data = response.data;
         setEmployeeName(data.employeeName);
+        setEmployeeEmail(data.employeeEmail)
         setEmployeeMobile(data.employeeMobile);
         setEmployeeAddress(data.employeeAddress);
         setEmployeeRoles(data.employeeRoles);
@@ -41,6 +43,10 @@ const EditEmployee = () => {
     if (!employeeName.trim()) {
       errors.employeeName = 'Employee Name is required';
     }
+    if (!employeeEmail.trim()) {
+      errors.employeeEmail = 'Employee Email Address is required';
+    }
+
     if (!employeeMobile.trim()) {
       errors.employeeMobile = 'Employee mobile number are required';
     }
@@ -67,6 +73,7 @@ const EditEmployee = () => {
 
     const data = {
       employeeName,
+      employeeEmail,
       employeeMobile,
       employeeAddress,
       employeeRoles,
@@ -102,8 +109,20 @@ const EditEmployee = () => {
           />
           {errors.employeeName && <span className='text-red-500'>{errors.employeeName}</span>}
         </div>
+
         <div className='my-4'>
-          <label className='text-xl mr-4 text-gray-700'>Employee Mobile</label>
+          <label className='text-xl mr-4 text-gray-700'>Emil Address</label>
+          <input
+            type='text'
+            value={employeeEmail}
+            onChange={(e) => setEmployeeEmail(e.target.value)}
+            className='border-2 border-gray-500 px-4 py-2 w-full'
+          />
+          {errors.employeeEmail && <span className='text-red-500'>{errors.employeeEmail}</span>}
+        </div>
+
+        <div className='my-4'>
+          <label className='text-xl mr-4 text-gray-700'>Contact Number</label>
           <input
             type='Number'
             value={employeeMobile}
@@ -114,7 +133,7 @@ const EditEmployee = () => {
         </div>
 
         <div className='my-4'>
-          <label className='text-xl mr-4 text-gray-700'>Employee Address</label>
+          <label className='text-xl mr-4 text-gray-700'>Address</label>
           <input
             type='text'
             value={employeeAddress}
@@ -125,7 +144,7 @@ const EditEmployee = () => {
         </div>
 
         <div className='my-4'>
-          <label className='text-xl mr-4 text-gray-700'>Employee Rolle</label>
+          <label className='text-xl mr-4 text-gray-700'>Rolle</label>
           <input
             type='text'
             value={employeeRoles}
