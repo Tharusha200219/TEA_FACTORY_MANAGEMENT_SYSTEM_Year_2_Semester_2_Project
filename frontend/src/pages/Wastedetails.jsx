@@ -4,16 +4,16 @@ import { useParams } from 'react-router-dom';
 import BackButton from '../components/backbutton';
 import Spinner from '../components/Spinner';
 
-const ShowInventory = () => {
-  const [inventory, setInventory] = useState({});
+const ShowWaste = () => {
+  const [waste, setWaste] = useState({});
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
 
   useEffect(() => {
     setLoading(true);
-    axios.get(`http://localhost:5555/inventory/${id}`)
+    axios.get(`http://localhost:5555/waste/${id}`)
       .then((response) => {
-        setInventory(response.data);
+        setWaste(response.data);
         setLoading(false);
       })
       .catch((error) => {
@@ -28,28 +28,31 @@ const ShowInventory = () => {
       {loading ? (
         <Spinner />
       ) : (
-        <div style={styles.inventoryDetails}>
-          <h2 style={styles.title}>Inventory Details</h2>
+        <div style={styles.wasteDetails}>
+          <h2 style={styles.title}>Waste Details</h2>
           <div style={styles.infoItem}>
-            <strong>ID:</strong> {inventory._id}
+            <strong>ID:</strong> {waste._id}
           </div>
           <div style={styles.infoItem}>
-            <strong>Batch ID:</strong> {inventory.batchid}
+            <strong>Waste ID:</strong> {waste.wasteid}
           </div>
           <div style={styles.infoItem}>
-            <strong>Category:</strong> {inventory.category}
+            <strong>Tea Type:</strong> {waste.teatype}
           </div>
           <div style={styles.infoItem}>
-            <strong>Inventory Number:</strong> {inventory.inventorynumber}
+            <strong>Inventory Number:</strong> {waste.inventorynumber}
           </div>
           <div style={styles.infoItem}>
-            <strong>Quantity:</strong> {inventory.quantity}
+            <strong>Quantity:</strong> {waste.quantity}
           </div>
           <div style={styles.infoItem}>
-            <strong>Created At:</strong> {new Date(inventory.createdAt).toLocaleString()}
+            <strong>Date Recorded:</strong> {new Date(waste.dateRecorded).toLocaleString()}
           </div>
           <div style={styles.infoItem}>
-            <strong>Updated At:</strong> {new Date(inventory.updatedAt).toLocaleString()}
+            <strong>Created At:</strong> {new Date(waste.createdAt).toLocaleString()}
+          </div>
+          <div style={styles.infoItem}>
+            <strong>Updated At:</strong> {new Date(waste.updatedAt).toLocaleString()}
           </div>
         </div>
       )}
@@ -63,7 +66,7 @@ const styles = {
     background: '#f4f4f4',
     minHeight: '100vh',
   },
-  inventoryDetails: {
+  wasteDetails: {
     marginTop: '20px',
     background: '#fff',
     padding: '20px',
@@ -82,4 +85,4 @@ const styles = {
   },
 };
 
-export default ShowInventory;
+export default ShowWaste;

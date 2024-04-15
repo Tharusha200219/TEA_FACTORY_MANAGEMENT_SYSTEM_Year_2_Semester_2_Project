@@ -4,10 +4,10 @@ import Spinner from '../components/Spinner';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 
-const EditInventory = () => {
-  const [batchId, setBatchId] = useState('');
-  const [category, setCategory] = useState('');
-  const [inventoryNumber, setInventoryNumber] = useState('');
+const EditWaste = () => {
+  const [wasteid, setWasteId] = useState('');
+  const [teatype, setTeaType] = useState('');
+  const [inventorynumber, setInventoryNumber] = useState('');
   const [quantity, setQuantity] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -15,10 +15,10 @@ const EditInventory = () => {
 
   useEffect(() => {
     setLoading(true);
-    axios.get(`http://localhost:5555/inventory/${id}`)
+    axios.get(`http://localhost:5555/waste/${id}`)
       .then((response) => {
-        setBatchId(response.data.batchid);
-        setCategory(response.data.category);
+        setWasteId(response.data.wasteid);
+        setTeaType(response.data.teatype);
         setInventoryNumber(response.data.inventorynumber);
         setQuantity(response.data.quantity);
         setLoading(false);
@@ -30,15 +30,15 @@ const EditInventory = () => {
       });
   }, [id]);
 
-  const handleEditInventory = () => {
+  const handleEditWaste = () => {
     const data = {
-      batchid: batchId,
-      category: category,
-      inventorynumber: inventoryNumber,
-      quantity: quantity,
+      wasteid,
+      teatype,
+      inventorynumber,
+      quantity,
     };
     setLoading(true);
-    axios.put(`http://localhost:5555/inventory/${id}`, data)
+    axios.put(`http://localhost:5555/waste/${id}`, data)
       .then(() => {
         setLoading(false);
         navigate('/');
@@ -54,29 +54,29 @@ const EditInventory = () => {
     <div className='p-4'>
       <BackButton />
       <div className='max-w-2xl mx-auto bg-white rounded-lg shadow-md p-8'>
-        <h1 className='text-3xl mb-6 font-bold text-gray-800'>Edit Inventory</h1>
+        <h1 className='text-3xl mb-6 font-bold text-gray-800'>Edit Waste</h1>
 
         {loading && <Spinner />}
 
         <div className='space-y-4'>
           <div className='mb-4'>
-            <label htmlFor='batchId' className='text-lg text-gray-600'>Batch ID</label>
+            <label htmlFor='wasteId' className='text-lg text-gray-600'>Waste ID</label>
             <input
-              id='batchId'
+              id='wasteId'
               type='text'
-              value={batchId}
-              onChange={(e) => setBatchId(e.target.value)}
+              value={wasteid}
+              onChange={(e) => setWasteId(e.target.value)}
               className='input-field'
             />
           </div>
 
           <div className='mb-4'>
-            <label htmlFor='category' className='text-lg text-gray-600'>Category</label>
+            <label htmlFor='teaType' className='text-lg text-gray-600'>Tea Type</label>
             <input
-              id='category'
+              id='teaType'
               type='text'
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
+              value={teatype}
+              onChange={(e) => setTeaType(e.target.value)}
               className='input-field'
             />
           </div>
@@ -86,7 +86,7 @@ const EditInventory = () => {
             <input
               id='inventoryNumber'
               type='text'
-              value={inventoryNumber}
+              value={inventorynumber}
               onChange={(e) => setInventoryNumber(e.target.value)}
               className='input-field'
             />
@@ -105,7 +105,7 @@ const EditInventory = () => {
 
           <button
             className='bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300'
-            onClick={handleEditInventory}
+            onClick={handleEditWaste}
           >
             Save
           </button>
@@ -115,4 +115,4 @@ const EditInventory = () => {
   );
 };
 
-export default EditInventory;
+export default EditWaste;

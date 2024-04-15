@@ -2,20 +2,17 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Spinner from '../components/Spinner';
 import { Link } from 'react-router-dom';
-import { AiOutlineEdit } from 'react-icons/ai';
-import { BsInfoCircle } from 'react-icons/bs';
-import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
 
 const Home = () => {
-  const [inventory, setInventory] = useState([]);
+  const [wasteList, setWasteList] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setLoading(true);
 
-    axios.get('http://localhost:5555/inventory')
+    axios.get('http://localhost:5555/waste')
       .then((response) => {
-        setInventory(response.data);
+        setWasteList(response.data);
         setLoading(false);
       })
       .catch((error) => {
@@ -35,8 +32,8 @@ const Home = () => {
               Ever Green Tea
             </div>
             <div className="flex space-x-4">
-              <Link to="/iHome" className="text-gray-300  hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
-              <Link to="/inventorys" className="text-gray-300   bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">inventory</Link>
+              <Link to="/iHome" className="text-gray-300 bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
+              <Link to="/inventorys" className="text-gray-300    hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">inventory</Link>
               
               
               <Link to="/waste-management" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Waste Management</Link>
@@ -54,13 +51,9 @@ const Home = () => {
       {/* Main Content */}
       <div className='container mx-auto p-8'>
         <div className='flex justify-between items-center mb-8'>
-          <h1 className='text-4xl font-bold text-gray-800'>Inventory List</h1>
-          <Link
-            to='/inventory/creates'
-            className='bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-all flex items-center'
-          >
-            <MdOutlineAddBox className='text-xl mr-2' />
-            Add Inventory
+          <h1 className='text-4xl font-bold text-gray-800'>Waste List</h1>
+          <Link to="/waste/add" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Add New Waste
           </Link>
         </div>
 
@@ -70,32 +63,34 @@ const Home = () => {
           <table className='w-full border-collapse border border-gray-300'>
             <thead className='bg-gray-200'>
               <tr>
-                <th className='border border-gray-300 p-4 text-left'>No</th>
-                <th className='border border-gray-300 p-4 text-left'>Batch ID</th>
-                <th className='border border-gray-300 p-4 text-left'>Category</th>
-                <th className='border border-gray-300 p-4'>Inventory Number</th>
+                <th className='border border-gray-300 p-4 text-left'>Waste ID</th>
+                <th className='border border-gray-300 p-4 text-left'>batchid</th>
+                <th className='border border-gray-300 p-4 text-left'>Tea Type</th>
+                <th className='border border-gray-300 p-4 text-left'>Inventory Number</th>
                 <th className='border border-gray-300 p-4'>Quantity</th>
-                <th className='border border-gray-300 p-4'>Actions</th>
+                <th className='border border-gray-300 p-4'>Date Recorded</th>
+                <th className='border border-gray-300 p-4'>Action</th>
               </tr>
             </thead>
             <tbody>
-              {inventory.map((item, index) => (
-                <tr key={item._id} className='border border-gray-300'>
-                  <td className='border border-gray-300 p-4'>{index + 1}</td>
+              {wasteList.map((item, index) => (
+                <tr key={index} className='border border-gray-300'>
+                  <td className='border border-gray-300 p-4'>{item.wasteid}</td>
                   <td className='border border-gray-300 p-4'>{item.batchid}</td>
-                  <td className='border border-gray-300 p-4'>{item.category}</td>
+                  <td className='border border-gray-300 p-4'>{item.teatype}</td>
                   <td className='border border-gray-300 p-4'>{item.inventorynumber}</td>
                   <td className='border border-gray-300 p-4'>{item.quantity}</td>
+                  <td className='border border-gray-300 p-4'>{item.dateRecorded}</td>
                   <td className='border border-gray-300 p-4'>
                     <div className='flex justify-center gap-x-4'>
-                      <Link to={`/inventory/details/${item._id}`} className='text-2xl text-green-800'>
-                        <BsInfoCircle />
+                      <Link to={`/waste/details/${item._id}`} className='text-2xl text-green-800'>
+                        View
                       </Link>
-                      <Link to={`/inventory/edit/${item._id}`} className='text-2xl text-yellow-600'>
-                        <AiOutlineEdit />
+                      <Link to={`/waste/edit/${item._id}`} className='text-2xl text-yellow-600'>
+                        Edit
                       </Link>
-                      <Link to={`/inventory/delete/${item._id}`} className='text-2xl text-red-600'>
-                        <MdOutlineDelete />
+                      <Link to={`/waste/delete/${item._id}`} className='text-2xl text-red-600'>
+                        Delete
                       </Link>
                     </div>
                   </td>
@@ -122,4 +117,4 @@ const Home = () => {
   );
 };
 
-export default Home;  
+export default Home;
