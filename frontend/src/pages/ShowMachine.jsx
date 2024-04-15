@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-
+import NavigationBar from '../components/NavigationBar';
 import Spinner from '../components/Spinner';
+import Footer from '../components/Footer';
 
 const Showmachine = () => {
   const [machines, setMachine] = useState({});
@@ -23,7 +24,13 @@ const Showmachine = () => {
   }, [id]);
 
   return (
+    <div>
+    <NavigationBar />
+    
+   
+
     <div style={styles.container}>
+     
       
       {loading ? (
         <Spinner />
@@ -57,7 +64,12 @@ const Showmachine = () => {
 </div>
 
         </div>
+        
       )}
+      </div>
+      
+       <Footer />
+    
     </div>
   );
 };
