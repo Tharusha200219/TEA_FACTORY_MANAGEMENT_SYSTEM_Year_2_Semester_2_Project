@@ -4,6 +4,7 @@ import Spinner from '../components/Spinner';
 import { useNavigate } from 'react-router-dom';
 import NavigationBar from '../components/NavigationBar';
 import BackButtonSupplyRecords from '../components/backbtnSupplyRecordTable';
+import Footer from '../components/Footer';
 
 const CreateSupplyRecord = () => {
     const [suppliers, setSuppliers] = useState([]);
@@ -27,7 +28,7 @@ const CreateSupplyRecord = () => {
                 setLoading(false);
             });
     }, []);
-
+    
     const validateDate = (value) => {
         if (!value) {
             return 'Date is required';
@@ -107,22 +108,24 @@ const CreateSupplyRecord = () => {
     };
 
     return (
-        <div className='bg-gray-100 min-h-screen'>
+        <div className='bg-gray-100 min-h-screen' style={{ backgroundImage: "url('/images/create.png')" }}>
             <NavigationBar />
-            <div className='m-2'>
+            <div className='m-4'>
                 <BackButtonSupplyRecords/>
             </div>
-
+        
             {loading ? <Spinner /> : ''}
-            <div className='flex flex-col border-2 border-sky-400 rounded-xl w-[600px] p-4 mx-auto mt-8'>
-                <h1 className='text-3xl font-bold text-center my-4'>Add New Record</h1>
-                <div className='p-4'>
-                    <label className='text-xl mr-4 text-gray-500'>Supplier</label>
+            <div className='flex flex-col items-center justify-center border border-sky-400 bg-white rounded-lg shadow-md p-8 mx-auto mt-8 max-w-lg'>
+                <h1 className='text-3xl font-bold mb-4'>Add New Record</h1>
+                <div className='mb-4 w-full'>
+                    <label className='text-gray-600'>Supplier</label>
                     <select
                         name="selectedSupplier"
                         value={selectedSupplier}
-                        onChange={(e) => setSelectedSupplier(e.target.value)}
-                        className='border-2 border-gray-500 px-4 py-2 w-full'
+                        onChange={(e) => {
+                            setSelectedSupplier(e.target.value);
+                        }}
+                        className='input-field input-field-custom mt-1 w-full'
                     >
                         <option value="">Select Supplier</option>
                         {suppliers.map((supplier) => (
@@ -133,9 +136,9 @@ const CreateSupplyRecord = () => {
                     </select>
                     {errors.selectedSupplier && <p className="text-red-500">{errors.selectedSupplier}</p>}
                 </div>
-
-                <div className='p-4'>
-                    <label className='text-xl mr-4 text-gray-500'>Date</label>
+        
+                <div className='mb-4 w-full'>
+                    <label className='text-gray-600'>Date</label>
                     <input
                         type="date"
                         name="date"
@@ -144,13 +147,13 @@ const CreateSupplyRecord = () => {
                             setDate(e.target.value);
                             handleInputChange(e, validateDate);
                         }}
-                        className='border-2 border-gray-500 px-4 py-2 w-full'
+                        className='input-field mt-1 w-full'
                     />
                     {errors.date && <p className="text-red-500">{errors.date}</p>}
                 </div>
-
-                <div className='p-4'>
-                    <label className='text-xl mr-4 text-gray-500'>Quantity</label>
+        
+                <div className='mb-4 w-full'>
+                    <label className='text-gray-600'>Quantity</label>
                     <input
                         type="number"
                         name="quantity"
@@ -159,13 +162,13 @@ const CreateSupplyRecord = () => {
                             setQuantity(e.target.value);
                             handleInputChange(e, validateQuantity);
                         }}
-                        className='border-2 border-gray-500 px-4 py-2 w-full'
+                        className='input-field mt-1 w-full'
                     />
                     {errors.quantity && <p className="text-red-500">{errors.quantity}</p>}
                 </div>
-
-                <div className='p-4'>
-                    <label className='text-xl mr-4 text-gray-500'>Unit Price</label>
+        
+                <div className='mb-4 w-full'>
+                    <label className='text-gray-600'>Unit Price</label>
                     <input
                         type="number"
                         name="unitPrice"
@@ -174,20 +177,21 @@ const CreateSupplyRecord = () => {
                             setUnitPrice(e.target.value);
                             handleInputChange(e, validateUnitPrice);
                         }}
-                        className='border-2 border-gray-500 px-4 py-2 w-full'
+                        className='input-field mt-1 w-full'
                     />
                     {errors.unitPrice && <p className="text-red-500">{errors.unitPrice}</p>}
                 </div>
-
+        
                 <button 
-                 className='p-2 bg-sky-300 m-8' 
+                 className='bg-blue-500 text-white font-bold py-2 px-4 rounded mt-4' 
                  onClick={handleSaveSupplyRecord}
                  //  disabled={!(unitPrice && date && selectedSupplier && quantity)}
                  >
-                    Save
+                 Save
                 </button>
-
             </div>
+            <br></br>
+            <Footer />
         </div>
     );
 };

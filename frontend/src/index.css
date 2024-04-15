@@ -15,3 +15,8 @@
 .input-field:focus {
   border-color: #3FC060;
 }
+
+.input-field-custom {
+  padding: 0.5rem; 
+}
+

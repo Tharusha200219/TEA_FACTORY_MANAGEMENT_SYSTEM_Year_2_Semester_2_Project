@@ -83,7 +83,6 @@ const SupplierHome = () => {
     
     return (
         <div style={{ minHeight: '100vh', position: 'relative' }}>
-            {/* Navigation Bar */}
             <NavigationBar />
             <nav style={{ backgroundColor: '#3FC060' }} className="p-4">
             <div className="container mx-auto flex justify-center items-center">
@@ -135,7 +134,7 @@ const SupplierHome = () => {
                                     <th className='px-6 py-3 text-sm font-medium border border-gray-300 text-left text-white  bg-black'>ADDRESS</th>
                                     <th className='px-6 py-3 text-sm font-medium border border-gray-300 text-left text-white  bg-black'>CONTACT NO</th>
                                     <th className='px-6 py-3 text-sm font-medium border border-gray-300 text-left text-white  bg-black'>EMAIL</th>
-                                    <th className='px-6 py-3 text-sm font-medium border border-gray-300 text-left text-white  bg-black'>ACTIONS</th>
+                                    <th className='pl-9 py-3 text-sm font-medium border border-gray-300 text-left text-white  bg-black'>ACTIONS</th>
                                 </tr>
                             </thead>
                             <tbody>
