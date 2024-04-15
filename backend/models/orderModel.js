@@ -3,11 +3,11 @@ import mongoose from "mongoose";
 const orderSchema = mongoose.Schema(
     {
         orderno:{
-            type:String,
+            type:Number,
             required:true,
         },
         duedate: {
-            type : String,
+            type : Date,
             required : true,
         },
 

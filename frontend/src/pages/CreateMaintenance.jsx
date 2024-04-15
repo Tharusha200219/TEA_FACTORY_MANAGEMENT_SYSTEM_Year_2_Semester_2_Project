@@ -63,7 +63,7 @@ const CreateMaintenance = () => {
 
                     <div className='space-y-4'>
                         <div className='mb-4'>
-                            <label htmlFor='machineNumber' className='text-lg text-gray-600'>machineNumber</label>
+                            <label htmlFor='machineNumber' className='text-lg text-gray-600'>Machine Number</label>
                             <input
                                 id='machineNumber'
                                 type='number'
@@ -74,7 +74,7 @@ const CreateMaintenance = () => {
                         </div>
 
                         <div className='mb-4'>
-                            <label htmlFor='machineName' className='text-lg text-gray-600'>machineName</label>
+                            <label htmlFor='machineName' className='text-lg text-gray-600'>Machine Name</label>
                             <input
                                 id='machineName'
                                 type='text'
@@ -85,7 +85,7 @@ const CreateMaintenance = () => {
                         </div>
 
                         <div className='mb-4'>
-                            <label htmlFor='description' className='text-lg text-gray-600'>description</label>
+                            <label htmlFor='description' className='text-lg text-gray-600'>Description</label>
                             <input
                                 id='description'
                                 type='text'
@@ -96,7 +96,7 @@ const CreateMaintenance = () => {
                         </div>
 
                         <div className='mb-4'>
-                            <label htmlFor='maintenanceDate' className='text-lg text-gray-600'>maintenanceDate</label>
+                            <label htmlFor='maintenanceDate' className='text-lg text-gray-600'>Maintenance Date</label>
                             <input
                                 id='maintenanceDate'
                                 type='date'
@@ -107,7 +107,7 @@ const CreateMaintenance = () => {
                         </div>
 
                         <div className='mb-4'>
-                            <label htmlFor='frequencyInDays' className='text-lg text-gray-600'>frequencyInDays</label>
+                            <label htmlFor='frequencyInDays' className='text-lg text-gray-600'>Frequency In Days</label>
                             <input
                                 id='frequencyInDays'
                                 type='number'

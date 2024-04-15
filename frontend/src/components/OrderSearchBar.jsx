@@ -8,7 +8,7 @@ const OrderSearchBar = ({ searchInput, setSearchInput, handleSearch, handleButto
   return (
     <div className="flex items-center mb-4">
       <input
-        type="text"
+        type="number"
         placeholder="Search Order ID"
         value={searchInput}
         onChange={handleChange}
