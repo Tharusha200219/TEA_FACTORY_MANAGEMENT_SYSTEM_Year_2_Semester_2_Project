@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom';
 
 
 const ShowOrder = () => {
-  const [Order, setOrder] = useState({});
+  const [order, setOrder] = useState({});
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
 
@@ -33,23 +33,23 @@ const ShowOrder = () => {
         <div style={styles.orderdetails}>
           <h2 style={styles.title}>Order Details</h2>
           <div style={styles.infoItem}>
-            <strong>ID:</strong> {Order.orderno}
+            <strong>ID:</strong> {order.orderno}
           </div>
           <div style={styles.infoItem}>
-            <strong>DueDate:</strong> {Order.duedate}
+            <strong>DueDate:</strong> {order.duedate}
           </div>
           <div style={styles.infoItem}>
-            <strong>Quantity:</strong> {Order.quantity}
+            <strong>Quantity:</strong> {order.quantity}
           </div>
           <div style={styles.infoItem}>
-            <strong>Category:</strong> {Order.category}
+            <strong>Category:</strong> {order.category}
           </div>
 
           <div style={styles.infoItem}>
-            <strong>Created At:</strong> {new Date(Order.createdAt).toLocaleString()}
+            <strong>Created At:</strong> {new Date(order.createdAt).toLocaleString()}
           </div>
           <div style={styles.infoItem}>
-            <strong>Updated At:</strong> {new Date(Order.updatedAt).toLocaleString()}
+            <strong>Updated At:</strong> {new Date(order.updatedAt).toLocaleString()}
           </div>
 
         </div>
