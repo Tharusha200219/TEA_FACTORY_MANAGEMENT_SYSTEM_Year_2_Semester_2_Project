@@ -92,10 +92,9 @@ const EditSupplyRecord = () => {
     };
 
     const handleEditSupplyRecord = () => {
-
         validate();
         const isValid = Object.values(errors).every((error) => error === '');
-        console.log(isValid);
+
         if (isValid) {
         const data = {
             supplier: selectedSupplier,
@@ -116,29 +115,30 @@ const EditSupplyRecord = () => {
     };
 
     return (
-        <div className='bg-gray-100 min-h-screen'>
+        <div className='bg-gray-100 min-h-screen'
+             style={{ backgroundImage: "url('/images/create.png')" }}>
             <NavigationBar />
-            <div class='m-5'>
+            <div class='m-4'>
                 <BackButtonSupplyRecords/>
             </div>
             
             {loading ? <Spinner /> : ''}
-            <div className='flex flex-col border-2 border-sky-400 rounded-xl w-[600px] p-4 mx-auto mt-8'>
-            <h1 className='text-3xl font-bold text-center my-4'>Update Record</h1>
-                <div className='p-4'>
-                    <label className='text-xl mr-4 text-gray-500'>Supplier</label>
+            <div className='flex flex-col items-center justify-center border border-sky-400 bg-white rounded-lg shadow-md p-8 mx-auto mt-8 max-w-lg'>
+            <h1 className='text-3xl font-bold mb-8 mt-2'>Update Record</h1>
+                <div className='mb-4 w-full'>
+                    <label className='text-gray-600 text-xl'>Supplier</label>
                     <input
                         type="text"
                         name="selectedSupplier"
                         value={selectedSupplier}
-                        readOnly // read only
-                        className='border-2 border-gray-500 px-4 py-2 w-full'
+                        readOnly
+                        className='input-field mt-1 w-full'
                         style={{ backgroundColor: '#f2f2f2' }}
                     />
                 </div>
 
-                <div className='p-4'>
-                    <label className='text-xl mr-4 text-gray-500'>Date</label>
+                <div className='mb-4 w-full'>
+                    <label className='text-gray-600 text-xl'>Date</label>
                     <input
                         type="date"
                         name="date"
@@ -147,13 +147,13 @@ const EditSupplyRecord = () => {
                             setDate(e.target.value);
                             handleInputChange(e, validateDate);
                         }}
-                        className='border-2 border-gray-500 px-4 py-2 w-full'
+                        className='input-field mt-1 w-full'
                     />
                     {errors.date && <p className="text-red-500">{errors.date}</p>}
                 </div>
 
-                <div className='p-4'>
-                    <label className='text-xl mr-4 text-gray-500'>Quantity</label>
+                <div className='mb-4 w-full'>
+                    <label className='text-gray-600 text-xl'>Quantity</label>
                     <input
                         type="number"
                         name="quantity"
@@ -162,13 +162,13 @@ const EditSupplyRecord = () => {
                             setQuantity(e.target.value);
                             handleInputChange(e, validateQuantity);
                         }}
-                        className='border-2 border-gray-500 px-4 py-2 w-full'
+                        className='input-field mt-1 w-full'
                     />
                     {errors.quantity && <p className="text-red-500">{errors.quantity}</p>}
                 </div>
 
-                <div className='p-4'>
-                    <label className='text-xl mr-4 text-gray-500'>Unit Price</label>
+                <div className='mb-4 w-full'>
+                    <label className='text-gray-600 text-xl'>Unit Price</label>
                     <input
                         type="number"
                         name="unitPrice"
@@ -177,13 +177,15 @@ const EditSupplyRecord = () => {
                             setUnitPrice(e.target.value);
                             handleInputChange(e, validateUnitPrice);
                         }}
-                        className='border-2 border-gray-500 px-4 py-2 w-full'
+                        className='input-field mt-1 w-full'
                     />
                     {errors.unitPrice && <p className="text-red-500">{errors.unitPrice}</p>}
                 </div>
 
-                <button className='p-2 bg-sky-300 m-8' onClick={handleEditSupplyRecord}>
-                    Save
+                <button 
+                className='bg-blue-500 text-white font-bold py-2 px-4 rounded mt-4'
+                 onClick={handleEditSupplyRecord}>
+                   Save
                 </button>
             </div>
             <br></br>

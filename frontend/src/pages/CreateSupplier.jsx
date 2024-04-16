@@ -145,11 +145,11 @@ const CreateSupplier = () => {
                 <BackButtonSupplierHome/>
             </div>
             
-            {loading && <Spinner />}
-            <div className='flex flex-col items-center justify-center border border-sky-400 bg-white rounded-lg shadow-md p-8 mx-auto mt-8 max-w-lg'>
-                <h1 className='text-3xl font-bold mb-4'>Add New Supplier</h1>
+            {loading ? <Spinner /> : ''}
+            <div className='flex flex-col items-center justify-center border border-sky-400 bg-white rounded-lg shadow-md px-8 py-5 mx-auto mt-4 max-w-lg'>
+                <h1 className='text-3xl font-bold mb-8 mt-2'>Add New Supplier</h1>
                 <div className='mb-4 w-full'>
-                    <label className='text-gray-600'>Supplier ID</label>
+                    <label className='text-gray-600 text-xl'>Supplier ID</label>
                     <input
                         type="text"
                         name="supplierid"
@@ -163,7 +163,7 @@ const CreateSupplier = () => {
                     {errors.supplierid && <p className="text-red-500 mt-1">{errors.supplierid}</p>}
                 </div>
                 <div className='mb-4 w-full'>
-                    <label className='text-gray-600'>Name</label>
+                    <label className='text-gray-600 text-xl'>Name</label>
                     <input
                         type="text"
                         name="name"
@@ -177,7 +177,7 @@ const CreateSupplier = () => {
                     {errors.name && <p className="text-red-500 mt-1">{errors.name}</p>}
                 </div>
                 <div className='mb-4 w-full'>
-                    <label className='text-gray-600'>Address</label>
+                    <label className='text-gray-600 text-xl'>Address</label>
                     <input
                         type="text"
                         name="address"
@@ -191,7 +191,7 @@ const CreateSupplier = () => {
                     {errors.address && <p className="text-red-500 mt-1">{errors.address}</p>}
                 </div>
                 <div className='mb-4 w-full'>
-                    <label className='text-gray-600'>Contact</label>
+                    <label className='text-gray-600 text-xl'>Contact No</label>
                     <input
                         type="text"
                         name="contact"
@@ -205,7 +205,7 @@ const CreateSupplier = () => {
                     {errors.contact && <p className="text-red-500 mt-1">{errors.contact}</p>}
                 </div>
                 <div className='mb-4 w-full'>
-                    <label className='text-gray-600'>Email</label>
+                    <label className='text-gray-600 text-xl'>Email</label>
                     <input
                         type="text"
                         name="email"
@@ -218,7 +218,8 @@ const CreateSupplier = () => {
                     />
                     {errors.email && <p className="text-red-500 mt-1">{errors.email}</p>}
                 </div>
-                <button className='bg-blue-500 text-white font-bold py-2 px-4 rounded mt-4' onClick={handleSaveSupplier}>
+                <button className='bg-blue-500 text-white font-bold py-2 px-4 rounded mt-4'
+                  onClick={handleSaveSupplier}>
                     Save
                 </button>
             </div>
