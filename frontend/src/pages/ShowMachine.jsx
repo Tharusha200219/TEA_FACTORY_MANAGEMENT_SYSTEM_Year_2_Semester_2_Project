@@ -1,102 +1,78 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import NavigationBar from '../components/NavigationBar';
 import Spinner from '../components/Spinner';
 import Footer from '../components/Footer';
 
-const Showmachine = () => {
-  const [machines, setMachine] = useState({});
-  const [loading, setLoading] = useState(false);
-  const { id } = useParams();
+const ShowMachine = () => {
+    const [machine, setMachine] = useState({});
+    const [loading, setLoading] = useState(true);
+    const { id } = useParams();
 
-  useEffect(() => {
-    setLoading(true);
-    axios.get(`http://localhost:5555/machines/${id}`)
-      .then((response) => {
-        setMachine(response.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error(error);
-        setLoading(false);
-      });
-  }, [id]);
+    useEffect(() => {
+        axios.get(`http://localhost:5555/machines/${id}`)
+            .then(response => {
+                setMachine(response.data);
+                setLoading(false);
+            })
+            .catch(error => {
+                console.error(error);
+                setLoading(false);
+            });
+    }, [id]);
 
-  return (
-    <div>
-    <NavigationBar />
-    
-   
+    const formatDate = (date) => {
+        const formattedDate = new Date(date);
+        return formattedDate.toLocaleDateString();
+    };
 
-    <div style={styles.container}>
-     
-      
-      {loading ? (
-        <Spinner />
-      ) : (
-        <div style={styles.productiondetails}>
-          <h2 style={styles.title}>Machine Details</h2>
-          <div style={styles.infoItem}>
-            <strong>ID:</strong> {machines._id}
-          </div>
-          <div style={styles.infoItem}>
-            <strong>machineNumber:</strong> {machines.machineNumber}
-          </div>
-          <div style={styles.infoItem}>
-            <strong>machineName:</strong> {machines.machineName}
-          </div>
-          <div style={styles.infoItem}>
-            <strong>machineType:</strong> {machines.machineType}
-          </div>
-          <div style={styles.infoItem}>
-            <strong>installationDate:</strong> {machines.installationDate}
-          </div>
-          <div style={styles.infoItem}>
-            <strong>warrentyInformation:</strong> {machines.warrentyInformation}
-          </div>
-         
-          <div style={styles.infoItem}>
-  <strong>Created At:</strong> {new Date(machines.createdAt).toLocaleString()}
-</div>
-<div style={styles.infoItem}>
-  <strong>Updated At:</strong> {new Date(machines.updatedAt).toLocaleString()}
-</div>
+    return (
+        <div className="flex flex-col min-h-screen">
+            <NavigationBar />
 
+            {/* Additional Navigation Bar */}
+            <nav className="bg-green-500 p-4">
+                <div className="container mx-auto flex justify-center">
+                    <div className="flex space-x-4">
+                        <Link to="/" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
+                        <Link to="/MachineHome" className="text-gray-300 bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Machines</Link>
+                        <Link to="/machines/creates" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Create Machine</Link>
+                        <Link to="/MachineReport" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Machine Report</Link>
+                    </div>
+                </div>
+            </nav>
+
+            <div className="container mx-auto py-6 flex-grow">
+                {loading ? (
+                    <Spinner />
+                ) : (
+                    <div className="bg-white p-6 rounded shadow-md">
+                        <h2 className="text-2xl font-bold mb-4">Machine Details</h2>
+                        <div className="space-y-4">
+                            <div><strong>ID:</strong> {machine._id}</div>
+                            <div><strong>Machine Number:</strong> {machine.machineNumber}</div>
+                            <div><strong>Machine Name:</strong> {machine.machineName}</div>
+                            <div><strong>Machine Type:</strong> {machine.machineType}</div>
+                            <div><strong>Installation Date:</strong> {formatDate(machine.installationDate)}</div>
+                            <div><strong>Warranty Information:</strong> {machine.warrentyInformation}</div>
+                            <div><strong>Created At:</strong> {formatDate(machine.createdAt)}</div>
+                            <div><strong>Updated At:</strong> {formatDate(machine.updatedAt)}</div>
+                        </div>
+
+                        {/* Add Back button */}
+                        <div className="mt-6">
+                            <Link to="/MachineHome" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                Back
+                            </Link>
+                        </div>
+                    </div>
+                )}
+            </div>
+
+            <Footer />
         </div>
-        
-      )}
-      </div>
-      
-       <Footer />
-    
-    </div>
-  );
+    );
 };
 
-const styles = {
-  container: {
-    padding: '20px',
-    background: '#f4f4f4',
-    minHeight: '100vh',
-  },
-  productiondetails: {
-    marginTop: '20px',
-    background: '#fff',
-    padding: '20px',
-    borderRadius: '8px',
-    boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
-  },
-  title: {
-    fontSize: '28px',
-    fontWeight: 'bold',
-    marginBottom: '20px',
-    color: '#333',
-  },
-  infoItem: {
-    marginBottom: '10px',
-    fontSize: '16px',
-  },
-};
-
-export default Showmachine;
+export default ShowMachine;
