@@ -36,6 +36,18 @@ const CreateMaintenance = () => {
             });
     };
 
+    // Function to handle input change and validate machineNumber
+    const handleMachineNumberChange = (e) => {
+        const input = e.target.value;
+        if (/^\d*$/.test(input)) {
+            // If input is numeric, set machineNumber
+            setMachineNumber(input);
+        } else {
+            // If input is not numeric, show an alert
+            alert('Machine Number can only contain numbers');
+        }
+    };
+
     return (
         <div className='bg-gray-100 min-h-screen' style={{ backgroundImage: "url('/images/create.png')" }}>
             <NavigationBar />
@@ -45,7 +57,7 @@ const CreateMaintenance = () => {
                         <div className="flex space-x-4">
                             <Link to="/" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
                             <Link to="/MaintenanceHome" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Maintenances</Link>
-                            <Link to="/maintenances/creates" className="text-gray-300 bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Create Table</Link>
+                            <Link to="/maintenances/create" className="text-gray-300 bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Create Table</Link>
                             <Link to="/MaintenanceAvailability" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Maintenance Availability</Link>
                             <Link to="/MaintenanceReport" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Maintenance Report Generate</Link>
                         </div>
@@ -62,9 +74,9 @@ const CreateMaintenance = () => {
                             <label htmlFor='machineNumber' className='text-lg text-gray-600'>Machine Number</label>
                             <input
                                 id='machineNumber'
-                                type='number'
+                                type='text'
                                 value={machineNumber}
-                                onChange={(e) => setMachineNumber(e.target.value)}
+                                onChange={handleMachineNumberChange}
                                 className='input-field'
                             />
                         </div>
