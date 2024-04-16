@@ -18,6 +18,7 @@ import Createwaste from "./pages/Createwaste"
 import DeleteWaste from "./pages/DeleteWaste"
 import Wastedetails from "./pages/Wastedetails"
 import EditWaste from "./pages/EditWaste"
+import Irawleaves from "./pages/Irawleaves"
 
 
 
@@ -136,6 +137,7 @@ const App = () => {
       <Route path = '/waste/delete/:id' element={<DeleteWaste/>}  />
       <Route path = '/waste/details/:id' element={<Wastedetails/>}  />
       <Route path = '/waste/edit/:id' element={<EditWaste/>}  />
+      <Route path = '/Irawleaves' element={<Irawleaves/>} />
       
 
       
