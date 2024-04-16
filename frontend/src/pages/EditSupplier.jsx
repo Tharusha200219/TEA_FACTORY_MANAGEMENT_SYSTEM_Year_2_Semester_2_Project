@@ -90,9 +90,6 @@ const EditSupplier = () => {
     const validate = () => {
         const errors = {};
 
-        if (!supplierid.trim()) {
-            errors.supplierid = 'Supplier ID is required';
-        }
         if (!name.trim()) {
             errors.name = 'Name is required';
         }
@@ -110,7 +107,6 @@ const EditSupplier = () => {
             ...prevErrors,
             ...errors
         }));
-        console.log(errors);
     };
 
     const handleEditSupplier = () => {
@@ -147,11 +143,11 @@ const EditSupplier = () => {
                 <BackButtonSupplierHome/>
             </div>
     
-            {loading && <Spinner />}
-            <div className='flex flex-col items-center justify-center border border-sky-400 bg-white rounded-lg shadow-md p-8 mx-auto mt-8 max-w-lg'>
-                <h1 className='text-3xl font-bold mb-4'>Update Supplier</h1>
+            {loading ? <Spinner /> : ''}
+            <div className='flex flex-col items-center justify-center border border-sky-400 bg-white rounded-lg shadow-md px-8 py-5 mx-auto mt-4 max-w-lg'>
+                <h1 className='text-3xl font-bold mb-8 mt-2'>Update Supplier</h1>
                 <div className='mb-4 w-full'>
-                    <label className='text-gray-600'>Supplier ID</label>
+                    <label className='text-gray-600 text-xl'>Supplier ID</label>
                     <input
                         type="text"
                         value={supplierid}
@@ -161,7 +157,7 @@ const EditSupplier = () => {
                     />
                 </div>
                 <div className='mb-4 w-full'>
-                    <label className='text-gray-600'>Name</label>
+                    <label className='text-gray-600 text-xl'>Name</label>
                     <input
                         type="text"
                         name="name"
@@ -175,7 +171,7 @@ const EditSupplier = () => {
                     {errors.name && <p className="text-red-500 mt-1">{errors.name}</p>}
                 </div>
                 <div className='mb-4 w-full'>
-                    <label className='text-gray-600'>Address</label>
+                    <label className='text-gray-600 text-xl'>Address</label>
                     <input
                         type="text"
                         name="address"
@@ -189,7 +185,7 @@ const EditSupplier = () => {
                     {errors.address && <p className="text-red-500 mt-1">{errors.address}</p>}
                 </div>
                 <div className='mb-4 w-full'>
-                    <label className='text-gray-600'>Contact</label>
+                    <label className='text-gray-600 text-xl'>Contact No</label>
                     <input
                         type="text"
                         name="contact"
@@ -203,7 +199,7 @@ const EditSupplier = () => {
                     {errors.contact && <p className="text-red-500 mt-1">{errors.contact}</p>}
                 </div>
                 <div className='mb-4 w-full'>
-                    <label className='text-gray-600'>Email</label>
+                    <label className='text-gray-600 text-xl'>Email</label>
                     <input
                         type="text"
                         name="email"
@@ -216,7 +212,8 @@ const EditSupplier = () => {
                     />
                     {errors.email && <p className="text-red-500 mt-1">{errors.email}</p>}
                 </div>
-                <button className='bg-blue-500 text-white font-bold py-2 px-4 rounded mt-4' onClick={handleEditSupplier}>
+                <button className='bg-blue-500 text-white font-bold py-2 px-4 rounded mt-4'
+                 onClick={handleEditSupplier}>
                     Save
                 </button>
             </div>

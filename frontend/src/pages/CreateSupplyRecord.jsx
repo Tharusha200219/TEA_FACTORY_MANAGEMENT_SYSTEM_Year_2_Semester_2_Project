@@ -28,6 +28,13 @@ const CreateSupplyRecord = () => {
                 setLoading(false);
             });
     }, []);
+
+    const validateSelectedSupplier = (value) => {
+        if (!value) {
+            return 'Supplier is required';
+        }
+        return '';
+    };
     
     const validateDate = (value) => {
         if (!value) {
@@ -88,6 +95,7 @@ const CreateSupplyRecord = () => {
     const handleSaveSupplyRecord = () => {
         validate();
         const isValid = Object.values(errors).every((error) => error === '');
+
         if (isValid) {
             const data = {
                 supplier: selectedSupplier,
@@ -102,6 +110,7 @@ const CreateSupplyRecord = () => {
                     navigate('/SupplyRecordTable');
                 })
                 .catch((error) => {
+                    setLoading(false);
                     console.log(error);
                 });
         }
@@ -116,14 +125,15 @@ const CreateSupplyRecord = () => {
         
             {loading ? <Spinner /> : ''}
             <div className='flex flex-col items-center justify-center border border-sky-400 bg-white rounded-lg shadow-md p-8 mx-auto mt-8 max-w-lg'>
-                <h1 className='text-3xl font-bold mb-4'>Add New Record</h1>
+                <h1 className='text-3xl font-bold mb-8 mt-2'>Add New Record</h1>
                 <div className='mb-4 w-full'>
-                    <label className='text-gray-600'>Supplier</label>
+                    <label className='text-gray-600 text-xl'>Supplier</label>
                     <select
                         name="selectedSupplier"
                         value={selectedSupplier}
                         onChange={(e) => {
                             setSelectedSupplier(e.target.value);
+                            handleInputChange(e, validateSelectedSupplier);
                         }}
                         className='input-field input-field-custom mt-1 w-full'
                     >
@@ -138,7 +148,7 @@ const CreateSupplyRecord = () => {
                 </div>
         
                 <div className='mb-4 w-full'>
-                    <label className='text-gray-600'>Date</label>
+                    <label className='text-gray-600 text-xl'>Date</label>
                     <input
                         type="date"
                         name="date"
@@ -153,7 +163,7 @@ const CreateSupplyRecord = () => {
                 </div>
         
                 <div className='mb-4 w-full'>
-                    <label className='text-gray-600'>Quantity</label>
+                    <label className='text-gray-600 text-xl'>Quantity (kg)</label>
                     <input
                         type="number"
                         name="quantity"
@@ -168,7 +178,7 @@ const CreateSupplyRecord = () => {
                 </div>
         
                 <div className='mb-4 w-full'>
-                    <label className='text-gray-600'>Unit Price</label>
+                    <label className='text-gray-600 text-xl'>Unit Price</label>
                     <input
                         type="number"
                         name="unitPrice"
@@ -184,10 +194,8 @@ const CreateSupplyRecord = () => {
         
                 <button 
                  className='bg-blue-500 text-white font-bold py-2 px-4 rounded mt-4' 
-                 onClick={handleSaveSupplyRecord}
-                 //  disabled={!(unitPrice && date && selectedSupplier && quantity)}
-                 >
-                 Save
+                 onClick={handleSaveSupplyRecord}>
+                    Save
                 </button>
             </div>
             <br></br>

@@ -82,7 +82,6 @@ const SupplyRecordTable = () => {
     
     return (
         <div style={{ minHeight: '100vh', position: 'relative' }}>
-            {/* Navigation Bar */}
             <NavigationBar />
             <nav style={{ backgroundColor: '#3FC060' }} className="p-4">
                 <div className="container mx-auto flex justify-center items-center">
@@ -90,13 +89,15 @@ const SupplyRecordTable = () => {
                         <Link to="/" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
                         <Link to="/SupplierHome" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Suppliers</Link>
                         <Link to="/SupplyRecordTable" className="text-gray-300 bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Supply Records</Link>
+                        <Link to="/user-profile-page" className="absolute right-10 flex  space-x-2">
+                          <img src="/images/user.png" alt="User Profile" className="w-8 h-8 rounded-full" /></Link>
                     </div>
                 </div>
             </nav>
 
             <div className='p-16' style={{ paddingBottom: '100px' }}>
                 <div className='flex justify-between items-center mb-8'>
-                    <h1 className='text-3xl font-bold text-gray-800'>Supply Record Table</h1>
+                    <h1 className='text-3xl font-bold text-gray-800'>Supply Record List</h1>
                     <div className="flex items-center">
                         <button onClick={downloadPDF} className='bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-all'>
                             Generate Report
@@ -120,6 +121,10 @@ const SupplyRecordTable = () => {
                 {loading ? (
                     <Spinner />
                 ) : (
+                    <>
+                      {searchInput.trim() !== '' && filterdSupplyRecords.length === 0 ? (
+                       <p>No results found.</p>
+                    ) : (
                     <div id="pdf-content" ref={tableRef}>
                         <table className='w-full border-collapse border border-gray-300'>
                             <thead className='bg-gray-50'>
@@ -160,8 +165,10 @@ const SupplyRecordTable = () => {
                         </table>
                     </div>
                 )}
-            </div>
-            <Footer />
+             </>
+            )}
+        </div>
+         <Footer />
         </div>
     );
 }
