@@ -3,6 +3,7 @@ import Spinner from '../components/Spinner';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import NavigationBar from '../components/NavigationBar';
+import Footer from '../components/Footer';
 
 const CreateMachine = () => {
     const [machineNumber, setMachineNumber] = useState(1);
@@ -126,6 +127,7 @@ const CreateMachine = () => {
                     </div>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 };

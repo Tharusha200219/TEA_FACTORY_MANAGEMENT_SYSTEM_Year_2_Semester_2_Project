@@ -8,6 +8,7 @@ import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import NavigationBar from '../components/NavigationBar';
+import Footer from '../components/Footer';
 
 const MaintenanceReport = () => {
     const [maintenances, setMaintenances] = useState([]);
@@ -123,18 +124,7 @@ const MaintenanceReport = () => {
 
             </div>
 
-            {/* Footer */}
-            <footer className="bg-gray-800 text-white py-4 mt-8">
-                <div className="container mx-auto flex justify-between items-center">
-                    <div>
-                        <p>&copy; 1998-{new Date().getFullYear()} Ever Green Tea Factory. All rights reserved.</p>
-                        <p>Contact: 0112787678</p>
-                    </div>
-                    <div>
-                        {/* Add any additional footer content here */}
-                    </div>
-                </div>
-            </footer>
+            <Footer /> 
         </div>
     );
 }

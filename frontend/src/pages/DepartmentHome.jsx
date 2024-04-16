@@ -44,9 +44,33 @@ const DepartmentHome = () => {
     console.log(`Department with ID ${id} status changed to ${status}`);
   };
 
-  const handleGenerateReport = () => {
-    // Here you can send an API request to generate a report
-    console.log('Generating report...');
+  const generateReportData = () => {
+    // Format data into CSV
+    const csvContent = "data:text/csv;charset=utf-8,"
+      + "No,Department Name,Department Details,Created On,Department Status\n";
+
+    const rows = filteredDepartments.map((department, index) => {
+      const rowData = [
+        index + 1,
+        department.departmentName,
+        department.departmentDetails,
+        new Date(department.createdOn).toLocaleString(),
+        department.departmentStatus
+      ];
+      return rowData.join(",");
+    });
+    
+    return csvContent + rows.join("\n");
+  };
+
+  const downloadReport = () => {
+    const reportData = generateReportData();
+    const encodedUri = encodeURI(reportData);
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', 'departments_report.csv');
+    document.body.appendChild(link);
+    link.click();
   };
 
   return (
@@ -59,7 +83,7 @@ const DepartmentHome = () => {
             Add Department
           </Link>
           <button
-            onClick={handleGenerateReport}
+            onClick={downloadReport}
             className='px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500'
           >
             Generate Report
