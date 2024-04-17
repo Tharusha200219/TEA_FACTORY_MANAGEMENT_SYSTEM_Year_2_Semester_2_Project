@@ -4,6 +4,7 @@ import Spinner from '../components/Spinner';
 import { useNavigate } from 'react-router-dom';
 import NavigationBar from '../components/NavigationBar';
 import BackButtonSupplierHome from '../components/backbtnSupplierHome';
+import Footer from '../components/Footer';
 
 const CreateSupplier = () => {
     const [supplierid, setSupplierID] = useState('');
@@ -138,31 +139,31 @@ const CreateSupplier = () => {
     };
 
     return (
-        <div className='bg-gray-100 min-h-screen'>
+        <div className='bg-gray-100 min-h-screen' style={{ backgroundImage: "url('/images/create.png')" }}>
             <NavigationBar />
-            <div className='m-2'>
+            <div className='m-5'>
                 <BackButtonSupplierHome/>
             </div>
             
-            {loading && <Spinner />}
-            <div className='flex flex-col border-2 border-sky-400 rounded-xl w-[600px] p-4 mx-auto mt-8'>
-            <h1 className='text-3xl font-bold text-center my-4'>Add New Supplier</h1>
-                <div className='px-4 my-2'>
-                    <label className='text-xl mr-4 text-gray-500'>Supplier ID</label>
+            {loading ? <Spinner /> : ''}
+            <div className='flex flex-col items-center justify-center border border-sky-400 bg-white rounded-lg shadow-md px-8 py-5 mx-auto mt-4 max-w-lg'>
+                <h1 className='text-3xl font-bold mb-8 mt-2'>Add New Supplier</h1>
+                <div className='mb-4 w-full'>
+                    <label className='text-gray-600 text-xl'>Supplier ID</label>
                     <input
                         type="text"
                         name="supplierid"
                         value={supplierid}
                         readOnly
-                        className='input-field bg-slate-200'
+                        className='input-field bg-gray-200 mt-1'
                         onChange={(e) => {
                             setSupplierID(e.target.value);
                         }}
                     />
-                    {errors.supplierid && <p className="text-red-500">{errors.supplierid}</p>}
+                    {errors.supplierid && <p className="text-red-500 mt-1">{errors.supplierid}</p>}
                 </div>
-                <div className='px-4 my-2'>
-                    <label className='text-xl mr-4 text-gray-500'>Name</label>
+                <div className='mb-4 w-full'>
+                    <label className='text-gray-600 text-xl'>Name</label>
                     <input
                         type="text"
                         name="name"
@@ -171,12 +172,12 @@ const CreateSupplier = () => {
                             setName(e.target.value);
                             handleInputChange(e, validateName);
                         }}
-                        className='border-2 border-gray-500 px-4 py-2 w-full'
+                        className='input-field mt-1'
                     />
-                    {errors.name && <p className="text-red-500">{errors.name}</p>}
+                    {errors.name && <p className="text-red-500 mt-1">{errors.name}</p>}
                 </div>
-                <div className='px-4 my-2'>
-                    <label className='text-xl mr-4 text-gray-500'>Address</label>
+                <div className='mb-4 w-full'>
+                    <label className='text-gray-600 text-xl'>Address</label>
                     <input
                         type="text"
                         name="address"
@@ -185,12 +186,12 @@ const CreateSupplier = () => {
                             setAddress(e.target.value);
                             handleInputChange(e, validateAddress);
                         }}
-                        className='border-2 border-gray-500 px-4 py-2 w-full'
+                        className='input-field mt-1'
                     />
-                    {errors.address && <p className="text-red-500">{errors.address}</p>}
+                    {errors.address && <p className="text-red-500 mt-1">{errors.address}</p>}
                 </div>
-                <div className='px-4 my-2'>
-                    <label className='text-xl mr-4 text-gray-500'>Contact</label>
+                <div className='mb-4 w-full'>
+                    <label className='text-gray-600 text-xl'>Contact No</label>
                     <input
                         type="text"
                         name="contact"
@@ -199,12 +200,12 @@ const CreateSupplier = () => {
                             setContact(e.target.value);
                             handleInputChange(e, validateContact);
                         }}
-                        className='border-2 border-gray-500 px-4 py-2 w-full'
+                        className='input-field mt-1'
                     />
-                    {errors.contact && <p className="text-red-500">{errors.contact}</p>}
+                    {errors.contact && <p className="text-red-500 mt-1">{errors.contact}</p>}
                 </div>
-                <div className='px-4 my-2'>
-                    <label className='text-xl mr-4 text-gray-500'>Email</label>
+                <div className='mb-4 w-full'>
+                    <label className='text-gray-600 text-xl'>Email</label>
                     <input
                         type="text"
                         name="email"
@@ -213,14 +214,17 @@ const CreateSupplier = () => {
                             setEmail(e.target.value);
                             handleInputChange(e, validateEmail);
                         }}
-                        className='border-2 border-gray-500 px-4 py-2 w-full'
+                        className='input-field mt-1'
                     />
-                    {errors.email && <p className="text-red-500">{errors.email}</p>}
+                    {errors.email && <p className="text-red-500 mt-1">{errors.email}</p>}
                 </div>
-                <button className='p-2 bg-sky-300 mx-40 my-4 rounded' onClick={handleSaveSupplier}>
+                <button className='bg-blue-500 text-white font-bold py-2 px-4 rounded mt-4'
+                  onClick={handleSaveSupplier}>
                     Save
                 </button>
             </div>
+            <br></br>
+            <Footer />
         </div>
     );
 };

@@ -6,6 +6,11 @@ const employeeSchema = mongoose.Schema(
             type: String,
             required : true,
         },
+        employeeEmail:{
+            type: String,
+            required : true,
+            unique: true // Assuming employee email should be unique
+        },
         employeeMobile:{
             type: Number,
             required : true,

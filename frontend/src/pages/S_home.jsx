@@ -46,7 +46,7 @@ const S_home = () => {
 
 const styles = {
     background: {
-        backgroundImage: 'url("./public/images/production-background.jpg")', // Replace with the path to your background image
+        backgroundImage: 'url("./public/images/production-background.jpg")',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         minHeight: '100vh',

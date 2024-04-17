@@ -6,6 +6,7 @@ import { AiOutlineEdit } from 'react-icons/ai';
 import { BsInfoCircle } from 'react-icons/bs';
 import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
 import NavigationBar from '../components/NavigationBar';
+import Footer from '../components/Footer';
 
 const MaintenanceAvailability = () => {
     const [machines, setMachines] = useState([]);
@@ -42,23 +43,25 @@ const MaintenanceAvailability = () => {
     const underMaintenanceMachines = filteredMachines.filter(machine => machine.Status === 'Under Maintenance');
 
     return (
-        <div>
+        <div className='min-h-screen flex flex-col'>
             <NavigationBar />
+
+            {/* Navigation bar below NavigationBar */}
             <nav className="bg-green-500 p-4">
                 <div className="container mx-auto flex justify-center"> {/* Add justify-center class */}
                     <div className="flex justify-between items-center">
                         <div className="flex space-x-4">
-                            <Link to="/" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
-                            <Link to="/MaintenanceHome" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">maintenances</Link>
-                            <Link to="/maintenances/creates" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">create table</Link>
-                            <Link to="/MaintenanceAvailability" className="text-gray-300 bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Maintenance Availability</Link>
-                            <Link to="/MaintenanceReport" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">maintenance report generate</Link>
+                            <Link to="/" className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
+                            <Link to="/MaintenanceHome" className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Maintenances</Link>
+                            <Link to="/maintenances/creates" className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Create Table</Link>
+                            <Link to="/MaintenanceAvailability" className="text-white bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Maintenance Availability</Link>
+                            <Link to="/MaintenanceReport" className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Maintenance Report Generate</Link>
                         </div>
                     </div>
                 </div>
             </nav>
 
-            <div className='p-4'>
+            <div className='flex-grow p-4'>
                 <h1 className='text-2xl my-8'>Machines Under Maintenance</h1>
                 {loading ? (
                     <Spinner />
@@ -71,9 +74,8 @@ const MaintenanceAvailability = () => {
                                     <th className='px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Machine Name</th>
                                     <th className='px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Machine Type</th>
                                     <th className='px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Installation Date</th>
-                                    <th className='px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Warrenty Information</th>
+                                    <th className='px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Warranty Information</th>
                                     <th className='px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Status</th>
-
                                 </tr>
                             </thead>
                             <tbody className="bg-white divide-y divide-gray-200">
@@ -85,7 +87,6 @@ const MaintenanceAvailability = () => {
                                         <td className='px-4 py-4 whitespace-nowrap'>{machine.installationDate}</td>
                                         <td className='px-4 py-4 whitespace-nowrap'>{machine.warrentyInformation}</td>
                                         <td className='px-4 py-4 whitespace-nowrap'>{machine.Status}</td>
-
                                     </tr>
                                 ))}
                             </tbody>
@@ -93,8 +94,11 @@ const MaintenanceAvailability = () => {
                     </div>
                 )}
             </div>
+
+            {/* Footer at the bottom of the page */}
+            <Footer />
         </div>
     );
-}
+};
 
 export default MaintenanceAvailability;

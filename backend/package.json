@@ -19,6 +19,7 @@
     "html2canvas": "^1.4.1",
     "jspdf": "^2.5.1",
     "mongoose": "^8.1.1",
+    "nodemailer": "^6.9.13",
     "nodemon": "^3.0.3",
     "pdf": "^0.1.0",
     "react-datepicker": "^6.7.1",
