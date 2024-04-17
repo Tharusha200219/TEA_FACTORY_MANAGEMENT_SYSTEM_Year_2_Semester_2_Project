@@ -21,6 +21,11 @@ const orderSchema = mongoose.Schema(
             required : true,
         },
 
+        status:{
+            type:String,
+            default:'Pending',
+        }
+
      
     },
     {
