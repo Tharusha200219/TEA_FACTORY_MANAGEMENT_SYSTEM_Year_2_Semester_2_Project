@@ -37,7 +37,7 @@ const ShowInventory = () => {
             <strong>Batch ID:</strong> {inventory.batchid}
           </div>
           <div style={styles.infoItem}>
-            <strong>Category:</strong> {inventory.catogory}
+            <strong>Category:</strong> {inventory.category}
           </div>
           <div style={styles.infoItem}>
             <strong>Inventory Number:</strong> {inventory.inventorynumber}
