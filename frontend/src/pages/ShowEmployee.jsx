@@ -27,6 +27,7 @@ const ShowEmployee = () => {
       <div className='flex flex-col items-center justify-center'>
         <div className='bg-gray-200 rounded-lg p-6'>
           <Detail label="Employee Name" value={employee.employeeName} />
+          <Detail label="Employee Email" value={employee.employeeEmail} />
           <Detail label="Employee Mobile" value={employee.employeeMobile} />
           <Detail label="Employee Address" value={employee.employeeAddress} />
           <Detail label="Employee Role" value={employee.employeeRoles} />

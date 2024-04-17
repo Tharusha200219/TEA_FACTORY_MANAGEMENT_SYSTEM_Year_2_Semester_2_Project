@@ -100,6 +100,8 @@ import Py_home from "./pages/Py_home.jsx";
 import V_home from "./pages/V_home.jsx";
 
 
+
+//**************Employeee */
 import E_home from "./pages/E_home.jsx";
 
 import DepartmentHome from './pages/DepartmentHome';
@@ -107,6 +109,7 @@ import CreateDepartment from './pages/CreateDepartment';
 import ShowDepartment from './pages/ShowDepartment';
 import EditDepartment from './pages/EditDepartment';
 import DeleteDepartment from './pages/DeleteDepartment';
+
 import EmployeeHome from './pages/EmployeeHome';
 import CreateEmployee from './pages/CreateEmployee'; // Make sure to import CreateEmployee
 import ShowEmployee from './pages/ShowEmployee';
@@ -200,6 +203,7 @@ const App = () => {
       <Route path='/departments/details/:id' element={<ShowDepartment />} />
       <Route path='/departments/edit/:id' element={<EditDepartment />} />
       <Route path='/departments/delete/:id' element={<DeleteDepartment />} />
+      
       <Route path='/EmployeeHome' element={<EmployeeHome />} />
       <Route path='/employees/create' element={<CreateEmployee />} /> {/* Ensure the route for CreateEmployee is defined */}
       <Route path='/employees/details/:id' element={<ShowEmployee />} />

@@ -7,49 +7,59 @@ import { useSnackbar } from 'notistack';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
-
 const CreateEmployee = () => {
   const [employeeName, setEmployeeName] = useState('');
+  const [employeeEmail, setEmployeeEmail] = useState('');
   const [employeeMobile, setEmployeeMobile] = useState('');
   const [employeeAddress, setEmployeeAddress] = useState('');
   const [employeeRoles, setEmployeeRoles] = useState('');
   const [createdOn, setCreatedOn] = useState(new Date());
+  const [sendEmailChecked, setSendEmailChecked] = useState(false); // Added state for checkbox
   const [loading, setLoading] = useState(false);
   const [isValid, setIsValid] = useState(true);
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
-  const handleSaveEmployee = () => {
-    if (!validateForm()) {
-      return;
-    }
+  // Function to handle saving the employee
+  // Inside handleSaveEmployee function
+const handleSaveEmployee = () => {
+  if (!validateForm()) {
+    return;
+  }
 
-    const data = {
-      employeeName,
-      employeeMobile,
-      employeeAddress,
-      employeeRoles,
-      createdOn: createdOn.getTime(), // Convert date to Unix timestamp
-      
-    };
-    setLoading(true);
-    axios
-      .post('http://localhost:5555/employees', data)
-      .then(() => {
-        setLoading(false);
-        enqueueSnackbar('Employee Added successfully', { variant: 'success' });
-        navigate('/');
-      })
-      .catch((error) => {
-        setLoading(false);
-        alert('An error occurred. Please check console.');
-        enqueueSnackbar('Error', { variant: 'error' });
-        console.log(error);
-      });
+  const data = {
+    employeeName,
+    employeeEmail,
+    employeeMobile,
+    employeeAddress,
+    employeeRoles,
+    createdOn: createdOn.getTime(), // Convert date to Unix timestamp
+    sendEmailChecked, // Include the state of the checkbox
   };
 
+  setLoading(true);
+  axios
+    .post('http://localhost:5555/employees', data)
+    .then((response) => {
+      setLoading(false);
+      if (response.data.message.includes('email sent')) {
+        enqueueSnackbar(response.data.message, { variant: 'success' });
+      } else {
+        enqueueSnackbar(response.data.message, { variant: 'success' });
+      }
+      navigate('/');
+    })
+    .catch((error) => {
+      setLoading(false);
+      enqueueSnackbar('Error: Failed to add employee', { variant: 'error' });
+      console.error('AxiosError:', error);
+    });
+};
+
+
+  // Function to validate the form
   const validateForm = () => {
-    if (!employeeName || !employeeMobile || !employeeAddress || !employeeRoles || !createdOn ) {
+    if (!employeeName || !employeeEmail || !employeeMobile || !employeeAddress || !employeeRoles || !createdOn) {
       setIsValid(false);
       return false;
     }
@@ -59,7 +69,7 @@ const CreateEmployee = () => {
       return false;
     }
 
-    if (employeeMobile.length == 10 ) {
+    if (employeeMobile.length !== 10) {
       setIsValid(false);
       return false;
     }
@@ -81,23 +91,40 @@ const CreateEmployee = () => {
             placeholder='Enter employee name here '
             value={employeeName}
             onChange={(e) => setEmployeeName(e.target.value)}
-            className={`form-input mt-2 block w-full border ${!isValid && !employeeName.trim() ? 'border-red-500' : 'border-gray-300'} rounded-md px-4 py-2`}/>
+            className={`form-input mt-2 block w-full border ${!isValid && !employeeName.trim() ? 'border-red-500' : 'border-gray-300'} rounded-md px-4 py-2`}
+          />
+        </div>
+
+        <div className='my-4'>
+          <label className='block text-lg text-gray-700 mb-2 font-bold'>Email Address</label>
+          <input
+            type='text'
+            placeholder='Enter Email address here '
+            value={employeeEmail}
+            onChange={(e) => setEmployeeEmail(e.target.value)}
+            className={`form-input mt-2 block w-full border ${!isValid && !employeeEmail.trim() ? 'border-red-500' : 'border-gray-300'} rounded-md px-4 py-2`}
+          />
         </div>
 
         <div className='my-4'>
           <label className='block text-lg text-gray-700 mb-2 font-bold'>Employee Mobile</label>
-          <textarea
+          <input
+            type='text'
             placeholder='Enter Employee contact number'
             value={employeeMobile}
-            onChange={(e) => setEmployeeMobile(e.target.value)}/>
+            onChange={(e) => setEmployeeMobile(e.target.value)}
+            className={`form-input mt-2 block w-full border ${!isValid && employeeMobile.length !== 10 ? 'border-red-500' : 'border-gray-300'} rounded-md px-4 py-2`}
+          />
         </div>
 
         <div className='my-4'>
-          <label className='block text-lg text-gray-700 mb-2 font-bold'>Employee Address</label>
+          <label className='block text-lg text-gray-700 mb-2 font-bold'>Address</label>
           <textarea
             placeholder='Enter Current Address...'
             value={employeeAddress}
-            onChange={(e) => setEmployeeAddress(e.target.value)}/>
+            onChange={(e) => setEmployeeAddress(e.target.value)}
+            className={`form-input mt-2 block w-full border ${!isValid && !employeeAddress.trim() ? 'border-red-500' : 'border-gray-300'} rounded-md px-4 py-2`}
+          />
         </div>
 
         <div className='my-4'>
@@ -105,7 +132,9 @@ const CreateEmployee = () => {
           <textarea
             placeholder='Enter Current employee roll...'
             value={employeeRoles}
-            onChange={(e) => setEmployeeRoles(e.target.value)}/>
+            onChange={(e) => setEmployeeRoles(e.target.value)}
+            className={`form-input mt-2 block w-full border ${!isValid && !employeeRoles.trim() ? 'border-red-500' : 'border-gray-300'} rounded-md px-4 py-2`}
+          />
         </div>
 
         <div className='my-4'>
@@ -116,7 +145,17 @@ const CreateEmployee = () => {
             className='form-input mt-2 block w-full border border-gray-300 rounded-md px-4 py-2'
           />
         </div>
-        
+
+        {/* Checkbox for sending email */}
+        <div className='my-4'>
+          <input
+            type='checkbox'
+            checked={sendEmailChecked}
+            onChange={(e) => setSendEmailChecked(e.target.checked)}
+            className='form-checkbox h-5 w-5 text-blue-600'
+          />
+          <span className='ml-2 text-lg text-gray-700'>Send welcome email</span>
+        </div>
 
         <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4' onClick={handleSaveEmployee}>
           Save
@@ -125,8 +164,5 @@ const CreateEmployee = () => {
     </div>
   );
 };
-
-
-
 
 export default CreateEmployee;
