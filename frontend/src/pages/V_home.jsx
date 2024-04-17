@@ -22,10 +22,17 @@ const V_home = () => {
                             <h2 style={styles.sectionTitle}>Key Features</h2>
                             <div style={styles.featureList}>
                                 <div style={styles.feature}>
+                                    <img src="./public/images/Vehicle new.jpg" alt="Feature 1" style={styles.featureImage} />
+                                    <h3 style={styles.featureTitle}>Add New Vehicle</h3>
+                                    <p style={styles.featureDescription}>Efficiently Added vehicles to do and delivered schedules and tasks.</p>
+                                    <Link to="/Vehiclehome" style={styles.btn}>Vehicle Yuard</Link>
+                                </div>
+
+                                <div style={styles.feature}>
                                     <img src="./public/images/vehicle.jpg" alt="Feature 1" style={styles.featureImage} />
-                                    <h3 style={styles.featureTitle}>Vehicle Maintenance</h3>
-                                    <p style={styles.featureDescription}>Efficiently manage vehicle maintenance schedules and tasks.</p>
-                                    <Link to="/VehicleMaintenance" style={styles.btn}>Schedule Maintenance</Link>
+                                    <h3 style={styles.featureTitle}>Add New Vehicle</h3>
+                                    <p style={styles.featureDescription}>Efficiently Added vehicles to do and delivered schedules and tasks.</p>
+                                    <Link to="/Vehiclehome" style={styles.btn}>Vehicle Yuard</Link>
                                 </div>
                                 
                                 {/* Add more features as needed */}
