@@ -41,7 +41,7 @@ const EditInventory = () => {
     axios.put(`http://localhost:5555/inventory/${id}`, data)
       .then(() => {
         setLoading(false);
-        navigate('/');
+        navigate('/Inventorys');
       })
       .catch((error) => {
         setLoading(false);
