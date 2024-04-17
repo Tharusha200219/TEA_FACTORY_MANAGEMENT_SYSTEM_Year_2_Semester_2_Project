@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import BackButtonOrder from '../components/backbuttonOrder';
 import Spinner from '../components/Spinner';
 import axios from 'axios';
@@ -30,14 +30,17 @@ const CreateOrder = () => {
 
   const handleSaveOrder = (values) => {
     setLoading(true);
-    axios.post(`http://localhost:5555/orders`, values)
+    
+    const { orderno, duedate, quantity, category } = values;
+    const requestData = { orderno, duedate, quantity, category };
+
+    axios.post(`http://localhost:5555/orders`, requestData)
       .then(() => {
         setLoading(false);
-        navigate('/');
+        navigate('/OrderHome');
       })
       .catch((error) => {
         setLoading(false);
-        alert('An error occurred');
         console.log(error);
       });
   };
@@ -115,7 +118,7 @@ const CreateOrder = () => {
             ) : null}
           </div>
 
-          <button className='p-2 bg-sky-300 m-8' onClick={handleSaveOrder}>
+          <button type="submit" className='p-2 bg-sky-300 m-8'>
             Save
           </button>
         </form>
