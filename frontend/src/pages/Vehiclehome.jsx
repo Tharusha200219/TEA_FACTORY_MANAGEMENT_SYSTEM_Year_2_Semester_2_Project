@@ -2,16 +2,101 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Spinner from '../components/Spinner';
 import { Link } from 'react-router-dom';
-import { AiOutlineEdit } from 'react-icons/ai';
-import { BsInfoCircle } from 'react-icons/bs';
-import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
+import { MdOutlineAddBox } from 'react-icons/md';
 import BooksTable from '../components/home/BooksTable';
 import BooksCard from '../components/home/BooksCard';
+import styled from 'styled-components';
+import NavigationBar from '../components/NavigationBar';
+import Footer from '../components/Footer';
+
+const GlobalStyleComponent = styled.div`
+  .container {
+    height: 100vh;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color:Black;
+    background-size: cover;
+    background-position: center;
+    /* Apply blur effect */
+    filter: blur(0.000005px);
+  }
+
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    color: white;
+  }
+
+  .buttons {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .button {
+    padding: 0.5rem 1rem;
+    background-color: #63b3ed;
+    color: white;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: #4f94cd;
+    }
+  }
+
+  .spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40vh;
+  }
+
+  .table-container {
+    margin-top: 2rem;
+    color: white;
+    border-color:white;
+  }
+
+  .card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-gap: 2rem;
+    margin-top: 2rem;
+  }
+`;
+
+const SecondaryNavbar = styled.nav`
+  background-color: #408C44;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+
+  a {
+    color: white;
+    
+    border-radius: 0.25rem;
+    padding: 0.5rem 1rem;
+    margin: 0 1rem;
+    text-decoration: none;
+
+    &:hover {
+      background-color: #333;
+      color: #fff;
+    }
+  }
+`;
 
 const Home = () => {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showType, setShowType] = useState('table');
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     setLoading(true);
@@ -26,37 +111,54 @@ const Home = () => {
         setLoading(false);
       });
   }, []);
+  
+  
+  const handleSearchInputChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const filteredBooks = books.filter((book) =>
+    book.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
-    <div className='p-4'>
-      <div className='flex justify-center items-center gap-x-4'>
-        <button
-          className='bg-sky-300 hover:bg-sky-600 px-4 py-1 rounded-lg'
-          onClick={() => setShowType('table')}
-        >
-          Vehicle table
-        </button>
-        <button
-          className='bg-sky-300 hover:bg-sky-600 px-4 py-1 rounded-lg'
-          onClick={() => setShowType('card')}
-        >
-          Available Lists
-        </button>
+    <GlobalStyleComponent>
+      <NavigationBar />
+      <SecondaryNavbar>
+        <Link to="/books/create">Add New Vehicle</Link>
+        <Link to="/available-parts">Available Vehicles</Link>
+        <Link to="/orders">View Orders</Link>
+        <Link to="/ReportVehicle">Generate Report</Link>
+
+      </SecondaryNavbar>
+      <div className='container p-4'>
+        <div className='header'>
+          <h1 className='text-3xl font-semibold text-gray-800'>Vehicles List</h1>
+          {/* Search Bar */}
+          <input
+            type="text"
+            placeholder="Search Vehicles..."
+            value={searchQuery}
+            onChange={handleSearchInputChange}
+            className="p-2 border border-gray-300 rounded-md"
+          />
+        </div>
+        {loading ? (
+          <div className='spinner-container'>
+            <Spinner />
+          </div>
+        ) : showType === 'table' ? (
+          <div className='table-container'>
+            <BooksTable books={filteredBooks} />
+          </div>
+        ) : (
+          <div className='card-container'>
+            <BooksCard books={filteredBooks} />
+          </div>
+        )}
       </div>
-      <div className='flex justify-between items-center'>
-        <h1 className='text-3xl my-8'>Vehicle List</h1>
-        <Link to='/books/create'>
-          <MdOutlineAddBox className='text-sky-800 text-4xl' />
-        </Link>
-      </div>
-      {loading ? (
-        <Spinner />
-      ) : showType === 'table' ? (
-        <BooksTable books={books} />
-      ) : (
-        <BooksCard books={books} />
-      )}
-    </div>
+      <Footer />
+    </GlobalStyleComponent>
   );
 };
 

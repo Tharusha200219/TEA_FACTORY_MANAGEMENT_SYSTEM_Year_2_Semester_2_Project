@@ -108,6 +108,7 @@ import CreateEmployee from './pages/CreateEmployee'; // Make sure to import Crea
 import ShowEmployee from './pages/ShowEmployee';
 import EditEmployee from './pages/EditEmployee';
 import DeleteEmployee from './pages/DeleteEmployee';
+import ReportVehicle from "./pages/ReportVehicle.jsx";
 
 
 const App = () => {
@@ -128,6 +129,14 @@ const App = () => {
       <Route path = '/inventory/edit/:id' element={<EditInvenory/>}  />
       <Route path = '/inventory/delete/:id' element={<DeleteInventory/>}  />
       <Route path = '/I_home' element={<I_home/>}  />
+      
+
+      <Route path='/Vehiclehome' element={<Vehiclehome />} />
+      <Route path='/books/create' element={<CreateBook />} />
+      <Route path='/books/details/:id' element={<ShowBook />} />
+      <Route path='/books/edit/:id' element={<EditBook />} />
+      <Route path='/books/delete/:id' element={<DeleteBook />} />
+      <Route path = '/ReportVehicle' element={<ReportVehicle/>}  />
       
 
       <Route path = '/productions/creates' element={<Createproductions/>} />
