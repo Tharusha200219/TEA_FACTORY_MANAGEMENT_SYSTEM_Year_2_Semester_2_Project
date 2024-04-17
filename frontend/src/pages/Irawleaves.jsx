@@ -132,8 +132,6 @@ const SupplyRecordTable = () => {
                                     <th className='px-6 py-3 text-sm font-medium border border-gray-300 text-left text-white bg-black'>SUPPLIER</th>
                                     <th className='px-6 py-3 text-sm font-medium border border-gray-300 text-left text-white bg-black'>SUPPLY DATE</th>
                                     <th className='px-6 py-3 text-sm font-medium border border-gray-300 text-left text-white bg-black'>QUANTITY (KG)</th>
-                                    <th className='px-6 py-3 text-sm font-medium border border-gray-300 text-left text-white bg-black'>UNIT PRICE</th>
-                                    <th className='px-6 py-3 text-sm font-medium border border-gray-300 text-left text-white bg-black'>COST</th>
                                     <th className='px-6 py-3 text-sm font-medium border border-gray-300 text-left text-white bg-black'>ACTIONS</th>
                                 </tr>
                             </thead>
@@ -143,13 +141,10 @@ const SupplyRecordTable = () => {
                                         <td className='px-6 py-4 border border-gray-300'>{item.supplier}</td>
                                         <td className='px-6 py-4 border border-gray-300'>{item.date}</td>
                                         <td className='px-6 py-4 border border-gray-300'>{item.quantity}</td>
-                                        <td className='px-6 py-4 border border-gray-300'>{item.unitPrice}</td>
-                                        <td className='px-6 py-4 border border-gray-300'>{item.quantity * item.unitPrice}</td>
                                         <td className='px-6 py-4 border border-gray-300'>
                                             <div className='flex justify-center gap-x-4'>
                                                 <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" onClick={() => handleAccept(item)}>Accept</button>
-                                                <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onClick={() => handleReject(item)}>Reject</button>
-                                            </div>
+                                           </div>
                                         </td>
                                     </tr>
                                 ))}

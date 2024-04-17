@@ -41,7 +41,7 @@ const EditWaste = () => {
     axios.put(`http://localhost:5555/waste/${id}`, data)
       .then(() => {
         setLoading(false);
-        navigate('/');
+        navigate('/waste-management');
       })
       .catch((error) => {
         setLoading(false);
