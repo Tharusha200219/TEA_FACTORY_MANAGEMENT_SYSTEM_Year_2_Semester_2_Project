@@ -4,7 +4,7 @@ import ContactUs from "./pages/ContactUs.jsx";
 import Aboutus from "./pages/Aboutus.jsx"
 import HomePage from "./pages/HomePage.jsx";
 import Service from "./pages/Service.jsx";
-import GenerateRepoEmployee from "./pages/GenerateRepoEmployee.jsx"; // Import GenerateRepoEmployee
+import GenerateRepoEmployee from "./pages/GenerateRepoEmployee.jsx"; 
 
 import ReportVehicle from "./pages/ReportVehicle.jsx";
 
