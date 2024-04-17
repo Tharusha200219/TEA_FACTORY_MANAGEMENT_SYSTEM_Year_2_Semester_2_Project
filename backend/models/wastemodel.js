@@ -3,6 +3,10 @@ import mongoose from "mongoose";
 const teawasteschema = mongoose.Schema(
     {
         wasteid : {
+            type : String,
+            required:true,
+        },
+        batchid : {
             type : Number,
             required:true,
         },

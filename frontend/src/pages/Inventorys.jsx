@@ -5,16 +5,21 @@ import { Link } from 'react-router-dom';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { BsInfoCircle } from 'react-icons/bs';
 import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
-const Inventorys = () => {
+const Home = () => {
+  const [originalInventory, setOriginalInventory] = useState([]);
   const [inventory, setInventory] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [searchInput, setSearchInput] = useState('');
 
   useEffect(() => {
     setLoading(true);
 
     axios.get('http://localhost:5555/inventory')
       .then((response) => {
+        setOriginalInventory(response.data);
         setInventory(response.data);
         setLoading(false);
       })
@@ -22,8 +27,49 @@ const Inventorys = () => {
         console.error('Error fetching data:', error);
         setLoading(false);
       });
-      
   }, []);  
+
+  const handleSearch = () => {
+    if (searchInput.trim() === '') {
+      // If search input is empty, reset inventory to the original inventory list
+      setInventory(originalInventory);
+    } else {
+      // Perform search based on search input
+      const filteredInventory = originalInventory.filter(item =>
+        item.batchid.toLowerCase().includes(searchInput.toLowerCase()) ||
+        item.category.toLowerCase().includes(searchInput.toLowerCase()) ||
+        item.inventorynumber.toLowerCase().includes(searchInput.toLowerCase())
+      );
+      setInventory(filteredInventory);
+    }
+  };
+
+  const handleReportGeneration = () => {
+    try {
+      const doc = new jsPDF();
+      const tableRows = [];
+
+      // Add headers
+      const headers = [['Batch ID', 'Category', 'Inventory Number', 'Quantity']];
+      const rows = inventory.map(item => [item.batchid, item.category, item.inventorynumber, item.quantity]);
+      
+      // Add rows to tableRows array
+      tableRows.push(...headers);
+      tableRows.push(...rows);
+
+      // AutoTable plugin to generate PDF
+      doc.autoTable({
+        head: tableRows.slice(0, 1), // First row is the header
+        body: tableRows.slice(1), // Remaining rows are data
+        startY: 20, // Start Y position (adjust as needed)
+      });
+
+      // Save the PDF
+      doc.save('Inventory_Report.pdf');
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+    }
+  };
 
   return (
     <div>
@@ -35,14 +81,16 @@ const Inventorys = () => {
               Ever Green Tea
             </div>
             <div className="flex space-x-4">
-              <Link to="/" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
-              <Link to="/invenorys" className="text-gray-300   bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">inventory</Link>
+              <Link to="/HomePage" className="text-gray-300  hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
+              <Link to="/inventorys" className="text-gray-300   bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">inventory</Link>
               
               
               <Link to="/waste-management" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Waste Management</Link>
               
               <Link to="/pending-shipments" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Pending Shipments</Link>
               <Link to="/pending-new-stocks" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Pending New Stocks</Link>
+              <Link to="/Irawleaves" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Raw Leaves Management</Link>
+             
             </div>
           </div>
         </div>
@@ -52,13 +100,34 @@ const Inventorys = () => {
       <div className='container mx-auto p-8'>
         <div className='flex justify-between items-center mb-8'>
           <h1 className='text-4xl font-bold text-gray-800'>Inventory List</h1>
-          <Link
-            to='/inventory/creates'
-            className='bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-all flex items-center'
-          >
-            <MdOutlineAddBox className='text-xl mr-2' />
-            Add Inventory
-          </Link>
+          <div className='flex items-center'>
+            <input
+              type='text'
+              placeholder='Search...'
+              className='border border-gray-300 px-4 py-2 rounded mr-4'
+              value={searchInput}
+              onChange={(e) => setSearchInput(e.target.value)}
+            />
+            <button
+              className='bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-all mr-4'
+              onClick={handleSearch}
+            >
+              Search
+            </button>
+            <button
+              className='bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 transition-all  mr-4'
+              onClick={handleReportGeneration}
+            >
+              Generate Report
+            </button>
+            <Link
+              to='/inventory/creates'
+              className='bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 transition-all flex items-center'
+            >
+              <MdOutlineAddBox className='text-xl mr-2' />
+              Add Inventory
+            </Link>
+          </div>
         </div>
 
         {loading ? (
@@ -80,7 +149,7 @@ const Inventorys = () => {
                 <tr key={item._id} className='border border-gray-300'>
                   <td className='border border-gray-300 p-4'>{index + 1}</td>
                   <td className='border border-gray-300 p-4'>{item.batchid}</td>
-                  <td className='border border-gray-300 p-4'>{item.catogory}</td>
+                  <td className='border border-gray-300 p-4'>{item.category}</td>
                   <td className='border border-gray-300 p-4'>{item.inventorynumber}</td>
                   <td className='border border-gray-300 p-4'>{item.quantity}</td>
                   <td className='border border-gray-300 p-4'>
@@ -119,4 +188,4 @@ const Inventorys = () => {
   );
 };
 
-export default Inventorys;
+export default Home;

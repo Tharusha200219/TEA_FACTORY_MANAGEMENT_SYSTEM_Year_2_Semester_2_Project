@@ -13,6 +13,13 @@ import DeleteInventory from "./pages/DeleteInventory";
 import EditInvenory from "./pages/EditInventory";
 import ShowInventory from "./pages/ShowInventory";
 import Inventorys from "./pages/Inventorys";
+import Waste from "./pages/Waste"
+import Createwaste from "./pages/Createwaste"
+import DeleteWaste from "./pages/DeleteWaste"
+import Wastedetails from "./pages/Wastedetails"
+import EditWaste from "./pages/EditWaste"
+import Irawleaves from "./pages/Irawleaves"
+
 
 
 import Vehiclehome from './pages/Vehiclehome'; 
@@ -128,6 +135,15 @@ const App = () => {
       <Route path = '/inventory/edit/:id' element={<EditInvenory/>}  />
       <Route path = '/inventory/delete/:id' element={<DeleteInventory/>}  />
       <Route path = '/I_home' element={<I_home/>}  />
+      <Route path = '/waste-management' element={<Waste/>}  />
+      <Route path = '/waste/add' element={<Createwaste/>}  />
+      <Route path = '/waste/delete/:id' element={<DeleteWaste/>}  />
+      <Route path = '/waste/details/:id' element={<Wastedetails/>}  />
+      <Route path = '/waste/edit/:id' element={<EditWaste/>}  />
+      <Route path = '/Irawleaves' element={<Irawleaves/>} />
+      
+
+      
       
 
       <Route path = '/productions/creates' element={<Createproductions/>} />
