@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import BackButton from '../components/backbutton';
+import { useParams, Link } from 'react-router-dom';
+import BackButtonForCreateEmployee from '../components/BackbuttonForCreateEmployee';
 import Spinner from '../components/Spinner';
+import Footer from '../components/Footer';
+import NavigationBar from '../components/NavigationBar';
 
 const ShowEmployee = () => {
   const [employee, setEmployee] = useState({});
@@ -24,40 +26,46 @@ const ShowEmployee = () => {
 
   const renderEmployeeDetails = () => {
     return (
-      <div className='flex flex-col items-center justify-center'>
-        <div className='bg-gray-200 rounded-lg p-6'>
-          <Detail label="Employee Name" value={employee.employeeName} />
-          <Detail label="Employee Email" value={employee.employeeEmail} />
-          <Detail label="Employee Mobile" value={employee.employeeMobile} />
-          <Detail label="Employee Address" value={employee.employeeAddress} />
-          <Detail label="Employee Role" value={employee.employeeRoles} />
-          <Detail label="Created On" value={new Date(employee.createdAt).toLocaleString()} />
-          <Detail label="Created At" value={new Date(employee.createdAt).toLocaleString()} />
-          <Detail label="Last Updated At" value={new Date(employee.updatedAt).toLocaleString()} />
-        </div>
-      </div>
+      <form className='bg-gray-200 rounded-lg p-6 w-full max-w-xl'>
+        
+          <FormField label="Employee Name" value={employee.employeeName} />
+          <FormField label="Employee Email" value={employee.employeeEmail} />
+          <FormField label="Employee Mobile" value={employee.employeeMobile} />
+          <FormField label="Employee Address" value={employee.employeeAddress} />
+          <FormField label="Employee Role" value={employee.employeeRoles} />
+          <FormField label="Created On" value={new Date(employee.createdAt).toLocaleString()} />
+          <FormField label="Created At" value={new Date(employee.createdAt).toLocaleString()} />
+          <FormField label="Last Updated At" value={new Date(employee.updatedAt).toLocaleString()} />
+        
+      </form>
     );
   };
 
-  const Detail = ({ label, value }) => {
+  const FormField = ({ label, value }) => {
     return (
-      <div className='flex justify-between py-2'>
-        <span className='text-gray-700'>{label}</span>
-        <span>{value}</span>
+      <div className='flex flex-col'>
+        <label className='text-gray-700'>{label}</label>
+        
+        <input type="text" value={value} className='border border-gray-500 rounded-md px-3 py-2 mt-1' readOnly />
       </div>
     );
   };
 
   return (
-    <div className='flex flex-col items-center justify-center h-screen'>
-      <BackButton />
-      <h1 className='text-3xl my-4'>Employee Details</h1>
-      {loading ? <Spinner /> : renderEmployeeDetails()}
+    <div>
+      <NavigationBar />
+      <div className='flex-grow'>
+        <div className='p-4'>
+        <BackButtonForCreateEmployee />
+        <div className='flex flex-col items-center justify-center h-screen'>
+          <h1 className='text-3xl my-4'>Employee Details</h1>
+          {loading ? <Spinner /> : renderEmployeeDetails()}
+        </div>
+      </div>
+      </div>
+      <Footer />
     </div>
   );
 };
-
-
-
 
 export default ShowEmployee;

@@ -1,0 +1,12 @@
+/**
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @format
+ */
+import type { Yoga } from '../wrapAssembly';
+export * from '../generated/YGEnums';
+export type { Config, DirtiedFunction, MeasureFunction, Node, Yoga, } from '../wrapAssembly';
+export declare function loadYoga(): Promise<Yoga>;
