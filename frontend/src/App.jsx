@@ -8,6 +8,10 @@ import GenerateRepoEmployee from "./pages/GenerateRepoEmployee.jsx"; // Import G
 
 import ReportVehicle from "./pages/ReportVehicle.jsx";
 
+import GenerateRepoEmployee from "./pages/GenerateRepoEmployee.jsx"; 
+
+import ReportVehicle from "./pages/ReportVehicle.jsx";
+
 import Inventoryhome from "./pages/Inventoryhome";
 import I_home from "./pages/I_home.jsx";
 import CreateInventory from "./pages/CreateInventory";
@@ -30,7 +34,7 @@ import ShowBook from './pages/ShowBook';
 import EditBook from './pages/EditBook';
 import DeleteBook from './pages/DeleteBook';
 
-
+//*******production_and_tea_type*******/
 import Createproductions from './pages/Createproductions';
 import Createteatypes from './pages/Createteatypes';
 import Deleteproductions from './pages/Deleteproductions';
@@ -41,7 +45,6 @@ import Showproductions from './pages/Showproductions';
 import ProductionReport from "./pages/ProductionReport.jsx";
 import Productionstatus from "./pages/Productionstatus.jsx";
 import Productionmachineavailability from "./pages/Productionmachineavailability.jsx";
-
 import Showteatypes from './pages/Showteatypes';
 import Teatypehome from "./pages/Teatypehome";
 import Productionhome from "./pages/Productionhome";
@@ -113,7 +116,7 @@ import EditDepartment from './pages/EditDepartment';
 import DeleteDepartment from './pages/DeleteDepartment';
 
 import EmployeeHome from './pages/EmployeeHome';
-import CreateEmployee from './pages/CreateEmployee'; // Make sure to import CreateEmployee
+import CreateEmployee from './pages/CreateEmployee'; 
 import ShowEmployee from './pages/ShowEmployee';
 import EditEmployee from './pages/EditEmployee';
 import DeleteEmployee from './pages/DeleteEmployee';
@@ -175,6 +178,8 @@ const App = () => {
       <Route path = '/Teatypehome' element={<Teatypehome/>}  />
       <Route path = '/TeaTypeReport' element={<TeaTypeReport/>}  />
 
+
+
       <Route path = '/MachineHome' element={<MachineHome/>}  />
       <Route path = '/machines/creates' element={<CreateMachine/>} />
       <Route path = '/machines/details/:id' element={<ShowMachine/>}  />
@@ -218,14 +223,14 @@ const App = () => {
       <Route path='/departments/delete/:id' element={<DeleteDepartment />} />
       
       <Route path='/EmployeeHome' element={<EmployeeHome />} />
-      <Route path='/employees/create' element={<CreateEmployee />} /> {/* Ensure the route for CreateEmployee is defined */}
+      <Route path='/employees/create' element={<CreateEmployee />} /> 
       <Route path='/GenerateRepoEmployee' element={<GenerateRepoEmployee />} />
 
       <Route path='/employees/details/:id' element={<ShowEmployee />} />
       <Route path='/employees/edit/:id' element={<EditEmployee />} />
       <Route path='/employees/delete/:id' element={<DeleteEmployee />} />
 
-     
+    
     
       
       <Route path="/OrderHome" element={<OrderHome/>}/>

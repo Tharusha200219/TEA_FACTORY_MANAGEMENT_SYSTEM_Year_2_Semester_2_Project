@@ -61,7 +61,7 @@ const TeaTypeReport = () => {
             .get('http://localhost:5555/teatypes') // Adjust the API endpoint as needed
             .then((response) => {
                 console.log('Response data:', response.data);
-                setReportData(response.data.data); // Assuming response.data.data is the array you want to display
+                setReportData(response.data.data); 
                 setLoading(false);
             })
             .catch((error) => {
@@ -114,7 +114,7 @@ const TeaTypeReport = () => {
                             <Link to="/TeaTypeReport" className="text-gray-300 bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Tea Type Report Generate</Link>
                             <Link to="/user-profile-page" className="absolute right-10 flex  space-x-2">
                     <img src="/images/user.png" alt="User Profile" className="w-8 h-8 rounded-full" />
-                    {/* You can replace "example-profile-image.jpg" with the actual path to your user profile image */}
+                    
                 </Link>
                         </div>
                     </div>
