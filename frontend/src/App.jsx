@@ -4,7 +4,9 @@ import ContactUs from "./pages/ContactUs.jsx";
 import Aboutus from "./pages/Aboutus.jsx"
 import HomePage from "./pages/HomePage.jsx";
 import Service from "./pages/Service.jsx";
+import GenerateRepoEmployee from "./pages/GenerateRepoEmployee.jsx"; // Import GenerateRepoEmployee
 
+import ReportVehicle from "./pages/ReportVehicle.jsx";
 
 import Inventoryhome from "./pages/Inventoryhome";
 import I_home from "./pages/I_home.jsx";
@@ -240,6 +242,8 @@ const App = () => {
       <Route path = '/ContactUs' element={<ContactUs/>}  />
       <Route path = '/Aboutus' element={<Aboutus/>}  />
       <Route path = '/Service' element={<Service/>}  />
+
+      
     </Routes>
   );
 };
