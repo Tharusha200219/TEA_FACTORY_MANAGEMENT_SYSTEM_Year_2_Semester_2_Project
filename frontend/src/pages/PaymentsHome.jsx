@@ -7,6 +7,8 @@ import { MdOutlineDelete } from 'react-icons/md';
 import Spinner from '../components/Spinner';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import NavigationBar from '../components/NavigationBar';
+import Footer from '../components/Footer';
 
 const PaymentsHome = () => {
     const [payments, setPayments] = useState([]);
@@ -111,21 +113,7 @@ const PaymentsHome = () => {
 
     return (
         <div style={{ minHeight: '100vh', position: 'relative' }}>
-            <nav style={{ backgroundColor: '#3FC060' }} className="p-4">
-                <div className="container mx-auto">
-                    <div className="flex justify-between items-center">
-                        <div className="text-white text-xl font-bold">
-                            Ever Green Tea
-                        </div>
-                        <div className="flex space-x-4">
-                            <Link to="/" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
-                            <Link to="/PaymentsHome" className="text-gray-300 bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Payments</Link>
-                            <Link to="/SupplyRecordTable" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Supply Records</Link>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-
+          <NavigationBar />
             <div className="container mx-auto flex justify-center items-center h-full ">
                 <div className="text-center text-white">
                     <h1 className="text-4xl font-bold mb-8">Welcome to Ever Green Tea</h1>
@@ -221,14 +209,7 @@ const PaymentsHome = () => {
                 </div>
             )}
             {/* Footer */}
-            <footer style={{ backgroundColor: '#3FC060', position: 'absolute', bottom: 0, left: 0, right: 0 }} className="text-white py-4">
-                <div className="container mx-auto flex justify-between items-center">
-                    <div>
-                        <p>&copy; {new Date().getFullYear()} Your Company Name. All rights reserved.</p>
-                        <p>Contact: 0112787678</p>
-                    </div>
-                </div>
-            </footer>
+            <Footer />
         </div>
     );
 }

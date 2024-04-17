@@ -1,44 +1,86 @@
 import express from 'express';
 import { orders } from '../models/orderModel.js';
 
-const router=express.Router();
+const router = express.Router();
 
 
-router.post('/',async(request,response)=>{
-    try{
-        if(
-            !request.body.orderno||
-            !request.body.duedate||
-            !request.body.quantity||
+router.post('/', async (request, response) => {
+    try {
+        if (
+            !request.body.orderno ||
+            !request.body.duedate ||
+            !request.body.quantity ||
             !request.body.category
-        )
-        {
+        ) {
             return response.status(400).send({
-                message:'Send all required fields:duedate,quantity,category',
+                message: 'Send all required fields:duedate,quantity,category',
             });
         }
-        const newOrder={
-            orderno:request.body.orderno,
-            duedate:request.body.duedate,
-            quantity:request.body.quantity,
-            category:request.body.category,
+        const newOrder = {
+            orderno: request.body.orderno,
+            duedate: request.body.duedate,
+            quantity: request.body.quantity,
+            category: request.body.category,
         };
-        const Order=await orders.create(newOrder);
+        const Order = await orders.create(newOrder);
         return response.status(201).send(Order);
-    }catch(error){
+    } catch (error) {
         console.log(error.message);
-        response.status(500).send({message:error.message});
+        response.status(500).send({ message: error.message });
     }
 });
+
+
+/*Status*/
+router.put('/:id/status', async (request, response) => {
+    try {
+        const { id } = request.params;
+        const { status } = request.body;
+
+        const updatedOrder = await orders.findByIdAndUpdate(id, { status }, { new: true });
+
+        if (!updatedOrder) {
+            return response.status(404).json({ message: 'Order not found' });
+        }
+        return response.status(200).json(updatedOrder);
+    } catch (error) {
+        console.log(error.message);
+        response.status(500).send({ message: error.message });
+    }
+});
+
+router.get('/:id/status', async (request, response) => {
+    try {
+        const { id } = request.params;
+
+        const order = await orders.findById(id);
+
+        if (!order) {
+            return response.status(404).json({ message: 'Order not found' });
+        }
+
+        return response.status(200).json({ status: order.status });
+    } catch (error) {
+        console.log(error.message);
+        response.status(500).send({ message: error.message });
+    }
+});
+
+
+/*Status end */
+
+
+
+
 
 router.get('/', async (request, response) => {
     try {
         const order = await orders.find({});
         return response.status(200).json({
-            count:order.length,
-            data:order
+            count: order.length,
+            data: order
         });
-    } catch (error) { 
+    } catch (error) {
         console.log(error.message);
         response.status(500).send({ message: error.message });
     }
@@ -52,11 +94,10 @@ router.get('/:id', async (request, response) => {
         if (!Order) {
             return response.status(404).json({ message: 'Order not found' });
         }
-        
-        return response.status(200).json({
-            data: Order
-        });
-    } catch (error) { 
+
+        return response.status(200).json(Order);
+
+    } catch (error) {
         console.log(error.message);
         response.status(500).send({ message: error.message });
     }
@@ -64,44 +105,44 @@ router.get('/:id', async (request, response) => {
 
 
 
-router.put('/:id',async (request, response) => {
+router.put('/:id', async (request, response) => {
     try {
-        if(
-        !request.body.orderno||
-        !request.body.duedate||
-        !request.body.quantity||
-        !request.body.category
-        ){
+        if (
+            !request.body.orderno ||
+            !request.body.duedate ||
+            !request.body.quantity ||
+            !request.body.category
+        ) {
             return response.status(400).send({
-                message:'Send all required fields:duedate,quantity,category',
+                message: 'Send all required fields:duedate,quantity,category',
             });
         }
 
-        const{id}=request.params;
-        const result=await orders.findByIdAndUpdate(id,request.body);
-        if(!result){
-            return response.status(404).json({message:'Order not found'});
+        const { id } = request.params;
+        const result = await orders.findByIdAndUpdate(id, request.body);
+        if (!result) {
+            return response.status(404).json({ message: 'Order not found' });
         }
-            return response.status(200).json({message:'Order updated sucessfully'});
-    }catch(error){
+        return response.status(200).json({ message: 'Order updated sucessfully' });
+    } catch (error) {
         console.log(error.message);
         response.status(500).send({ message: error.message });
-        }
-    });
-    router.delete('/:id',async(request,response)=>{
-        try{
-            const{ id }=request.params;
+    }
+});
+router.delete('/:id', async (request, response) => {
+    try {
+        const { id } = request.params;
 
-            const result=await orders.findByIdAndDelete(id);
+        const result = await orders.findByIdAndDelete(id);
 
-            if(!result){
-                return response.status(404).json({message:'Order not found'});
-            }
-            return response.status(200).send({message:'Order deleted sucessfully'});
-        }catch(error){
-            console.log(error.message);
-            response.status(500).send({ message: error.message });
+        if (!result) {
+            return response.status(404).json({ message: 'Order not found' });
         }
-    });
+        return response.status(200).send({ message: 'Order deleted sucessfully' });
+    } catch (error) {
+        console.log(error.message);
+        response.status(500).send({ message: error.message });
+    }
+});
 
 export default router;

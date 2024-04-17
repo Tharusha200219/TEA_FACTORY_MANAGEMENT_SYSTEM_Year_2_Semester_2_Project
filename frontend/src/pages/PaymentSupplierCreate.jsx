@@ -40,7 +40,7 @@ const PaymentSupplierCreate = () => {
         axios.post('http://localhost:5555/payments/add', data)
             .then(() => {
                 setLoading(false);
-                navigate('/SupplierHome');
+                navigate('/PaymentsHome');
             })
             .catch((error) => {
                 alert('An error occurred');

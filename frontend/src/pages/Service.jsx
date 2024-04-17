@@ -30,8 +30,8 @@ const ServicePage = () => {
                     <p style={styles.serviceDescription}>Manage your tea suppliers efficiently and maintain strong relationships with our supplier management tools.</p>
                 </div>
                 <div style={styles.serviceCard}>
-                    <img src="./public/images/ma.jpg" alt="Machine and Equipment Management" style={styles.serviceImage} />
-                    <h2 style={styles.serviceTitle}>Machine and Equipment Management</h2>
+                    <img src="./public/images/ma.jpg" alt="Machine and Maintenance Management" style={styles.serviceImage} />
+                    <h2 style={styles.serviceTitle}>Machine and Maintenance Management</h2>
                     <p style={styles.serviceDescription}>Ensure the smooth operation of your tea processing equipment with our advanced management system.</p>
                 </div>
                 <div style={styles.serviceCard}>

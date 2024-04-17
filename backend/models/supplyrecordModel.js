@@ -18,6 +18,10 @@ const supplyrecordSchema = mongoose.Schema(
       type: Number,
       required: true,
     },
+    status: {
+      type: String,
+      default: 'Pending'
+    },
   },
   {
     timestamps: true,

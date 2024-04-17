@@ -1,9 +1,13 @@
 import  express, { request, response }  from "express";
 import { PORT,mongoDBURL } from "./config.js";
 import mongoose from "mongoose";
+
 import { inventory } from "./models/inventorymodel.js";
 import { orders } from "./models/orderModel.js";
 import { waste } from "./models/wastemodel.js";
+import teaLeavesRoute from './routes/teaLeavesRoute.js';
+import TeaLeaves from "./models/teaLeavesModel.js";
+
 import Production from './models/production_schedule_model_t.js';
 import  Teatype  from "./models/teatype_management_model.js";
 import  Machine  from "./models/machineModel.js";
@@ -17,6 +21,7 @@ import productionScheduleRoute from "./routes/production_schedule_route.js";
 import teatypeManagementRoute from "./routes/teatype_management_route.js";
 import cors from "cors";
 import payments from "./routes/payment.js";
+import booksRoute from './routes/bookRoute.js';
 
 ////Import Supplier management model & Route ////
 import { supplier } from "./models/supplierModel.js";
@@ -48,12 +53,17 @@ app.get('/',(request, response)=>{
 
 app.use('/inventory',inventoryRoute);
 app.use('/waste',wasteRoute)
+app.use('/teaLeaves', teaLeavesRoute);
+
+
 app.use('/productions',productionScheduleRoute);
 app.use('/teatypes',teatypeManagementRoute);
 app.use('/machines',machineRoute);
 app.use('/maintenances',maintenanceRoute);
 app.use('/orders',orderRoute);
 app.use('/payments',payments);
+
+app.use('/books', booksRoute);
 
 
 // Mounting supplier management routes

@@ -6,7 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 const EditInventory = () => {
   const [batchId, setBatchId] = useState('');
-  const [catogory, setCategory] = useState('');
+  const [category, setCategory] = useState('');
   const [inventoryNumber, setInventoryNumber] = useState('');
   const [quantity, setQuantity] = useState('');
   const [loading, setLoading] = useState(false);
@@ -18,7 +18,7 @@ const EditInventory = () => {
     axios.get(`http://localhost:5555/inventory/${id}`)
       .then((response) => {
         setBatchId(response.data.batchid);
-        setCategory(response.data.catogory);
+        setCategory(response.data.category);
         setInventoryNumber(response.data.inventorynumber);
         setQuantity(response.data.quantity);
         setLoading(false);
@@ -33,7 +33,7 @@ const EditInventory = () => {
   const handleEditInventory = () => {
     const data = {
       batchid: batchId,
-      catogory: catogory,
+      category: category,
       inventorynumber: inventoryNumber,
       quantity: quantity,
     };
@@ -41,7 +41,7 @@ const EditInventory = () => {
     axios.put(`http://localhost:5555/inventory/${id}`, data)
       .then(() => {
         setLoading(false);
-        navigate('/');
+        navigate('/Inventorys');
       })
       .catch((error) => {
         setLoading(false);
@@ -75,7 +75,7 @@ const EditInventory = () => {
             <input
               id='category'
               type='text'
-              value={catogory}
+              value={category}
               onChange={(e) => setCategory(e.target.value)}
               className='input-field'
             />

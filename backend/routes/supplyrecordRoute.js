@@ -12,14 +12,14 @@ router.post('/', async (request, response) => {
             return response.status(400).send({ message: 'Send all required fields: supplier, date, quantity, unitPrice'});
         }
 
-        const newSupplyRecord = new SupplyRecord({
+        const newRecord = new SupplyRecord({
             supplier,
             date,
             quantity,
-            unitPrice
+            unitPrice  
         });
 
-        const savedRecord = await newSupplyRecord.save();
+        const savedRecord = await newRecord.save();
         return response.status(201).json(savedRecord);
     } catch (error) {
         console.error(error.message);
@@ -89,5 +89,23 @@ router.delete('/:id', async (request, response) => {
         response.status(500).send({ message: error.message });
     }
 });
+
+// update status
+router.put('/changeStatus/:id', async (request, response) => {
+    try {
+        const { id } = request.params;
+        const { status } = request.body;
+
+        const updateSupply = await SupplyRecord.findByIdAndUpdate(id, { status }, { new: true });
+        if (!updateSupply) {
+            return response.status(404).send({ message: 'Supply record not found' });
+        }
+        return response.status(200).send(updateSupply);
+    } catch (error) {
+        console.error(error.message);
+        response.status(500).send({ message: error.message });
+    }
+});
+
 
 export default router;

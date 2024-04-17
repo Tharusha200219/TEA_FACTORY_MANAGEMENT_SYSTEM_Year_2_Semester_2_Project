@@ -16,19 +16,20 @@ const SupplierSearch = ({ searchInput, setSearchInput, searchType, setSearchType
         placeholder={`Search ${searchType ? (searchType === 'id' ? 'Supplier ID' : 'Supplier Name'): 'Supplier'}`}
         value={searchInput}
         onChange={handleChange}
-        className="border border-gray-400 px-4 py-2 mr-2 rounded-md w-1/4"
+        className="px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
       />
 
      {showSearchType && 
       <select
         value={searchType}
         onChange={handleTypeChange}
-        className="border border-gray-400 px-4 py-2 mr-2 rounded-md"
+        className=" mx-4 pl-4 pr-8 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
       >
         <option value="id">Supplier ID</option>
         <option value="name">Supplier Name</option>
       </select>
      }
+     
       {/* <button
         onClick={handleButtonClick}
         className="px-4 py-2 rounded-md bg-blue-500 text-white"

@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Footer from '../components/Footer';
 import Spinner from '../components/Spinner';
 import { Link } from 'react-router-dom';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { BsInfoCircle } from 'react-icons/bs';
+import NavigationBar from '../components/NavigationBar';
 import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
 import OrderSearchBar from '../components/OrderSearchBar';
 import jsPDF from 'jspdf';
@@ -30,31 +34,31 @@ const OrderHome = () => {
 
   const handleSearch = (input) => {
     setSearchInput(input);
-    const filtered = orders.filter(order => order.orderno.includes(input));
+    const filtered = orders.filter(order => order.orderno.toString().includes(input));
     setFilteredOrders(filtered);
   };
 
   const handleButtonClick = () => {
-    const exactMatch = orders.filter(order => order.orderno === searchInput);
+    const exactMatch = orders.filter(order => order.orderno === parseInt(searchInput));
     setFilteredOrders(exactMatch.length > 0 ? exactMatch : []);
   };
   const handleButtonOnClick = () => {
     try {
       const doc = new jsPDF();
-      const tableData = orders.map(orders => [orders.orderno, orders.duedate, orders.quantity, orders.category]);
-      
+      const tableData = orders.map(orders => [orders.orderno,new Date(orders.duedate).toLocaleDateString('en-GB'),, orders.quantity, orders.category]);
+
       doc.autoTable({
         head: [['Order id', 'Due date', 'Quantity', 'Category']],
         body: tableData,
       });
-  
+
       doc.save('Order report.pdf');
     } catch (error) {
       console.error('Error generating PDF:', error);
-      
+
     }
   };
-  
+
 
   useEffect(() => {
     if (searchInput === '') {
@@ -62,26 +66,22 @@ const OrderHome = () => {
     }
   }, [searchInput]);
 
-  
+
 
   return (
     <div>
-      <nav className="bg-gray-800 p-4">
-        <div className="container mx-auto">
-          <div className="flex justify-between items-center">
-            <div className="text-white text-xl font-bold">
-              Ever Green Tea
-            </div>
-            <div className="flex space-x-4">
-              <Link to="/" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
-              <Link to="/OrderHome" className="text-gray-300  bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Order Management</Link>
-              <Link to="/pending-shipments" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Pending Shipments</Link>
-              <Link to="/pending-new-stocks" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Pending New Stocks</Link>
-            </div>
+      <NavigationBar />
+      <nav style={{ backgroundColor: '#3FC060' }} className="p-4">
+        <div className="container mx-auto flex justify-center items-center">
+          <div className="flex space-x-4">
+            <Link to="/HomePage" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
+            <Link to="/OrderHome" className="text-gray-300 bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Order Management</Link>
+
+
           </div>
         </div>
       </nav>
-
+      
       <div className='p-4'>
         <div className='flex justify-between items-center'>
           <h1 className='text-3xl my-8'>Orders List</h1>
@@ -104,25 +104,27 @@ const OrderHome = () => {
         {loading ? (
           <Spinner />
         ) : (
-          <table className='w-full border-collapse'>
-            <thead className='bg-gray-200'>
+          <table className='min-w-full divide-y divide-gray-200'>
+            <thead className='bg-gray-50'>
               <tr>
-                <th className='border border-gray-400 rounded-md'>Order id</th>
-                <th className='border border-gray-400 rounded-md'>Due date</th>
-                <th className='border border-gray-400 rounded-md'>Quantity</th>
-                <th className='border border-gray-400 rounded-md'>Category</th>
-                <th className='border border-gray-400 rounded-md'>Actions</th>
+                <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Order id</th>
+                <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Due date</th>
+                <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Quantity</th>
+                <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Category</th>
+                <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Status</th>
+                <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Actions</th>
               </tr>
             </thead>
             <tbody>
               {(searchInput === '' ? orders : filteredOrders).map((order, index) => (
                 <tr key={order._id} className='h-8'>
-                  <td className='border border-gray-400 rounded-md text-center'>{order.orderno}</td>
-                  <td className='border border-gray-400 rounded-md text-center'>{order.duedate}</td>
-                  <td className='border border-gray-400 rounded-md text-center'>{order.quantity}</td>
-                  <td className='border border-gray-400 rounded-md text-center'>{order.category}</td>
-                  <td className='border border-gray-400 rounded-md text-center'>
-                    <div className='flex justify-center space-x-4'>
+                  <td className='px-6 py-4 whitespace-nowrap'>{order.orderno}</td>
+                  <td className='px-6 py-4 whitespace-nowrap'>{new Date(order.duedate).toLocaleDateString('en-GB')}</td>
+                  <td className='px-6 py-4 whitespace-nowrap'>{order.quantity}</td>
+                  <td className='px-6 py-4 whitespace-nowrap'>{order.category}</td>
+                  <td className='px-6 py-4 whitespace-nowrap'>{order.status}</td>
+                  <td className='px-6 py-4 whitespace-nowrap'>
+                    <div className='flex justify-left gap-x-6'>
                       <Link to={`/orders/details/${order._id}`}>
                         <BsInfoCircle className='text-2xl text-green-800' />
                       </Link>
@@ -141,19 +143,14 @@ const OrderHome = () => {
         )}
       </div>
 
-      <footer className="bg-gray-800 text-white py-4 mt-8">
-        <div className="container mx-auto flex justify-between items-center">
-          <div>
-            <p>&copy; 1998-{new Date().getFullYear()} Ever Green Tea Factory. All rights reserved.</p>
-            <p>Contact: 0112787678</p>
-          </div>
-          <div>
-            
-          </div>
-        </div>
-      </footer>
-    </div>
+      <Footer />
+
+<ToastContainer position="bottom-right" />
+</div>
+
   );
 };
 
 export default OrderHome;
+
+
