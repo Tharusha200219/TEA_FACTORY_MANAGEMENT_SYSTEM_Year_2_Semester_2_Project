@@ -30,6 +30,49 @@ router.post('/', async (request, response) => {
     }
 });
 
+
+/*Status*/
+router.put('/:id/status', async (request, response) => {
+    try {
+        const { id } = request.params;
+        const { status } = request.body;
+
+        const updatedOrder = await orders.findByIdAndUpdate(id, { status }, { new: true });
+
+        if (!updatedOrder) {
+            return response.status(404).json({ message: 'Order not found' });
+        }
+        return response.status(200).json(updatedOrder);
+    } catch (error) {
+        console.log(error.message);
+        response.status(500).send({ message: error.message });
+    }
+});
+
+router.get('/:id/status', async (request, response) => {
+    try {
+        const { id } = request.params;
+
+        const order = await orders.findById(id);
+
+        if (!order) {
+            return response.status(404).json({ message: 'Order not found' });
+        }
+
+        return response.status(200).json({ status: order.status });
+    } catch (error) {
+        console.log(error.message);
+        response.status(500).send({ message: error.message });
+    }
+});
+
+
+/*Status end */
+
+
+
+
+
 router.get('/', async (request, response) => {
     try {
         const order = await orders.find({});
