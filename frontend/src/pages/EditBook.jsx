@@ -4,31 +4,80 @@ import Spinner from '../components/Spinner';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
+import styled from 'styled-components';
+ // Import the background image
+
+const Container = styled.div`
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+ // Use the imported background image here
+  background-size: cover;
+  background-position: center;
+`;
+
+const FormContainer = styled.div`
+  background-color: #f7fafc;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+`;
+
+const Label = styled.label`
+  font-size: 1.25rem;
+  color: #4a5568;
+`;
+
+const Input = styled.input`
+  border: 2px solid #a0aec0;
+  padding: 0.5rem;
+  font-size: 1rem;
+  width: 100%;
+  margin-top: 0.5rem;
+  border-radius: 0.25rem;
+`;
+
+const Button = styled.button`
+  padding: 0.75rem 1.5rem;
+  background-color: #4299e1;
+  color: white;
+  border: none;
+  border-radius: 0.25rem;
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #3182ce;
+  }
+`;
 
 const EditBook = () => {
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
   const [publishYear, setPublishYear] = useState('');
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-  const {id} = useParams();
+  const { id } = useParams();
   const { enqueueSnackbar } = useSnackbar();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setLoading(true);
     axios.get(`http://localhost:5555/books/${id}`)
-    .then((response) => {
-        setAuthor(response.data.author);
-        setPublishYear(response.data.publishYear)
-        setTitle(response.data.title)
+      .then((response) => {
+        const { title, author, publishYear } = response.data;
+        setTitle(title);
+        setAuthor(author);
+        setPublishYear(publishYear);
         setLoading(false);
-      }).catch((error) => {
+      })
+      .catch((error) => {
         setLoading(false);
-        alert('An error happened. Please Chack console');
-        console.log(error);
+        enqueueSnackbar('An error occurred. Please check the console.', { variant: 'error' });
+        console.error('Error fetching book data:', error);
       });
-  }, [])
-  
+  }, [id, enqueueSnackbar]);
+
   const handleEditBook = () => {
     const data = {
       title,
@@ -36,60 +85,54 @@ const EditBook = () => {
       publishYear,
     };
     setLoading(true);
-    axios
-      .put(`http://localhost:5555/books/${id}`, data)
+    axios.put(`http://localhost:5555/books/${id}`, data)
       .then(() => {
         setLoading(false);
-        enqueueSnackbar('Book Edited successfully', { variant: 'success' });
+        enqueueSnackbar('Book edited successfully', { variant: 'success' });
         navigate('/Vehiclehome');
       })
       .catch((error) => {
         setLoading(false);
-        // alert('An error happened. Please Chack console');
-        enqueueSnackbar('Error', { variant: 'error' });
-        console.log(error);
+        enqueueSnackbar('An error occurred. Please check the console.', { variant: 'error' });
+        console.error('Error editing book:', error);
       });
   };
 
   return (
-    <div className='p-4'>
+    <Container>
       <BackButton />
-      <h1 className='text-3xl my-4'>Edit Book</h1>
-      {loading ? <Spinner /> : ''}
-      <div className='flex flex-col border-2 border-sky-400 rounded-xl w-[600px] p-4 mx-auto'>
+      <h1 className='text-3xl my-4'>Edit Vehicle</h1>
+      {loading && <Spinner />}
+      <FormContainer>
         <div className='my-4'>
-          <label className='text-xl mr-4 text-gray-500'>Title</label>
-          <input
+          <Label>Type</Label>
+          <Input
             type='text'
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className='border-2 border-gray-500 px-4 py-2 w-full'
           />
         </div>
         <div className='my-4'>
-          <label className='text-xl mr-4 text-gray-500'>Author</label>
-          <input
+          <Label>Reg Num</Label>
+          <Input
             type='text'
             value={author}
             onChange={(e) => setAuthor(e.target.value)}
-            className='border-2 border-gray-500 px-4 py-2  w-full '
           />
         </div>
         <div className='my-4'>
-          <label className='text-xl mr-4 text-gray-500'>Added Year</label>
-          <input
-            type='Date'
+          <Label>Added Year</Label>
+          <Input
+            type='date'
             value={publishYear}
             onChange={(e) => setPublishYear(e.target.value)}
-            className='border-2 border-gray-500 px-4 py-2  w-full '
           />
         </div>
-        <button className='p-2 bg-sky-300 m-8' onClick={handleEditBook}>
-          Save
-        </button>
-      </div>
-    </div>
-  )
-}
+        <Button onClick={handleEditBook}>Edit Vehicle</Button>
+        <Button onClick={() => navigate('/Vehiclehome')} className='ml-2'>Cancel</Button>
+      </FormContainer>
+    </Container>
+  );
+};
 
-export default EditBook
+export default EditBook;
