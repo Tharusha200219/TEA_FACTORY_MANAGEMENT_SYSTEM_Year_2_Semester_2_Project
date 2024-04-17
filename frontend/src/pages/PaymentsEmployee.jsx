@@ -7,6 +7,7 @@ import { MdOutlineDelete } from 'react-icons/md';
 import Spinner from '../components/Spinner';
 import { useParams } from 'react-router-dom';
 import NavigationBar from '../components/NavigationBar';
+import Footer from '../components/Footer';
 
 
 const PaymentsEmployee = () => {
@@ -121,14 +122,7 @@ const PaymentsEmployee = () => {
                 )}
             </div>
              {/* Footer */}
-             <footer style={{ backgroundColor: '#3FC060', position: 'absolute', bottom: 0, left: 0, right: 0 }} className="text-white py-4">
-                <div className="container mx-auto flex justify-between items-center">
-                    <div>
-                        <p>&copy; 1998-{new Date().getFullYear()} Ever Green Tea Factory. All rights reserved.</p>
-                        <p>Contact: 0112787678</p>
-                    </div>
-                </div>
-            </footer>
+             <Footer />
         </div>
         
     );
