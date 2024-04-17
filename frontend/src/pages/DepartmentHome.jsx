@@ -5,12 +5,48 @@ import { Link } from 'react-router-dom';
 import { AiOutlineEdit } from 'react-icons/ai';
 import { BsInfoCircle } from 'react-icons/bs';
 import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
+import Footer from '../components/Footer';
+import NavigationBar from '../components/NavigationBar';
+import { PDFDownloadLink, Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
+
+// Create styles
+const styles = StyleSheet.create({
+  page: {
+    flexDirection: 'column',
+    padding: 10,
+  },
+  section: {
+    margin: 10,
+    padding: 10,
+    flexGrow: 1,
+  },
+  table: {
+    display: 'table',
+    width: 'auto',
+    borderStyle: 'solid',
+    borderWidth: 1,
+    borderRightWidth: 0,
+    borderBottomWidth: 0,
+  },
+  tableRow: { margin: 'auto', flexDirection: 'row' },
+  tableCol: {
+    width: '25%',
+    borderStyle: 'solid',
+    borderWidth: 1,
+    borderLeftWidth: 0,
+    borderTopWidth: 0,
+  },
+  header: { backgroundColor: '#3FC060', padding: 5, color: 'white', fontWeight: 'bold' },
+  cell: { padding: 5 },
+});
 
 const DepartmentHome = () => {
   const [departments, setDepartments] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
+  const [filterOption, setFilterOption] = useState('All');
   const [filteredDepartments, setFilteredDepartments] = useState([]);
+  const [generateReport, setGenerateReport] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -18,7 +54,6 @@ const DepartmentHome = () => {
       .get('http://localhost:5555/departments')
       .then((response) => {
         setDepartments(response.data.data);
-        setFilteredDepartments(response.data.data);
         setLoading(false);
       })
       .catch((error) => {
@@ -28,130 +63,223 @@ const DepartmentHome = () => {
   }, []);
 
   useEffect(() => {
+    const filtered = departments.filter((department) => {
+      if (filterOption === 'All') {
+        return true;
+      } else {
+        return department.departmentStatus === filterOption;
+      }
+    });
+
     setFilteredDepartments(
-      departments.filter((department) =>
+      filtered.filter((department) =>
         department.departmentName.toLowerCase().includes(searchTerm.toLowerCase())
       )
     );
-  }, [searchTerm]);
+  }, [searchTerm, departments, filterOption]);
 
   const handleStatusChange = (id, status) => {
     if (status !== 'Active' && status !== 'Inactive') {
       console.error('Invalid status selected');
       return;
     }
-    // Here you can send an API request to update the department status
     console.log(`Department with ID ${id} status changed to ${status}`);
   };
 
-  const generateReportData = () => {
-    // Format data into CSV
-    const csvContent = "data:text/csv;charset=utf-8,"
-      + "No,Department Name,Department Details,Created On,Department Status\n";
+  const onDelete = () => {
+    // Handle deletion logic here
+  };
 
-    const rows = filteredDepartments.map((department, index) => {
-      const rowData = [
-        index + 1,
-        department.departmentName,
-        department.departmentDetails,
-        new Date(department.createdOn).toLocaleString(),
-        department.departmentStatus
-      ];
-      return rowData.join(",");
-    });
-    
-    return csvContent + rows.join("\n");
+  const generateReportData = () => {
+    // Generate report data logic
+    setGenerateReport(true);
   };
 
   const downloadReport = () => {
-    const reportData = generateReportData();
-    const encodedUri = encodeURI(reportData);
-    const link = document.createElement('a');
-    link.setAttribute('href', encodedUri);
-    link.setAttribute('download', 'departments_report.csv');
-    document.body.appendChild(link);
-    link.click();
+    // Download report logic
   };
 
+  // PDF generation component
+  const ReportDocument = () => (
+    <Document>
+      <Page size="A1" style={styles.page}>
+        <View style={styles.section}>
+          <Text style={{ textAlign: 'center', marginBottom: 10 }}>Departments List</Text>
+          <View style={styles.table}>
+            <View style={styles.tableRow}>
+              <View style={[styles.tableCol, styles.header, { width: '5%' }]}>
+                <Text style={styles.cell}>No</Text>
+              </View>
+              <View style={[styles.tableCol, styles.header, { width: '20%' }]}>
+                <Text style={styles.cell}>Department Name</Text>
+              </View>
+              <View style={[styles.tableCol, styles.header, { width: '30%' }]}>
+                <Text style={styles.cell}>Department Details</Text>
+              </View>
+              <View style={[styles.tableCol, styles.header, { width: '15%' }]}>
+                <Text style={styles.cell}>Created On</Text>
+              </View>
+              <View style={[styles.tableCol, styles.header, { width: '15%' }]}>
+                <Text style={styles.cell}>Department Status</Text>
+              </View>
+            </View>
+            {filteredDepartments.map((department, index) => (
+              <View style={styles.tableRow} key={department._id}>
+                <View style={[styles.tableCol, styles.cell, { width: '5%' }]}>
+                  <Text>{index + 1}</Text>
+                </View>
+                <View style={[styles.tableCol, styles.cell, { width: '20%' }]}>
+                  <Text>{department.departmentName}</Text>
+                </View>
+                <View style={[styles.tableCol, styles.cell, { width: '30%' }]}>
+                  <Text>{department.departmentDetails}</Text>
+                </View>
+                <View style={[styles.tableCol, styles.cell, { width: '15%' }]}>
+                  <Text>{new Date(department.createdOn).toLocaleString()}</Text>
+                </View>
+                <View style={[styles.tableCol, styles.cell, { width: '15%' }]}>
+                  <Text>{department.departmentStatus}</Text>
+                </View>
+              </View>
+            ))}
+          </View>
+        </View>
+      </Page>
+    </Document>
+  );
+  
+
   return (
-    <div className='p-4'>
-      <div className='flex justify-between items-center mb-4'>
-        <h1 className='text-3xl'>Departments List</h1>
-        <div className='flex items-center'>
-          <Link to='/departments/create' className='flex items-center text-sky-800 hover:underline mr-4'>
-            <MdOutlineAddBox className='mr-2' />
-            Add Department
-          </Link>
-          <button
-            onClick={downloadReport}
-            className='px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500'
-          >
-            Generate Report
-          </button>
+    <div className="flex flex-col h-screen">
+      <NavigationBar />
+      <nav style={{ backgroundColor: '#3FC060' }} className="p-4">
+        <div className="container mx-auto flex justify-center items-center">
+          <div className="flex space-x-4">
+            <Link to="/" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
+            <Link to="/DepartmentHome" className="text-gray-300 bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Department List</Link>
+            <Link to="/departments/create" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Register Department</Link>
+          </div>
+        </div>
+      </nav>
+      <div className='flex-grow'>
+        <div className='p-4'>
+          <div className='flex justify-between items-center mb-4'>
+            <h1 className='text-3xl'>Departments List</h1>
+            <div className='flex items-center'>
+              {generateReport ? (
+                <PDFDownloadLink
+                  document={<ReportDocument />}
+                  fileName="departments_list.pdf"
+                  className='px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500'
+                >
+                  {({ blob, url, loading, error }) => (loading ? 'Generating PDF...' : 'Download PDF')}
+                </PDFDownloadLink>
+              ) : (
+                <button
+                  onClick={generateReportData}
+                  className='px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500'
+                >
+                  Generate Report
+                </button>
+              )}
+            </div>
+          </div>
+          <div className='flex justify-between items-center mb-4'>
+            <input
+              type='text'
+              placeholder='Search department'
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className='w-48 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
+            />
+            <div>
+              <label htmlFor="statusFilter" className="font-bold">Filter by status</label>
+              <div>
+                <label style={{ marginRight: '10px' }}>
+                  <input
+                    type="radio"
+                    id="all"
+                    name="statusFilter"
+                    value="All"
+                    checked={filterOption === 'All'}
+                    onChange={() => setFilterOption('All')}
+                  />
+                  All
+                </label>
+                <label style={{ marginRight: '10px' }}>
+                  <input
+                    type="radio"
+                    id="active"
+                    name="statusFilter"
+                    value="Active"
+                    checked={filterOption === 'Active'}
+                    onChange={() => setFilterOption('Active')}
+                  />
+                  Active
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    id="inactive"
+                    name="statusFilter"
+                    value="Inactive"
+                    checked={filterOption === 'Inactive'}
+                    onChange={() => setFilterOption('Inactive')}
+                  />
+                  Inactive
+                </label>
+              </div>
+
+            </div>
+          </div>
+
+          {loading ? (
+            <Spinner />
+          ) : (
+            <div className='overflow-x-auto'>
+              <table className='w-full'>
+                {/* Table header */}
+                <thead>
+                  <tr className='bg-gray-200'>
+                    <th className='px-4 py-2'>No</th>
+                    <th className='px-4 py-2'>Department Name</th>
+                    <th className='px-4 py-2'>Department Details</th>
+                    <th className='px-4 py-2'>Created On</th>
+                    <th className='px-4 py-2'>Department Status</th>
+                    <th className='px-4 py-2'>Action</th>
+                  </tr>
+                </thead>
+                {/* Table body */}
+                <tbody>
+                  {filteredDepartments.map((department, index) => (
+                    <tr key={department._id} className={(index % 2 === 0) ? 'bg-gray-100' : 'bg-white'}>
+                      <td className='border px-4 py-2'>{index + 1}</td>
+                      <td className='border px-4 py-2'>{department.departmentName}</td>
+                      <td className='border px-4 py-2'>{department.departmentDetails}</td>
+                      <td className='border px-4 py-2'>{new Date(department.createdOn).toLocaleString()}</td>
+                      <td className='border px-4 py-2 text-center'>{department.departmentStatus}</td>
+                      <td className='border px-4 py-2'>
+                        <div className='flex justify-center gap-x-4'>
+                          <Link to={`/departments/details/${department._id}`}>
+                            <BsInfoCircle className='text-green-800' />
+                          </Link>
+                          <Link to={`/departments/edit/${department._id}`}>
+                            <AiOutlineEdit className='text-yellow-600' />
+                          </Link>
+                          <Link to={`/departments/delete/${department._id}`} onClick={onDelete}>
+                            <MdOutlineDelete className='text-red-600' />
+                          </Link>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
       </div>
-      <div className='flex justify-between items-center mb-4'>
-        <input
-          type='text'
-          placeholder='Search department name'
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className='w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500'
-        />
-      </div>
-      {loading ? (
-        <Spinner />
-      ) : (
-        <div className='overflow-x-auto'>
-          <table className='w-full'>
-            <thead>
-              <tr className='bg-gray-200'>
-                <th className='px-4 py-2'>No</th>
-                <th className='px-4 py-2'>Department Name</th>
-                <th className='px-4 py-2'>Department Details</th>
-                <th className='px-4 py-2'>Created On</th>
-                <th className='px-4 py-2'>Department Status</th>
-                <th className='px-4 py-2'>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredDepartments.map((department, index) => (
-                <tr key={department._id} className={(index % 2 === 0) ? 'bg-gray-100' : 'bg-white'}>
-                  <td className='border px-4 py-2'>{index + 1}</td>
-                  <td className='border px-4 py-2'>{department.departmentName}</td>
-                  <td className='border px-4 py-2'>{department.departmentDetails}</td>
-                  <td className='border px-4 py-2'>{new Date(department.createdOn).toLocaleString()}</td>
-                  <td className='border px-4 py-2 text-center'>
-                    <select
-                      value={department.departmentStatus}
-                      onChange={(e) => handleStatusChange(department._id, e.target.value)}
-                      className={`px-2 py-1 rounded focus:outline-none ${
-                        department.departmentStatus === 'Active' ? 'bg-red-500 text-white' : 'bg-blue-500 text-white'
-                      }`}
-                    >
-                      <option value='Active'>Active</option>
-                      <option value='Inactive'>Inactive</option>
-                    </select>
-                  </td>
-                  <td className='border px-4 py-2'>
-                    <div className='flex justify-center gap-x-4'>
-                      <Link to={`/departments/details/${department._id}`}>
-                        <BsInfoCircle className='text-green-800' />
-                      </Link>
-                      <Link to={`/departments/edit/${department._id}`}>
-                        <AiOutlineEdit className='text-yellow-600' />
-                      </Link>
-                      <Link to={`/departments/delete/${department._id}`}>
-                        <MdOutlineDelete className='text-red-600' />
-                      </Link>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
+      <Footer />
     </div>
   );
 };

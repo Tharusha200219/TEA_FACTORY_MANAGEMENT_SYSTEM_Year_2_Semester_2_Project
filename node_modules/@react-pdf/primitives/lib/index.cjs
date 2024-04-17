@@ -1,0 +1,28 @@
+"use strict";
+
+exports.__esModule = true;
+exports.View = exports.Tspan = exports.TextInstance = exports.Text = exports.Svg = exports.Stop = exports.Rect = exports.RadialGradient = exports.Polyline = exports.Polygon = exports.Path = exports.Page = exports.Note = exports.Link = exports.LinearGradient = exports.Line = exports.Image = exports.G = exports.Ellipse = exports.Document = exports.Defs = exports.ClipPath = exports.Circle = exports.Canvas = void 0;
+var G = exports.G = 'G';
+var Svg = exports.Svg = 'SVG';
+var View = exports.View = 'VIEW';
+var Text = exports.Text = 'TEXT';
+var Link = exports.Link = 'LINK';
+var Page = exports.Page = 'PAGE';
+var Note = exports.Note = 'NOTE';
+var Path = exports.Path = 'PATH';
+var Rect = exports.Rect = 'RECT';
+var Line = exports.Line = 'LINE';
+var Stop = exports.Stop = 'STOP';
+var Defs = exports.Defs = 'DEFS';
+var Image = exports.Image = 'IMAGE';
+var Tspan = exports.Tspan = 'TSPAN';
+var Canvas = exports.Canvas = 'CANVAS';
+var Circle = exports.Circle = 'CIRCLE';
+var Ellipse = exports.Ellipse = 'ELLIPSE';
+var Polygon = exports.Polygon = 'POLYGON';
+var Document = exports.Document = 'DOCUMENT';
+var Polyline = exports.Polyline = 'POLYLINE';
+var ClipPath = exports.ClipPath = 'CLIP_PATH';
+var TextInstance = exports.TextInstance = 'TEXT_INSTANCE';
+var LinearGradient = exports.LinearGradient = 'LINEAR_GRADIENT';
+var RadialGradient = exports.RadialGradient = 'RADIAL_GRADIENT';

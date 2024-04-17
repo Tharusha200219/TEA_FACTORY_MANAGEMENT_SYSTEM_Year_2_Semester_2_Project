@@ -115,7 +115,9 @@ import CreateEmployee from './pages/CreateEmployee'; // Make sure to import Crea
 import ShowEmployee from './pages/ShowEmployee';
 import EditEmployee from './pages/EditEmployee';
 import DeleteEmployee from './pages/DeleteEmployee';
-import ReportVehicle from "./pages/ReportVehicle.jsx";
+
+
+
 
 
 const App = () => {
@@ -215,9 +217,13 @@ const App = () => {
       
       <Route path='/EmployeeHome' element={<EmployeeHome />} />
       <Route path='/employees/create' element={<CreateEmployee />} /> {/* Ensure the route for CreateEmployee is defined */}
+      <Route path='/GenerateRepoEmployee' element={<GenerateRepoEmployee />} />
+
       <Route path='/employees/details/:id' element={<ShowEmployee />} />
       <Route path='/employees/edit/:id' element={<EditEmployee />} />
       <Route path='/employees/delete/:id' element={<DeleteEmployee />} />
+
+     
     
       
       <Route path="/OrderHome" element={<OrderHome/>}/>
