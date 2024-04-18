@@ -77,13 +77,13 @@ router.put('/:id', async (request, response) => {
             return response.status(404).json({ message: 'Department not found' });
         }
 
-        // Hardcoded values for testing
+       
         department.departmentName = 'Updated Department Name';
         department.departmentDetails = 'Updated Department Details';
-        department.createdOn = new Date(); // or provide a specific date
+        department.createdOn = new Date(); // or provide specific date
         department.departmentStatus = 'Updated Status';
 
-        // Save the updated department
+        // Save updated department
         await department.save();
 
         return response.status(200).json({ message: 'Department details updated successfully', updatedDepartment: department });
