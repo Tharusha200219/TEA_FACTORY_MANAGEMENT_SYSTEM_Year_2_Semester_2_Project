@@ -8,7 +8,7 @@ import NavigationBar from '../components/NavigationBar';
 import Footer from '../components/Footer';
 
 const Createteatypes = () => {
-    const [Schedule_no, setSchedule_no] = useState(1); // Initialize Schedule_no to 1
+    const [Schedule_no, setSchedule_no] = useState(1);
     const [black_tea, setblack_tea] = useState('');
     const [green_tea, setgreen_tea] = useState('');
     const [oolong_tea, setoolong_tea] = useState('');
@@ -17,10 +17,9 @@ const Createteatypes = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Fetch the last schedule number from the server and increment it by 1
         axios.get('http://localhost:5555/teatypes')
             .then((response) => {
-                const lastScheduleNo = response.data.data.length + 1; // Add 1 to get the next schedule number
+                const lastScheduleNo = response.data.data.length + 1;
                 setSchedule_no(lastScheduleNo);
             })
             .catch((error) => {
@@ -29,12 +28,33 @@ const Createteatypes = () => {
     }, []);
 
     const handleSaveteatypes = () => {
+        if (!black_tea || !green_tea || !oolong_tea || !white_tea) {
+            alert('Please fill in all tea types');
+            return;
+        }
+
+        const blackTeaValue = parseInt(black_tea);
+        const greenTeaValue = parseInt(green_tea);
+        const oolongTeaValue = parseInt(oolong_tea);
+        const whiteTeaValue = parseInt(white_tea);
+
+        if (isNaN(blackTeaValue) || isNaN(greenTeaValue) || isNaN(oolongTeaValue) || isNaN(whiteTeaValue)) {
+            alert('Please enter valid numbers for tea types');
+            return;
+        }
+
+        const total = blackTeaValue + greenTeaValue + oolongTeaValue + whiteTeaValue;
+        if (total > 1000) {
+            alert('Total tea types cannot exceed 1000');
+            return;
+        }
+
         const data = {
             Schedule_no,
-            black_tea,
-            green_tea,
-            oolong_tea,
-            white_tea,
+            black_tea: blackTeaValue,
+            green_tea: greenTeaValue,
+            oolong_tea: oolongTeaValue,
+            white_tea: whiteTeaValue,
         };
         setLoading(true);
         axios.post('http://localhost:5555/teatypes', data)
@@ -45,18 +65,16 @@ const Createteatypes = () => {
             .catch((error) => {
                 alert('An error occurred');
                 console.log(error);
-                setLoading(false); // Make sure to set loading to false in case of error
+                setLoading(false);
             });
     };
 
     return (
         <div>
             <NavigationBar />
-            {/* Navigation Bar */}
             <nav style={{ backgroundColor: '#3FC060' }} className="p-4">
                 <div className="container mx-auto">
                     <div className=" mx-auto flex justify-center items-center">
-                        
                         <div className="flex space-x-4">
                             <Link to="/" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
                             <Link to="/Teatypehome" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Tea Type</Link>
@@ -64,16 +82,14 @@ const Createteatypes = () => {
                             <Link to="/pending-shipments" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">production machine availability</Link>
                             <Link to="/TeaTypeReport" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">tea type report genarate</Link>
                             <Link to="/user-profile-page" className="absolute right-10 flex  space-x-2">
-                    <img src="/images/user.png" alt="User Profile" className="w-8 h-8 rounded-full" />
-                    
-                </Link>
+                                <img src="/images/user.png" alt="User Profile" className="w-8 h-8 rounded-full" />
+                            </Link>
                         </div>
                     </div>
                 </div>
             </nav>
 
             <div className='flex flex-col items-center justify-center min-h-screen bg-gray-100' style={{ backgroundImage: "url('/images/create.png')" }}>
-            
                 <BackButtonForCreateProduction />
                 <div className='max-w-md mx-auto bg-white rounded-lg shadow-md p-8 mt-8'>
                     <h1 className='text-3xl mb-4 font-bold text-gray-800 text-center'>Create tea type Schedule</h1>
@@ -87,7 +103,7 @@ const Createteatypes = () => {
                                 id='Schedule_no'
                                 type='number'
                                 value={Schedule_no}
-                                readOnly // Make it read-only to prevent user input
+                                readOnly
                                 className='input-field'
                             />
                         </div>
