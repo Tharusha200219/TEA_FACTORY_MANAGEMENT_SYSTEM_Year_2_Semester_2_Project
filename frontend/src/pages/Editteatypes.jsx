@@ -70,14 +70,14 @@ const Editteatypes = () => {
             <Link to="/TeaTypeReport" className="text-white hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">Tea Type Report Generate</Link>
             <Link to="/user-profile-page" className="absolute right-10 flex  space-x-2">
                     <img src="/images/user.png" alt="User Profile" className="w-8 h-8 rounded-full" />
-                    {/* You can replace "example-profile-image.jpg" with the actual path to your user profile image */}
+                    
                 </Link>
           </div>
         </div>
       </div>
     </nav>
     <div className='flex flex-col items-center justify-center min-h-screen' style={{ backgroundColor: 'gray' }}>
-     
+    
 
       <BackButtonForCreateProduction />
       <div className='max-w-md mx-auto bg-white rounded-lg shadow-md p-8 mt-8'>
