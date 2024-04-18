@@ -33,13 +33,6 @@ const EditSupplyRecord = () => {
 
     }, [id, selectedSupplier]);
 
-    const validateDate = (value) => {
-        if (!value) {
-            return 'Date is required';
-        }
-        return '';
-    };
-
     const validateQuantity = (value) => {
         console.log(value, 'validate quantity');
         if (!value) {
@@ -72,12 +65,6 @@ const EditSupplyRecord = () => {
     const validate = () => {
         const errors = {};
     
-        if (!selectedSupplier.trim()) {
-            errors.selectedSupplier = 'Supplier is required';
-        }
-        if (!date) {
-            errors.date = 'Date is required';
-        }
         if (!quantity) {
             errors.quantity = 'Quantity is required';
         }
@@ -143,13 +130,10 @@ const EditSupplyRecord = () => {
                         type="date"
                         name="date"
                         value={date}
-                        onChange={(e) => {
-                            setDate(e.target.value);
-                            handleInputChange(e, validateDate);
-                        }}
+                        readOnly
                         className='input-field mt-1 w-full'
+                        style={{ backgroundColor: '#f2f2f2' }}
                     />
-                    {errors.date && <p className="text-red-500">{errors.date}</p>}
                 </div>
 
                 <div className='mb-4 w-full'>

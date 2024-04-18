@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
 import BackButton from '../components/BackButton_c';
 import Spinner from '../components/Spinner';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import styled from 'styled-components';
 import NavigationBar from '../components/NavigationBar';
@@ -10,6 +10,8 @@ import Footer from '../components/Footer';
 
 const Container = styled.div`
   max-width: Auto;
+  background-color: #f7fafc;
+  background-image: url("./public/images/th676.jpg");
   margin: 0 auto;
   padding: 2rem;
   background-size: cover;
@@ -18,6 +20,7 @@ const Container = styled.div`
 
 const FormContainer = styled.div`
   background-color: rgba(255, 255, 255, 0.8); /* Added background color with opacity */
+  background-image: url("./public/images/th676.jpg");
   border-radius: 1rem;
   padding: 2rem;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
@@ -73,17 +76,25 @@ const SecondaryNavbar = styled.nav`
       color: #fff;
     }
   }
+
+  .active {
+    background-color: #333;
+    color: #fff;
+  }
 `;
 
 const CreateBooks = () => {
-  const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
-  const [publishYear, setPublishYear] = useState('');
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
   const handleSaveBook = () => {
+    // Validation checks
+    if (!title || !author || !publishYear) {
+      enqueueSnackbar('Please fill in all fields.', { variant: 'warning' });
+      return;
+    }
+
+    // Your save book logic here
     const data = {
       title,
       author,
@@ -104,17 +115,22 @@ const CreateBooks = () => {
       });
   };
 
+  const [title, setTitle] = useState('');
+  const [author, setAuthor] = useState('');
+  const [publishYear, setPublishYear] = useState('');
+  const [loading, setLoading] = useState(false);
+
   return (
     <Container>
       <NavigationBar />
       <SecondaryNavbar>
-        <a href="/books/create">Add New Vehicle</a>
-        <a href="/available-parts">Available Vehicles</a>
-        <a href="/orders">View Orders</a>
-        <a href="/ReportVehicle">Generate Report</a>
+        <NavLink to="/books/create" activeClassName="active">Add New Vehicle</NavLink>
+        <NavLink to="/available-parts">Available Vehicles</NavLink>
+        <NavLink to="/orders">View Orders</NavLink>
+        <NavLink to="/ReportVehicle">Generate Report</NavLink>
       </SecondaryNavbar>
       <BackButton />
-      <h1 className='text-3xl my-4'>Add New Vehicle</h1>
+      <h1 className='text-3xl my-4'><center>Add New Vehicle</center></h1>
       {loading && <Spinner />}
       <FormContainer>
         <div>
@@ -142,10 +158,10 @@ const CreateBooks = () => {
           />
         </div>
         <Button onClick={handleSaveBook}>Save</Button>
-        <Footer />
       </FormContainer>
+      <Footer />
     </Container>
   );
-}
+};
 
 export default CreateBooks;

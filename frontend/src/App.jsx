@@ -4,7 +4,9 @@ import ContactUs from "./pages/ContactUs.jsx";
 import Aboutus from "./pages/Aboutus.jsx"
 import HomePage from "./pages/HomePage.jsx";
 import Service from "./pages/Service.jsx";
+import GenerateRepoEmployee from "./pages/GenerateRepoEmployee.jsx"; // Import GenerateRepoEmployee
 
+import ReportVehicle from "./pages/ReportVehicle.jsx";
 
 import GenerateRepoEmployee from "./pages/GenerateRepoEmployee.jsx"; 
 
@@ -31,6 +33,7 @@ import CreateBook from './pages/CreateBooks';
 import ShowBook from './pages/ShowBook';
 import EditBook from './pages/EditBook';
 import DeleteBook from './pages/DeleteBook';
+import AvailableVehicles from './pages/AvailableVehicles';
 
 //*******production_and_tea_type*******/
 import Createproductions from './pages/Createproductions';
@@ -158,6 +161,8 @@ const App = () => {
       <Route path='/books/edit/:id' element={<EditBook />} />
       <Route path='/books/delete/:id' element={<DeleteBook />} />
       <Route path = '/ReportVehicle' element={<ReportVehicle/>}  />
+      <Route path ="/AvailableVehicles" element={<AvailableVehicles/>}/>
+        
       
 
       <Route path = '/productions/creates' element={<Createproductions/>} />
