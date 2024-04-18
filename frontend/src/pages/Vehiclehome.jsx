@@ -165,8 +165,6 @@ const Home = () => {
         )}
         
       </div>
-
-      
       <Footer />
     </GlobalStyleComponent>
   );
