@@ -90,22 +90,4 @@ router.delete('/:id', async (request, response) => {
     }
 });
 
-// update status
-router.put('/changeStatus/:id', async (request, response) => {
-    try {
-        const { id } = request.params;
-        const { status } = request.body;
-
-        const updateSupply = await SupplyRecord.findByIdAndUpdate(id, { status }, { new: true });
-        if (!updateSupply) {
-            return response.status(404).send({ message: 'Supply record not found' });
-        }
-        return response.status(200).send(updateSupply);
-    } catch (error) {
-        console.error(error.message);
-        response.status(500).send({ message: error.message });
-    }
-});
-
-
 export default router;

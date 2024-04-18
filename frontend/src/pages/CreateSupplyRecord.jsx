@@ -28,17 +28,26 @@ const CreateSupplyRecord = () => {
                 setLoading(false);
             });
     }, []);
+    
+    const getCurrentDate = () => {
+        const today = new Date();
+        const year = today.getFullYear();
+        let month = today.getMonth() + 1;
+        let day = today.getDate();
+
+        month = month < 10 ? '0' + month : month;
+        day = day < 10 ? '0' + day : day;
+
+        return `${year}-${month}-${day}`;
+    };
+
+     useEffect(() => {
+        setDate(getCurrentDate());
+    }, []);
 
     const validateSelectedSupplier = (value) => {
         if (!value) {
             return 'Supplier is required';
-        }
-        return '';
-    };
-    
-    const validateDate = (value) => {
-        if (!value) {
-            return 'Date is required';
         }
         return '';
     };
@@ -153,11 +162,9 @@ const CreateSupplyRecord = () => {
                         type="date"
                         name="date"
                         value={date}
-                        onChange={(e) => {
-                            setDate(e.target.value);
-                            handleInputChange(e, validateDate);
-                        }}
+                        readOnly
                         className='input-field mt-1 w-full'
+                        style={{ backgroundColor: '#f2f2f2' }}
                     />
                     {errors.date && <p className="text-red-500">{errors.date}</p>}
                 </div>
