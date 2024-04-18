@@ -165,8 +165,8 @@ const SupplyRecordTable = () => {
                                                     <BsInfoCircle className='text-2xl text-green-800'/>
                                                 </Link>
                                                 
-                                                <Link to={item.status === 'Pending' && `/supplyrecords/edit/${item._id}`} >
-                                                    <AiOutlineEdit className={item.status === 'Pending' ? 'text-2xl text-yellow-600' : 'text-2xl text-gray-400'}/>
+                                                <Link to={`/supplyrecords/edit/${item._id}`} >
+                                                    <AiOutlineEdit className='text-2xl text-yellow-600'/>
                                                 </Link>
                                                 <Link to={`/supplyrecords/delete/${item._id}`} >
                                                     <MdOutlineDelete className='text-2xl text-red-600' />
