@@ -8,17 +8,21 @@ import { waste } from "./models/wastemodel.js";
 import teaLeavesRoute from './routes/teaLeavesRoute.js';
 import TeaLeaves from "./models/teaLeavesModel.js";
 
+////Import production and tea type management model & Route ////
 import Production from './models/production_schedule_model_t.js';
 import  Teatype  from "./models/teatype_management_model.js";
+import productionScheduleRoute from "./routes/production_schedule_route.js";
+import teatypeManagementRoute from "./routes/teatype_management_route.js";
+
 import  Machine  from "./models/machineModel.js";
 import  Maintenance  from "./models/maintenanceModel.js";
 import machineRoute from "./routes/machineRoute.js";
 import maintenanceRoute from "./routes/maintenanceRoute.js";
+
 import inventoryRoute from "./routes/inventoryRoute.js";
 import wasteRoute from "./routes/wasteRoute.js";
 import orderRoute from "./routes/orderRoute.js";
-import productionScheduleRoute from "./routes/production_schedule_route.js";
-import teatypeManagementRoute from "./routes/teatype_management_route.js";
+
 import cors from "cors";
 import payments from "./routes/payment.js";
 import booksRoute from './routes/bookRoute.js';
@@ -56,10 +60,13 @@ app.use('/waste',wasteRoute)
 app.use('/teaLeaves', teaLeavesRoute);
 
 
+// Mounting production and tea type management routes
 app.use('/productions',productionScheduleRoute);
 app.use('/teatypes',teatypeManagementRoute);
+
 app.use('/machines',machineRoute);
 app.use('/maintenances',maintenanceRoute);
+
 app.use('/orders',orderRoute);
 app.use('/payments',payments);
 

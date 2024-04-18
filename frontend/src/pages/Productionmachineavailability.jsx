@@ -48,7 +48,7 @@ const MachineHome = () => {
             </nav>
             <div className='p-4'>
                 <div className='flex justify-between items-center'>
-                    <h1 className='text-2xl my-8'>Available Machines List</h1> {/* Reduced text size */}
+                    <h1 className='text-2xl my-8'>Available Machines List</h1> 
                     
                 </div>
                 {loading ? (
@@ -58,15 +58,15 @@ const MachineHome = () => {
                         <table className='min-w-full divide-y divide-gray-200'>
                             <thead className="bg-gray-50">
                                 <tr>
-                                    <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>machineNumber</th> {/* Reduced padding */}
-                                    <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>machineName</th> {/* Reduced padding */}
+                                    <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>machineNumber</th> 
+                                    <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>machineName</th> 
                                 </tr>
                             </thead>
                             <tbody className="bg-white divide-y divide-gray-200">
                                 {availableMachines.map((machine, index) => (
-                                    <tr key={machine._id} className='h-10'> {/* Increased row height */}
-                                        <td className='px-4 py-4 whitespace-nowrap'>{machine.machineNumber}</td> {/* Reduced padding */}
-                                        <td className='px-4 py-4 whitespace-nowrap'>{machine.machineName}</td> {/* Reduced padding */}
+                                    <tr key={machine._id} className='h-10'> 
+                                        <td className='px-4 py-4 whitespace-nowrap'>{machine.machineNumber}</td> 
+                                        <td className='px-4 py-4 whitespace-nowrap'>{machine.machineName}</td> 
                                     </tr>
                                 ))}
                             </tbody>
@@ -77,7 +77,7 @@ const MachineHome = () => {
             
 <Footer />
         </div>
-       
+    
     );
     
 }
