@@ -16,3 +16,14 @@
   border-color: #3FC060;
 }
 
+
+/* Custom CSS */
+.input-fieldd {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #CBD5E0;
+  border-radius: 0.375rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
