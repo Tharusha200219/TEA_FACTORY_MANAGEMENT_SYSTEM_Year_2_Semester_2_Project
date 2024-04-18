@@ -6,13 +6,15 @@ import Spinner from '../components/Spinner';
 import styled from 'styled-components';
 
 const Container = styled.div`
+background-color: Gray;
   max-width: 800px;
   margin: 0 auto;
   padding: 2rem;
+
 `;
 
 const Card = styled.div`
-  background-color: #fff;
+background-image: url("./public/images/th676.jpg");
   border-radius: 10px;
   padding: 2rem;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
@@ -30,12 +32,12 @@ const Field = styled.div`
 const Label = styled.span`
   font-size: 1.2rem;
   font-weight: bold;
-  color: #333;
+  color: white;
 `;
 
 const Value = styled.span`
   font-size: 1.1rem;
-  color: #555;
+  color: white;
 `;
 
 const ShowBook = () => {
@@ -60,7 +62,7 @@ const ShowBook = () => {
   return (
     <Container>
       <BackButton />
-      <h1 className='text-3xl my-4'>Show vehicle</h1>
+      <h1 className='text-3xl my-4-white'>Show vehicle</h1>
       {loading ? (
         <Spinner />
       ) : (
