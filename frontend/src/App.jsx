@@ -100,7 +100,9 @@ import O_home from "./pages/O_home.jsx";
 import PaymentsHome from "./pages/PaymentsHome.jsx";
 import PaymentsEmployee from "./pages/PaymentsEmployee.jsx";
 import PaymentSupplierCreate from "./pages/PaymentSupplierCreate.jsx";
+import PaymentsEmployeeCreate from "./pages/PaymentsEmployeeCreate.jsx";
 import PaymentSupplierEdit from "./pages/PaymentsSupplierEdit.jsx";
+import PaymentsEmployeeEdit from "./pages/PaymentsEmployeeEdit.jsx";
 import Py_home from "./pages/Py_home.jsx";
 
 import V_home from "./pages/V_home.jsx";
@@ -245,8 +247,10 @@ const App = () => {
 
       <Route path = '/PaymentsHome' element={<PaymentsHome/>} />
       <Route path = '/PaymentsEmployee' element={<PaymentsEmployee/>} />
+      <Route path = '/paymentsEmployee/create' element={<PaymentsEmployeeCreate/>} />
       <Route path = '/payments/supplier/create' element={<PaymentSupplierCreate/>} />
       <Route path = '/payments/supplier/edit/:id' element={<PaymentSupplierEdit/>} />
+      <Route path = '/payments/employee/edit/:id' element={<PaymentsEmployeeEdit/>} />
       <Route path = '/Py_home' element={<Py_home/>} />
 
       <Route path = '/E_home' element={<E_home/>} />

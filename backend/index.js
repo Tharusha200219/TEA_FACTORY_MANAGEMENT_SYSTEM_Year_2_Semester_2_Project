@@ -25,6 +25,7 @@ import orderRoute from "./routes/orderRoute.js";
 
 import cors from "cors";
 import payments from "./routes/payment.js";
+import paymentsEmployee from "./routes/paymentEmployee.js";
 import booksRoute from './routes/bookRoute.js';
 
 ////Import Supplier management model & Route ////
@@ -69,6 +70,7 @@ app.use('/maintenances',maintenanceRoute);
 
 app.use('/orders',orderRoute);
 app.use('/payments',payments);
+app.use('/paymentsEmployee',paymentsEmployee);
 
 app.use('/books', booksRoute);
 
