@@ -58,7 +58,7 @@ const VehicleReport = () => {
     useEffect(() => {
         setLoading(true);
         axios
-            .get('http://localhost:5555/books') // Adjust the API endpoint as needed
+            .get('http://localhost:5555/vehicles') // Adjust the API endpoint as needed
             .then((response) => {
                 console.log('Response data:', response.data);
                 setReportData(response.data.data); // Assuming response.data.data is the array you want to display
@@ -82,12 +82,12 @@ const VehicleReport = () => {
                             <Text style={styles.tableColHeader}>Reg_Num</Text>
                             <Text style={styles.tableColHeader}>Added Year</Text>
                         </View>
-                        {reportData.map((vehicle) => (
-                            <View key={vehicle._id} style={styles.tableRow}>
-                                <Text style={styles.tableCol}>{vehicle.No}</Text>
+                        {reportData.map((vehicle, index) => (
+                            <View key={index} style={styles.tableRow}>
+                                <Text style={styles.tableCol}>{index + 1}</Text>
                                 <Text style={styles.tableCol}>{vehicle.Type}</Text>
-                                <Text style={styles.tableCol}>{vehicle.Remg_Num}</Text>
-                                <Text style={styles.tableCol}>{vehicle.Added_Year}</Text>
+                                <Text style={styles.tableCol}>{vehicle.RegNum}</Text>
+                                <Text style={styles.tableCol}>{vehicle.AddedYear}</Text>
                             </View>
                         ))}
                     </View>
@@ -150,12 +150,12 @@ const VehicleReport = () => {
                                 </thead>
                                 <tbody>
                                     {Array.isArray(reportData) && reportData.length > 0 ? (
-                                        reportData.map((vehicle) => (
-                                            <tr key={vehicle._id} style={{ backgroundColor: '#f2f2f2' }}>
-                                                <td style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid #ddd' }}>{vehicle.No}</td>
+                                        reportData.map((vehicle, index) => (
+                                            <tr key={index} style={{ backgroundColor: '#f2f2f2' }}>
+                                                <td style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid #ddd' }}>{index + 1}</td>
                                                 <td style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid #ddd' }}>{vehicle.Type}</td>
-                                                <td style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid #ddd' }}>{vehicle.Reg_Num}</td>
-                                                <td style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid #ddd' }}>{vehicle.Added_Year}</td>
+                                                <td style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid #ddd' }}>{vehicle.RegNum}</td>
+                                                <td style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid #ddd' }}>{vehicle.AddedYear}</td>
                                             </tr>
                                         ))
                                     ) : (

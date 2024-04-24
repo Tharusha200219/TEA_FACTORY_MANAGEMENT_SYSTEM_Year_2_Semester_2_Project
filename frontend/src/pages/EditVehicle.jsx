@@ -5,13 +5,11 @@ import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import styled from 'styled-components';
- // Import the background image
 
 const Container = styled.div`
   max-width: 600px;
   margin: 0 auto;
   padding: 2rem;
- // Use the imported background image here
   background-size: cover;
   background-position: center;
 `;
@@ -37,6 +35,19 @@ const Input = styled.input`
   border-radius: 0.25rem;
 `;
 
+const Select = styled.select`
+  border: 2px solid #a0aec0;
+  padding: 0.5rem;
+  font-size: 1rem;
+  width: 100%;
+  margin-top: 0.5rem;
+  border-radius: 0.25rem;
+`;
+
+const Option = styled.option`
+  padding: 0.5rem;
+`;
+
 const Button = styled.button`
   padding: 0.75rem 1.5rem;
   background-color: #4299e1;
@@ -52,49 +63,58 @@ const Button = styled.button`
   }
 `;
 
-const EditBook = () => {
-  const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
-  const [publishYear, setPublishYear] = useState('');
+const EditVehicle = () => {
+  const [Type, setType] = useState('');
+  const [RegNum, setRegNum] = useState('');
+  const [AddedYear, setAddedYear] = useState('');
+  const [EngineNum, setengineNum] = useState('');
+  const [ChesiNum, setchesiNum] = useState('');
+  const [Owner, setOwner] = useState('');
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
-
+  
   useEffect(() => {
     setLoading(true);
-    axios.get(`http://localhost:5555/books/${id}`)
+    axios.get(`http://localhost:5555/vehicles/${id}`)
       .then((response) => {
-        const { title, author, publishYear } = response.data;
-        setTitle(title);
-        setAuthor(author);
-        setPublishYear(publishYear);
+        const { Type, RegNum, AddedYear, EngineNum, ChesiNum, Owner } = response.data;
+        setType(Type);
+        setRegNum(RegNum);
+        setAddedYear(AddedYear);
+        setengineNum(EngineNum);
+        setchesiNum(ChesiNum);
+        setOwner(Owner);
         setLoading(false);
       })
       .catch((error) => {
         setLoading(false);
         enqueueSnackbar('An error occurred. Please check the console.', { variant: 'error' });
-        console.error('Error fetching book data:', error);
+        console.error('Error fetching Vehicle data:', error);
       });
   }, [id, enqueueSnackbar]);
 
-  const handleEditBook = () => {
+  const handleEditVehicle = () => {
     const data = {
-      title,
-      author,
-      publishYear,
+      Type,
+      RegNum,
+      AddedYear,
+      EngineNum,
+      ChesiNum,
+      Owner,
     };
     setLoading(true);
     axios.put(`http://localhost:5555/books/${id}`, data)
       .then(() => {
         setLoading(false);
-        enqueueSnackbar('Book edited successfully', { variant: 'success' });
+        enqueueSnackbar('Vehicle edited successfully', { variant: 'success' });
         navigate('/Vehiclehome');
       })
       .catch((error) => {
         setLoading(false);
         enqueueSnackbar('An error occurred. Please check the console.', { variant: 'error' });
-        console.error('Error editing book:', error);
+        console.error('Error editing vehicle:', error);
       });
   };
 
@@ -108,31 +128,60 @@ const EditBook = () => {
           <Label>Type</Label>
           <Input
             type='text'
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            value={Type}
+            onChange={(e) => setType(e.target.value)}
           />
         </div>
         <div className='my-4'>
           <Label>Reg Num</Label>
           <Input
             type='text'
-            value={author}
-            onChange={(e) => setAuthor(e.target.value)}
+            value={RegNum}
+            onChange={(e) => setRegNum(e.target.value)}
           />
         </div>
         <div className='my-4'>
           <Label>Added Year</Label>
           <Input
             type='date'
-            value={publishYear}
-            onChange={(e) => setPublishYear(e.target.value)}
+            value={AddedYear}
+            onChange={(e) => setAddedYear(e.target.value)}
           />
         </div>
-        <Button onClick={handleEditBook}>Edit Vehicle</Button>
+        <div className='my-4'>
+          <Label>Engine Number</Label>
+          <Input
+            type='String'
+            value={EngineNum}
+            onChange={(e) => setengineNum(e.target.value)}
+          />
+        </div>
+        <div className='my-4'>
+          <Label>Chesi Number</Label>
+          <Input
+            type='String'
+            value={ChesiNum}
+            onChange={(e) => setchesiNum(e.target.value)}
+          />
+        </div>
+        <div className='my-4'>
+          <Label>Owner</Label>
+          <Select
+            value={Owner}
+            onChange={(e) => setOwner(e.target.value)}
+          >
+            <Option value="">Select Owner</Option>
+            <Option value="Owner 1">Owner 1</Option>
+            <Option value="Owner 2">Owner 2</Option>
+            <Option value="Owner 3">Owner 3</Option>
+            {/* Add more options as needed */}
+          </Select>
+        </div>
+        <Button onClick={handleEditVehicle}>Edit Vehicle</Button>
         <Button onClick={() => navigate('/Vehiclehome')} className='ml-2'>Cancel</Button>
       </FormContainer>
     </Container>
   );
 };
 
-export default EditBook;
+export default EditVehicle;

@@ -30,9 +30,9 @@ const V_home = () => {
 
                                 <div style={styles.feature}>
                                     <img src="./public/images/vehicle.jpg" alt="Feature 1" style={styles.featureImage} />
-                                    <h3 style={styles.featureTitle}>Add New Vehicle</h3>
+                                    <h3 style={styles.featureTitle}>Orders Delivery</h3>
                                     <p style={styles.featureDescription}>Efficiently Added vehicles to do and delivered schedules and tasks.</p>
-                                    <Link to="/Vehiclehome" style={styles.btn}>Vehicle Yuard</Link>
+                                    <Link to="/Vehiclehome" style={styles.btn}>Orders</Link>
                                 </div>
                                 
                                 {/* Add more features as needed */}
@@ -123,3 +123,7 @@ const styles = {
 };
 
 export default V_home;
+
+
+
+

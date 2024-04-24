@@ -37,16 +37,16 @@ const Button = styled.button`
   }
 `;
 
-const DeleteBook = () => {
+const DeleteVehicle = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
   const { enqueueSnackbar } = useSnackbar();
 
-  const handleDeleteBook = () => {
+  const handleDeleteVehicle = () => {
     setLoading(true);
     axios
-      .delete(`http://localhost:5555/books/${id}`)
+      .delete(`http://localhost:5555/vehicles/${id}`)
       .then(() => {
         setLoading(false);
         enqueueSnackbar('Book Deleted successfully', { variant: 'success' });
@@ -67,7 +67,7 @@ const DeleteBook = () => {
       <Card>
         <h3 className='text-2xl'>Are you sure you want to delete this vehicle?</h3>
         <div className='flex justify-center gap-4 mt-8'>
-          <Button onClick={handleDeleteBook}>Yes, Delete it</Button>
+          <Button onClick={handleDeleteVehicle}>Yes, Delete it</Button>
           <Button onClick={() => navigate('/Vehiclehome')}>Cancel</Button>
         </div>
       </Card>
@@ -75,4 +75,4 @@ const DeleteBook = () => {
   );
 };
 
-export default DeleteBook;
+export default DeleteVehicle;

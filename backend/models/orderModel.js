@@ -20,6 +20,10 @@ const orderSchema = mongoose.Schema(
             type : String,
             required : true,
         },
+        Shipment: {
+            type : String,
+            required : true,
+        },
 
      
     },

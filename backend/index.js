@@ -21,7 +21,7 @@ import productionScheduleRoute from "./routes/production_schedule_route.js";
 import teatypeManagementRoute from "./routes/teatype_management_route.js";
 import cors from "cors";
 import payments from "./routes/payment.js";
-import booksRoute from './routes/bookRoute.js';
+import vehicleRoute from './routes/vehicleRoute.js';
 
 ////Import Supplier management model & Route ////
 import { supplier } from "./models/supplierModel.js";
@@ -63,7 +63,7 @@ app.use('/maintenances',maintenanceRoute);
 app.use('/orders',orderRoute);
 app.use('/payments',payments);
 
-app.use('/books', booksRoute);
+app.use('/vehicles', vehicleRoute);
 
 
 // Mounting supplier management routes

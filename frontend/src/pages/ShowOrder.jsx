@@ -44,6 +44,9 @@ const ShowOrder = () => {
           <div style={styles.infoItem}>
             <strong>Category:</strong> {order.category}
           </div>
+          <div style={styles.infoItem}>
+            <strong>Shipment:</strong> {order.Shipment}
+          </div>
 
           <div style={styles.infoItem}>
             <strong>Created At:</strong> {new Date(order.createdAt).toLocaleString()}
