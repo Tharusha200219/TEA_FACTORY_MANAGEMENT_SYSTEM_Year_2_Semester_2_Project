@@ -40,17 +40,17 @@ const Value = styled.span`
   color: white;
 `;
 
-const ShowBook = () => {
-  const [book, setBook] = useState({});
+const ShowVehicle = () => {
+  const [vehicle, setVehicle] = useState({});
   const [loading, setLoading] = useState(false);
   const { id } = useParams();
 
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`http://localhost:5555/books/${id}`)
+      .get(`http://localhost:5555/vehicles/${id}`)
       .then((response) => {
-        setBook(response.data);
+        setVehicle(response.data);
         setLoading(false);
       })
       .catch((error) => {
@@ -69,23 +69,35 @@ const ShowBook = () => {
         <Card>
           <Field>
             <Label>Type: </Label>
-            <Value>{book.title}</Value>
+            <Value>{vehicle.Type}</Value>
           </Field>
           <Field>
             <Label>Reg Num: </Label>
-            <Value>{book.author}</Value>
+            <Value>{vehicle.RegNum}</Value>
           </Field>
           <Field>
             <Label>Added Year: </Label>
-            <Value>{book.publishYear}</Value>
+            <Value>{vehicle.AddedYear}</Value>
+          </Field>
+          <Field>
+            <Label>Engine Number: </Label>
+            <Value>{vehicle.EngineNum}</Value>
+          </Field>
+          <Field>
+            <Label>Chesi Number: </Label>
+            <Value>{vehicle.ChesiNum}</Value>
+          </Field>
+          <Field>
+            <Label>Owner: </Label>
+            <Value>{vehicle.Owner}</Value>
           </Field>
           <Field>
             <Label>Create Time: </Label>
-            <Value>{new Date(book.createdAt).toString()}</Value>
+            <Value>{new Date(vehicle.createdAt).toString()}</Value>
           </Field>
           <Field>
             <Label>Last Update Time: </Label>
-            <Value>{new Date(book.updatedAt).toString()}</Value>
+            <Value>{new Date(vehicle.updatedAt).toString()}</Value>
           </Field>
         </Card>
       )}
@@ -93,4 +105,4 @@ const ShowBook = () => {
   );
 };
 
-export default ShowBook;
+export default ShowVehicle;

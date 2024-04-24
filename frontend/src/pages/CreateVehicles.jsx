@@ -11,7 +11,6 @@ import Footer from '../components/Footer';
 const Container = styled.div`
   max-width: Auto;
   background-color: #f7fafc;
-  background-image: url("./public/images/th676.jpg");
   margin: 0 auto;
   padding: 2rem;
   background-size: cover;
@@ -19,7 +18,7 @@ const Container = styled.div`
 `;
 
 const FormContainer = styled.div`
-  background-color: rgba(255, 255, 255, 0.8); /* Added background color with opacity */
+  background-color: rgba(255, 255, 255, 0.8);
   background-image: url("./public/images/th676.jpg");
   border-radius: 1rem;
   padding: 2rem;
@@ -43,6 +42,19 @@ const Input = styled.input`
   border-radius: 0.25rem;
 `;
 
+const Select = styled.select`
+  border: 2px solid #a0aec0;
+  padding: 0.5rem;
+  font-size: 1rem;
+  width: 100%;
+  margin-top: 0.5rem;
+  border-radius: 0.25rem;
+`;
+
+const Option = styled.option`
+  padding: 0.5rem;
+`;
+
 const Button = styled.button`
   padding: 0.75rem 1.5rem;
   background-color: #4299e1;
@@ -59,7 +71,7 @@ const Button = styled.button`
 `;
 
 const SecondaryNavbar = styled.nav`
-  background-color: #408C44;
+  background-color: #408c44;
   padding: 1rem;
   display: flex;
   justify-content: center;
@@ -83,26 +95,29 @@ const SecondaryNavbar = styled.nav`
   }
 `;
 
-const CreateBooks = () => {
+const CreateVehicles = () => {
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
 
-  const handleSaveBook = () => {
+  const handleSaveVehicle = () => {
     // Validation checks
-    if (!title || !author || !publishYear) {
+    if (!Type.trim() || !RegNum.trim() || !AddedYear.trim() || !EngineNum.trim() || !ChesiNum.trim() || !Owner.trim()) {
       enqueueSnackbar('Please fill in all fields.', { variant: 'warning' });
       return;
     }
 
     // Your save book logic here
     const data = {
-      title,
-      author,
-      publishYear,
+      Type,
+      RegNum,
+      AddedYear,
+      EngineNum,
+      ChesiNum,
+      Owner,
     };
     setLoading(true);
     axios
-      .post('http://localhost:5555/books', data)
+      .post('http://localhost:5555/vehicles', data)
       .then(() => {
         setLoading(false);
         enqueueSnackbar('Book Created successfully', { variant: 'success' });
@@ -114,17 +129,21 @@ const CreateBooks = () => {
         console.log(error);
       });
   };
+  
 
-  const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
-  const [publishYear, setPublishYear] = useState('');
+  const [Type, setType] = useState('');
+  const [RegNum, setRegNum] = useState('');
+  const [AddedYear, setAddedYear] = useState('');
+  const [EngineNum, setengineNum] = useState('');
+  const [ChesiNum, setchesiNum] = useState('');
+  const [Owner, setOwner] = useState('');
   const [loading, setLoading] = useState(false);
 
   return (
     <Container>
       <NavigationBar />
       <SecondaryNavbar>
-        <NavLink to="/books/create" activeClassName="active">Add New Vehicle</NavLink>
+        <NavLink to="/vehicles/create" activeClassName="active">Add New Vehicle</NavLink>
         <NavLink to="/available-parts">Available Vehicles</NavLink>
         <NavLink to="/orders">View Orders</NavLink>
         <NavLink to="/ReportVehicle">Generate Report</NavLink>
@@ -137,31 +156,65 @@ const CreateBooks = () => {
           <Label>Type</Label>
           <Input
             type='text'
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            value={Type}
+            onChange={(e) => setType(e.target.value.replace(/[^a-zA-Z\s]/g, ''))}
+            pattern="[0-9]*"
           />
         </div>
         <div>
           <Label>Reg Num</Label>
           <Input
             type='text'
-            value={author}
-            onChange={(e) => setAuthor(e.target.value)}
+            value={RegNum}
+            onChange={(e) => setRegNum(e.target.value)}
+            pattern="[0-9]*"
           />
         </div>
         <div>
           <Label>Added Year</Label>
           <Input
-            type='Date'
-            value={publishYear}
-            onChange={(e) => setPublishYear(e.target.value)}
+            type='date'
+            value={AddedYear}
+            onChange={(e) => setAddedYear(e.target.value)}
+            min={new Date().toISOString().split('T')[0]} // Set min attribute to current date
           />
         </div>
-        <Button onClick={handleSaveBook}>Save</Button>
+        <div>
+          <Label>Engine Number</Label>
+          <Input
+            type='text'
+            value={EngineNum}
+            onChange={(e) => setengineNum(e.target.value.replace(/[^a-zA-Z0-9\s]/g, ''))}
+            pattern="[0-9]*"
+          />
+        </div>
+        <div>
+          <Label>Chesi Number</Label>
+          <Input
+            type='text'
+            value={ChesiNum}
+            onChange={(e) => setchesiNum(e.target.value.replace(/[^a-zA-Z0-9\s]/g, ''))}
+            pattern="[0-9]*"
+          />
+        </div>
+        <div>
+          <Label>Owner</Label>
+          <Select
+            value={Owner}
+            onChange={(e) => setOwner(e.target.value)}
+          >
+            <Option value="">Select Owner</Option>
+            <Option value="Owner 1">Owner 1</Option>
+            <Option value="Owner 2">Owner 2</Option>
+            <Option value="Owner 3">Owner 3</Option>
+            {/* Add more options as needed */}
+          </Select>
+        </div>
+        <Button onClick={handleSaveVehicle}>Save</Button>
       </FormContainer>
       <Footer />
     </Container>
   );
 };
 
-export default CreateBooks;
+export default CreateVehicles;

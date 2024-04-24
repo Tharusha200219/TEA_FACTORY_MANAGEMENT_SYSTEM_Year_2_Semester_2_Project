@@ -3,8 +3,8 @@ import axios from 'axios';
 import Spinner from '../components/Spinner';
 import { Link } from 'react-router-dom';
 import { MdOutlineAddBox } from 'react-icons/md';
-import BooksTable from '../components/home/BooksTable';
-import BooksCard from '../components/home/BooksCard';
+import VehiclesTable from '../components/home/VehiclesTable';
+import VehiclesCard from '../components/home/VehiclesCard';
 import styled from 'styled-components';
 import NavigationBar from '../components/NavigationBar';
 import Footer from '../components/Footer';
@@ -16,7 +16,7 @@ const GlobalStyleComponent = styled.div`
     max-width: 1200px;
     margin: 0 auto;
    
-    background-image: url("./public/images/th676.jpg");
+    background-color: Black;
     background-size: cover;
     background-position: center;
     /* Apply blur effect */
@@ -94,22 +94,21 @@ const SecondaryNavbar = styled.nav`
 `;
 
 const Home = () => {
-  const [books, setBooks] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [vehicles, setVehicles] = useState([]);
+  const [loading, setLoading] = useState(true); // Set loading initially to true
   const [showType, setShowType] = useState('table');
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    setLoading(true);
     axios
-      .get('http://localhost:5555/books')
+      .get('http://localhost:5555/vehicles')
       .then((response) => {
-        setBooks(response.data.data);
-        setLoading(false);
+        setVehicles(response.data.data);
+        setLoading(false); // Set loading to false once data is fetched
       })
       .catch((error) => {
         console.log(error);
-        setLoading(false);
+        setLoading(true); // Set loading to false in case of error
       });
   }, []);
 
@@ -117,31 +116,34 @@ const Home = () => {
     setSearchQuery(event.target.value);
   };
 
-  const filteredBooks = books.filter((book) =>
-    book.title.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredVehicles = vehicles.filter((vehicle) =>
+  vehicle.Type.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   // Function to generate report
   const generateReport = () => {
     // Logic to generate report based on filteredBooks
     // For simplicity, let's create a comma-separated string of book titles and log it
-    const report = filteredBooks.map(book => book.title).join(', ');
-    console.log("Generating report...");
-    console.log("Report:", report);
+    const report = filteredVehicles.map((vehicle) => vehicle.Type).join(', ');
+    console.log('Generating report...');
+    console.log('Report:', report);
   };
 
   return (
     <GlobalStyleComponent>
       <NavigationBar />
       <SecondaryNavbar>
-        <Link to="/books/create">Add New Vehicle</Link>
+        <Link to="/vehicles/create">Add New Vehicle</Link>
         <Link to="/AvailableVehicles">Available Vehicles</Link>
-        <Link to="/orders">View Orders</Link>
-        <Link to="/ReportVehicle" onClick={generateReport}>Generate Report</Link> {/* Call generateReport when the link is clicked */}
+        <Link to="/TrackVehicle">View Orders</Link>
+        <Link to="/ReportVehicle" onClick={generateReport}>
+          Generate Report
+        </Link>
+        {/* Call generateReport when the link is clicked */}
       </SecondaryNavbar>
-      <div className='container p-4'>
-        <div className='header'>
-          <h1 className='text-3xl font-semibold text-white-800'>Vehicles List</h1>
+      <div className="container p-4">
+        <div className="header">
+          <h1 className="text-3xl font-semibold text-white-800">Vehicles List</h1>
           <input
             type="text"
             placeholder="Search Vehicles..."
@@ -151,19 +153,18 @@ const Home = () => {
           />
         </div>
         {loading ? (
-          <div className='spinner-container'>
+          <div className="spinner-container">
             <Spinner />
           </div>
         ) : showType === 'table' ? (
-          <div className='table-container'>
-            <BooksTable books={filteredBooks} />
+          <div className="table-container">
+            <VehiclesTable vehicles={filteredVehicles} />
           </div>
         ) : (
-          <div className='card-container'>
-            <BooksCard books={filteredBooks} />
+          <div className="card-container">
+            <VehiclesCard vehicles={filteredVehicles} />
           </div>
         )}
-        
       </div>
       <Footer />
     </GlobalStyleComponent>

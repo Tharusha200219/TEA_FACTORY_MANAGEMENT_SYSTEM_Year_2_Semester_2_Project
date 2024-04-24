@@ -25,8 +25,10 @@ import orderRoute from "./routes/orderRoute.js";
 
 import cors from "cors";
 import payments from "./routes/payment.js";
+
+import vehicleRoute from './routes/vehicleRoute.js';
 import paymentsEmployee from "./routes/paymentEmployee.js";
-import booksRoute from './routes/bookRoute.js';
+
 
 ////Import Supplier management model & Route ////
 import { supplier } from "./models/supplierModel.js";
@@ -72,7 +74,7 @@ app.use('/orders',orderRoute);
 app.use('/payments',payments);
 app.use('/paymentsEmployee',paymentsEmployee);
 
-app.use('/books', booksRoute);
+app.use('/vehicles', vehicleRoute);
 
 
 // Mounting supplier management routes
