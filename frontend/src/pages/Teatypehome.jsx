@@ -56,7 +56,7 @@ const Teatypehome = () => {
                         <Link to="/TeaTypeReport" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Tea Type Report Generate</Link>
                         <Link to="/user-profile-page" className="absolute right-10 flex  space-x-2">
                             <img src="/images/user.png" alt="User Profile" className="w-8 h-8 rounded-full" />
-                            {/* You can replace "example-profile-image.jpg" with the actual path to your user profile image */}
+                        
                         </Link>
                     </div>
                 </div>
@@ -100,11 +100,11 @@ const Teatypehome = () => {
                             <thead className="bg-gray-50">
                                 <tr>
                                     <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Schedule No</th>
-                                    <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Black Tea</th>
-                                    <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Green Tea</th>
-                                    <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Oolong Tea</th>
-                                    <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>White Tea</th>
-                                    <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Actions</th>
+                                    <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Black Tea (kg)</th>
+                                    <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Green Tea (kg)</th>
+                                    <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Oolong Tea (kg)</th>
+                                    <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>White Tea (kg)</th>
+                                    <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Actions </th>
 
                                 </tr>
                             </thead>

@@ -28,7 +28,7 @@ const CreateInventory = () => {
     axios.post('http://localhost:5555/inventory', data)
       .then(() => {
         setLoading(false);
-        navigate('/');
+        navigate('/Inventorys');
       })
       .catch((error) => {
         alert('An error occurred');

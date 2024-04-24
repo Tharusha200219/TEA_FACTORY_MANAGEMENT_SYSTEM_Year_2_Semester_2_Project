@@ -7,7 +7,7 @@ const teawasteschema = mongoose.Schema(
             required:true,
         },
         batchid : {
-            type : Number,
+            type : String,
             required:true,
         },
         teatype : {

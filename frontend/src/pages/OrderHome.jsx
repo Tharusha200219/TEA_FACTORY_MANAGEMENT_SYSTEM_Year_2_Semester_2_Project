@@ -45,7 +45,7 @@ const OrderHome = () => {
   const handleButtonOnClick = () => {
     try {
       const doc = new jsPDF();
-      const tableData = orders.map(orders => [orders.orderno, orders.duedate, orders.quantity, orders.category]);
+      const tableData = orders.map(orders => [orders.orderno,new Date(orders.duedate).toLocaleDateString('en-GB'),, orders.quantity, orders.category]);
 
       doc.autoTable({
         head: [['Order id', 'Due date', 'Quantity', 'Category']],
@@ -111,6 +111,7 @@ const OrderHome = () => {
                 <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Due date</th>
                 <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Quantity</th>
                 <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Category</th>
+                <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Status</th>
                 <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Actions</th>
               </tr>
             </thead>
@@ -118,9 +119,10 @@ const OrderHome = () => {
               {(searchInput === '' ? orders : filteredOrders).map((order, index) => (
                 <tr key={order._id} className='h-8'>
                   <td className='px-6 py-4 whitespace-nowrap'>{order.orderno}</td>
-                  <td className='px-6 py-4 whitespace-nowrap'>{order.duedate}</td>
+                  <td className='px-6 py-4 whitespace-nowrap'>{new Date(order.duedate).toLocaleDateString('en-GB')}</td>
                   <td className='px-6 py-4 whitespace-nowrap'>{order.quantity}</td>
                   <td className='px-6 py-4 whitespace-nowrap'>{order.category}</td>
+                  <td className='px-6 py-4 whitespace-nowrap'>{order.status}</td>
                   <td className='px-6 py-4 whitespace-nowrap'>
                     <div className='flex justify-left gap-x-6'>
                       <Link to={`/orders/details/${order._id}`}>
@@ -150,4 +152,5 @@ const OrderHome = () => {
 };
 
 export default OrderHome;
+
 

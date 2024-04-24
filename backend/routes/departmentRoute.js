@@ -65,34 +65,33 @@ router.get('/:id', async (request, response) => {
     }
 });
 
-// Route for Update a Department
-router.put('/:id', async (request, response) =>{
+// Route for updating a department
+router.put('/:id', async (request, response) => {
     try {
         const { id } = request.params;
 
-        // Check if department exists
+        // Find department by ID
         const department = await Department.findById(id);
 
         if (!department) {
             return response.status(404).json({ message: 'Department not found' });
         }
 
-        // Update department fields
-        department.departmentName = request.body.departmentName;
-        department.departmentDetails = request.body.departmentDetails;
-        department.createdOn = request.body.createdOn;
-        department.departmentStatus = request.body.departmentStatus;
+       
+        department.departmentName = 'Updated Department Name';
+        department.departmentDetails = 'Updated Department Details';
+        department.createdOn = new Date(); // or provide specific date
+        department.departmentStatus = 'Updated Status';
 
-        // Save the updated department
+        // Save updated department
         await department.save();
 
-        return response.status(200).json({ message: 'Department details updated successfully' });
+        return response.status(200).json({ message: 'Department details updated successfully', updatedDepartment: department });
     } catch (error) {
-        console.log(error.message); 
-        response.status(500).send({ message: error.message });
+        console.log(error.message);
+        response.status(500).send({ message: 'Error updating department details' });
     }
 });
-
 
 //Route for Delete a Department
 router.delete('/:id', async (request, response) => {

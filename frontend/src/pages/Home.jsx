@@ -83,8 +83,8 @@ function Home() {
     };
 
     const featureImageStyles = {
-        width: '100%', // Adjusted width to make images same size
-        height: 'auto', // Maintain aspect ratio
+        width: '100%', 
+        height: 'auto', 
         borderRadius: '10px',
         marginBottom: '20px',
     };

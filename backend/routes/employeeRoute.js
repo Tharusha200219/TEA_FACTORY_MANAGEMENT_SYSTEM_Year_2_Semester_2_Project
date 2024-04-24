@@ -19,7 +19,7 @@ const mailserver = createTransport({
   port: 587,
   secure: false,
   auth: {
-    user: process.env.EMAIL_ADDRESS, // Your dedicated email account (retrieved from environment variables)
+    user: process.env.EMAIL_ADDRESS, // email account (retrieved from environment variables)
     pass: process.env.EMAIL_PASSWORD,
   },
 
