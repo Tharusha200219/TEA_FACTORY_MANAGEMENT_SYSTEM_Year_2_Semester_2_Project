@@ -1,90 +1,66 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useSnackbar } from 'notistack';
-import styled from 'styled-components';
-
-const Container = styled.div`
-  max-width: Auto;
-  
-  background-image: url("./public/images/th2.jpg");
-  margin: 0 auto;
-  padding: 2rem;
-  background-size: cover;
-  background-position: center;
-`;
-
-const TableContainer = styled.div`
-  background-color: rgba(255, 255, 255, 0.8);
-  border-radius: 1rem;
-  padding: 2rem;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-  display: grid;
-  grid-gap: 1.5rem;
-  justify-items: center;
-`;
-
-const Table = styled.table`
-  width: 100%;
- 
-  border-collapse: collapse;
-  
-`;
-
-const Th = styled.th`
-  text-align: left;
-  padding: 0.5rem;
-  border-bottom: 2px solid #a0aec0;
-`;
-
-const Td = styled.td`
-  padding: 0.5rem;
-  border-bottom: 1px solid #a0aec0;
-  
-`;
 
 const AvailableVehicles = () => {
-  const { enqueueSnackbar } = useSnackbar();
-  const [vehicles, setVehicle] = useState([]);
+  const [vehicles, setVehicles] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://localhost:5555/vehicles');
-        setVehicle(response.data);
-      } catch (error) {
-        enqueueSnackbar('Error fetching vehicles', { variant: 'error' });
-        console.log(error);
-      }
-    };
+    // Fetch available vehicles data from the API
+    axios.get('http://localhost:5555/vehicles')
+      .then(response => {
+        setVehicles(response.data.data);
+      })
+      .catch(error => {
+        console.error('Error fetching available vehicles:', error);
+      });
+  }, []);
 
-    fetchData();
-  }, [enqueueSnackbar]);
+  const handleStatusChange = (e, id) => {
+    const newStatus = e.target.value;
+    const updatedVehicles = vehicles.map(vehicle => {
+      if (vehicle._id === id) {
+        return { ...vehicle, Status: newStatus };
+      }
+      return vehicle;
+    });
+    setVehicles(updatedVehicles);
+  };
 
   return (
-    <Container>
-      <TableContainer>
-        <Table>
-          <thead>
-            <tr>
-              <Th>No</Th>
-              <Th>Type</Th>
-              <Th>Reg Num</Th>
-              <Th>Available</Th>
+    <div>
+      <h1>Available Vehicles</h1>
+      <table className='w-full border-separate border-spacing-2'>
+        <thead>
+          <tr>
+            <th className='border border-slate-600 rounded-md'>No</th>
+            <th className='border border-slate-600 rounded-md'>Type</th>
+            <th className='border border-slate-600 rounded-md max-md:hidden'>Reg Num</th>
+            <th className='border border-slate-600 rounded-md max-md:hidden'>Added Year</th>
+            <th className='border border-slate-600 rounded-md'>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {vehicles.map((vehicle, index) => (
+            <tr key={vehicle._id} className='h-8'>
+              <td className='border border-slate-700 rounded-md text-center'>{index + 1}</td>
+              <td className='border border-slate-700 rounded-md text-center'>{vehicle.Type}</td>
+              <td className='border border-slate-700 rounded-md text-center max-md:hidden'>{vehicle.RegNum}</td>
+              <td className='border border-slate-700 rounded-md text-center max-md:hidden'>{new Date(vehicle.AddedYear).toLocaleDateString()}</td>
+              <td className='border border-slate-700 rounded-md text-center'>
+                <select
+                  value={vehicle.Status}
+                  onChange={(e) => handleStatusChange(e, vehicle._id)}
+                  className="outline-none"
+                >
+                  <option value="Available">Available</option>
+                  <option value="Not Available">Not Available</option>
+                </select>
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            {Array.isArray(vehicles) && vehicles.map((vehicle, index) => (
-              <tr key={vehicle.id}>
-                <Td>{index + 1}</Td>
-                <Td>{vehicle.Type}</Td>
-                <Td>{vehicle.RegNum}</Td>
-                <Td>{vehicle.available ? 'Yes' : 'No'}</Td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-      </TableContainer>
-    </Container>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 
