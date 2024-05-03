@@ -81,6 +81,8 @@ app.use('/supplyrecords', supplyrecordRoute);
 app.use('/departments', departmentRoute);
 app.use('/employees', employeeRoute);
 
+// Serve static files from the 'uploads' directory
+app.use('/uploads', express.static('C:\\Users\\IMASHA\\Documents\\GitHub\\TEA_FACTORY_MANAGEMENT_SYSTEM_Year_2_Semester_2_Project\\backend\\uploads'));
 
 //emial
 

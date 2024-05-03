@@ -2,10 +2,17 @@ import mongoose from "mongoose";
 
 const employeeSchema = mongoose.Schema(
     {
+        image: {
+            type: String, // Store image path
+        },
+        
         employeeName:{
             type: String,
             required : true,
         },
+
+        
+        
         employeeEmail:{
             type: String,
             required : true,
@@ -24,7 +31,7 @@ const employeeSchema = mongoose.Schema(
             required : true,
         },
         createdOn:{
-            type: Number,
+            type: Date,
             required : true,
         },
 

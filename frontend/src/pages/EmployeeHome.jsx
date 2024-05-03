@@ -7,7 +7,6 @@ import { BsInfoCircle } from 'react-icons/bs';
 import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
 import Footer from '../components/Footer';
 import NavigationBar from '../components/NavigationBar';
-import GenerateRepoEmployee from './GenerateRepoEmployee'; // Import GenerateRepoEmployee component
 
 const EmployeeHome = () => {
   const [employees, setEmployees] = useState([]);
@@ -48,7 +47,7 @@ const EmployeeHome = () => {
             <Link to="/EmployeeHome" className="text-gray-300 bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Employee List</Link>
             <Link to="/employees/create" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Register Employee</Link>
             <Link to="/GenerateRepoEmployee" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Employee Report</Link>
-            
+            <Link to="/EmailForm" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Login Invitation</Link>
           </div>
         </div>
       </nav>
@@ -74,6 +73,7 @@ const EmployeeHome = () => {
               <thead className="bg-gray-50">
                 <tr>
                   <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>No</th>
+                  <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Image</th>
                   <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Employee Name</th>
                   <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Email Address</th>
                   <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Contact Number</th>
@@ -87,6 +87,14 @@ const EmployeeHome = () => {
                 {filteredEmployees.map((employee, index) => (
                   <tr key={employee._id} className="bg-white">
                     <td className='border px-6 py-4 whitespace-nowrap'>{index + 1}</td>
+                    <td className='border px-6 py-4 whitespace-nowrap'>
+                      {/* Render image */}
+                      {employee.image ? (
+                        <img src={`http://localhost:5555/${employee.image.replace(/\//g, '\\')}`} alt="Employee" className="h-10 w-10 rounded-full" />
+                      ) : (
+                        <span>No Image</span>
+                      )}
+                    </td>
                     <td className='border px-6 py-4 whitespace-nowrap'>{employee.employeeName}</td>
                     <td className='border px-6 py-4 whitespace-nowrap'>{employee.employeeEmail}</td>
                     <td className='border px-6 py-4 whitespace-nowrap'>{employee.employeeMobile}</td>
@@ -113,8 +121,6 @@ const EmployeeHome = () => {
           </div>
         )}
       </div>
-
-      
 
       <Footer />
     </div>
