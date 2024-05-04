@@ -105,7 +105,7 @@ const EditVehicle = () => {
       Owner,
     };
     setLoading(true);
-    axios.put(`http://localhost:5555/books/${id}`, data)
+    axios.put(`http://localhost:5555/vehicles/${id}`, data)
       .then(() => {
         setLoading(false);
         enqueueSnackbar('Vehicle edited successfully', { variant: 'success' });

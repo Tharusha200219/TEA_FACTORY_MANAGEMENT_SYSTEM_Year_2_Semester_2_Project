@@ -5,7 +5,7 @@ import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 
 const StyledAppBar = styled(AppBar)({
-    backgroundColor: '#06C167',
+    backgroundColor: '#138718',
 });
 
 const NavigationBar = () => {

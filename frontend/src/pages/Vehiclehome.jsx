@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Spinner from '../components/Spinner';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom'; // Import useLocation hook
 import { MdOutlineAddBox } from 'react-icons/md';
 import VehiclesTable from '../components/home/VehiclesTable';
 import VehiclesCard from '../components/home/VehiclesCard';
@@ -15,14 +15,12 @@ const GlobalStyleComponent = styled.div`
     padding: '60px',
     max-width: 1200px;
     margin: 0 auto;
-   
     background-color: Black;
     background-size: cover;
     background-position: center;
     /* Apply blur effect */
     filter: blur(0.000005px);
   }
-
 
   .header {
     display: flex;
@@ -80,7 +78,6 @@ const SecondaryNavbar = styled.nav`
 
   a {
     color: white;
-    
     border-radius: 0.25rem;
     padding: 0.5rem 1rem;
     margin: 0 1rem;
@@ -91,24 +88,31 @@ const SecondaryNavbar = styled.nav`
       color: #fff;
     }
   }
+
+  a.active {
+    background-color: #333;
+    color: #fff;
+  }
 `;
 
 const Home = () => {
+  const location = useLocation(); // Use useLocation hook to get current location
   const [vehicles, setVehicles] = useState([]);
-  const [loading, setLoading] = useState(true); // Set loading initially to true
+  const [loading, setLoading] = useState(true);
   const [showType, setShowType] = useState('table');
   const [searchQuery, setSearchQuery] = useState('');
+  const [activePage, setActivePage] = useState('VehicleList'); // State to track active page
 
   useEffect(() => {
     axios
       .get('http://localhost:5555/vehicles')
       .then((response) => {
         setVehicles(response.data.data);
-        setLoading(false); // Set loading to false once data is fetched
+        setLoading(false);
       })
       .catch((error) => {
         console.log(error);
-        setLoading(true); // Set loading to false in case of error
+        setLoading(true);
       });
   }, []);
 
@@ -117,13 +121,10 @@ const Home = () => {
   };
 
   const filteredVehicles = vehicles.filter((vehicle) =>
-  vehicle.Type.toLowerCase().includes(searchQuery.toLowerCase())
+    vehicle.Type.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  // Function to generate report
   const generateReport = () => {
-    // Logic to generate report based on filteredBooks
-    // For simplicity, let's create a comma-separated string of book titles and log it
     const report = filteredVehicles.map((vehicle) => vehicle.Type).join(', ');
     console.log('Generating report...');
     console.log('Report:', report);
@@ -134,12 +135,19 @@ const Home = () => {
       <NavigationBar />
       <SecondaryNavbar>
         <Link to="/vehicles/create">Add New Vehicle</Link>
-        <Link to="/AvailableVehicles">Available Vehicles</Link>
-        <Link to="/TrackVehicle">View Orders</Link>
-        <Link to="/ReportVehicle" onClick={generateReport}>
+        <Link to="/AvailableVehicles" className={location.pathname === '/AvailableOrders' ? 'active' : ''}>
+          Vehicle List
+        </Link>
+        <Link to="/TrackVehicle" className={location.pathname === '/TrackVehicle' ? 'active' : ''}>
+          Available Vehicles
+        </Link>
+        <Link
+          to="/ReportVehicle"
+          className={location.pathname === '/ReportVehicle' ? 'active' : ''}
+          onClick={generateReport}
+        >
           Generate Report
         </Link>
-        {/* Call generateReport when the link is clicked */}
       </SecondaryNavbar>
       <div className="container p-4">
         <div className="header">

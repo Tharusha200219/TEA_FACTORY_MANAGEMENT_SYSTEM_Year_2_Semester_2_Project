@@ -120,7 +120,7 @@ const CreateVehicles = () => {
       .post('http://localhost:5555/vehicles', data)
       .then(() => {
         setLoading(false);
-        enqueueSnackbar('Book Created successfully', { variant: 'success' });
+        enqueueSnackbar('Vehicle Added successfully', { variant: 'success' });
         navigate('/Vehiclehome');
       })
       .catch((error) => {

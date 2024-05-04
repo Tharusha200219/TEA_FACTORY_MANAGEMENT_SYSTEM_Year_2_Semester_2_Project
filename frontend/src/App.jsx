@@ -33,8 +33,11 @@ import CreateVehicles from './pages/CreateVehicles';
 import ShowVehicle from './pages/ShowVehicle';
 import EditVehicle from './pages/EditVehicle';
 import DeleteVehicle from './pages/DeleteVehicle';
-import AvailableVehicles from './pages/AvailableVehicles';
+import AvailableOrders from './pages/AvailableOrders.jsx';
 import TrackVehicle from './pages/TrackVehicle';
+import DeliveryOrder from './pages/DeliveryOrder';
+import AvailableVehicles from './pages/AvailableVehicles.jsx';
+
 
 
 
@@ -169,8 +172,13 @@ const App = () => {
       <Route path='/vehicles/edit/:id' element={<EditVehicle />} />
       <Route path='/vehicles/delete/:id' element={<DeleteVehicle />} />
       <Route path = '/ReportVehicle' element={<ReportVehicle/>}  />
-      <Route path ="/AvailableVehicles" element={<AvailableVehicles/>}/>
+      <Route path ="/AvailableOrders" element={<AvailableOrders/>}/>
       <Route path="/TrackVehicle" element={<TrackVehicle/>} />
+      <Route path="/deliveryorder" element ={<DeliveryOrder />}/>
+
+      <Route path="/AvailableVehicles" element ={<AvailableVehicles />}/>
+
+         
 
 
       
