@@ -14,10 +14,11 @@ router.post('/', async (request, response) => {
             !request.body.black_tea ||
             !request.body.green_tea ||
             !request.body.oolong_tea ||
-            !request.body.white_tea
+            !request.body.white_tea ||
+            !request.body.tea_wastage // Check for tea_wastage field
         ) {
             return response.status(400).send({
-                message: 'send all required fields: Schedule_no, black_tea, green_tea, oolong_tea, white_tea'
+                message: 'send all required fields: Schedule_no, black_tea, green_tea, oolong_tea, white_tea, tea_wastage'
             });
         }
         const new_schedule = {
@@ -26,6 +27,7 @@ router.post('/', async (request, response) => {
             green_tea: request.body.green_tea,
             oolong_tea: request.body.oolong_tea,
             white_tea: request.body.white_tea,
+            tea_wastage: request.body.tea_wastage, // Include tea_wastage in the new schedule object
         };
         const teatype = await Teatype.create(new_schedule)
         return response.status(201).send(teatype)
@@ -73,10 +75,11 @@ router.put('/:id', async (request, response) => {
             !request.body.black_tea ||
             !request.body.green_tea ||
             !request.body.oolong_tea ||
-            !request.body.white_tea
+            !request.body.white_tea ||
+            !request.body.tea_wastage // Check for tea_wastage field
         ) {
             return response.status(400).send({
-                message: 'send all required fields: Schedule_no, black_tea, green_tea, oolong_tea, white_tea'
+                message: 'send all required fields: Schedule_no, black_tea, green_tea, oolong_tea, white_tea, tea_wastage'
             });
         }
 
@@ -94,6 +97,7 @@ router.put('/:id', async (request, response) => {
         return response.status(500).send({ message: error.message });
     }
 });
+
 //delete tea type management shedule
 router.delete('/:id', async (request, response) => {
     try {

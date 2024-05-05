@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { PDFDownloadLink, Document, Page, View, Text, StyleSheet } from '@react-pdf/renderer';
-import NavigationBar from '../components/NavigationBar'; // Import NavigationBar component
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { PDFDownloadLink, Document, Page, View, Text, StyleSheet, Image } from '@react-pdf/renderer';
+import NavigationBar from '../components/NavigationBar';
+import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
+
+// Import your company logo
+import companyLogo from '/images/logo.png';
 
 const styles = StyleSheet.create({
     page: {
@@ -49,6 +52,16 @@ const styles = StyleSheet.create({
         borderRight: '1px solid #ddd',
         fontSize: 14,
     },
+    logo: {
+        marginBottom: 10,
+        textAlign: 'center',
+    },
+    signature: {
+        width: '100%',
+        marginTop: 50,
+        
+
+    },
 });
 
 const TeaTypeReport = () => {
@@ -58,7 +71,7 @@ const TeaTypeReport = () => {
     useEffect(() => {
         setLoading(true);
         axios
-            .get('http://localhost:5555/teatypes') // Adjust the API endpoint as needed
+            .get('http://localhost:5555/teatypes')
             .then((response) => {
                 console.log('Response data:', response.data);
                 setReportData(response.data.data); 
@@ -74,6 +87,10 @@ const TeaTypeReport = () => {
         <Document>
             <Page size="A1" style={styles.page}>
                 <View style={styles.section}>
+                    {/* Company Logo */}
+                    <View style={styles.logo}>
+                        <Image src={companyLogo} style={{ width: 100 }} />
+                    </View>
                     <Text style={styles.header}>Tea Type Report</Text>
                     <View style={styles.table}>
                         <View style={styles.tableRow}>
@@ -82,6 +99,7 @@ const TeaTypeReport = () => {
                             <Text style={styles.tableColHeader}>Green Tea</Text>
                             <Text style={styles.tableColHeader}>Oolong Tea</Text>
                             <Text style={styles.tableColHeader}>White Tea</Text>
+                            <Text style={styles.tableColHeader}>Tea Wastage</Text>
                         </View>
                         {reportData.map((teatype) => (
                             <View key={teatype._id} style={styles.tableRow}>
@@ -90,10 +108,18 @@ const TeaTypeReport = () => {
                                 <Text style={styles.tableCol}>{teatype.green_tea}</Text>
                                 <Text style={styles.tableCol}>{teatype.oolong_tea}</Text>
                                 <Text style={styles.tableCol}>{teatype.white_tea}</Text>
+                                <Text style={styles.tableCol}>{teatype.tea_wastage}</Text>
                             </View>
                         ))}
+                        
+                    </View><br></br><br></br><br></br>
+                    <View style={styles.signature}>
+                        
+                        <Text>.....................</Text>
+                        <Text>Authorized Signature</Text>
                     </View>
                 </View>
+                
             </Page>
         </Document>
     );
@@ -105,7 +131,6 @@ const TeaTypeReport = () => {
             <nav style={{ backgroundColor: '#3FC060' }} className="p-4">
                 <div className="container mx-auto">
                     <div className=" mx-auto flex justify-center items-center">
-                        
                         <div className="flex space-x-4">
                             <Link to="/" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
                             <Link to="/Teatypehome" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Tea Type</Link>
@@ -113,9 +138,8 @@ const TeaTypeReport = () => {
                             <Link to="/pending-shipments" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Production Machine Availability</Link>
                             <Link to="/TeaTypeReport" className="text-gray-300 bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Tea Type Report Generate</Link>
                             <Link to="/user-profile-page" className="absolute right-10 flex  space-x-2">
-                    <img src="/images/user.png" alt="User Profile" className="w-8 h-8 rounded-full" />
-                    
-                </Link>
+                                <img src="/images/user.png" alt="User Profile" className="w-8 h-8 rounded-full" />
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -149,26 +173,28 @@ const TeaTypeReport = () => {
                         </PDFDownloadLink>
 
                         {/* Display report data */}
-                        <div style={{ maxWidth: '100%', margin: 'auto', overflowX: 'auto' }}>
-                            <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '20px' }}>
+                        <div style={{ maxWidth: '99%', margin: 'auto', overflowX: 'auto' }}>
+                            <table style={{ width: '99%', borderCollapse: 'collapse', marginBottom: '20px' }}>
                                 <thead>
                                     <tr style={{ backgroundColor: '#000000', color: 'white' }}>
-                                        <th style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid #ddd', width: '20%' }}>Schedule No</th>
-                                        <th style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid #ddd', width: '20%' }}>Black Tea</th>
-                                        <th style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid #ddd', width: '20%' }}>Green Tea</th>
-                                        <th style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid #ddd', width: '20%' }}>Oolong Tea</th>
-                                        <th style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid #ddd', width: '20%' }}>White Tea</th>
+                                        <th style={{ padding: '10px', textAlign: 'center', borderBottom: '1px solid #ddd', width: '20%' }}>Schedule No</th>
+                                        <th style={{ padding: '10px', textAlign: 'center', borderBottom: '1px solid #ddd', width: '20%' }}>Black Tea</th>
+                                        <th style={{ padding: '10px', textAlign: 'center', borderBottom: '1px solid #ddd', width: '20%' }}>Green Tea</th>
+                                        <th style={{ padding: '10px', textAlign: 'center', borderBottom: '1px solid #ddd', width: '20%' }}>Oolong Tea</th>
+                                        <th style={{ padding: '10px', textAlign: 'center', borderBottom: '1px solid #ddd', width: '20%' }}>White Tea</th>
+                                        <th style={{ padding: '10px', textAlign: 'center', borderBottom: '1px solid #ddd', width: '20%' }}>Tea Wastage</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {Array.isArray(reportData) && reportData.length > 0 ? (
                                         reportData.map((teatype) => (
                                             <tr key={teatype._id} style={{ backgroundColor: '#f2f2f2' }}>
-                                                <td style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid #ddd' }}>{teatype.Schedule_no}</td>
-                                                <td style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid #ddd' }}>{teatype.black_tea}</td>
-                                                <td style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid #ddd' }}>{teatype.green_tea}</td>
-                                                <td style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid #ddd' }}>{teatype.oolong_tea}</td>
-                                                <td style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid #ddd' }}>{teatype.white_tea}</td>
+                                                <td style={{ padding: '10px', textAlign: 'center', borderBottom: '1px solid #ddd' }}>{teatype.Schedule_no}</td>
+                                                <td style={{ padding: '10px', textAlign: 'center', borderBottom: '1px solid #ddd' }}>{teatype.black_tea}</td>
+                                                <td style={{ padding: '10px', textAlign: 'center', borderBottom: '1px solid #ddd' }}>{teatype.green_tea}</td>
+                                                <td style={{ padding: '10px', textAlign: 'center', borderBottom: '1px solid #ddd' }}>{teatype.oolong_tea}</td>
+                                                <td style={{ padding: '10px', textAlign: 'center', borderBottom: '1px solid #ddd' }}>{teatype.white_tea}</td>
+                                                <td style={{ padding: '10px', textAlign: 'center', borderBottom: '1px solid #ddd' }}>{teatype.tea_wastage}</td>
                                             </tr>
                                         ))
                                     ) : (
@@ -188,5 +214,3 @@ const TeaTypeReport = () => {
 }
 
 export default TeaTypeReport;
-
-

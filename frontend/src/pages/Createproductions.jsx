@@ -102,6 +102,13 @@ const Createproductions = () => {
             });
     };
 
+    // Function to validate production date (must be today onwards)
+    const validateProductionDate = (date) => {
+        const today = new Date();
+        const selectedDate = new Date(date);
+        return selectedDate >= today;
+    };
+
     return (
         <div className='bg-gray-100 min-h-screen' style={{ backgroundImage: "url('/images/create.png')" }}>
 
@@ -147,6 +154,7 @@ const Createproductions = () => {
                             <input
                                 id='Production_date'
                                 type='date'
+                                min={new Date().toISOString().split('T')[0]} // Set minimum date as today
                                 value={Production_date}
                                 onChange={(e) => setProduction_date(e.target.value)}
                                 className='input-field'
