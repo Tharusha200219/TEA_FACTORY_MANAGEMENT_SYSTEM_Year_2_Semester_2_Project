@@ -26,10 +26,12 @@ const employeeSchema = mongoose.Schema(
             type: String,
             required : true,
         },
+
         employeeRoles:{
-            type: String,
+            type: String, // Modify to array of strings
             required : true,
         },
+
         createdOn:{
             type: Date,
             required : true,

@@ -17,6 +17,10 @@ const storage = multer.diskStorage({
   }
 });
 
+
+
+
+
 const upload = multer({ storage: storage });
 
 // Serve static files from the 'uploads' directory
@@ -67,6 +71,8 @@ router.get('/', async (request, response) => {
     response.status(500).json({ message: 'An error occurred on the server' });
   }
 });
+
+
 
 // Route for getting a specific employee by ID
 router.get('/:id', async (request, response) => {

@@ -8,6 +8,7 @@ import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
 import Footer from '../components/Footer';
 import NavigationBar from '../components/NavigationBar';
 
+
 const EmployeeHome = () => {
   const [employees, setEmployees] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -33,10 +34,12 @@ const EmployeeHome = () => {
     setFilteredEmployees(
       employees.filter((employee) =>
         employee.employeeName.toLowerCase().includes(searchTerm.toLowerCase())
+        
       )
     );
   }, [searchTerm, employees]);
 
+  
   return (
     <div>
       <NavigationBar />
@@ -51,6 +54,8 @@ const EmployeeHome = () => {
           </div>
         </div>
       </nav>
+
+     
 
       <div className='p-4'>
         <div className='flex justify-between items-center mb-4'>
@@ -122,6 +127,7 @@ const EmployeeHome = () => {
         )}
       </div>
 
+      
       <Footer />
     </div>
   );

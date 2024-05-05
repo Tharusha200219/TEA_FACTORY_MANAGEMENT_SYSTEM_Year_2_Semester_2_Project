@@ -37,6 +37,9 @@ import { Department } from "./models/departmentModel.js";
 import { Employee }  from "./models/employeeModel.js";
 import departmentRoute from "./routes/departmentRoute.js";
 import employeeRoute from "./routes/employeeRoute.js";
+import emailRoutes from './routes/emailRoutes.js'; // Import emailRoutes using ES6 syntax
+
+
 
 const app = express();
 //this allow express to use json or json to express 
@@ -45,6 +48,9 @@ app.use(express.json());
 app.use(
     cors(
 ));
+
+
+
 
 
 //default / get to show normal message
@@ -80,6 +86,11 @@ app.use('/supplyrecords', supplyrecordRoute);
 
 app.use('/departments', departmentRoute);
 app.use('/employees', employeeRoute);
+
+// Use the imported emailRoutes
+app.use('/send-email', emailRoutes);
+
+
 
 // Serve static files from the 'uploads' directory
 app.use('/uploads', express.static('C:\\Users\\IMASHA\\Documents\\GitHub\\TEA_FACTORY_MANAGEMENT_SYSTEM_Year_2_Semester_2_Project\\backend\\uploads'));
