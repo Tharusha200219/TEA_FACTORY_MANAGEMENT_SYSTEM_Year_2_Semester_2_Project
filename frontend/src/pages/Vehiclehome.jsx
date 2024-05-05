@@ -15,7 +15,12 @@ const GlobalStyleComponent = styled.div`
     padding: '60px',
     max-width: 1200px;
     margin: 0 auto;
+
+   
+    background-image: url("./public/images/images.jpeg");
+
     background-color: Black;
+
     background-size: cover;
     background-position: center;
     /* Apply blur effect */

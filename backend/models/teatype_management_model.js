@@ -22,6 +22,10 @@ const TeatypeSchema = mongoose.Schema(
             type: Number,
             required: true,
         },
+        tea_wastage: {
+            type: Number, 
+            required: true,
+        },
     },
     {
         timestamps: true,

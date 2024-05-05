@@ -13,6 +13,7 @@ const Createteatypes = () => {
     const [green_tea, setgreen_tea] = useState('');
     const [oolong_tea, setoolong_tea] = useState('');
     const [white_tea, setwhite_tea] = useState('');
+    const [tea_wastage, setTea_wastage] = useState(''); // Added state for tea_wastage
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -28,8 +29,8 @@ const Createteatypes = () => {
     }, []);
 
     const handleSaveteatypes = () => {
-        if (!black_tea || !green_tea || !oolong_tea || !white_tea) {
-            alert('Please fill in all tea types');
+        if (!black_tea || !green_tea || !oolong_tea || !white_tea || !tea_wastage) {
+            alert('Please fill in all tea types and wastage');
             return;
         }
 
@@ -37,9 +38,10 @@ const Createteatypes = () => {
         const greenTeaValue = parseInt(green_tea);
         const oolongTeaValue = parseInt(oolong_tea);
         const whiteTeaValue = parseInt(white_tea);
+        const teaWastageValue = parseInt(tea_wastage); // Parse the tea_wastage value as integer
 
-        if (isNaN(blackTeaValue) || isNaN(greenTeaValue) || isNaN(oolongTeaValue) || isNaN(whiteTeaValue)) {
-            alert('Please enter valid numbers for tea types');
+        if (isNaN(blackTeaValue) || isNaN(greenTeaValue) || isNaN(oolongTeaValue) || isNaN(whiteTeaValue) || isNaN(teaWastageValue)) {
+            alert('Please enter valid numbers for tea types and wastage');
             return;
         }
 
@@ -55,6 +57,7 @@ const Createteatypes = () => {
             green_tea: greenTeaValue,
             oolong_tea: oolongTeaValue,
             white_tea: whiteTeaValue,
+            tea_wastage: teaWastageValue, // Include tea_wastage in the data object
         };
         setLoading(true);
         axios.post('http://localhost:5555/teatypes', data)
@@ -148,6 +151,17 @@ const Createteatypes = () => {
                                 type='number'
                                 value={white_tea}
                                 onChange={(e) => setwhite_tea(e.target.value)}
+                                className='input-field'
+                            />
+                        </div>
+
+                        <div className='mb-4'>
+                            <label htmlFor='tea_wastage' className='text-lg text-gray-600'>Tea Wastage</label>
+                            <input
+                                id='tea_wastage'
+                                type='number'
+                                value={tea_wastage}
+                                onChange={(e) => setTea_wastage(e.target.value)}
                                 className='input-field'
                             />
                         </div>
