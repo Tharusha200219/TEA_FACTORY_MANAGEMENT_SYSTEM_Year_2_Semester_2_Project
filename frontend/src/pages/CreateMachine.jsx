@@ -28,29 +28,51 @@ const CreateMachine = () => {
 
     // Function to validate the machine name format
     const validateMachineName = (name) => {
-        const regex = /^M[0-9]{3}$/; // Machine name must start with 'M' followed by three digits (001-999)
+        const regex = /^M\d{0,3}$/; // Machine name must start with 'M' followed by up to three digits (001-999)
         return regex.test(name);
     };
 
-    // Function to validate the machine type
-    const validateMachineType = (type) => {
-        const regex = /^[a-zA-Z\s]+$/; // Machine type can only contain letters and spaces
-        return regex.test(type);
+    const handleMachineNameChange = (e) => {
+        const inputValue = e.target.value;
+        // Check if the input is empty or matches the machine name format
+        if (validateMachineName(inputValue) || inputValue === '') {
+            setMachineName(inputValue); // Update machineName state
+            setError(''); // Clear any previous error message
+        } else {
+            // Show error if the input doesn't match the format
+            setError('Machine name must begin with the letter "M" followed by up to three digits (e.g., M001).');
+        }
+    };
+
+    const handleMachineTypeChange = (e) => {
+        const inputValue = e.target.value;
+        // Check if the input contains only letters and spaces
+        const regex = /^[a-zA-Z\s]*$/;
+        if (regex.test(inputValue) || inputValue === '') {
+            setMachineType(inputValue);
+            setError(''); // Clear any previous error message
+        } else {
+            setError('Machine type can only contain letters and spaces.');
+        }
+    };
+
+    const handleWarrentyInformationChange = (e) => {
+        const inputValue = e.target.value;
+        // Check if the input contains only alphanumeric characters and spaces
+        const regex = /^[a-zA-Z0-9\s]*$/;
+        if (regex.test(inputValue) || inputValue === '') {
+            if (inputValue.length <= 20) {
+                setWarrentyInformation(inputValue);
+                setError(''); // Clear any previous error message
+            } else {
+                setError('Warranty information must be less than or equal to 20 characters.');
+            }
+        } else {
+            setError('Warranty information can only contain alphanumeric characters and spaces.');
+        }
     };
 
     const handleSaveMachines = () => {
-        // Validate the machine name format
-        if (!validateMachineName(machineName)) {
-            setError('Machine name must begin with the letter "M" followed by a three-digit number (e.g., M001).');
-            return;
-        }
-
-        // Validate the machine type format
-        if (!validateMachineType(machineType)) {
-            setError('Machine type can only contain words and spaces (no numbers).');
-            return;
-        }
-
         const data = {
             machineNumber,
             machineName,
@@ -71,6 +93,23 @@ const CreateMachine = () => {
                 console.log(error);
                 setLoading(false);
             });
+    };
+
+    const getCurrentDate = () => {
+        const date = new Date();
+        const year = date.getFullYear();
+        let month = date.getMonth() + 1;
+        let day = date.getDate();
+
+        // Add leading zero if month or day is single digit
+        if (month < 10) {
+            month = '0' + month;
+        }
+        if (day < 10) {
+            day = '0' + day;
+        }
+
+        return `${year}-${month}-${day}`;
     };
 
     return (
@@ -115,37 +154,38 @@ const CreateMachine = () => {
                                 id="machineName"
                                 type="text"
                                 value={machineName}
-                                onChange={(e) => setMachineName(e.target.value)}
+                                onChange={handleMachineNameChange}
                                 className="input-field"
                             />
                         </div>
-                        <div class="mb-4">
+                        <div className="mb-4">
                             <label htmlFor="machineType" className="text-lg text-gray-600">Machine Type</label>
                             <input
                                 id="machineType"
                                 type="text"
                                 value={machineType}
-                                onChange={(e) => setMachineType(e.target.value)}
+                                onChange={handleMachineTypeChange}
                                 className="input-field"
                             />
                         </div>
-                        <div class="mb-4">
+                        <div className="mb-4">
                             <label htmlFor="installationDate" className="text-lg text-gray-600">Installation Date</label>
                             <input
                                 id="installationDate"
                                 type="date"
                                 value={installationDate}
+                                max={getCurrentDate()} // Set max attribute to today's date
                                 onChange={(e) => setInstallationDate(e.target.value)}
                                 className="input-field"
                             />
                         </div>
                         <div className="mb-4">
-                            <label htmlFor="warrentyInformation" className="text-lg text-gray-600">Warrenty Information</label>
+                            <label htmlFor="warrentyInformation" className="text-lg text-gray-600">Warranty Information</label>
                             <input
                                 id="warrentyInformation"
                                 type="text"
                                 value={warrentyInformation}
-                                onChange={(e) => setWarrentyInformation(e.target.value)}
+                                onChange={handleWarrentyInformationChange}
                                 className="input-field"
                             />
                         </div>
