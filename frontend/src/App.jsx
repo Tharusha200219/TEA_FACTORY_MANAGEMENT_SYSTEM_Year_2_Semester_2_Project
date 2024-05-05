@@ -132,6 +132,8 @@ import ShowEmployee from './pages/ShowEmployee';
 import EditEmployee from './pages/EditEmployee';
 import DeleteEmployee from './pages/DeleteEmployee';
 
+import EmailForm from "./pages/EmailForm.jsx";
+
 
 
 
@@ -256,6 +258,8 @@ const App = () => {
       <Route path='/employees/details/:id' element={<ShowEmployee />} />
       <Route path='/employees/edit/:id' element={<EditEmployee />} />
       <Route path='/employees/delete/:id' element={<DeleteEmployee />} />
+
+      <Route path='/EmailForm' element={<EmailForm/>}/>
 
     
     

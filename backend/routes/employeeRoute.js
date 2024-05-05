@@ -1,9 +1,17 @@
 import express from 'express';
-import { Employee } from '../models/employeeModel.js';
-//import nodemailer from 'nodemailer';
-import { createTransport } from 'nodemailer';
+import path from 'path';
+import multer from 'multer';
+import { Employee } from '../models/employeeModel.js'; // Update the import statement for Employee model
+
 
 const router = express.Router();
+const __dirname = path.resolve();
+
+
+// Multer configuration for file upload
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads'); // Specify the directory where uploaded files should be stored
 
 // Create a reusable transporter object using the default SMTP transport
 /*let transporter = nodemailer.createTransport({
@@ -21,29 +29,90 @@ const mailserver = createTransport({
   auth: {
     user: process.env.EMAIL_ADDRESS, // email account (retrieved from environment variables)
     pass: process.env.EMAIL_PASSWORD,
-  },
 
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + '-' + file.originalname); // Generate unique file names
+  }
 });
 
-// Route for adding a new employee
-router.post('/', async (request, response) => {
+
+
+
+
+const upload = multer({ storage: storage });
+
+// Serve static files from the 'uploads' directory
+router.use('/uploads', express.static('uploads'));
+
+// Route for adding a new employee with image upload
+router.post('/', upload.single('image'), async (request, response) => {
   try {
+    // Extract data from request body
+    const { employeeName, employeeEmail, employeeMobile, employeeAddress, employeeRole, createdOn } = request.body;
+
     // Validate request body
-    if (
-      !request.body.employeeName ||
-      !request.body.employeeEmail ||
-      !request.body.employeeMobile ||
-      !request.body.employeeAddress ||
-      !request.body.employeeRoles ||
-      !request.body.createdOn
-    ) {
-      return response.status(400).send({
-        message: 'Send all required fields: employeeName, employeeMobile, employeeAddress, employeeRoles, createdOn',
+    if (!employeeName || !employeeEmail || !employeeMobile || !employeeAddress || !employeeRole || !createdOn) {
+      return response.status(400).json({
+        message: 'Send all required fields: employeeName, employeeEmail, employeeMobile, employeeAddress, employeeRole, createdOn',
       });
     }
 
-    // Create a new employee
-    const newEmployee = {
+    // Create a new employee with image data
+    const newEmployee = new Employee({
+      employeeName,
+      employeeEmail,
+      employeeMobile,
+      employeeAddress,
+      employeeRoles: employeeRole,
+      createdOn,
+      image: request.file ? path.join('uploads', request.file.filename) : null, // Save image path
+    });
+
+    // Save the new employee
+    await newEmployee.save();
+
+    // Respond with success message
+    return response.status(201).json({ message: 'Employee added successfully' });
+  } catch (error) {
+    console.error('ServerError:', error);
+    return response.status(500).json({ message: 'An error occurred on the server' });
+  }
+});
+
+// Route for getting all employees
+router.get('/', async (request, response) => {
+  try {
+    const employees = await Employee.find({});
+    response.status(200).json({ count: employees.length, data: employees });
+  } catch (error) {
+    console.error(error);
+    response.status(500).json({ message: 'An error occurred on the server' });
+  }
+});
+
+
+
+// Route for getting a specific employee by ID
+router.get('/:id', async (request, response) => {
+  try {
+    const { id } = request.params;
+    const employee = await Employee.findById(id);
+    if (!employee) {
+      return response.status(404).json({ message: 'Employee not found' });
+    }
+    response.status(200).json(employee);
+  } catch (error) {
+    console.error(error);
+    response.status(500).json({ message: 'An error occurred on the server' });
+  }
+});
+
+// Route for updating an employee
+router.put('/:id', async (request, response) => {
+  try {
+    const { id } = request.params;
+    const updatedEmployee = {
       employeeName: request.body.employeeName,
       employeeEmail: request.body.employeeEmail,
       employeeMobile: request.body.employeeMobile,
@@ -51,143 +120,30 @@ router.post('/', async (request, response) => {
       employeeRoles: request.body.employeeRoles,
       createdOn: request.body.createdOn,
     };
-
-    // Save the new employee
-    const employee = await Employee.create(newEmployee);
-
-    // If checkbox is checked, send a welcome email
-    if (request.body.sendEmailChecked) {
-      const { employeeName, employeeEmail } = request.body;
-
-      mailserver.sendMail(
-        {
-          from:process.env.EMAIL_ADDRESS,
-          to:employeeEmail,
-          subject: "new user",
-          text: "Imasha Perera",
-        },
-        (err, infor) => {
-          if(err){
-            log("can not send the email")
-
-          }else{
-            log('email sent')
-          }
-        }
-      )
-      
-      
-      
-      // Email options
-      /*const mailOptions = {
-        from: process.env.EMAIL_ADDRESS, // Sender address (your dedicated email account)
-        to: employeeEmail, // Recipient address 
-        subject: 'Welcome to the company!',
-        text: `Dear ${employeeName},\n\nYou have been added to the system successfully. 
-        Your username is ${employeeEmail} and your password is generated randomly. 
-        Please contact HR for more details.\n\nRegards,\nThe Admin Team`,
-      };
-
-      // Send the email
-      transporter.sendMail(mailOptions, function (error, info) {
-        if (error) {
-            console.error('EmailError:', error);
-            return response.status(500).json({ message: 'Failed to send email' });
-        } else {
-            console.log('Email sent: ' + info.response);
-            return response.status(201).json({ message: 'Employee added successfully and email sent' });
-        }
-      });*/
-    } else {
-      // If checkbox is not checked, only respond with success message
-      response.status(201).json({ message: 'Employee added successfully' });
+    const employee = await Employee.findByIdAndUpdate(id, updatedEmployee, { new: true });
+    if (!employee) {
+      return response.status(404).json({ message: 'Employee not found' });
     }
+    response.status(200).json({ message: 'Employee details updated successfully' });
   } catch (error) {
-    console.error('ServerError:', error);
-    return response.status(500).json({ message: 'An error occurred on the server' });
+    console.error(error);
+    response.status(500).json({ message: 'An error occurred on the server' });
   }
 });
 
-// Route for Get All employees from database
-router.get('/', async (request, response) => {
-    try{
-        const employees = await Employee.find({});
-
-        return response.status(200).json({
-           count:  employees.length,
-           data: employees
-        });
-
-    }catch (error) {
-        console.log(error.message); 
-        response.status(500).send({ message: error.message });
-    }
-});
-
-// Route for Get One employee from database by id
-router.get('/:id', async (request, response) => {
-    try{
-        const { id } = request.params;
-
-        const employee = await Employee.findById(id);
-
-        return response.status(200).json(employee);
-
-    }catch (error) {
-        console.log(error.message); 
-        response.status(500).send({ message: error.message });
-    }
-});
-
-// Route for Update a employee details
-router.put('/:id', async (request, response) =>{
-    try {
-        const { id } = request.params;
-
-        // Check if employee exists
-        const employee = await Employee.findById(id);
-
-        if (!employee) {
-            return response.status(404).json({ message: 'Employee not found' });
-        }
-
-        // Update department fields
-        employee.employeeName = request.body.employeeName;
-        employee.employeeEmail = request.body.employeeEmail;
-        employee.employeeMobile = request.body.employeeMobile;
-        employee.employeeAddress = request.body.employeeAddress;
-        employee.employeeRoles = request.body.employeeRoles;
-        employee.createdOn = request.body.createdOn;
-
-        // Save the updated department
-        await employee.save();
-
-        return response.status(200).json({ message: 'Employee details updated successfully' });
-    } catch (error) {
-        console.log(error.message); 
-        response.status(500).send({ message: error.message });
-    }
-});
-
-
-//Route for Delete a Department
+// Route for deleting an employee
 router.delete('/:id', async (request, response) => {
-    try {
-        const { id } = request.params;
-
-        // Find department by ID and delete
-        const result = await Employee.findByIdAndDelete(id);
-
-        if (!result) {
-            return response.status(404).json({ message: 'Employee not found' });
-        }
-
-        return response.status(200).json({ message: 'Employee profile deleted successfully' });
-    } catch (error) {
-        console.log(error.message); 
-        response.status(500).send({ message: error.message });
+  try {
+    const { id } = request.params;
+    const deletedEmployee = await Employee.findByIdAndDelete(id);
+    if (!deletedEmployee) {
+      return response.status(404).json({ message: 'Employee not found' });
     }
+    response.status(200).json({ message: 'Employee profile deleted successfully' });
+  } catch (error) {
+    console.error(error);
+    response.status(500).json({ message: 'An error occurred on the server' });
+  }
 });
-
 
 export default router;

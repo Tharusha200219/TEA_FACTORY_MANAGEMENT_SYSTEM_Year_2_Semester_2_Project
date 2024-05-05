@@ -8,12 +8,13 @@ import Footer from '../components/Footer';
 import NavigationBar from '../components/NavigationBar';
 
 const EditEmployee = () => {
+  const [employee, setEmployee] = useState({});
   const [employeeName, setEmployeeName] = useState('');
   const [employeeEmail, setEmployeeEmail] = useState('');
   const [employeeMobile, setEmployeeMobile] = useState('');
   const [employeeAddress, setEmployeeAddress] = useState('');
   const [employeeRoles, setEmployeeRoles] = useState('');
-  const [createdOn, setCreatedOn] = useState('');
+  const [createdOn, setCreatedOn] = useState(new Date());
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
@@ -25,12 +26,13 @@ const EditEmployee = () => {
     axios.get(`http://localhost:5555/employees/${id}`)
       .then((response) => {
         const data = response.data;
+        setEmployee(data);
         setEmployeeName(data.employeeName);
-        setEmployeeEmail(data.employeeEmail)
+        setEmployeeEmail(data.employeeEmail);
         setEmployeeMobile(data.employeeMobile);
         setEmployeeAddress(data.employeeAddress);
         setEmployeeRoles(data.employeeRoles);
-        setCreatedOn(data.createdOn);
+        setCreatedOn(new Date(data.createdOn)); // Convert Unix timestamp to Date object
         setLoading(false);
       })
       .catch((error) => {
@@ -59,8 +61,6 @@ const EditEmployee = () => {
     }
     if (!createdOn) {
       errors.createdOn = 'Created On is required';
-    } else if (isNaN(createdOn)) {
-      errors.createdOn = 'Created On must be a number';
     }
     return errors;
   };
@@ -78,7 +78,7 @@ const EditEmployee = () => {
       employeeMobile,
       employeeAddress,
       employeeRoles,
-      createdOn,
+      createdOn: createdOn.getTime(), // Convert Date object to Unix timestamp
     };
     setLoading(true);
     axios.put(`http://localhost:5555/employees/${id}`, data)
@@ -95,8 +95,7 @@ const EditEmployee = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen" style={{ backgroundImage: 'url("./public/images/about.png")', backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}>
-
+    <div className="flex flex-col h-screen">
       <NavigationBar />
       <div className='flex-grow'>
         <div className='p-4'>
@@ -104,6 +103,15 @@ const EditEmployee = () => {
           <h1 className='text-3xl my-4 text-center'>Edit Employee Details</h1>
           {loading ? <Spinner /> : ''}
           <div className='flex flex-col border-2 border-sky-400 rounded-xl w-[600px] p-4 mx-auto'>
+
+            <div className='my-4'>
+              
+              {employee && employee.image && (
+                <img src={`http://localhost:5555/${employee.image}`} alt='Employee Image' className='block mx-auto h-20 w-20 rounded-full' />
+              )}
+            </div>
+
+
             <div className='my-4'>
               <label className='text-xl mr-4 text-gray-700'>Employee Name</label>
               <input
@@ -116,7 +124,7 @@ const EditEmployee = () => {
             </div>
 
             <div className='my-4'>
-              <label className='text-xl mr-4 text-gray-700'>Emil Address</label>
+              <label className='text-xl mr-4 text-gray-700'>Email Address</label>
               <input
                 type='text'
                 value={employeeEmail}
@@ -149,22 +157,32 @@ const EditEmployee = () => {
             </div>
 
             <div className='my-4'>
-              <label className='text-xl mr-4 text-gray-700'>Rolle</label>
-              <input
-                type='text'
+              <label className='text-xl mr-4 text-gray-700'>Employee Role</label>
+              <select
                 value={employeeRoles}
                 onChange={(e) => setEmployeeRoles(e.target.value)}
                 className={`border-2 border-gray-500 px-4 py-2 w-full ${errors.employeeRoles ? 'border-red-500' : ''}`}
-              />
+              >
+                <option value="EmployeeMangeAdmin">Employee-Mange Admin</option>
+                <option value="InventryManager">Inventry Manager</option>
+                <option value="VehicleManager">Vehicle Manager</option>
+                <option value="ProductionManager">Production Manager</option>
+                <option value="PaymentManager">Payment Manager</option>
+                <option value="SupplierManager">Supplier Manager</option>
+                <option value="OrderManager">Order Manager</option>
+                <option value="MaintainceManager">Maintaince Manager</option>
+                <option value="Staff">Staff</option>
+                <option value="Other">Other</option>
+              </select>
               {errors.employeeRoles && <span className='text-red-500'>{errors.employeeRoles}</span>}
             </div>
 
             <div className='my-4'>
               <label className='text-xl mr-4 text-gray-700'>Created On</label>
               <input
-                type='text'
-                value={createdOn}
-                onChange={(e) => setCreatedOn(e.target.value)}
+                type='date'
+                value={createdOn.toISOString().split('T')[0]} // Format date as YYYY-MM-DD
+                onChange={(e) => setCreatedOn(new Date(e.target.value))}
                 className={`border-2 border-gray-500 px-4 py-2 w-full ${errors.createdOn ? 'border-red-500' : ''}`}
               />
               {errors.createdOn && <span className='text-red-500'>{errors.createdOn}</span>}
