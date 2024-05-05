@@ -14,7 +14,7 @@ const Createteatypes = () => {
     const [oolong_tea, setoolong_tea] = useState('');
     const [white_tea, setwhite_tea] = useState('');
     const [tea_wastage, setTea_wastage] = useState('');
-    const [status, setStatus] = useState('not send to inventory'); // Added state for status with default value
+    const [status, setStatus] = useState('pending'); // Added state for status with default value
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 

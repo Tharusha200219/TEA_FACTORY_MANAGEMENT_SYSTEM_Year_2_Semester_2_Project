@@ -128,7 +128,7 @@ const Teatypehome = () => {
                                     <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Tea Wastage</th>
                                     <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Status</th>
                                     <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Actions</th>
-                                    <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Update Status</th> {/* New column */}
+                                    
                                 </tr>
                             </thead>
                             <tbody className="bg-white divide-y divide-gray-200">
@@ -154,11 +154,7 @@ const Teatypehome = () => {
                                                 </Link>
                                             </div>
                                         </td>
-                                        <td className='px-6 py-4 whitespace-nowrap'>
-                                            <button onClick={() => updateStatus(teatype._id)} className='px-4 py-2 rounded-full bg-blue-500 hover:bg-blue-600 text-white'>
-                                                Update Status
-                                            </button>
-                                        </td>
+                                        
                                     </tr>
                                 ))}
                             </tbody>
