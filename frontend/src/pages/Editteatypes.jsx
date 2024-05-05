@@ -13,7 +13,8 @@ const Editteatypes = () => {
   const [green_tea, setgreen_tea] = useState('');
   const [oolong_tea, setoolong_tea] = useState('');
   const [white_tea, setwhite_tea] = useState('');
-  const [tea_wastage, setTea_wastage] = useState(''); // Added state for tea_wastage
+  const [tea_wastage, setTea_wastage] = useState('');
+  const [status, setStatus] = useState('not send');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
@@ -27,7 +28,8 @@ const Editteatypes = () => {
         setgreen_tea(response.data.green_tea);
         setoolong_tea(response.data.oolong_tea);
         setwhite_tea(response.data.white_tea);
-        setTea_wastage(response.data.tea_wastage); // Set tea_wastage from the response
+        setTea_wastage(response.data.tea_wastage);
+        setStatus(response.data.status);
         setLoading(false);
       })
       .catch((error) => {
@@ -44,7 +46,8 @@ const Editteatypes = () => {
       green_tea,
       oolong_tea,
       white_tea,
-      tea_wastage, // Include tea_wastage in the data object
+      tea_wastage,
+      status,
     };
     setLoading(true);
     axios.put(`http://localhost:5555/teatypes/${id}`, data)
@@ -101,6 +104,7 @@ const Editteatypes = () => {
                 type='number'
                 value={black_tea}
                 onChange={(e) => setblack_tea(e.target.value)}
+                disabled={status !== 'not send'}
                 className='input-field'
               />
             </div>
@@ -111,6 +115,7 @@ const Editteatypes = () => {
                 type='number'
                 value={green_tea}
                 onChange={(e) => setgreen_tea(e.target.value)}
+                disabled={status !== 'not send'}
                 className='input-field'
               />
             </div>
@@ -121,6 +126,7 @@ const Editteatypes = () => {
                 type='number'
                 value={oolong_tea}
                 onChange={(e) => setoolong_tea(e.target.value)}
+                disabled={status !== 'not send'}
                 className='input-field'
               />
             </div>
@@ -131,6 +137,7 @@ const Editteatypes = () => {
                 type='number'
                 value={white_tea}
                 onChange={(e) => setwhite_tea(e.target.value)}
+                disabled={status !== 'not send'}
                 className='input-field'
               />
             </div>
@@ -141,15 +148,28 @@ const Editteatypes = () => {
                 type='number'
                 value={tea_wastage}
                 onChange={(e) => setTea_wastage(e.target.value)}
+                disabled={status !== 'not send'}
                 className='input-field'
               />
             </div>
-            <button
-              className='bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300 w-full'
-              onClick={handleEditteatypes}
-            >
-              Save
-            </button>
+            <div className='mb-4'>
+              <label htmlFor='status' className='text-lg text-gray-600'>Status</label>
+              <input
+                id='status'
+                type='text'
+                value={status}
+                readOnly
+                className='input-field'
+              />
+            </div>
+            {status === 'not send' && (
+              <button
+                className='bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300 w-full'
+                onClick={handleEditteatypes}
+              >
+                Save
+              </button>
+            )}
           </div>
         </div>
       </div>

@@ -13,7 +13,8 @@ const Createteatypes = () => {
     const [green_tea, setgreen_tea] = useState('');
     const [oolong_tea, setoolong_tea] = useState('');
     const [white_tea, setwhite_tea] = useState('');
-    const [tea_wastage, setTea_wastage] = useState(''); // Added state for tea_wastage
+    const [tea_wastage, setTea_wastage] = useState('');
+    const [status, setStatus] = useState('not send to inventory'); // Added state for status with default value
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -38,7 +39,7 @@ const Createteatypes = () => {
         const greenTeaValue = parseInt(green_tea);
         const oolongTeaValue = parseInt(oolong_tea);
         const whiteTeaValue = parseInt(white_tea);
-        const teaWastageValue = parseInt(tea_wastage); // Parse the tea_wastage value as integer
+        const teaWastageValue = parseInt(tea_wastage);
 
         if (isNaN(blackTeaValue) || isNaN(greenTeaValue) || isNaN(oolongTeaValue) || isNaN(whiteTeaValue) || isNaN(teaWastageValue)) {
             alert('Please enter valid numbers for tea types and wastage');
@@ -57,7 +58,8 @@ const Createteatypes = () => {
             green_tea: greenTeaValue,
             oolong_tea: oolongTeaValue,
             white_tea: whiteTeaValue,
-            tea_wastage: teaWastageValue, // Include tea_wastage in the data object
+            tea_wastage: teaWastageValue,
+            status, // Include status in the data object
         };
         setLoading(true);
         axios.post('http://localhost:5555/teatypes', data)
@@ -162,6 +164,17 @@ const Createteatypes = () => {
                                 type='number'
                                 value={tea_wastage}
                                 onChange={(e) => setTea_wastage(e.target.value)}
+                                className='input-field'
+                            />
+                        </div>
+
+                        <div className='mb-4'>
+                            <label htmlFor='status' className='text-lg text-gray-600'>Status</label>
+                            <input
+                                id='status'
+                                type='text'
+                                value={status}
+                                readOnly
                                 className='input-field'
                             />
                         </div>

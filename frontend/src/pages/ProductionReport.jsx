@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Spinner from '../components/Spinner';
 import { Link } from 'react-router-dom';
-import { PDFDownloadLink, Document, Page, View, Text, StyleSheet } from '@react-pdf/renderer'; // Import PDF related components
+import { PDFDownloadLink, Document, Page, View, Text, StyleSheet, Image } from '@react-pdf/renderer';
 import NavigationBar from '../components/NavigationBar';
 import Footer from '../components/Footer';
 
@@ -11,55 +11,62 @@ const styles = StyleSheet.create({
     page: {
         flexDirection: 'row',
         backgroundColor: '#FFFFFF',
+        padding: 20,
     },
     section: {
-        margin: 10,
-        padding: 10,
-        flexGrow: 1
+        flexGrow: 1,
+        textAlign: 'center',
     },
     header: {
-        backgroundColor: '#F0F0F0',
+        backgroundColor: '#4CAF50',
+        color: 'white',
         padding: 10,
-        fontSize: 12,
-        marginBottom: 10,
-        borderBottom: '1px solid #CCCCCC',
+        fontSize: 24,
+        marginBottom: 20,
     },
     table: {
-        display: 'table',
-        width: 'auto',
-        borderStyle: 'solid',
-        borderWidth: 1,
-        borderRightWidth: 0,
-        borderBottomWidth: 0,
+        width: '100%',
+        border: '1px solid #ddd',
+        borderCollapse: 'collapse',
     },
-    tableRow: { 
+    tableRow: {
         flexDirection: 'row',
+        borderBottom: '1px solid #ddd',
     },
     tableColHeader: {
-        width: '16%',
-        borderStyle: 'solid',
-        borderWidth: 1,
-        borderLeftWidth: 0,
-        borderTopWidth: 0,
-        backgroundColor: '#F0F0F0',
-        padding: 5,
-        wordWrap: 'break-word',
-        flexWrap: 'wrap',
+        width: '20%',
+        padding: '12px',
         textAlign: 'center',
+        borderRight: '1px solid #ddd',
+        backgroundColor: '#4CAF50',
+        color: 'white',
+        fontWeight: 'bold',
+        fontSize: 16,
     },
     tableCol: {
-        width: '16%',
-        borderStyle: 'solid',
-        borderWidth: 1,
-        borderLeftWidth: 0,
-        borderTopWidth: 0,
-        padding: 5,
-        wordWrap: 'break-word',
-        flexWrap: 'wrap',
+        width: '20%',
+        padding: '12px',
         textAlign: 'center',
+        borderRight: '1px solid #ddd',
+        fontSize: 14,
     },
-    text: {
-        fontSize: 10,
+    logo: {
+        marginBottom: 20,
+        alignItems: 'center',
+    },
+    signature: {
+        width: '100%',
+        marginTop: 50,
+    },
+    reportText: {
+        fontSize: 14,
+        marginBottom: 20,
+    },
+    companyName: {
+        marginTop: 10,
+        fontSize: 18,
+        fontWeight: 'bold',
+        textAlign: 'center',
     },
 });
 
@@ -91,7 +98,16 @@ const ProductionReport = () => {
         <Document>
             <Page size="A1" style={styles.page}>
                 <View style={styles.section}>
+                    {/* Company Logo and Name */}
+                    <View style={styles.logo}>
+                        <Image src="/images/logo.png" style={{ width: 150 }} />
+                        <Text style={styles.companyName}>EVER GREEN TEA</Text>
+                    </View>
+                    
+                    {/* Production Report Header */}
                     <Text style={styles.header}>Production Report</Text>
+                    
+                    {/* Production Report Table */}
                     <View style={styles.table}>
                         <View style={styles.tableRow}>
                             <Text style={styles.tableColHeader}>Schedule No</Text>
@@ -99,7 +115,7 @@ const ProductionReport = () => {
                             <Text style={styles.tableColHeader}>Quantity</Text>
                             <Text style={styles.tableColHeader}>Machine Assignment</Text>
                             <Text style={styles.tableColHeader}>Shift Information</Text>
-                            <Text style={styles.tableColHeader}>Status</Text>
+                            
                         </View>
                         {productions.map((production, index) => (
                             <View key={index} style={styles.tableRow}>
@@ -108,9 +124,19 @@ const ProductionReport = () => {
                                 <Text style={styles.tableCol}>{production.Quantity}</Text>
                                 <Text style={styles.tableCol}>{production.Machine_assignment}</Text>
                                 <Text style={styles.tableCol}>{production.shift_information}</Text>
-                                <Text style={styles.tableCol}>{production.Status}</Text>
+                                
                             </View>
                         ))}
+                    </View>
+                    
+                    {/* Signature and Date */}
+                    <View style={styles.signature}>
+                        <Text>..........................................</Text>
+                        <Text>Authorized Signature</Text>
+                    </View>
+                    <View style={styles.signature}>
+                        <Text>..........................................</Text>
+                        <Text>DATE</Text>
                     </View>
                 </View>
             </Page>
@@ -130,9 +156,8 @@ const ProductionReport = () => {
                         <Link to="/ProductionReport" className="text-gray-300 bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Production Report Generate</Link>
                         <Link to="/Productionstatus" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Production Status</Link>
                         <Link to="/user-profile-page" className="absolute right-10 flex  space-x-2">
-                    <img src="/images/user.png" alt="User Profile" className="w-8 h-8 rounded-full" />
-                    
-                </Link>
+                            <img src="/images/user.png" alt="User Profile" className="w-8 h-8 rounded-full" />
+                        </Link>
                     </div>
                 </div>
             </nav>
@@ -165,7 +190,7 @@ const ProductionReport = () => {
                                     <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Quantity</th>
                                     <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Machine Assignment</th>
                                     <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Shift Information</th>
-                                    <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Status</th>
+
                                 </tr>
                             </thead>
                             {/* Table body */}
@@ -177,7 +202,7 @@ const ProductionReport = () => {
                                         <td className="px-6 py-4 whitespace-nowrap">{production.Quantity}</td>
                                         <td className="px-6 py-4 whitespace-nowrap">{production.Machine_assignment}</td>
                                         <td className="px-6 py-4 whitespace-nowrap">{production.shift_information}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap">{production.Status}</td>
+                                        
                                     </tr>
                                 ))}
                             </tbody>
