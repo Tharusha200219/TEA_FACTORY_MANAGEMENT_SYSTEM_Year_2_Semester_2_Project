@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-
+import { SnackbarProvider } from 'notistack';
 import ContactUs from "./pages/ContactUs.jsx";
 import Aboutus from "./pages/Aboutus.jsx"
 import HomePage from "./pages/HomePage.jsx";
@@ -29,11 +29,19 @@ import Irawleaves from "./pages/Irawleaves"
 
 
 import Vehiclehome from './pages/Vehiclehome'; 
-import CreateBook from './pages/CreateBooks';
-import ShowBook from './pages/ShowBook';
-import EditBook from './pages/EditBook';
-import DeleteBook from './pages/DeleteBook';
-import AvailableVehicles from './pages/AvailableVehicles';
+import CreateVehicles from './pages/CreateVehicles';
+import ShowVehicle from './pages/ShowVehicle';
+import EditVehicle from './pages/EditVehicle';
+import DeleteVehicle from './pages/DeleteVehicle';
+import AvailableOrders from './pages/AvailableOrders.jsx';
+import TrackVehicle from './pages/TrackVehicle';
+import DeliveryOrder from './pages/DeliveryOrder';
+import AvailableVehicles from './pages/AvailableVehicles.jsx';
+
+
+
+
+
 
 //*******production_and_tea_type*******/
 import Createproductions from './pages/Createproductions';
@@ -100,7 +108,9 @@ import O_home from "./pages/O_home.jsx";
 import PaymentsHome from "./pages/PaymentsHome.jsx";
 import PaymentsEmployee from "./pages/PaymentsEmployee.jsx";
 import PaymentSupplierCreate from "./pages/PaymentSupplierCreate.jsx";
+import PaymentsEmployeeCreate from "./pages/PaymentsEmployeeCreate.jsx";
 import PaymentSupplierEdit from "./pages/PaymentsSupplierEdit.jsx";
+import PaymentsEmployeeEdit from "./pages/PaymentsEmployeeEdit.jsx";
 import Py_home from "./pages/Py_home.jsx";
 
 import V_home from "./pages/V_home.jsx";
@@ -123,6 +133,7 @@ import EditEmployee from './pages/EditEmployee';
 import DeleteEmployee from './pages/DeleteEmployee';
 
 import EmailForm from "./pages/EmailForm.jsx";
+
 
 
 
@@ -158,12 +169,25 @@ const App = () => {
       
 
       <Route path='/Vehiclehome' element={<Vehiclehome />} />
-      <Route path='/books/create' element={<CreateBook />} />
-      <Route path='/books/details/:id' element={<ShowBook />} />
-      <Route path='/books/edit/:id' element={<EditBook />} />
-      <Route path='/books/delete/:id' element={<DeleteBook />} />
+      <Route path='/vehicles/create' element={<CreateVehicles />} />
+      <Route path='/vehicles/details/:id' element={<ShowVehicle />} />
+      <Route path='/vehicles/edit/:id' element={<EditVehicle />} />
+      <Route path='/vehicles/delete/:id' element={<DeleteVehicle />} />
       <Route path = '/ReportVehicle' element={<ReportVehicle/>}  />
-      <Route path ="/AvailableVehicles" element={<AvailableVehicles/>}/>
+      <Route path ="/AvailableOrders" element={<AvailableOrders/>}/>
+      <Route path="/TrackVehicle" element={<TrackVehicle/>} />
+      <Route path="/deliveryorder" element ={<DeliveryOrder />}/>
+
+      <Route path="/AvailableVehicles" element ={<AvailableVehicles />}/>
+
+         
+
+
+      
+
+      
+    
+
         
       
 
@@ -249,8 +273,10 @@ const App = () => {
 
       <Route path = '/PaymentsHome' element={<PaymentsHome/>} />
       <Route path = '/PaymentsEmployee' element={<PaymentsEmployee/>} />
+      <Route path = '/paymentsEmployee/create' element={<PaymentsEmployeeCreate/>} />
       <Route path = '/payments/supplier/create' element={<PaymentSupplierCreate/>} />
       <Route path = '/payments/supplier/edit/:id' element={<PaymentSupplierEdit/>} />
+      <Route path = '/payments/employee/edit/:id' element={<PaymentsEmployeeEdit/>} />
       <Route path = '/Py_home' element={<Py_home/>} />
 
       <Route path = '/E_home' element={<E_home/>} />

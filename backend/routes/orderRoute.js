@@ -10,7 +10,8 @@ router.post('/', async (request, response) => {
             !request.body.orderno ||
             !request.body.duedate ||
             !request.body.quantity ||
-            !request.body.category
+            !request.body.category ||
+            !request.body.Shipment
         ) {
             return response.status(400).send({
                 message: 'Send all required fields:duedate,quantity,category',
@@ -21,6 +22,7 @@ router.post('/', async (request, response) => {
             duedate: request.body.duedate,
             quantity: request.body.quantity,
             category: request.body.category,
+            Shipment: request.body.Shipment,
         };
         const Order = await orders.create(newOrder);
         return response.status(201).send(Order);
@@ -111,7 +113,8 @@ router.put('/:id', async (request, response) => {
             !request.body.orderno ||
             !request.body.duedate ||
             !request.body.quantity ||
-            !request.body.category
+            !request.body.category ||
+            !request.body.Shipment
         ) {
             return response.status(400).send({
                 message: 'Send all required fields:duedate,quantity,category',

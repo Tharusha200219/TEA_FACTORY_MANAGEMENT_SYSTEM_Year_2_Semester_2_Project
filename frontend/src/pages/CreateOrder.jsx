@@ -16,12 +16,14 @@ const CreateOrder = () => {
       duedate: '',
       quantity: '',
       category: '',
+      Shipment: '', // Changed from 'Shipment' to 'shipment'
     },
     validationSchema: Yup.object().shape({
       orderno: Yup.number().required('Order No is required').min(0, 'Order No must be positive'),
       duedate: Yup.date().required('Due Date is required'),
       quantity: Yup.number().required('Quantity is required').min(0, 'Quantity must be positive'),
-      category: Yup.string().required('Category is required')
+      category: Yup.string().required('Category is required'),
+      Shipment: Yup.string().required('Shipment is required') // Changed from 'Shipment' to 'shipment'
     }),
     onSubmit: (values) => {
       handleSaveOrder(values);
@@ -31,8 +33,8 @@ const CreateOrder = () => {
   const handleSaveOrder = (values) => {
     setLoading(true);
     
-    const { orderno, duedate, quantity, category } = values;
-    const requestData = { orderno, duedate, quantity, category };
+    const { orderno, duedate, quantity, category, Shipment } = values; // Changed from 'Shipment' to 'shipment'
+    const requestData = { orderno, duedate, quantity, category, Shipment }; // Changed from 'Shipment' to 'shipment'
 
     axios.post(`http://localhost:5555/orders`, requestData)
       .then(() => {
@@ -115,6 +117,24 @@ const CreateOrder = () => {
             </select>
             {formik.touched.category && formik.errors.category ? (
               <div className="text-red-500">{formik.errors.category}</div>
+            ) : null}
+          </div>
+
+          <div className='p-4'>
+            <label className='text-xl mr-4 text-gray-500'>Shipment</label>
+            <select // Changed from input to select
+              name="Shipment"
+              value={formik.values.Shipment}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              className='border-2 border-gray-500 px-4 py-2 w-full'
+            >
+              <option value=""></option>
+              <option value="Delivered">Delivered</option> {/* Added option for "Delivered" */}
+              <option value="Not Delivered">Not Delivered</option> {/* Added option for "Not Delivered" */}
+            </select>
+            {formik.touched.Shipment && formik.errors.Shipment ? ( // Changed from 'Shipment' to 'shipment'
+              <div className="text-red-500">{formik.errors.Shipment}</div> // Changed from 'Shipment' to 'shipment'
             ) : null}
           </div>
 

@@ -27,7 +27,7 @@ router.post('/', async (request, response) => {
     }
 });
 
-// get all records from database
+// get all records 
 router.get('/', async (request, response) => {
     try {
         const allSupplyRecords = await SupplyRecord.find({});
