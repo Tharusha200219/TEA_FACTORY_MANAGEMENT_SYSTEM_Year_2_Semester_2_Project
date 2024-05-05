@@ -4,9 +4,7 @@ import { PDFDownloadLink, Document, Page, View, Text, StyleSheet, Image } from '
 import NavigationBar from '../components/NavigationBar';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
-
-// Import your company logo
-import companyLogo from '/images/logo.png';
+import companyLogo from '/images/logo.png'; // Make sure to replace this with the correct path to your logo image
 
 const styles = StyleSheet.create({
     page: {
@@ -15,21 +13,20 @@ const styles = StyleSheet.create({
         padding: 20,
     },
     section: {
-        flexGrow: 1
+        flexGrow: 1,
+        textAlign: 'center',
     },
     header: {
         backgroundColor: '#4CAF50',
         color: 'white',
         padding: 10,
-        fontSize: 18,
-        marginBottom: 10,
-        textAlign: 'center',
+        fontSize: 24,
+        marginBottom: 20,
     },
     table: {
         width: '100%',
         border: '1px solid #ddd',
         borderCollapse: 'collapse',
-        marginTop: 20,
     },
     tableRow: {
         flexDirection: 'row',
@@ -53,15 +50,24 @@ const styles = StyleSheet.create({
         fontSize: 14,
     },
     logo: {
-        marginBottom: 10,
-        textAlign: 'center',
+        marginBottom: 20,
+        alignItems: 'center',
     },
     signature: {
         width: '100%',
         marginTop: 50,
-        
-
     },
+    reportText: {
+        fontSize: 14,
+        marginBottom: 20,
+    },
+    companyName: {
+        marginTop: 10,
+        fontSize: 18,
+        fontWeight: 'bold',
+        textAlign: 'center',
+    },
+    
 });
 
 const TeaTypeReport = () => {
@@ -89,9 +95,15 @@ const TeaTypeReport = () => {
                 <View style={styles.section}>
                     {/* Company Logo */}
                     <View style={styles.logo}>
-                        <Image src={companyLogo} style={{ width: 100 }} />
+                        <Image src={companyLogo} style={{ width: 190 }} />
+                        <Text style={styles.header}>EVER GREEN TEA</Text>
                     </View>
+                    
                     <Text style={styles.header}>Tea Type Report</Text>
+                    
+                    <Text style={styles.reportText}>
+                        This report provides an overview of tea types including Schedule No, Black Tea, Green Tea, Oolong Tea, White Tea, and Tea Wastage.
+                    </Text>
                     <View style={styles.table}>
                         <View style={styles.tableRow}>
                             <Text style={styles.tableColHeader}>Schedule No</Text>
@@ -111,19 +123,20 @@ const TeaTypeReport = () => {
                                 <Text style={styles.tableCol}>{teatype.tea_wastage}</Text>
                             </View>
                         ))}
-                        
-                    </View><br></br><br></br><br></br>
+                    </View>
                     <View style={styles.signature}>
-                        
-                        <Text>.....................</Text>
+                        <Text>..........................................</Text>
                         <Text>Authorized Signature</Text>
                     </View>
+                    <View style={styles.signature}>
+                        <Text>..........................................</Text>
+                        <Text>DATE</Text>
+                    </View>
                 </View>
-                
             </Page>
         </Document>
     );
-
+    
     return (
         <div>
             <NavigationBar />
@@ -145,7 +158,7 @@ const TeaTypeReport = () => {
                 </div>
             </nav>
 
-            <div>
+            <div style={{ maxWidth: '80%', margin: 'auto', textAlign: 'center' }}>
                 <h1 style={{ textAlign: 'center', color: '#000000', fontSize: 24, marginTop: 20 }}>Tea Type Report</h1>
                 {loading ? (
                     <p>Loading...</p>
@@ -164,7 +177,6 @@ const TeaTypeReport = () => {
                                 display: 'inline-block',
                                 marginBottom: '20px',
                                 marginTop: '20px',
-                                marginLeft: '10px',
                             }}
                         >
                             {({ loading }) =>
@@ -173,8 +185,8 @@ const TeaTypeReport = () => {
                         </PDFDownloadLink>
 
                         {/* Display report data */}
-                        <div style={{ maxWidth: '99%', margin: 'auto', overflowX: 'auto' }}>
-                            <table style={{ width: '99%', borderCollapse: 'collapse', marginBottom: '20px' }}>
+                        <div style={{ maxWidth: '100%', margin: 'auto', overflowX: 'auto' }}>
+                            <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '20px' }}>
                                 <thead>
                                     <tr style={{ backgroundColor: '#000000', color: 'white' }}>
                                         <th style={{ padding: '10px', textAlign: 'center', borderBottom: '1px solid #ddd', width: '20%' }}>Schedule No</th>
