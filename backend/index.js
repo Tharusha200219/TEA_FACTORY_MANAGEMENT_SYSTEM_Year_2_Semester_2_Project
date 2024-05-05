@@ -36,11 +36,6 @@ import supplierRoute from "./routes/supplierRoute.js";
 import { SupplyRecord } from "./models/supplyrecordModel.js";
 import supplyrecordRoute from "./routes/supplyrecordRoute.js";
 
-import { Department } from "./models/departmentModel.js";
-import { Employee }  from "./models/employeeModel.js";
-import departmentRoute from "./routes/departmentRoute.js";
-import employeeRoute from "./routes/employeeRoute.js";
-import emailRoutes from './routes/emailRoutes.js'; // Import emailRoutes using ES6 syntax
 
 
 
@@ -87,12 +82,6 @@ app.use('/vehicles', vehicleRoute);
 app.use('/suppliers', supplierRoute);
 app.use('/supplyrecords', supplyrecordRoute);
 
-
-app.use('/departments', departmentRoute);
-app.use('/employees', employeeRoute);
-
-// Use the imported emailRoutes
-app.use('/send-email', emailRoutes);
 
 
 
