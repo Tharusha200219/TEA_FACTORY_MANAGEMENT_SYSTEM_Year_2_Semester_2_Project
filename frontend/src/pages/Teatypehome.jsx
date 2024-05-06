@@ -7,6 +7,7 @@ import { BsInfoCircle } from 'react-icons/bs';
 import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
 import NavigationBar from '../components/NavigationBar';
 import Footer from '../components/Footer';
+
 const Teatypehome = () => {
     const [teatypes, setTeatypes] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -35,6 +36,24 @@ const Teatypehome = () => {
         setSearchColumn(event.target.value);
     };
 
+    const updateStatus = (id) => {
+        axios.put(`http://localhost:5555/teatypes/${id}`, { status: 'sent to the inventory' })
+            .then((response) => {
+                // Update the status in the state
+                setTeatypes(prevState => {
+                    return prevState.map(teatype => {
+                        if (teatype._id === id) {
+                            return { ...teatype, status: 'sent to the inventory' };
+                        }
+                        return teatype;
+                    });
+                });
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
     const filteredTeatypes = teatypes.filter(teatype => {
         return (
             (teatype[searchColumn] && teatype[searchColumn].toString().includes(searchTerm)) ||
@@ -49,14 +68,14 @@ const Teatypehome = () => {
             <nav style={{ backgroundColor: '#3FC060' }} className="p-4">
                 <div className="container mx-auto flex justify-center items-center">
                     <div className="flex space-x-4">
-                        <Link to="/" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
+                        <Link to="/P_home" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
                         <Link to="/Teatypehome" className="text-gray-300 bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Tea Type</Link>
                         <Link to="/teatypes/creates" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Create Table</Link>
                         <Link to="/pending-shipments" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Production Machine Availability</Link>
                         <Link to="/TeaTypeReport" className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Tea Type Report Generate</Link>
                         <Link to="/user-profile-page" className="absolute right-10 flex  space-x-2">
                             <img src="/images/user.png" alt="User Profile" className="w-8 h-8 rounded-full" />
-                            {/* You can replace "example-profile-image.jpg" with the actual path to your user profile image */}
+                        
                         </Link>
                     </div>
                 </div>
@@ -86,10 +105,12 @@ const Teatypehome = () => {
                             <option value="green_tea">Green Tea</option>
                             <option value="oolong_tea">Oolong Tea</option>
                             <option value="white_tea">White Tea</option>
+                            <option value="tea_wastage">Tea Wastage</option>
+                            <option value="status">Status</option>
                         </select>
                         <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                        <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" fillRule="evenodd"></path></svg>
-                    </div>
+                            <svg className="w-4 h-4 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" fillRule="evenodd"></path></svg>
+                        </div>
                     </div>
                 </div>
                 {loading ? (
@@ -100,12 +121,14 @@ const Teatypehome = () => {
                             <thead className="bg-gray-50">
                                 <tr>
                                     <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Schedule No</th>
-                                    <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Black Tea</th>
-                                    <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Green Tea</th>
-                                    <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Oolong Tea</th>
-                                    <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>White Tea</th>
+                                    <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Black Tea (kg)</th>
+                                    <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Green Tea (kg)</th>
+                                    <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Oolong Tea (kg)</th>
+                                    <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>White Tea (kg)</th>
+                                    <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Tea Wastage</th>
+                                    <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Status</th>
                                     <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Actions</th>
-
+                                    
                                 </tr>
                             </thead>
                             <tbody className="bg-white divide-y divide-gray-200">
@@ -116,6 +139,8 @@ const Teatypehome = () => {
                                         <td className='px-6 py-4 whitespace-nowrap'>{teatype.green_tea}</td>
                                         <td className='px-6 py-4 whitespace-nowrap'>{teatype.oolong_tea}</td>
                                         <td className='px-6 py-4 whitespace-nowrap'>{teatype.white_tea}</td>
+                                        <td className='px-6 py-4 whitespace-nowrap'>{teatype.tea_wastage}</td>
+                                        <td className='px-6 py-4 whitespace-nowrap'>{teatype.status}</td>
                                         <td className='px-6 py-4 whitespace-nowrap'>
                                             <div className='flex justify-center gap-x-4'>
                                                 <Link to={`/teatypes/details/${teatype._id}`}>
@@ -129,6 +154,7 @@ const Teatypehome = () => {
                                                 </Link>
                                             </div>
                                         </td>
+                                        
                                     </tr>
                                 ))}
                             </tbody>

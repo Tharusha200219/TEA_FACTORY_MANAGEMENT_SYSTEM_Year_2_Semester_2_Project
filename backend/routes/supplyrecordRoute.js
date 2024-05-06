@@ -27,7 +27,7 @@ router.post('/', async (request, response) => {
     }
 });
 
-// get all records from database
+// get all records 
 router.get('/', async (request, response) => {
     try {
         const allSupplyRecords = await SupplyRecord.find({});
@@ -45,9 +45,9 @@ router.get('/:id', async (request, response) => {
         const { id } = request.params;
         const supplyRecord = await SupplyRecord.findById(id);
        
-        // if (!supplyRecord) {
-        //     return response.status(404).send({ message: 'Supply record not found' });
-        // }
+        if (!supplyRecord) {
+            return response.status(404).send({ message: 'Supply record not found' });
+        }
         return response.status(200).json(supplyRecord);
     } 
     catch (error) {

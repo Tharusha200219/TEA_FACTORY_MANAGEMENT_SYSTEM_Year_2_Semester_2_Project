@@ -1,0 +1,102 @@
+/* Add these styles to your existing CSS file */
+
+.container {
+    max-width: 800px; /* Limiting the width for better readability */
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f4f4f4; /* Light gray background */
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Soft shadow effect */
+  }
+  
+  .flex {
+    display: flex;
+    align-items: center;
+  }
+  
+  .gap-x-4 {
+    gap: 1rem; /* Horizontal gap between elements */
+  }
+  
+  .button {
+    background-color: #4a5568; /* Dark grayish blue */
+    color: #fff; /* White text */
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .button:hover {
+    background-color: #2d3748; /* Darken the background on hover */
+  }
+  
+  .text-3xl {
+    font-size: 1.875rem; /* 30px */
+    line-height: 1.2;
+  }
+  
+  .font-semibold {
+    font-weight: 600;
+  }
+  
+  .text-gray-800 {
+    color: #2d3748; /* Dark gray for better readability */
+  }
+  
+  .mt-8 {
+    margin-top: 2rem; /* Spacing above the heading */
+  }
+  
+  .text-sky-800 {
+    color: #4299e1; /* Sky blue */
+  }
+  
+  .text-sky-300 {
+    color: #ebf8ff; /* Light blue */
+  }
+  
+  .text-sky-600 {
+    color: #63b3ed; /* Medium blue */
+  }
+  
+  .text-white {
+    color: #fff; /* White color */
+  }
+  
+  .bg-sky-300 {
+    background-color: #ebf8ff; /* Light blue */
+  }
+  
+  .bg-sky-600 {
+    background-color: #4299e1; /* Sky blue */
+  }
+  
+  .rounded-lg {
+    border-radius: 0.5rem; /* Rounded corners */
+  }
+  
+  .shadow-lg {
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Larger shadow for depth */
+  }
+  
+  /* Styles for the spinner */
+  .spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #4299e1; /* Sky blue */
+    animation: spin 1s linear infinite;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  

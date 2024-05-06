@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import NavigationBar from '../components/NavigationBar';
+import Footer from '../components/Footer';
 
 const E_home = () => {
     return (
@@ -22,16 +23,20 @@ const E_home = () => {
                             <h2 style={styles.sectionTitle}>Key Features</h2>
                             <div style={styles.featureList}>
                                 <div style={styles.feature}>
-                                    <img src="./public/images/employee.jpg" alt="Feature 1" style={styles.featureImage} />
+                                    <div style={styles.imageContainer}>
+                                        <img src="./public/images/teaEmp.jpg" alt="Feature 1" style={styles.featureImage} />
+                                    </div>
                                     <h3 style={styles.featureTitle}>Employee Information</h3>
-                                    <p style={styles.featureDescription}>Efficiently manage employee profiles, track attendance, and handle HR documents.</p>
+                                    <p style={styles.featureDescription}>Efficiently manage employee profiles, handle HR documents and generate employee details reports.</p>
                                     <Link to="/EmployeeHome" style={styles.btn}>Manage Employees</Link>
                                 </div>
                                 <div style={styles.feature}>
-                                    <img src="./public/images/attendance.jpg" alt="Feature 2" style={styles.featureImage} />
-                                    <h3 style={styles.featureTitle}>Attendance Tracking</h3>
-                                    <p style={styles.featureDescription}>Track employee attendance, manage leave requests, and generate attendance reports.</p>
-                                    <Link to="/DepartmentHome" style={styles.btn}>Track Attendance</Link>
+                                    <div style={styles.imageContainer}>
+                                        <img src="./public/images/Department.jpg" alt="Feature 2" style={styles.featureImage} />
+                                    </div>
+                                    <h3 style={styles.featureTitle}>Department Information</h3>
+                                    <p style={styles.featureDescription}>Efficiently manage Department Details, and generate department details reports.</p>
+                                    <Link to="/DepartmentHome" style={styles.btn}>Manage Department</Link>
                                 </div>
                                 {/* Add more features as needed */}
                             </div>
@@ -42,6 +47,7 @@ const E_home = () => {
                     </footer>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 };
@@ -99,9 +105,16 @@ const styles = {
         marginRight: '20px',
         marginBottom: '20px',
     },
+    imageContainer: {
+        width: '100%',
+        height: '200px', // Set the desired height for the image container
+        overflow: 'hidden', // Ensure that images don't overflow the container
+        borderRadius: '5px',
+    },
     featureImage: {
         width: '100%',
-        borderRadius: '5px',
+        height: '100%', // Ensure the image fills the container
+        objectFit: 'cover', // Maintain aspect ratio and fill the container
     },
     featureTitle: {
         fontSize: '1.2rem',

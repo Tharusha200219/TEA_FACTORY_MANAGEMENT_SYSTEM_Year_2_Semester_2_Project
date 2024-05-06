@@ -20,6 +20,10 @@ const SupplyRecordTable = () => {
     const tableRef = useRef();
  
     useEffect(() => {
+        getSupplyRecords();
+    }, []);
+
+    const getSupplyRecords = async () => {
         setLoading(true);
         axios.get('http://localhost:5555/supplyrecords')
             .then((response) => {
@@ -34,7 +38,8 @@ const SupplyRecordTable = () => {
                 console.error(error);
                 setLoading(false);
             });
-    }, []);
+
+    };
 
     //search function
     useEffect(() => {
@@ -78,7 +83,7 @@ const SupplyRecordTable = () => {
         } catch (error) {
             console.error('Error generating PDF:', error);
         }
-    }; 
+    };
     
     return (
         <div style={{ minHeight: '100vh', position: 'relative' }}>
@@ -134,6 +139,7 @@ const SupplyRecordTable = () => {
                                     <th className='pl-6 py-3 pr-3 text-sm font-medium border border-gray-300 text-left text-white  bg-black'>RAW QUANTITY (KG)</th>
                                     <th className='px-6 py-3 text-sm font-medium border border-gray-300 text-left text-white  bg-black'>UNIT PRICE</th>
                                     <th className='px-6 py-3 text-sm font-medium border border-gray-300 text-left text-white  bg-black'>COST</th>
+                                    <th className='px-6 py-3 text-sm font-medium border border-gray-300 text-left text-white  bg-black'>STATUS</th>
                                     <th className='pl-9 py-3 text-sm font-medium border border-gray-300 text-left text-white  bg-black'>ACTIONS</th>
                                     
                                 </tr>
@@ -147,15 +153,23 @@ const SupplyRecordTable = () => {
                                         <td className='px-6 py-4 border border-gray-300'>{item.unitPrice}</td>
                                         <td className='px-6 py-4 border border-gray-300'>{item.quantity * item.unitPrice}</td>
                                         <td className='px-6 py-4 border border-gray-300'>
+                                        {item.status === 'Pending' ? 
+                                        <span class="bg-blue-100 text-blue-800 text-sm font-medium me-2 px-2.5 py-1.5 rounded dark:text-blue-400 border border-blue-400">{item.status}</span>
+                                         :
+                                         <span class="bg-green-100 text-green-800 text-sm font-medium me-2 px-2.5 py-1.5 rounded dark:bg-green-900 dark:text-green-300">{item.status}</span>
+                                         }
+                                         </td>
+                                        <td className='px-6 py-4 border border-gray-300'>
                                             <div className='flex justify-center gap-x-4'>
                                                 <Link to={`/supplyrecords/details/${item._id}`} >
                                                     <BsInfoCircle className='text-2xl text-green-800'/>
                                                 </Link>
+                                                
                                                 <Link to={`/supplyrecords/edit/${item._id}`} >
                                                     <AiOutlineEdit className='text-2xl text-yellow-600'/>
                                                 </Link>
                                                 <Link to={`/supplyrecords/delete/${item._id}`} >
-                                                    <MdOutlineDelete className='text-2xl text-red-600'/>
+                                                    <MdOutlineDelete className='text-2xl text-red-600' />
                                                 </Link>
                                             </div>
                                         </td>

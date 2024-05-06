@@ -1,9 +1,15 @@
 import { Routes, Route } from "react-router-dom";
-
+import { SnackbarProvider } from 'notistack';
 import ContactUs from "./pages/ContactUs.jsx";
 import Aboutus from "./pages/Aboutus.jsx"
 import HomePage from "./pages/HomePage.jsx";
 import Service from "./pages/Service.jsx";
+import GenerateRepoEmployee from "./pages/GenerateRepoEmployee.jsx"; 
+
+import ReportVehicle from "./pages/ReportVehicle.jsx";
+
+
+
 
 
 import Inventoryhome from "./pages/Inventoryhome";
@@ -23,12 +29,21 @@ import Irawleaves from "./pages/Irawleaves"
 
 
 import Vehiclehome from './pages/Vehiclehome'; 
-import CreateBook from './pages/CreateBooks';
-import ShowBook from './pages/ShowBook';
-import EditBook from './pages/EditBook';
-import DeleteBook from './pages/DeleteBook';
+import CreateVehicles from './pages/CreateVehicles';
+import ShowVehicle from './pages/ShowVehicle';
+import EditVehicle from './pages/EditVehicle';
+import DeleteVehicle from './pages/DeleteVehicle';
+import AvailableOrders from './pages/AvailableOrders.jsx';
+import TrackVehicle from './pages/TrackVehicle';
+import DeliveryOrder from './pages/DeliveryOrder';
+import AvailableVehicles from './pages/AvailableVehicles.jsx';
 
 
+
+
+
+
+//*******production_and_tea_type*******/
 import Createproductions from './pages/Createproductions';
 import Createteatypes from './pages/Createteatypes';
 import Deleteproductions from './pages/Deleteproductions';
@@ -39,7 +54,6 @@ import Showproductions from './pages/Showproductions';
 import ProductionReport from "./pages/ProductionReport.jsx";
 import Productionstatus from "./pages/Productionstatus.jsx";
 import Productionmachineavailability from "./pages/Productionmachineavailability.jsx";
-
 import Showteatypes from './pages/Showteatypes';
 import Teatypehome from "./pages/Teatypehome";
 import Productionhome from "./pages/Productionhome";
@@ -94,7 +108,9 @@ import O_home from "./pages/O_home.jsx";
 import PaymentsHome from "./pages/PaymentsHome.jsx";
 import PaymentsEmployee from "./pages/PaymentsEmployee.jsx";
 import PaymentSupplierCreate from "./pages/PaymentSupplierCreate.jsx";
+import PaymentsEmployeeCreate from "./pages/PaymentsEmployeeCreate.jsx";
 import PaymentSupplierEdit from "./pages/PaymentsSupplierEdit.jsx";
+import PaymentsEmployeeEdit from "./pages/PaymentsEmployeeEdit.jsx";
 import Py_home from "./pages/Py_home.jsx";
 
 import V_home from "./pages/V_home.jsx";
@@ -111,10 +127,16 @@ import EditDepartment from './pages/EditDepartment';
 import DeleteDepartment from './pages/DeleteDepartment';
 
 import EmployeeHome from './pages/EmployeeHome';
-import CreateEmployee from './pages/CreateEmployee'; // Make sure to import CreateEmployee
+import CreateEmployee from './pages/CreateEmployee'; 
 import ShowEmployee from './pages/ShowEmployee';
 import EditEmployee from './pages/EditEmployee';
 import DeleteEmployee from './pages/DeleteEmployee';
+
+import EmailForm from "./pages/EmailForm.jsx";
+
+
+
+
 
 
 const App = () => {
@@ -146,6 +168,29 @@ const App = () => {
       
       
 
+      <Route path='/Vehiclehome' element={<Vehiclehome />} />
+      <Route path='/vehicles/create' element={<CreateVehicles />} />
+      <Route path='/vehicles/details/:id' element={<ShowVehicle />} />
+      <Route path='/vehicles/edit/:id' element={<EditVehicle />} />
+      <Route path='/vehicles/delete/:id' element={<DeleteVehicle />} />
+      <Route path = '/ReportVehicle' element={<ReportVehicle/>}  />
+      <Route path ="/AvailableOrders" element={<AvailableOrders/>}/>
+      <Route path="/TrackVehicle" element={<TrackVehicle/>} />
+      <Route path="/deliveryorder" element ={<DeliveryOrder />}/>
+
+      <Route path="/AvailableVehicles" element ={<AvailableVehicles />}/>
+
+         
+
+
+      
+
+      
+    
+
+        
+      
+
       <Route path = '/productions/creates' element={<Createproductions/>} />
       <Route path = '/productions/details/:id' element={<Showproductions/>}  />
       <Route path = '/productions/edit/:id' element={<Editproductions/>}  />
@@ -161,6 +206,8 @@ const App = () => {
       <Route path = '/teatypes/delete/:id' element={<Deleteteatypes/>}  />
       <Route path = '/Teatypehome' element={<Teatypehome/>}  />
       <Route path = '/TeaTypeReport' element={<TeaTypeReport/>}  />
+
+
 
       <Route path = '/MachineHome' element={<MachineHome/>}  />
       <Route path = '/machines/creates' element={<CreateMachine/>} />
@@ -205,10 +252,16 @@ const App = () => {
       <Route path='/departments/delete/:id' element={<DeleteDepartment />} />
       
       <Route path='/EmployeeHome' element={<EmployeeHome />} />
-      <Route path='/employees/create' element={<CreateEmployee />} /> {/* Ensure the route for CreateEmployee is defined */}
+      <Route path='/employees/create' element={<CreateEmployee />} /> 
+      <Route path='/GenerateRepoEmployee' element={<GenerateRepoEmployee />} />
+
       <Route path='/employees/details/:id' element={<ShowEmployee />} />
       <Route path='/employees/edit/:id' element={<EditEmployee />} />
       <Route path='/employees/delete/:id' element={<DeleteEmployee />} />
+
+      <Route path='/EmailForm' element={<EmailForm/>}/>
+
+    
     
       
       <Route path="/OrderHome" element={<OrderHome/>}/>
@@ -220,8 +273,10 @@ const App = () => {
 
       <Route path = '/PaymentsHome' element={<PaymentsHome/>} />
       <Route path = '/PaymentsEmployee' element={<PaymentsEmployee/>} />
+      <Route path = '/paymentsEmployee/create' element={<PaymentsEmployeeCreate/>} />
       <Route path = '/payments/supplier/create' element={<PaymentSupplierCreate/>} />
       <Route path = '/payments/supplier/edit/:id' element={<PaymentSupplierEdit/>} />
+      <Route path = '/payments/employee/edit/:id' element={<PaymentsEmployeeEdit/>} />
       <Route path = '/Py_home' element={<Py_home/>} />
 
       <Route path = '/E_home' element={<E_home/>} />
@@ -231,6 +286,8 @@ const App = () => {
       <Route path = '/ContactUs' element={<ContactUs/>}  />
       <Route path = '/Aboutus' element={<Aboutus/>}  />
       <Route path = '/Service' element={<Service/>}  />
+
+      
     </Routes>
   );
 };

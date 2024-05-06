@@ -115,7 +115,7 @@ const HomePage = () => {
                         <p>Contact: 0112787678</p>
                     </div>
                     <div>
-                        {/* Add any additional footer content here */}
+                        
                     </div>
                 </div>
             </footer>

@@ -15,20 +15,29 @@ const V_home = () => {
                         <section style={styles.section}>
                             <h2 style={styles.sectionTitle}>Welcome to Vehicle Management System!</h2>
                             <p style={styles.sectionDescription}>
-                                Welcome to the vehicle management system. Our system helps streamline vehicle maintenance tasks, manage vehicle inventory, and improve overall fleet efficiency.
+                                Our system helps streamline vehicle maintenance tasks, manage vehicle inventory, and improve overall fleet efficiency.
                             </p>
                         </section>
                         <section style={styles.section}>
                             <h2 style={styles.sectionTitle}>Key Features</h2>
                             <div style={styles.featureList}>
                                 <div style={styles.feature}>
-                                    <img src="./public/images/vehicle.jpg" alt="Feature 1" style={styles.featureImage} />
-                                    <h3 style={styles.featureTitle}>Vehicle Maintenance</h3>
-                                    <p style={styles.featureDescription}>Efficiently manage vehicle maintenance schedules and tasks.</p>
-                                    <Link to="/VehicleMaintenance" style={styles.btn}>Schedule Maintenance</Link>
+                                    <img src="./public/images/Vehicle new.jpg" alt="Feature 1" style={styles.featureImage} />
+                                    <h3 style={styles.featureTitle}>Add New Vehicle</h3>
+                                    <p style={styles.featureDescription}>
+                                        Add vehicles to do and deliver schedules and tasks efficiently.
+                                    </p>
+                                    <Link to="/Vehiclehome" style={styles.btn}>Vehicle Yard</Link>
                                 </div>
-                                
-                                {/* Add more features as needed */}
+
+                                <div style={styles.feature}>
+                                    <img src="./public/images/vehicle.jpg" alt="Feature 1" style={styles.featureImage} />
+                                    <h3 style={styles.featureTitle}>Orders Delivery</h3>
+                                    <p style={styles.featureDescription}>
+                                        Manage vehicle inventory and improve overall fleet efficiency.
+                                    </p>
+                                    <Link to="/AvailableOrders" style={styles.btn}>Orders</Link>
+                                </div>
                             </div>
                         </section>
                     </main>
@@ -43,7 +52,7 @@ const V_home = () => {
 
 const styles = {
     background: {
-        backgroundImage: 'url("./public/images/production-background.jpg")', // Replace with the path to your background image
+        backgroundImage: 'url("./public/images/production-background.jpg")',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         minHeight: '100vh',
