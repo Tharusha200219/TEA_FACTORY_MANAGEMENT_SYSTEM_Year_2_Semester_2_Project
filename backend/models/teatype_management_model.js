@@ -22,11 +22,20 @@ const TeatypeSchema = mongoose.Schema(
             type: Number,
             required: true,
         },
+        tea_wastage: {
+            type: Number, 
+            required: true,
+        },
+        status: {
+            type: String, // Assuming status is a string, adjust the type if necessary
+            required: true,
+            default: "not send" // Default value "not send"
+        }
     },
     {
         timestamps: true,
     }
 );
 
-const Teatypes= mongoose.model('Teatype', TeatypeSchema);
+const Teatypes = mongoose.model('Teatype', TeatypeSchema);
 export default Teatypes;

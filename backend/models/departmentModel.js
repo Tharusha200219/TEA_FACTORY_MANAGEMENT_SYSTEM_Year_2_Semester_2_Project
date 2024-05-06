@@ -11,7 +11,7 @@ const departmentSchema = mongoose.Schema(
             required : true,
         },
         createdOn:{
-            type: Number,
+            type: Date,
             required : true,
         },
         departmentStatus:{
