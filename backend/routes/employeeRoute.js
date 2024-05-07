@@ -23,6 +23,20 @@ const upload = multer({ storage: storage });
 // Serve static files from the 'uploads' directory
 router.use('/uploads', express.static('uploads'));
 
+// Function to generate a unique employee ID
+function generateEmployeeId() {
+  // Prefix for employee ID
+  const prefix = 'EMI';
+  
+  // Generate a random number (you can replace this with a more sophisticated logic)
+  const randomNumber = Math.floor(Math.random() * 1000); // Generates a random number between 0 and 999
+  
+  // Combine prefix and random number to create the employee ID
+  const employeeId = prefix + randomNumber;
+
+  return employeeId;
+}
+
 // Route for adding a new employee with image upload
 router.post('/', upload.single('image'), async (request, response) => {
   try {
@@ -34,10 +48,14 @@ router.post('/', upload.single('image'), async (request, response) => {
       });
     }
 
+    // Generate a unique employee ID
+    const employeeId = generateEmployeeId();
+
     // Generate a random password
     const password = generatePassword();
 
     const newEmployee = new Employee({
+      employeeId, // Add the generated employee ID
       employeeName,
       employeeEmail,
       employeeMobile,

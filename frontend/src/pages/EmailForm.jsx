@@ -77,7 +77,7 @@ const EmailForm = () => {
 
   // Modify the filter options to match exactly with the role selection options
   const filterOptions = [
-   
+    //{ label: 'All', value: 'All' },
     { label: 'Employee-Mange Admin', value: 'EmployeeMangeAdmin' },
     { label: 'Inventory Manager', value: 'InventryManager' },
     { label: 'Vehicle Manager', value: 'VehicleManager' },
@@ -135,6 +135,7 @@ const EmailForm = () => {
               <thead className="bg-gray-50">
                 <tr>
                   <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>No</th>
+                  
                   <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Image</th>
                   <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Employee Name</th>
                   <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Email Address</th>
@@ -146,9 +147,10 @@ const EmailForm = () => {
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {filteredEmployees.map((employee, index) => (
-                  <tr key={employee._id} className="bg-white">
-                    <td className='border px-6 py-4 whitespace-nowrap'>{index + 1}</td>
-                    <td className='border px-6 py-4 whitespace-nowrap'>
+                  <tr key={employee._employeeId} className="bg-white">
+                  <td className='border px-6 py-4 whitespace-nowrap'>{index + 1}</td>
+                  
+                  <td className='border px-6 py-4 whitespace-nowrap'>
                       {/* Render image */}
                       {employee.image ? (
                         <img src={`http://localhost:5555/${employee.image.replace(/\//g, '\\')}`} alt="Employee" className="h-10 w-10 rounded-full" />

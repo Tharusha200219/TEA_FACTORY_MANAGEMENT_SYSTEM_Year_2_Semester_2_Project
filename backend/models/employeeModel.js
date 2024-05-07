@@ -1,7 +1,14 @@
 import mongoose from "mongoose";
 
 const employeeSchema = mongoose.Schema(
-    {
+    {   
+        employeeId: {
+            type: String, // Store auto-generated employee ID
+            required: true,
+            unique: true // Ensure employee ID is unique
+        },
+
+
         image: {
             type: String, // Store image path
         },
