@@ -8,29 +8,10 @@ import { generatePassword } from '../utils/passwordUtils.js';
 const router = express.Router();
 const __dirname = path.resolve();
 
-
 // Multer configuration for file upload
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads'); // Specify the directory where uploaded files should be stored
-
-// Create a reusable transporter object using the default SMTP transport
-/*let transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.EMAIL_ADDRESS, // Your dedicated email account (retrieved from environment variables)
-    pass: process.env.EMAIL_PASSWORD, // Password for the dedicated email account (retrieved from environment variables)
-  },
-});*/
-
-const mailserver = createTransport({
-  host: "smtp.office365.com",
-  port: 587,
-  secure: false,
-  auth: {
-    user: process.env.EMAIL_ADDRESS, // email account (retrieved from environment variables)
-    pass: process.env.EMAIL_PASSWORD,
-
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + '-' + file.originalname); // Generate unique file names
