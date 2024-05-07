@@ -13,6 +13,7 @@ const EditMachine = () => {
     const [installationDate, setInstallationDate] = useState('');
     const [warrentyInformation, setWarrentyInformation] = useState('');
     const [loading, setLoading] = useState(false);
+    const [validMachineType, setValidMachineType] = useState(true);
     const navigate = useNavigate();
     const { id } = useParams();
 
@@ -23,7 +24,6 @@ const EditMachine = () => {
                 setMachineNumber(response.data.machineNumber);
                 setMachineName(response.data.machineName);
                 setMachineType(response.data.machineType);
-                // Format the installation date
                 const formattedInstallationDate = response.data.installationDate.split('T')[0];
                 setInstallationDate(formattedInstallationDate);
                 setWarrentyInformation(response.data.warrentyInformation);
@@ -56,6 +56,17 @@ const EditMachine = () => {
                 alert('An error occurred. Please check the console.');
                 console.error(error);
             });
+    };
+
+    const handleMachineTypeChange = (e) => {
+        const input = e.target.value;
+        const pattern = /^[A-Za-z\s]+$/;
+        if (pattern.test(input)) {
+            setMachineType(input);
+            setValidMachineType(true);
+        } else {
+            setValidMachineType(false);
+        }
     };
 
     return (
@@ -94,7 +105,7 @@ const EditMachine = () => {
                                 id="machineNumber"
                                 type="number"
                                 value={machineNumber}
-                                readOnly // Set input field as read-only
+                                readOnly
                                 className="input-field"
                             />
                         </div>
@@ -105,7 +116,7 @@ const EditMachine = () => {
                                 id="machineName"
                                 type="text"
                                 value={machineName}
-                                readOnly // Set input field as read-only
+                                readOnly
                                 className="input-field"
                             />
                         </div>
@@ -116,9 +127,10 @@ const EditMachine = () => {
                                 id="machineType"
                                 type="text"
                                 value={machineType}
-                                onChange={(e) => setMachineType(e.target.value)}
-                                className="input-field"
+                                onChange={handleMachineTypeChange}
+                                className={`input-field ${validMachineType ? '' : 'border-red-500'}`}
                             />
+                            {!validMachineType && <p className="text-red-500 text-sm">Machine type can only contain characters</p>}
                         </div>
 
                         <div className="mb-4">
