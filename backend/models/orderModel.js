@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const orderSchema = mongoose.Schema(
     {
         orderno:{
-            type:Number,
+            type:String,
             required:true,
         },
         duedate: {
@@ -12,7 +12,7 @@ const orderSchema = mongoose.Schema(
         },
 
         quantity: {
-            type : Number,
+            type : String,
             required : true,
         },
         
@@ -25,6 +25,11 @@ const orderSchema = mongoose.Schema(
             type:String,
             default:'Pending',
             required: false,
+        },
+
+        name:{
+            type:String,
+            required:true,
         },
 
         address:{
