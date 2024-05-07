@@ -18,6 +18,7 @@ const SupplyRecordTable = () => {
         const savedQuantity = localStorage.getItem('teaLeavesQuantity');
         return savedQuantity ? Number(savedQuantity) : 0;
     });
+    const [manualDecreaseAmount, setManualDecreaseAmount] = useState(0); // New state variable for manual decrease
     const tableRef = useRef();
 
     useEffect(() => {
@@ -83,53 +84,61 @@ const SupplyRecordTable = () => {
         // PDF download logic
     };
 
+    const handleManualDecrease = () => {
+        if (manualDecreaseAmount <= teaLeavesQuantity) {
+            const newQuantity = teaLeavesQuantity - manualDecreaseAmount;
+            setTeaLeavesQuantity(newQuantity);
+            localStorage.setItem('teaLeavesQuantity', newQuantity);
+            setManualDecreaseAmount(0); // Reset manual decrease amount
+        } else {
+            alert('Cannot decrease more than current quantity');
+        }
+    };
+
+    const sendToProduction = () => {
+        if (manualDecreaseAmount <= teaLeavesQuantity) {
+            // Logic to send the entered amount to production
+            // This could involve an API call or any other backend operation
+            // After sending to production, you may want to update the UI or take further actions
+            // For now, we can simply log a message
+            console.log(`${manualDecreaseAmount} KG sent to production.`);
+        } else {
+            alert('Cannot send more than current quantity to production');
+        }
+    };
+
     return (
         <div style={{ minHeight: '100vh', position: 'relative' }}>
-
-
-
-
-<NavigationBar />
-
-{/* Main content with navigation links */}
-<nav className="bg-green-500 p-4">
-    <div className="container mx-auto flex justify-center">
-        <div className="flex space-x-4">
-            <Link to="/HomePage" className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
-            <Link to="/inventorys" className="text-white  hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">inventory</Link>
-            <Link to="/waste-management" className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Waste Management</Link>
-            <Link to="/pending-shipments" className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Pending Shipments</Link>
-            <Link to="/pending-new-stocks" className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Pending New Stocks</Link>
-            <Link to="/Irawleaves" className="text-white bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Raw Leaves Management</Link>
-        
-        </div>
-    </div>
-</nav>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
+            <NavigationBar />
+            <nav className="bg-green-500 p-4">
+                <div className="container mx-auto flex justify-center">
+                    <div className="flex space-x-4">
+                        <Link to="/HomePage" className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
+                        <Link to="/inventorys" className="text-white  hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">inventory</Link>
+                        <Link to="/waste-management" className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Waste Management</Link>
+                        <Link to="/pending-shipments" className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Pending Shipments</Link>
+                        <Link to="/pending-new-stocks" className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Pending New Stocks</Link>
+                        <Link to="/Irawleaves" className="text-white bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Raw Leaves Management</Link>
+                    </div>
+                </div>
+            </nav>
             <div className='p-16' style={{ paddingBottom: '100px' }}>
                 <div className='flex justify-between items-center mb-8'>
                     <h1 className='text-3xl font-bold text-gray-800'>Supply Record Table</h1>
                     <div className="flex items-center">
                         <p className="text-gray-600">Tea Leaves Quantity: {loading ? 'Loading...' : teaLeavesQuantity}</p>
+                        <div>
+                            <input className='ml-3' type="number" value={manualDecreaseAmount} onChange={(e) => setManualDecreaseAmount(parseInt(e.target.value))} />
+                            
+                            
+                            <button className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-2 ml-3' onClick={handleManualDecrease}>Decrease</button>
+                            
+                            <Link to="/Rawtealeaves2" > <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 ml-3' >Send to Production</button>
+                       </Link>
+                            
+                             </div>
                     </div>
                 </div>
-
                 <SupplierSearch
                     searchInput={searchInput}
                     setSearchInput={setSearchInput}
@@ -137,7 +146,6 @@ const SupplyRecordTable = () => {
                     setSearchType={setSearchType}
                     showSearchType={false}
                 />
-
                 {loading ? (
                     <Spinner />
                 ) : (
