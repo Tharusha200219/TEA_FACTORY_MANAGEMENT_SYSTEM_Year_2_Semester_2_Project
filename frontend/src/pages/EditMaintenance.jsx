@@ -22,7 +22,8 @@ const EditMaintenance = () => {
                 setmachineNumber(response.data.machineNumber);
                 setmachineName(response.data.machineName);
                 setdescription(response.data.description);
-                setmaintenanceDate(response.data.maintenanceDate);
+                // Extracting only the date part of the maintenance date
+                setmaintenanceDate(response.data.maintenanceDate.split('T')[0]);
                 setfrequencyInDays(response.data.frequencyInDays);
                 setLoading(false);
             })
@@ -68,6 +69,9 @@ const EditMaintenance = () => {
                         <Link to="/maintenances/creates" className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Create Table</Link>
                         <Link to="/MaintenanceAvailability" className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Maintenance Availability</Link>
                         <Link to="/MaintenanceReport" className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Maintenance Report</Link>
+                        <Link to="/user-profile-page" className="absolute right-10 flex space-x-2">
+                            <img src="/images/user.png" alt="User Profile" className="w-8 h-8 rounded-full" />
+                        </Link>
                     </div>
                 </div>
             </nav>
@@ -86,7 +90,7 @@ const EditMaintenance = () => {
                                 id="machineNumber"
                                 type="number"
                                 value={machineNumber}
-                                onChange={(e) => setmachineNumber(e.target.value)}
+                                readOnly // Set input field as read-only
                                 className="input-field"
                             />
                         </div>
@@ -97,7 +101,7 @@ const EditMaintenance = () => {
                                 id="machineName"
                                 type="text"
                                 value={machineName}
-                                onChange={(e) => setmachineName(e.target.value)}
+                                readOnly // Set input field as read-only
                                 className="input-field"
                             />
                         </div>

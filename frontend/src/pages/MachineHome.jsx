@@ -73,6 +73,9 @@ const MachineHome = () => {
                         <Link to="/MachineHome" className="text-gray-300 bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Machines</Link>
                         <Link to="/machines/creates" className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Create Machine</Link>
                         <Link to="/MachineReport" className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Machine Report</Link>
+                        <Link to="/user-profile-page" className="absolute right-10 flex space-x-2">
+                            <img src="/images/user.png" alt="User Profile" className="w-8 h-8 rounded-full" />
+                        </Link>
                     </div>
                 </div>
             </nav>
@@ -111,7 +114,7 @@ const MachineHome = () => {
                                         Installation Date
                                     </th>
                                     <th className="px-6 py-3 text-left text-sm font-medium text-gray-600 uppercase tracking-wider">
-                                        Warrenty Information
+                                        Warranty Information
                                     </th>
                                     <th className="px-6 py-3 text-sm font-medium text-gray-600 uppercase tracking-wider">
                                         Status
