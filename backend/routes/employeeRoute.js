@@ -1,8 +1,9 @@
 import express from 'express';
 import path from 'path';
 import multer from 'multer';
-import { Employee } from '../models/employeeModel.js'; // Update the import statement for Employee model
-
+import nodemailer from 'nodemailer';
+import { Employee } from '../models/employeeModel.js';
+import { generatePassword } from '../utils/passwordUtils.js';
 
 const router = express.Router();
 const __dirname = path.resolve();
@@ -17,10 +18,6 @@ const storage = multer.diskStorage({
   }
 });
 
-
-
-
-
 const upload = multer({ storage: storage });
 
 // Serve static files from the 'uploads' directory
@@ -29,17 +26,17 @@ router.use('/uploads', express.static('uploads'));
 // Route for adding a new employee with image upload
 router.post('/', upload.single('image'), async (request, response) => {
   try {
-    // Extract data from request body
     const { employeeName, employeeEmail, employeeMobile, employeeAddress, employeeRole, createdOn } = request.body;
 
-    // Validate request body
     if (!employeeName || !employeeEmail || !employeeMobile || !employeeAddress || !employeeRole || !createdOn) {
       return response.status(400).json({
         message: 'Send all required fields: employeeName, employeeEmail, employeeMobile, employeeAddress, employeeRole, createdOn',
       });
     }
 
-    // Create a new employee with image data
+    // Generate a random password
+    const password = generatePassword();
+
     const newEmployee = new Employee({
       employeeName,
       employeeEmail,
@@ -47,13 +44,12 @@ router.post('/', upload.single('image'), async (request, response) => {
       employeeAddress,
       employeeRoles: employeeRole,
       createdOn,
-      image: request.file ? path.join('uploads', request.file.filename) : null, // Save image path
+      password,
+      image: request.file ? path.join('uploads', request.file.filename) : null,
     });
 
-    // Save the new employee
     await newEmployee.save();
 
-    // Respond with success message
     return response.status(201).json({ message: 'Employee added successfully' });
   } catch (error) {
     console.error('ServerError:', error);
@@ -71,8 +67,6 @@ router.get('/', async (request, response) => {
     response.status(500).json({ message: 'An error occurred on the server' });
   }
 });
-
-
 
 // Route for getting a specific employee by ID
 router.get('/:id', async (request, response) => {
@@ -126,5 +120,50 @@ router.delete('/:id', async (request, response) => {
     response.status(500).json({ message: 'An error occurred on the server' });
   }
 });
+
+// Define your nodemailer transporter
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: '2001imashaperera@gmail.com',
+    pass: 'dxqqgfymqnymblwf',
+  },
+});
+
+// Define your API endpoint to send emails
+router.post('/send_email', async (req, res) => {
+  const { employeeEmail } = req.body;
+  try {
+    // Generate a random password
+    const password = generatePassword();
+
+    const emailContent = `
+  <p>Welcome to Ever Green Tea. You have been successfully added to the system.</p>
+  <p>Your login credentials:</p>
+  <p>Email: ${employeeEmail}</p>
+  <p>Password: ${password}</p>
+  <p>Please click the link below to log in:</p>
+  <p><a href='http://localhost:5173/HomePage'>Login</a></p>
+`;
+
+    await transporter.sendMail({
+      from: {
+        name: "Employee-Manage Department",
+        address: '2001imashaperera@gmail.com'
+      },
+      to: employeeEmail,
+      subject: "Invitation to Join Us",
+      html: emailContent
+    });
+
+    res.status(200).json({ message: 'Email sent successfully' });
+  } catch (error) {
+    console.error('Error sending email:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+
+
 
 export default router;

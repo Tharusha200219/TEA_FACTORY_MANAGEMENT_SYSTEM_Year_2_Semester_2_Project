@@ -42,13 +42,32 @@ const EmailForm = () => {
     );
   }, [searchTerm, employees, filterOption]);
 
-  const sendEmail = async (email) => {
+  useEffect(() => {
+    // Retrieve emailSent status and sendDate from local storage and update filteredEmployees
+    const storedStatus = JSON.parse(localStorage.getItem('emailSentStatus')) || {};
+    const updatedEmployees = filteredEmployees.map((employee) => ({
+      ...employee,
+      emailSent: storedStatus[employee.employeeEmail] || false,
+      sendDate: storedStatus[employee.employeeEmail] ? new Date(storedStatus[employee.employeeEmail]).toLocaleString() : null,
+    }));
+    setFilteredEmployees(updatedEmployees);
+  }, [filteredEmployees]);
+
+  const sendEmail = async (employeeEmail, index) => {
     try {
-      await axios.post('http://localhost:5555/send-email', {
-        to: email,
+      await axios.post('http://localhost:5555/employees/send_email', {
+        employeeEmail: employeeEmail,
         subject: 'Invitation to Login',
         text: 'You have been invited to login to the Employee Management System. Please follow the link provided to create your account.',
       });
+      const updatedEmployees = [...filteredEmployees];
+      updatedEmployees[index].emailSent = true; // Update emailSent status for the employee
+      updatedEmployees[index].sendDate = new Date().toLocaleString(); // Update sendDate for the employee
+      setFilteredEmployees(updatedEmployees);
+      // Store emailSent status and sendDate in local storage
+      const storedStatus = JSON.parse(localStorage.getItem('emailSentStatus')) || {};
+      storedStatus[employeeEmail] = new Date().toLocaleString();
+      localStorage.setItem('emailSentStatus', JSON.stringify(storedStatus));
       alert('Email sent successfully');
     } catch (error) {
       console.error('Error sending email:', error);
@@ -121,7 +140,7 @@ const EmailForm = () => {
                   <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Email Address</th>
                   <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Contact Number</th>
                   <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Role</th>
-                  <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Created On</th>
+                  <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Sent Date</th>
                   <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Action</th>
                 </tr>
               </thead>
@@ -141,10 +160,14 @@ const EmailForm = () => {
                     <td className='border px-6 py-4 whitespace-nowrap'>{employee.employeeEmail}</td>
                     <td className='border px-6 py-4 whitespace-nowrap'>{employee.employeeMobile}</td>
                     <td className='border px-6 py-4 whitespace-nowrap'>{employee.employeeRoles}</td>
-                    <td className='border px-6 py-4 whitespace-nowrap'>{new Date(employee.createdOn).toLocaleString()}</td>
+                    <td className='border px-6 py-4 whitespace-nowrap'>{employee.sendDate}</td>
                     <td className='border px-6 py-4 whitespace-nowrap'>
-                    <div className='flex justify-center gap-x-4'>
-                    <button className="text-gray-300 bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-full text-sm font-medium" onClick={() => sendEmail(employee.employeeEmail)}>Send URL</button>
+                      <div className='flex justify-center gap-x-4'>
+                        {employee.emailSent ? (
+                          <button className="text-gray-300 bg-gray-500 px-3 py-2 rounded-full text-sm font-medium" disabled>Sent URL</button>
+                        ) : (
+                          <button className="text-gray-300 bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-full text-sm font-medium" onClick={() => sendEmail(employee.employeeEmail, index)}>Send URL</button>
+                        )}
                       </div>
                     </td>
                   </tr>
@@ -161,5 +184,3 @@ const EmailForm = () => {
 };
 
 export default EmailForm;
-
-

@@ -37,7 +37,8 @@ import { Department } from "./models/departmentModel.js";
 import { Employee }  from "./models/employeeModel.js";
 import departmentRoute from "./routes/departmentRoute.js";
 import employeeRoute from "./routes/employeeRoute.js";
-import emailRoutes from './routes/emailRoutes.js'; // Import emailRoutes using ES6 syntax
+//import emailRoutes from './routes/emailRoutes.js'; // Import emailRoutes using ES6 syntax
+import { generatePassword } from './utils/passwordUtils.js';
 
 
 
@@ -87,16 +88,18 @@ app.use('/supplyrecords', supplyrecordRoute);
 app.use('/departments', departmentRoute);
 app.use('/employees', employeeRoute);
 
-// Use the imported emailRoutes
-app.use('/send-email', emailRoutes);
 
 
 
 // Serve static files from the 'uploads' directory
 app.use('/uploads', express.static('C:\\Users\\IMASHA\\Documents\\GitHub\\TEA_FACTORY_MANAGEMENT_SYSTEM_Year_2_Semester_2_Project\\backend\\uploads'));
 
-//emial
-
+// Example usage of generatePassword function
+app.post('/generate_password', (req, res) => {
+    const length = req.body.length || 8; // You can specify the length in the request body or use a default value
+    const password = generatePassword(length);
+    res.json({ password });
+  });
 
 
 

@@ -123,6 +123,7 @@ import EditEmployee from './pages/EditEmployee';
 import DeleteEmployee from './pages/DeleteEmployee';
 
 import EmailForm from "./pages/EmailForm.jsx";
+import Login from "./pages/login.jsx";
 
 
 
@@ -260,6 +261,8 @@ const App = () => {
       <Route path = '/ContactUs' element={<ContactUs/>}  />
       <Route path = '/Aboutus' element={<Aboutus/>}  />
       <Route path = '/Service' element={<Service/>}  />
+
+      <Route path= '/login' element={<Login/>} />
 
       
     </Routes>

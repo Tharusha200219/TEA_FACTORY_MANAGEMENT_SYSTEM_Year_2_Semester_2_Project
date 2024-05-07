@@ -8,15 +8,15 @@ const router = express.Router();
 // Define your nodemailer transporter
 const transporter = nodemailer.createTransport({
   // Configure your email service
-  service: 'Gmail',
+  service: 'gmail',
   auth: {
     user: '2001imashaperera@gmail.com',
-    pass: 'dxqq gfym qnym blwf',
+    pass: 'dxqqgfymqnymblwf',
   },
 });
 
 // Define your API endpoint to send emails
-router.post('/send-email', async (req, res) => {
+router.post('/send_email', async (req, res) => {
   try {
     const { to, subject, text } = req.body;
 
