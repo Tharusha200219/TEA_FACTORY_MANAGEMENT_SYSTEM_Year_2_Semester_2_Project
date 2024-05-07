@@ -11,6 +11,7 @@ router.post('/', async (request, response) => {
             !request.body.duedate ||
             !request.body.quantity ||
             !request.body.category ||
+            !request.body.name ||
             !request.body.address||
             !request.body.telephone
         ) {
@@ -23,6 +24,7 @@ router.post('/', async (request, response) => {
             duedate: request.body.duedate,
             quantity: request.body.quantity,
             category: request.body.category,
+            name: request.body.name,
             address:request.body.address,
             telephone:request.body.telephone,
         
@@ -113,6 +115,7 @@ router.put('/:id', async (request, response) => {
             !request.body.duedate ||
             !request.body.quantity ||
             !request.body.category ||
+            !request.body.name ||
             !request.body.address||
             !request.body.telephone
         ) {
