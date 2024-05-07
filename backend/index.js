@@ -6,7 +6,9 @@ import { inventory } from "./models/inventorymodel.js";
 import { orders } from "./models/orderModel.js";
 import { waste } from "./models/wastemodel.js";
 import teaLeavesRoute from './routes/teaLeavesRoute.js';
+import teaLeavesRoute2 from './routes/teaLeavesRoute2.js';
 import TeaLeaves from "./models/teaLeavesModel.js";
+import TeaLeaves2 from "./models/teaLeavesModel2.js";
 
 ////Import production and tea type management model & Route ////
 import Production from './models/production_schedule_model_t.js';
@@ -62,6 +64,7 @@ app.get('/',(request, response)=>{
 app.use('/inventory',inventoryRoute);
 app.use('/waste',wasteRoute)
 app.use('/teaLeaves', teaLeavesRoute);
+app.use('/teaLeaves2', teaLeavesRoute2);
 
 
 // Mounting production and tea type management routes
