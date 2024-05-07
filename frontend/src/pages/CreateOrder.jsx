@@ -12,24 +12,33 @@ const CreateOrder = () => {
 
   const formik = useFormik({
     initialValues: {
-      orderno: '', 
+      orderno: '',
       duedate: '',
       quantity: '',
       category: '',
-      name:'',
-      address:'',
-      telephone:'',
+      name: '',
+      address: '',
+      telephone: '',
     },
     validationSchema: Yup.object().shape({
-      orderno: Yup.number().required('Order No is required').min(0, 'Order No must be positive'),
+      orderno: Yup.number().required('Order No is required').positive('Order No must be positive'),
       duedate: Yup.date().required('Due Date is required'),
-      quantity: Yup.number().required('Quantity is required').min(0, 'Quantity must be positive'),
+      quantity: Yup.number()
+        .required('Quantity is required')
+        .positive('Quantity must be positive')
+        .min(1000, 'Quantity must be at least 1000')
+        .max(10000, 'Quantity must be at most 10000'),
       category: Yup.string().required('Category is required'),
-      name: Yup.string().required('name is required'),
-      address: Yup.string().required('address is required'),
-      telephone: Yup.string().required('telephone is required') ,
-
+      name: Yup.string()
+        .required('Name is required')
+        .min(5, 'Name must be at least 5 characters')
+        .max(15, 'Name must be at most 15 characters'),
+      address: Yup.string().required('Address is required').max(75, 'Address must be at most 75 characters'),
+      telephone: Yup.string()
+        .required('Telephone is required')
+        .matches(/^\d{10}$/, 'Telephone must be a 10 digit number'),
     }),
+
     onSubmit: (values) => {
       handleSaveOrder(values);
     },
@@ -37,9 +46,9 @@ const CreateOrder = () => {
 
   const handleSaveOrder = (values) => {
     setLoading(true);
-    
-    const { orderno, duedate, quantity, category, name,address,telephone } = values; 
-    const requestData = { orderno, duedate, quantity, category, name,address,telephone }; 
+
+    const { orderno, duedate, quantity, category, name, address, telephone } = values;
+    const requestData = { orderno, duedate, quantity, category, name, address, telephone };
 
     axios.post(`http://localhost:5555/orders`, requestData)
       .then(() => {
@@ -63,17 +72,34 @@ const CreateOrder = () => {
           <div className='p-4'>
             <label className='text-xl mr-4 text-gray-500'>Order No</label>
             <input
-              type="String"
+              type="text"
               name="orderno"
               value={formik.values.orderno}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
+              onKeyDown={(e) => {
+                const inputValue = e.target.value;
+                const keyPressed = e.key;
+                if (keyPressed === 'Backspace') {
+                  return;
+                }
+                if (inputValue === '' && keyPressed === '0') {
+                  e.preventDefault();
+                  return;
+                }
+
+                if (!/^[0-9]$/.test(keyPressed)) {
+                  e.preventDefault();
+                }
+              }}
               className='border-2 border-gray-500 px-4 py-2 w-full'
             />
             {formik.touched.orderno && formik.errors.orderno ? (
               <div className="text-red-500">{formik.errors.orderno}</div>
             ) : null}
           </div>
+
+
 
           <div className='p-4'>
             <label className='text-xl mr-4 text-gray-500'>DueDate</label>
@@ -93,17 +119,23 @@ const CreateOrder = () => {
           <div className='p-4'>
             <label className='text-xl mr-4 text-gray-500'>Quantity</label>
             <input
-              type="String"
+              type="text"
               name="quantity"
               value={formik.values.quantity}
-              onChange={formik.handleChange}
+              onChange={(e) => {
+                const value = e.target.value;
+                if (!/^\d*$/.test(value)) return;
+                formik.handleChange(e);
+              }}
               onBlur={formik.handleBlur}
               className='border-2 border-gray-500 px-4 py-2 w-full'
+              maxLength="5"
             />
             {formik.touched.quantity && formik.errors.quantity ? (
               <div className="text-red-500">{formik.errors.quantity}</div>
             ) : null}
           </div>
+
 
           <div className='p-4'>
             <label className='text-xl mr-4 text-gray-500'>Category</label>
@@ -128,12 +160,14 @@ const CreateOrder = () => {
           <div className='p-4'>
             <label className='text-xl mr-4 text-gray-500'>Name</label>
             <input
-              type="String"
+              type="text"
               name="name"
               value={formik.values.name}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               className='border-2 border-gray-500 px-4 py-2 w-full'
+              pattern="[A-Za-z]{5,15}"
+
             />
             {formik.touched.name && formik.errors.name ? (
               <div className="text-red-500">{formik.errors.name}</div>
@@ -143,12 +177,14 @@ const CreateOrder = () => {
           <div className='p-4'>
             <label className='text-xl mr-4 text-gray-500'>Address</label>
             <input
-              type="String"
+              type="text"
               name="address"
               value={formik.values.address}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               className='border-2 border-gray-500 px-4 py-2 w-full'
+              maxLength="75"
+
             />
             {formik.touched.address && formik.errors.address ? (
               <div className="text-red-500">{formik.errors.address}</div>
@@ -158,12 +194,18 @@ const CreateOrder = () => {
           <div className='p-4'>
             <label className='text-xl mr-4 text-gray-500'>Telephone</label>
             <input
-              type="String"
+              type="text"
               name="telephone"
               value={formik.values.telephone}
-              onChange={formik.handleChange}
+              onChange={(e) => {
+                const value = e.target.value;
+                if (!/^\d*$/.test(value)) return;
+                if (value.length > 10) return;
+                formik.handleChange(e);
+              }}
               onBlur={formik.handleBlur}
               className='border-2 border-gray-500 px-4 py-2 w-full'
+              maxLength="10"
             />
             {formik.touched.telephone && formik.errors.telephone ? (
               <div className="text-red-500">{formik.errors.telephone}</div>
