@@ -188,6 +188,7 @@ const OrderHome = () => {
                 <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Due date</th>
                 <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Quantity</th>
                 <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Category</th>
+                <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Name</th>
                 <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Address</th>
                 <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Telephone</th>
                 <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Status</th>
@@ -201,6 +202,7 @@ const OrderHome = () => {
                   <td className='px-6 py-4 whitespace-nowrap'>{new Date(order.duedate).toLocaleDateString('en-GB')}</td>
                   <td className='px-6 py-4 whitespace-nowrap'>{order.quantity}</td>
                   <td className='px-6 py-4 whitespace-nowrap'>{order.category}</td>
+                  <td className='px-6 py-4 whitespace-nowrap'>{order.name}</td>
                   <td className='px-6 py-4 whitespace-nowrap'>{order.address}</td>
                   <td className='px-6 py-4 whitespace-nowrap'>{order.telephone}</td>
                   <td className='px-6 py-4 whitespace-nowrap'>{order.status}</td>

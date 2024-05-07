@@ -17,6 +17,7 @@ const UpdateOrder = () => {
       duedate: '',
       quantity: '',
       category: '',
+      name:'',
       address: '',
       telephone: '',
     },
@@ -25,6 +26,7 @@ const UpdateOrder = () => {
       duedate: Yup.date().required('Due Date is required'),
       quantity: Yup.number().required('Quantity is required').min(0, 'Quantity must be positive'),
       category: Yup.string().required('Category is required'),
+      name: Yup.string().required('name is required'),
       address: Yup.string().required('address is required'),
       telephone: Yup.string().required('telephone is required'),
     }),
@@ -42,6 +44,7 @@ const UpdateOrder = () => {
           duedate: response.data.duedate,
           quantity: response.data.quantity,
           category: response.data.category,
+          name: response.data.name,
           address: response.data.address,
           telephone: response.data.telephone,
         });
@@ -78,7 +81,7 @@ const UpdateOrder = () => {
           <div className='p-4'>
             <label className='text-xl mr-4 text-gray-500'>Order No</label>
             <input
-              type="number"
+              type="String"
               name="orderno"
               value={formik.values.orderno}
               onChange={formik.handleChange}
@@ -108,7 +111,7 @@ const UpdateOrder = () => {
           <div className='p-4'>
             <label className='text-xl mr-4 text-gray-500'>Quantity</label>
             <input
-              type="number"
+              type="String"
               name="quantity"
               value={formik.values.quantity}
               onChange={formik.handleChange}
@@ -137,6 +140,21 @@ const UpdateOrder = () => {
             </select>
             {formik.touched.category && formik.errors.category ? (
               <div className="text-red-500">{formik.errors.category}</div>
+            ) : null}
+          </div>
+
+          <div className='p-4'>
+            <label className='text-xl mr-4 text-gray-500'>Name</label>
+            <input
+              type="String"
+              name="name"
+              value={formik.values.name}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              className='border-2 border-gray-500 px-4 py-2 w-full'
+            />
+            {formik.touched.address && formik.errors.name ? (
+              <div className="text-red-500">{formik.errors.name}</div>
             ) : null}
           </div>
 
