@@ -4,15 +4,64 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import Spinner from '../components/Spinner';
 import Footer from '../components/Footer';
-
 import NavigationBar from '../components/NavigationBar';
+import styled from 'styled-components'; // Import styled-components
+
+const PageContainer = styled.div`
+  background-color: black;
+  color: white;
+  min-height: 100vh;
+`;
+
+const TableContainer = styled.div`
+  margin-top: 2rem;
+  overflow-y: auto; /* Enable vertical scrolling */
+`;
+
+const Table = styled.table`
+width: calc(100% - 20px); /* Subtract 20px from the width */
+border-collapse: collapse;
+`;
+
+const TableHeader = styled.th`
+  background-color: #3AC056;
+  padding: 0.75rem;
+  text-align: left;
+  font-size: 14px;
+  font-weight: bold;
+  color: white;
+`;
+
+const TableRow = styled.tr`
+  &:nth-child(even) {
+    background-color: black;
+  }
+`;
+
+const TableCell = styled.td`
+  padding: 0.75rem;
+  border-bottom: 1px solid white; /* Add border-bottom for horizontal line */
+`;
+
+const Button = styled.button`
+  background-color: #2563eb;
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  &:hover {
+    background-color: #1d4ed8;
+  }
+`;
 
 const AvailableOrders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchInput, setSearchInput] = useState('');
   const [filteredOrders, setFilteredOrders] = useState([]);
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -38,29 +87,19 @@ const AvailableOrders = () => {
   };
 
   const handleSetButtonClick = (order) => {
-    navigate('/DeliveryOrder',
-      {
-        state:
-          { order: order }
-      });
+    navigate('/DeliveryOrder', { state: { order: order } });
   };
-
-  useEffect(() => {
-    if (searchInput === '') {
-      setFilteredOrders([]);
-    }
-  }, [searchInput]);
 
   const pendingOrders = orders.filter((order) => order.status === 'Pending');
 
   return (
-    <div>
+    <PageContainer>
       <NavigationBar />
       <nav style={{ backgroundColor: '#3FC060' }} className="p-4">
         <div className="container mx-auto flex justify-center items-center">
           <div className="flex space-x-4">
             <Link
-              to="/HomePage"
+              to="/V_home"
               className="text-black-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
             >
               Home
@@ -83,37 +122,37 @@ const AvailableOrders = () => {
         {loading ? (
           <Spinner />
         ) : (
-          <table className='min-w-full divide-y divide-gray-200'>
-            <thead className='bg-gray-50'>
-              <tr>
-                <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Order id</th>
-                <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Quantity</th>
-                <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Category</th>
-                <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Delivery Status</th>
-                <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Delivery</th>
-              </tr>
-            </thead>
-            <tbody>
-              {(searchInput === '' ? pendingOrders : filteredOrders).map((order, index) => (
-                <tr key={order._id} className='h-8'>
-                  <td className='px-6 py-4 whitespace-nowrap'>{order.orderno}</td>
-                  <td className='px-6 py-4 whitespace-nowrap'>{order.quantity}</td>
-                  <td className='px-6 py-4 whitespace-nowrap'>{order.category}</td>
-                  <td className='px-6 py-4 whitespace-nowrap'>{order.status}</td>
-                  <td className='px-6 py-4 whitespace-nowrap'>
-                    <button onClick={() => handleSetButtonClick(order)} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                      Set
-                    </button>
-                  </td>
-                </tr> 
-              ))}
-            </tbody>
-          </table>
+          <TableContainer>
+            <Table>
+              <thead>
+                <TableRow>
+                  <TableHeader>Order id</TableHeader>
+                  <TableHeader>Quantity</TableHeader>
+                  <TableHeader>Category</TableHeader>
+                  <TableHeader>Delivery Status</TableHeader>
+                  <TableHeader>Delivery</TableHeader>
+                </TableRow>
+              </thead>
+              <tbody>
+                {(searchInput === '' ? pendingOrders : filteredOrders).map((order, index) => (
+                  <TableRow key={order._id}>
+                    <TableCell>{order.orderno}</TableCell>
+                    <TableCell>{order.quantity}</TableCell>
+                    <TableCell>{order.category}</TableCell>
+                    <TableCell>{order.status}</TableCell>
+                    <TableCell>
+                      <Button onClick={() => handleSetButtonClick(order)}>Set</Button>
+                    </TableCell>
+                  </TableRow> 
+                ))}
+              </tbody>
+            </Table>
+          </TableContainer>
         )}
       </div>
 
       <Footer />
-    </div>
+    </PageContainer>
   );
 };
 
