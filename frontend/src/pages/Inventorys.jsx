@@ -7,6 +7,8 @@ import { BsInfoCircle } from 'react-icons/bs';
 import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import NavigationBar from '../components/NavigationBar';
+import Footer from '../components/Footer';
 
 const Home = () => {
   const [originalInventory, setOriginalInventory] = useState([]);
@@ -72,29 +74,23 @@ const Home = () => {
   };
 
   return (
-    <div>
-      {/* Navigation Bar */}
-      <nav className="bg-gray-800 p-4">
-        <div className="container mx-auto">
-          <div className="flex justify-between items-center">
-            <div className="text-white text-xl font-bold">
-              Ever Green Tea
-            </div>
-            <div className="flex space-x-4">
-              <Link to="/HomePage" className="text-gray-300  hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
-              <Link to="/inventorys" className="text-gray-300   bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">inventory</Link>
-              
-              
-              <Link to="/waste-management" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Waste Management</Link>
-              
-              <Link to="/pending-shipments" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Pending Shipments</Link>
-              <Link to="/pending-new-stocks" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Pending New Stocks</Link>
-              <Link to="/Irawleaves" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Raw Leaves Management</Link>
-             
-            </div>
-          </div>
+    <div style={{ minHeight: '100vh', position: 'relative' }}>
+    <NavigationBar />
+
+{/* Main content with navigation links */}
+<nav className="bg-green-500 p-4">
+    <div className="container mx-auto flex justify-center">
+        <div className="flex space-x-4">
+            <Link to="/HomePage" className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
+            <Link to="/inventorys" className="text-white  bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">inventory</Link>
+            <Link to="/waste-management" className="text-white  hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Waste Management</Link>
+            <Link to="/pending-shipments" className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Pending Shipments</Link>
+            <Link to="/pending-new-stocks" className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Pending New Stocks</Link>
+            <Link to="/Irawleaves" className="text-white  hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Raw Leaves Management</Link>
+        
         </div>
-      </nav>
+    </div>
+</nav>
 
       {/* Main Content */}
       <div className='container mx-auto p-8'>
@@ -172,18 +168,7 @@ const Home = () => {
         )}
       </div>
 
-      {/* Footer */}
-      <footer className="bg-gray-800 text-white py-4 mt-8">
-        <div className="container mx-auto flex justify-between items-center">
-          <div>
-            <p>&copy; 1998-{new Date().getFullYear()} Ever Green Tea Factory. All rights reserved.</p>
-            <p>Contact: 0112787678</p>
-          </div>
-          <div>
-            {/* Add any additional footer content here */}
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };
