@@ -18,6 +18,9 @@ const OrderHome = () => {
   const [loading, setLoading] = useState(false);
   const [searchInput, setSearchInput] = useState('');
   const [filteredOrders, setFilteredOrders] = useState([]);
+ 
+ 
+
 
   useEffect(() => {
     setLoading(true);
@@ -39,16 +42,25 @@ const OrderHome = () => {
   };
 
   const handleButtonClick = () => {
-    const exactMatch = orders.filter(order => order.orderno === parseInt(searchInput));
-    setFilteredOrders(exactMatch.length > 0 ? exactMatch : []);
+    const trimmedInput = searchInput.trim();
+
+    if (trimmedInput === '') {
+
+      setFilteredOrders(orders);
+    } else {
+      const exactMatch = orders.filter(order => order.orderno.toString() === trimmedInput);
+      setFilteredOrders(exactMatch);
+    }
+
   };
+
   const handleButtonOnClick = () => {
     try {
       const doc = new jsPDF();
-      const tableData = orders.map(orders => [orders.orderno, new Date(orders.duedate).toLocaleDateString('en-GB'), orders.quantity, orders.category]);
+      const tableData = orders.map(orders => [orders.orderno, new Date(orders.duedate).toLocaleDateString('en-GB'), orders.quantity, orders.category,orders.status,orders.name,orders.address,orders.telephone]);
 
       doc.autoTable({
-        head: [['Order id', 'Due date', 'Quantity', 'Category']],
+        head: [['Order id', 'Due date', 'Quantity', 'Category', 'Status','Name', 'Address', 'Telephone',]],
         body: tableData,
       });
 
@@ -62,7 +74,7 @@ const OrderHome = () => {
 
   const handleSendStatusSent = async (orderId) => {
     try {
-     
+
       const response = await axios.get(`http://localhost:5555/orders/${orderId}/status`);
       const currentStatus = response.data.status;
       if (currentStatus === 'Sent') {
@@ -79,15 +91,14 @@ const OrderHome = () => {
       });
       setOrders(updatedOrders);
     } catch (error) {
- 
+
       console.log("Error updating order status:", error);
 
     }
   };
 
-  const handleSendStatusAccept = async (orderId) => {
+  const handleSendStatusAccept = async (orderId, index) => {
     try {
-     
       const response = await axios.get(`http://localhost:5555/orders/${orderId}/status`);
       const currentStatus = response.data.status;
       if (currentStatus === 'Accepted') {
@@ -103,16 +114,16 @@ const OrderHome = () => {
         return order;
       });
       setOrders(updatedOrders);
+      
     } catch (error) {
- 
       console.log("Error updating order status:", error);
-
     }
   };
 
+
   const handleSendStatusDeliver = async (orderId) => {
     try {
-     
+
       const response = await axios.get(`http://localhost:5555/orders/${orderId}/status`);
       const currentStatus = response.data.status;
       if (currentStatus === 'Delivered') {
@@ -129,7 +140,7 @@ const OrderHome = () => {
       });
       setOrders(updatedOrders);
     } catch (error) {
- 
+
       console.log("Error updating order status:", error);
 
     }
@@ -226,6 +237,7 @@ const OrderHome = () => {
                       <Link to={`/orders/delete/${order._id}`}>
                         <MdOutlineDelete className='text-2xl text-red-600' />
                       </Link>
+                    
                     </div>
                   </td>
                 </tr>
