@@ -6,6 +6,7 @@ import NavigationBar from '../components/NavigationBar';
 import Footer from '../components/Footer';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable'; // Importing the jsPDF autoTable plugin
+import companyLogo from '/images/logo.png'; // Import your company logo
 
 const MaintenanceReport = () => {
     const [maintenances, setMaintenances] = useState([]);
@@ -41,10 +42,24 @@ const MaintenanceReport = () => {
         // Create a new jsPDF instance
         const pdf = new jsPDF('landscape', 'mm', 'a4'); // Landscape orientation and A4 size
         
-        // Add title to the PDF
+        // Add company logo
+        const imgData = companyLogo;
+        pdf.addImage(imgData, 'PNG', 10, 10, 40, 40);
+
+        // Set text color to ubber green
+        pdf.setTextColor(22, 160, 133);
+
+        // Add main title "EVER GREEN TEA" with ubber green color
         pdf.setFontSize(20);
-        pdf.text("Maintenance Report", pdf.internal.pageSize.width / 2, 20, { align: "center" });
-        
+        pdf.text("EVER GREEN TEA", pdf.internal.pageSize.width / 2, 20, { align: "center" });
+
+        // Add title "Maintenance Report" with ubber green color
+        pdf.setFontSize(20);
+        pdf.text("Maintenance Report", pdf.internal.pageSize.width / 2, 40, { align: "center" });
+
+        // Set text color back to black
+        pdf.setTextColor(0);
+
         // Add current date
         const date = new Date().toLocaleDateString();
         pdf.setFontSize(10);
@@ -64,7 +79,7 @@ const MaintenanceReport = () => {
         pdf.autoTable({
             head: headers,
             body: data,
-            startY: 30, // Start the table a little below the title and date
+            startY: 50, // Start the table a little below the title, company logo, and date
             styles: {
                 fontSize: 10,
                 cellPadding: 4,
@@ -76,6 +91,11 @@ const MaintenanceReport = () => {
                 fontStyle: 'bold',
             },
         });
+
+        // Manager Signature and Date
+        pdf.setFontSize(12);
+        pdf.text('Manager Signature: ________________________', 10, pdf.lastAutoTable.finalY + 30);
+        pdf.text(`Date: ${date}`, pdf.internal.pageSize.width - 30, pdf.lastAutoTable.finalY + 30, { align: "right" });
 
         // Save the PDF document
         pdf.save('maintenance_report.pdf');
@@ -90,11 +110,14 @@ const MaintenanceReport = () => {
                 <div className="container mx-auto flex justify-center">
                     <div className="flex justify-between items-center">
                         <div className="flex space-x-4">
-                            <Link to="/" className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
+                            <Link to="/M_home" className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
                             <Link to="/MaintenanceHome" className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Maintenances</Link>
                             <Link to="/maintenances/creates" className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">create table</Link>
                             <Link to="/MaintenanceAvailability" className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Maintenance Availability</Link>
                             <Link to="/MaintenanceReport" className="text-white bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Maintenance Report Generate</Link>
+                            <Link to="/user-profile-page" className="absolute right-10 flex space-x-2">
+                            <img src="/images/user.png" alt="User Profile" className="w-8 h-8 rounded-full" />
+                        </Link>
                         </div>
                     </div>
                 </div>

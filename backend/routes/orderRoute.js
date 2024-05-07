@@ -11,7 +11,9 @@ router.post('/', async (request, response) => {
             !request.body.duedate ||
             !request.body.quantity ||
             !request.body.category ||
-            !request.body.Shipment
+            !request.body.name ||
+            !request.body.address||
+            !request.body.telephone
         ) {
             return response.status(400).send({
                 message: 'Send all required fields:duedate,quantity,category',
@@ -22,7 +24,10 @@ router.post('/', async (request, response) => {
             duedate: request.body.duedate,
             quantity: request.body.quantity,
             category: request.body.category,
-            Shipment: request.body.Shipment,
+            name: request.body.name,
+            address:request.body.address,
+            telephone:request.body.telephone,
+        
         };
         const Order = await orders.create(newOrder);
         return response.status(201).send(Order);
@@ -71,10 +76,6 @@ router.get('/:id/status', async (request, response) => {
 
 /*Status end */
 
-
-
-
-
 router.get('/', async (request, response) => {
     try {
         const order = await orders.find({});
@@ -114,7 +115,9 @@ router.put('/:id', async (request, response) => {
             !request.body.duedate ||
             !request.body.quantity ||
             !request.body.category ||
-            !request.body.Shipment
+            !request.body.name ||
+            !request.body.address||
+            !request.body.telephone
         ) {
             return response.status(400).send({
                 message: 'Send all required fields:duedate,quantity,category',
