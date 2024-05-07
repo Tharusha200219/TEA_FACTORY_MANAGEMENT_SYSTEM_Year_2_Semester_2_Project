@@ -16,14 +16,19 @@ const CreateOrder = () => {
       duedate: '',
       quantity: '',
       category: '',
-      Shipment: '', // Changed from 'Shipment' to 'shipment'
+      Shipment: '', 
+      address:'',
+      telephone:'',
     },
     validationSchema: Yup.object().shape({
       orderno: Yup.number().required('Order No is required').min(0, 'Order No must be positive'),
       duedate: Yup.date().required('Due Date is required'),
       quantity: Yup.number().required('Quantity is required').min(0, 'Quantity must be positive'),
       category: Yup.string().required('Category is required'),
-      Shipment: Yup.string().required('Shipment is required') // Changed from 'Shipment' to 'shipment'
+      Shipment: Yup.string().required('Shipment is required') ,
+      address: Yup.string().required('address is required'),
+      telephone: Yup.string().required('telephone is required') ,
+
     }),
     onSubmit: (values) => {
       handleSaveOrder(values);
@@ -33,8 +38,8 @@ const CreateOrder = () => {
   const handleSaveOrder = (values) => {
     setLoading(true);
     
-    const { orderno, duedate, quantity, category, Shipment } = values; // Changed from 'Shipment' to 'shipment'
-    const requestData = { orderno, duedate, quantity, category, Shipment }; // Changed from 'Shipment' to 'shipment'
+    const { orderno, duedate, quantity, category, Shipment,address,telephone } = values; // Changed from 'Shipment' to 'shipment'
+    const requestData = { orderno, duedate, quantity, category, Shipment,address,telephone }; // Changed from 'Shipment' to 'shipment'
 
     axios.post(`http://localhost:5555/orders`, requestData)
       .then(() => {
@@ -121,20 +126,32 @@ const CreateOrder = () => {
           </div>
 
           <div className='p-4'>
-            <label className='text-xl mr-4 text-gray-500'>Shipment</label>
-            <select // Changed from input to select
-              name="Shipment"
-              value={formik.values.Shipment}
+            <label className='text-xl mr-4 text-gray-500'>Address</label>
+            <input
+              type="String"
+              name="address"
+              value={formik.values.address}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               className='border-2 border-gray-500 px-4 py-2 w-full'
-            >
-              <option value=""></option>
-              <option value="Delivered">Delivered</option> {/* Added option for "Delivered" */}
-              <option value="Not Delivered">Not Delivered</option> {/* Added option for "Not Delivered" */}
-            </select>
-            {formik.touched.Shipment && formik.errors.Shipment ? ( // Changed from 'Shipment' to 'shipment'
-              <div className="text-red-500">{formik.errors.Shipment}</div> // Changed from 'Shipment' to 'shipment'
+            />
+            {formik.touched.address && formik.errors.address ? (
+              <div className="text-red-500">{formik.errors.address}</div>
+            ) : null}
+          </div>
+
+          <div className='p-4'>
+            <label className='text-xl mr-4 text-gray-500'>Telephone</label>
+            <input
+              type="String"
+              name="telephone"
+              value={formik.values.telephone}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              className='border-2 border-gray-500 px-4 py-2 w-full'
+            />
+            {formik.touched.telephone && formik.errors.telephone ? (
+              <div className="text-red-500">{formik.errors.telephone}</div>
             ) : null}
           </div>
 
