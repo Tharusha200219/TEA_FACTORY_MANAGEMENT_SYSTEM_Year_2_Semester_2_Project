@@ -121,7 +121,7 @@ function Home() {
                 <div className="hero-content">
                     <h1 style={heroHeaderStyles}>Welcome to Ever Green Tea Factory</h1>
                     <p style={heroParagraphStyles}>Your one-stop solution for managing tea production and distribution</p>
-                    <a href="/HomePage" className="btn" style={btnStyles}>Discover More</a>
+                    <a href="/login" className="btn" style={btnStyles}>Discover More</a>
                 </div>
             </section>
 
