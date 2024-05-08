@@ -22,7 +22,7 @@ const Login = () => {
         window.location.href = '/P_home';
       }if (email === 'user@gmail.com') {
         // Redirect to P_home page
-        window.location.href = '/P_home';
+        window.location.href = '/HomePage';
       }
        else {
         // Redirect to homepage or other pages based on role
