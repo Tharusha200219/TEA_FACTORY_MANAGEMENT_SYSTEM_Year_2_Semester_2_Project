@@ -178,6 +178,7 @@ const CreateMachine = () => {
                                 max={getCurrentDate()} // Set max attribute to today's date
                                 onChange={(e) => setInstallationDate(e.target.value)}
                                 className="input-field"
+                                min={new Date().toISOString().split('T')[0]}
                             />
                         </div>
                         <div className="mb-4">
