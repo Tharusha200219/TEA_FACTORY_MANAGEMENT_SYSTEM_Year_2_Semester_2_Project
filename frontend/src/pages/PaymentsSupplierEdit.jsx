@@ -25,10 +25,6 @@ const PaymentSupplierEdit = () => {
     }, [id]);
 
     const handleSavePayment = () => {
-        if (endDate && new Date(endDate) < new Date(startDate)) {
-            alert('End date cannot be before start date');
-            return;
-        }
         setLoading(true);
         axios.put(`http://localhost:5555/payments/update/${id}`, payment)
             .then(() => {
@@ -64,7 +60,7 @@ const PaymentSupplierEdit = () => {
                 <div className='p-4'>
                     <label className='text-xl mr-4 text-gray-500'>Amount</label>
                     <input
-                        type="number"
+                        type="text"
                         value={payment.amount || ''}
                         onChange={(e) => setPayment({ ...payment, amount: e.target.value })}
                         className='border-2 border-gray-500 px-4 py-2 w-full'
