@@ -11,6 +11,7 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import NavigationBar from '../components/NavigationBar';
 import Footer from '../components/Footer';
+import companyLogo from '/images/logo.png';
 
 const SupplierHome = () => {
     const [suppliers, setSuppliers] = useState([]);
@@ -54,29 +55,53 @@ const SupplierHome = () => {
         }
     };
 
-    //report feature
+    //report generate function
     const downloadPDF = () => {
         try {
             const doc = new jsPDF();
-            const tableData = suppliers.map(supplier => [supplier.supplierid, supplier.name, supplier.address, supplier.contact, supplier.email]);
+            const pageWidth = doc.internal.pageSize.getWidth();
+    
+            const logoWidth = 20;
+            const logoHeight = 20;
+            const logoX = 15;
+            const logoY = 10;
+    
+            doc.addImage(companyLogo, 'PNG', logoX, logoY, logoWidth, logoHeight);
     
             doc.setFontSize(16);
             const topic = 'Suppliers Report';
-            const topicX = 15;
-            const topicY = 15;
-
+            const topicWidth = doc.getTextWidth(topic);
+            const topicX = (pageWidth - topicWidth) / 2;
+            const topicY = logoY + logoHeight + 5;
+    
             doc.text(topic, topicX, topicY);
     
+            const tableData = suppliers.map(supplier => [
+                supplier.supplierid,
+                supplier.name,
+                supplier.address,
+                supplier.contact,
+                supplier.email,
+            ]);
+    
             doc.autoTable({
-                head: [['Supplier id', 'Name', 'Address', 'ContactNo', 'Email']],
+                head: [['Supplier ID', 'Name', 'Address', 'Contact No', 'Email']],
                 body: tableData,
-                margin: { top: 25 }, 
+                margin: { top: topicY + 10 },
                 columnStyles: {
-                    0: { cellWidth: 30 } 
-                }
+                    0: { cellWidth: 30 },
+                },
             });
-
-            doc.save('Supplier Report.pdf');
+    
+            const finalY = doc.autoTable.previous.finalY;
+            const signatureX = 15;
+            const signatureY = finalY + 30;
+    
+            doc.setFontSize(12);
+            doc.text('.....................', signatureX, signatureY);
+            doc.text('Authorized Signature', signatureX, signatureY + 5);
+    
+            doc.save('Suppliers Report.pdf');
         } catch (error) {
             console.error('Error generating PDF:', error);
         }
