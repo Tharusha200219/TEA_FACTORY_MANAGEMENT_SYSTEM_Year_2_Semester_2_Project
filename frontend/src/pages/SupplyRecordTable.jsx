@@ -10,6 +10,7 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import NavigationBar from '../components/NavigationBar';
 import Footer from '../components/Footer';
+import companyLogo from '/images/logo.png';
 
 const SupplyRecordTable = () => {
     const [supplyrecords, setSupplyRecords] = useState([]); 
@@ -61,24 +62,44 @@ const SupplyRecordTable = () => {
     const downloadPDF = () => {
         try {
             const doc = new jsPDF();
-            const tableData = supplyrecords.map(supplyrecord => [supplyrecord.supplier, supplyrecord.date, supplyrecord.quantity, supplyrecord.unitPrice ]);
+            const pageWidth = doc.internal.pageSize.getWidth();
+    
+            const logoWidth = 20;
+            const logoHeight = 20;
+            const logoX = 15;
+            const logoY = 10;
+    
+            doc.addImage(companyLogo, 'PNG', logoX, logoY, logoWidth, logoHeight);
     
             doc.setFontSize(16);
             const topic = 'Supply Records Report';
-            const topicX = 15; 
-            const topicY = 15; 
+            const topicWidth = doc.getTextWidth(topic);
+            const topicX = (pageWidth - topicWidth) / 2;
+            const topicY = logoY + logoHeight + 5;
     
             doc.text(topic, topicX, topicY);
-
+    
+            const tableData = supplyrecords.map(supplyrecord => [
+                supplyrecord.supplier,
+                supplyrecord.date,
+                supplyrecord.quantity,
+                supplyrecord.unitPrice,
+            ]);
+    
             doc.autoTable({
                 head: [['Supplier', 'Date', 'Quantity', 'UnitPrice']],
                 body: tableData,
-                margin: { top: 25 }, 
-                columnStyles: {
-                    0: { cellWidth: 'auto' } 
-                }
+                margin: { top: topicY + 10 },
             });
-            
+    
+            const finalY = doc.autoTable.previous.finalY;
+            const signatureX = 15;
+            const signatureY = finalY + 50;
+    
+            doc.setFontSize(12);
+            doc.text('....................', signatureX, signatureY);
+            doc.text('Authorized Signature', signatureX, signatureY + 5);
+    
             doc.save('Supply Report.pdf');
         } catch (error) {
             console.error('Error generating PDF:', error);
@@ -165,12 +186,26 @@ const SupplyRecordTable = () => {
                                                     <BsInfoCircle className='text-2xl text-green-800'/>
                                                 </Link>
                                                 
+                                                {item.status === 'Pending' ? (
                                                 <Link to={`/supplyrecords/edit/${item._id}`} >
-                                                    <AiOutlineEdit className='text-2xl text-yellow-600'/>
+                                                    <AiOutlineEdit className= "text-2xl text-yellow-600"/>
                                                 </Link>
-                                                <Link to={`/supplyrecords/delete/${item._id}`} >
-                                                    <MdOutlineDelete className='text-2xl text-red-600' />
+                                                ) : (
+                                                    <span className="text-2xl text-gray-400 cursor-not-allowed">
+                                                    <AiOutlineEdit />
+                                                    </span>
+                                                )}
+
+                                                {item.status === 'Pending' ? (
+                                                <Link to={`/supplyrecords/delete/${item._id}`}>
+                                                    <MdOutlineDelete className="text-2xl text-red-600" />
                                                 </Link>
+                                                ) : (
+                                                    <span className="text-2xl text-gray-400 cursor-not-allowed">
+                                                        <MdOutlineDelete />
+                                                    </span>
+                                                )}
+
                                             </div>
                                         </td>
                                     </tr>
