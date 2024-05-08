@@ -9,22 +9,55 @@ import NavigationBar from '../components/NavigationBar';
 import Footer from '../components/Footer';
 
 const Container = styled.div`
-  max-width: Auto;
-  background-color: #f7fafc;
+  max-width: 100%;
+  max-height: 100%;
+  background-image: url("./public/images/th29.jpg");
   margin: 0 auto;
   padding: 2rem;
   background-size: cover;
   background-position: center;
+  display: flex; /* Use flexbox */
+`;
+
+const Sidebar = styled.div`
+  width: 200px;
+  background-color: #408c44;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+`;
+
+const SidebarLink = styled(NavLink)`
+  color: white;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem 0;
+  text-decoration: none;
+
+  &:hover {
+    background-color: #333;
+  }
+
+  &.active {
+    background-color: #333;
+  }
+`;
+
+const MainContent = styled.div`
+  flex: 1;
+  display: flex; /* Use flexbox */
+  flex-direction: column;
 `;
 
 const FormContainer = styled.div`
-  background-color: rgba(255, 255, 255, 0.8);
-  background-image: url("./public/images/th676.jpg");
+  flex: 1; /* Take up remaining space */
+  max-width: 100%;
+  margin-right: 25px;
   border-radius: 1rem;
   padding: 2rem;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
   display: grid;
-  grid-gap: 1.5rem;
+  grid-gap: 1.0rem;
   justify-items: center;
 `;
 
@@ -70,31 +103,6 @@ const Button = styled.button`
   }
 `;
 
-const SecondaryNavbar = styled.nav`
-  background-color: #408c44;
-  padding: 1rem;
-  display: flex;
-  justify-content: center;
-
-  a {
-    color: white;
-    border-radius: 0.25rem;
-    padding: 0.5rem 1rem;
-    margin: 0 1rem;
-    text-decoration: none;
-
-    &:hover {
-      background-color: #333;
-      color: #fff;
-    }
-  }
-
-  .active {
-    background-color: #333;
-    color: #fff;
-  }
-`;
-
 const CreateVehicles = () => {
   const navigate = useNavigate();
   const { enqueueSnackbar } = useSnackbar();
@@ -129,7 +137,6 @@ const CreateVehicles = () => {
         console.log(error);
       });
   };
-  
 
   const [Type, setType] = useState('');
   const [RegNum, setRegNum] = useState('');
@@ -141,78 +148,87 @@ const CreateVehicles = () => {
 
   return (
     <Container>
-      <NavigationBar />
-      <SecondaryNavbar>
-        <NavLink to="/vehicles/create" activeClassName="active">Add New Vehicle</NavLink>
-        <NavLink to="/available-parts">Available Vehicles</NavLink>
-        <NavLink to="/orders">View Orders</NavLink>
-        <NavLink to="/ReportVehicle">Generate Report</NavLink>
-      </SecondaryNavbar>
-      <BackButton />
-      <h1 className='text-3xl my-4'><center>Add New Vehicle</center></h1>
-      {loading && <Spinner />}
-      <FormContainer>
+      <Sidebar>
+        <SidebarLink to="/vehicles/create" activeClassName="active">Add New Vehicle</SidebarLink>
+        <SidebarLink to="/available-parts">Available Vehicles</SidebarLink>
+        <SidebarLink to="/orders">View Orders</SidebarLink>
+        <SidebarLink to="/ReportVehicle">Generate Report</SidebarLink>
+      </Sidebar>
+      <MainContent>
+        <NavigationBar />
         <div>
-          <Label>Type</Label>
-          <Input
-            type='text'
-            value={Type}
-            onChange={(e) => setType(e.target.value.replace(/[^a-zA-Z\s]/g, ''))}
-            pattern="[0-9]*"
-          />
+          <BackButton />
+          <h1 className='text-3xl my-4'><center>Add New Vehicle</center></h1>
+          {loading && <Spinner />}
+          <FormContainer>
+            <div>
+              <Label>Type</Label>
+              <Input
+                type='text'
+                value={Type}
+                onChange={(e) => setType(e.target.value.replace(/[^a-zA-Z\s]/g, ''))}
+                placeholder="Type"
+                pattern="[0-9]*"
+              />
+            </div>
+            <div>
+              <Label>Reg Num</Label>
+              <Input
+                type='text'
+                value={RegNum}
+                onChange={(e) => setRegNum(e.target.value)}
+                placeholder="Reg Num"
+                pattern="[0-9]*"
+              />
+            </div>
+            <div>
+              <Label>Added Year</Label>
+              <Input
+                type='date'
+                value={AddedYear}
+                onChange={(e) => setAddedYear(e.target.value)}
+                placeholder="Enter Added year"
+                min={new Date().toISOString().split('T')[0]} // Set min attribute to current date
+              />
+            </div>
+            <div>
+              <Label>Engine Number</Label>
+              <Input
+                type='text'
+                value={EngineNum}
+                onChange={(e) => setengineNum(e.target.value.replace(/[^a-zA-Z0-9\s]/g, ''))}
+                placeholder="Engine Number"
+                pattern="[0-9]*"
+              />
+            </div>
+            <div>
+              <Label>Chesi Number</Label>
+              <Input
+                type='text'
+                value={ChesiNum}
+                onChange={(e) => setchesiNum(e.target.value.replace(/[^a-zA-Z0-9\s]/g, ''))}
+                placeholder="Chesi Number"
+                pattern="[0-9]*"
+              />
+            </div>
+            <div>
+              <Label>Owner</Label>
+              <Select
+                value={Owner}
+                onChange={(e) => setOwner(e.target.value)}
+              >
+                <Option value="">Select Owner</Option>
+                <Option value="Owner 1">Owner 1</Option>
+                <Option value="Owner 2">Owner 2</Option>
+                <Option value="Owner 3">Owner 3</Option>
+                {/* Add more options as needed */}
+              </Select>
+            </div>
+            <Button onClick={handleSaveVehicle}>Save</Button>
+          </FormContainer>
         </div>
-        <div>
-          <Label>Reg Num</Label>
-          <Input
-            type='text'
-            value={RegNum}
-            onChange={(e) => setRegNum(e.target.value)}
-            pattern="[0-9]*"
-          />
-        </div>
-        <div>
-          <Label>Added Year</Label>
-          <Input
-            type='date'
-            value={AddedYear}
-            onChange={(e) => setAddedYear(e.target.value)}
-            min={new Date().toISOString().split('T')[0]} // Set min attribute to current date
-          />
-        </div>
-        <div>
-          <Label>Engine Number</Label>
-          <Input
-            type='text'
-            value={EngineNum}
-            onChange={(e) => setengineNum(e.target.value.replace(/[^a-zA-Z0-9\s]/g, ''))}
-            pattern="[0-9]*"
-          />
-        </div>
-        <div>
-          <Label>Chesi Number</Label>
-          <Input
-            type='text'
-            value={ChesiNum}
-            onChange={(e) => setchesiNum(e.target.value.replace(/[^a-zA-Z0-9\s]/g, ''))}
-            pattern="[0-9]*"
-          />
-        </div>
-        <div>
-          <Label>Owner</Label>
-          <Select
-            value={Owner}
-            onChange={(e) => setOwner(e.target.value)}
-          >
-            <Option value="">Select Owner</Option>
-            <Option value="Owner 1">Owner 1</Option>
-            <Option value="Owner 2">Owner 2</Option>
-            <Option value="Owner 3">Owner 3</Option>
-            {/* Add more options as needed */}
-          </Select>
-        </div>
-        <Button onClick={handleSaveVehicle}>Save</Button>
-      </FormContainer>
-      <Footer />
+        <Footer />
+      </MainContent>
     </Container>
   );
 };

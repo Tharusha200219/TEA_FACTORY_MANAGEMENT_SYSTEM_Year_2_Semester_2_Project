@@ -25,10 +25,6 @@ import DeleteWaste from "./pages/DeleteWaste"
 import Wastedetails from "./pages/Wastedetails"
 import EditWaste from "./pages/EditWaste"
 import Irawleaves from "./pages/Irawleaves"
-import Rawtealeaves2 from "./pages/Rawtealeaves2.jsx"
-import Rawtealeaves2create from "./pages/Rawtealeaves2create.jsx"
-import Rawtealeaves2update from "./pages/Rawtealeaves2update.jsx"
-import Rawtealeaves2delete from "./pages/Rawtealeaves2delete.jsx"
 
 
 
@@ -108,7 +104,6 @@ import DeleteOrder from './pages/DeleteOrder';
 import OrderHome from './pages/OrderHome';
 import O_home from "./pages/O_home.jsx";
 
-
 //*************Payment***************//
 import PaymentsHome from "./pages/PaymentsHome.jsx";
 import PaymentsEmployee from "./pages/PaymentsEmployee.jsx";
@@ -116,13 +111,9 @@ import PaymentSupplierCreate from "./pages/PaymentSupplierCreate.jsx";
 import PaymentsEmployeeCreate from "./pages/PaymentsEmployeeCreate.jsx";
 import PaymentSupplierEdit from "./pages/PaymentsSupplierEdit.jsx";
 import PaymentsEmployeeEdit from "./pages/PaymentsEmployeeEdit.jsx";
-import OrderPayments from "./pages/OrderPayments.jsx";
-import OrderPaymentsCreate from "./pages/OrderPaymentsCreate.jsx";
-import OrderPaymentsUpdate from "./pages/OrderPaymentUpdate.jsx";
 import Py_home from "./pages/Py_home.jsx";
 
 import V_home from "./pages/V_home.jsx";
-
 
 
 
@@ -142,6 +133,7 @@ import EditEmployee from './pages/EditEmployee';
 import DeleteEmployee from './pages/DeleteEmployee';
 
 import EmailForm from "./pages/EmailForm.jsx";
+import Login from "./pages/login.jsx";
 
 
 
@@ -172,11 +164,6 @@ const App = () => {
       <Route path = '/waste/details/:id' element={<Wastedetails/>}  />
       <Route path = '/waste/edit/:id' element={<EditWaste/>}  />
       <Route path = '/Irawleaves' element={<Irawleaves/>} />
-      <Route path = '/Rawtealeaves2' element={<Rawtealeaves2/>} />
-      <Route path = '/Rawtealeaves2create' element={<Rawtealeaves2create/>} />
-      <Route path = '/Rawtealeaves2/edit/:id' element={<Rawtealeaves2update/>} />
-      <Route path = '/Rawtealeaves2/delete/:id' element={<Rawtealeaves2delete/>} />
-      
       
 
       
@@ -291,9 +278,6 @@ const App = () => {
       <Route path = '/payments/supplier/create' element={<PaymentSupplierCreate/>} />
       <Route path = '/payments/supplier/edit/:id' element={<PaymentSupplierEdit/>} />
       <Route path = '/payments/employee/edit/:id' element={<PaymentsEmployeeEdit/>} />
-      <Route path = '/OrderPayments' element={<OrderPayments/>} />
-      <Route path = '/OrderPaymentsCreate' element={<OrderPaymentsCreate/>} />
-      <Route path = '/OrderPaymentsUpdate/:id' element={<OrderPaymentsUpdate/>} />
       <Route path = '/Py_home' element={<Py_home/>} />
 
       <Route path = '/E_home' element={<E_home/>} />
@@ -303,6 +287,8 @@ const App = () => {
       <Route path = '/ContactUs' element={<ContactUs/>}  />
       <Route path = '/Aboutus' element={<Aboutus/>}  />
       <Route path = '/Service' element={<Service/>}  />
+
+      <Route path= '/login' element={<Login/>} />
 
       
     </Routes>
