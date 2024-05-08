@@ -9,7 +9,6 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import NavigationBar from '../components/NavigationBar';
 import Footer from '../components/Footer';
-import companyLogo from '/images/logo.png'; 
 
 const PaymentsHome = () => {
     const [payments, setPayments] = useState([]);
@@ -75,34 +74,15 @@ const PaymentsHome = () => {
         const value = e.target.value;
         setSearchTerm(value);
     };
+
     const generateReport = () => {
         try {
             const doc = new jsPDF();
-            const imgData = companyLogo;
-            doc.addImage(imgData, 'PNG', 10, 10, 40, 40);
-    
-            // Set text color to ubber green
-            doc.setTextColor(22, 160, 133);
-    
-            // Add main title "EVER GREEN TEA" with ubber green color
-            doc.setFontSize(20);
-            doc.text("EVER GREEN TEA", doc.internal.pageSize.width / 2, 20, { align: "center" });
-    
-            // Add title "Payment Report" with ubber green color
-            doc.setFontSize(20);
-            doc.text("Payment Report", doc.internal.pageSize.width / 2, 40, { align: "center" });
-    
-            // Set text color back to black
-            doc.setTextColor(0);
-    
-            // Add current date
-            const date = new Date().toLocaleDateString();
-            doc.setFontSize(10);
-            doc.text(`Date: ${date}`, doc.internal.pageSize.width - 30, 20, { align: "right" });
-    
+            doc.text('Payment Report', 10, 10);
+
             // Table headers
             const headers = ['Supplier ID', 'Amount', 'Method', 'Start Date', 'End Date'];
-    
+
             // Table data
             const data = payments.map(item => [
                 item.supplierId,
@@ -111,25 +91,25 @@ const PaymentsHome = () => {
                 formatDate(item.startDate),
                 formatDate(item.endDate),
             ]);
-    
+
             // Set table position and styling
-            const startY = 50; // Adjusted startY value to avoid overlapping with titles
+            const startY = 20;
             const tableProps = {
                 margin: { top: 20 },
                 headStyles: { fillColor: [100, 100, 255] }, // Blue color for header
                 bodyStyles: { fillColor: 255 }, // White color for body
             };
-    
+
             // Add table to the PDF
             doc.autoTable({ head: [headers], body: data, startY, ...tableProps });
-    
+
             doc.save('payment_report.pdf');
-    
+
         } catch (error) {
             console.error('Error generating PDF:', error);
         }
     };
-    
+
 
     return (
         <div style={{ minHeight: '100vh', position: 'relative' }}>
@@ -143,6 +123,11 @@ const PaymentsHome = () => {
                                 Suppliers
                             </button>
                         </Link>
+                        <Link to="/PaymentsEmployee">
+                            <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-4">
+                                Employees
+                            </button>
+                        </Link>
 
                     </div>
                 </div>
@@ -152,7 +137,7 @@ const PaymentsHome = () => {
                 <div className="flex justify-between items-center mb-8">
                     <input
                         type="text"
-                        placeholder="Search by Supplier"
+                        placeholder="Search by Supplier ID or Amount"
                         value={searchTerm}
                         onChange={handleSearch}
                         className='border border-gray-300 p-2'
