@@ -10,12 +10,13 @@ const Container = styled.div`
   max-width: 600px;
   margin: 0 auto;
   padding: 2rem;
+  background-image: url('./public/images/th24.jpg'); /* Add your background image URL here */
   background-size: cover;
   background-position: center;
 `;
 
 const FormContainer = styled.div`
-  background-color: #f7fafc;
+  background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
   border-radius: 1rem;
   padding: 2rem;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
