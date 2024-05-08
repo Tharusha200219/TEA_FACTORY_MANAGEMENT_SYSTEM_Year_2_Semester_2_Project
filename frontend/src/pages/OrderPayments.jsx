@@ -21,7 +21,7 @@ const OrderPayments = () => {
         setLoading(true);
         axios.get('http://localhost:5555/orderPayments/')
             .then((response) => {
-                console.log('Fetched employee payments:', response.data);
+                console.log('Fetched order payments:', response.data);
                 setPayments(response.data);
                 setLoading(false);
             })
@@ -38,7 +38,7 @@ const OrderPayments = () => {
             const updatedPayments = payments.filter(payment => payment._id !== id);
             setPayments(updatedPayments);
         } catch (error) {
-            console.error('Error deleting employee payment:', error);
+            console.error('Error deleting payment:', error);
             // Handle error, show message, etc.
         }
     };
@@ -191,7 +191,7 @@ const OrderPayments = () => {
 
                 </div>
                 <div className='flex justify-between items-center mb-8'>
-                    <h1 className='text-3xl font-bold text-gray-800'>Employee Payment Table</h1>
+                    <h1 className='text-3xl font-bold text-gray-800'>Order Payment Table</h1>
                     <Link
                         to='/OrderPaymentsCreate'
                         className='bg-yellow-500 text-white py-2 px-4 rounded hover:bg-yellow-600 transition-all flex items-center'>
