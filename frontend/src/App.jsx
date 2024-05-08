@@ -29,6 +29,9 @@ import Rawtealeaves2 from "./pages/Rawtealeaves2.jsx"
 import Rawtealeaves2create from "./pages/Rawtealeaves2create.jsx"
 import Rawtealeaves2update from "./pages/Rawtealeaves2update.jsx"
 import Rawtealeaves2delete from "./pages/Rawtealeaves2delete.jsx"
+import Pendingshipmentss from "./pages/Pendingshipmentss.jsx"
+
+
 
 
 
@@ -173,6 +176,17 @@ const App = () => {
       <Route path = '/Rawtealeaves2create' element={<Rawtealeaves2create/>} />
       <Route path = '/Rawtealeaves2/edit/:id' element={<Rawtealeaves2update/>} />
       <Route path = '/Rawtealeaves2/delete/:id' element={<Rawtealeaves2delete/>} />
+      <Route path = '/Pendingshipmentss' element={<Pendingshipmentss/>} />
+
+
+      
+     
+      
+      
+      
+
+      
+
       
       
 
