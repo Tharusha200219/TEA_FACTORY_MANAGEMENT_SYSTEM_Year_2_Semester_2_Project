@@ -1,4 +1,3 @@
-// Client-side: Login Page Component (Login.jsx)
 import React, { useState } from 'react';
 import axios from 'axios';
 
@@ -12,9 +11,12 @@ const Login = () => {
 
     try {
       // Send a request to the server to validate the credentials
-      const response = await axios.post('http://localhost:5555/login', { email, password });
+      const response = await axios.post('http://localhost:5555/employees/login', { employeeEmail: email, password });
 
-      // If the request is successful, redirect the user to the homepage
+      // If the request is successful, store the role and redirect the user
+      localStorage.setItem('role', response.data.role);
+      // Redirect logic should be handled based on user's role
+      // For simplicity, let's assume a generic redirect to homepage
       window.location.href = '/HomePage';
     } catch (error) {
       // If there's an error, display an error message

@@ -1,11 +1,10 @@
 {
   "dependencies": {
     "@react-pdf/renderer": "^3.4.2",
+    "bcrypt": "^5.1.1",
     "dotenv": "^16.4.5",
-
-    "multer": "^1.4.5-lts.1"
-
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
     "react-router": "^6.23.0"
-
   }
 }
