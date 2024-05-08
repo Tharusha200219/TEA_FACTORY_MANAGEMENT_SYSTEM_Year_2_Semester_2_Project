@@ -39,6 +39,10 @@ const OrderPaymentsCreate = () => {
     };
 
     const handleSavePayment = () => {
+        if (totalPrice<0) {
+            alert('Price cannot be a minus');
+            return;
+        }
         const data = {
             order: selectedOrder,
             totalPrice: totalPrice // Include the totalPrice in the data object
@@ -93,7 +97,7 @@ const OrderPaymentsCreate = () => {
                     <div className='p-4'>
                         <label className='text-xl mr-4 text-gray-500'>Enter the total Price for the quantity</label>
                         <input
-                            type="number"
+                            type="number" min="1"
                             value={totalPrice}
                             onChange={(e) => setTotalPrice(e.target.value)} // Update the totalPrice state
                             className='border-2 border-gray-500 px-4 py-2 w-full'
