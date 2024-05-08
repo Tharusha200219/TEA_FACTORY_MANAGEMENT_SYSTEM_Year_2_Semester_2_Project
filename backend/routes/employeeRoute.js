@@ -4,7 +4,7 @@ import multer from 'multer';
 import nodemailer from 'nodemailer';
 import { Employee } from '../models/employeeModel.js';
 import { generatePassword } from '../utils/passwordUtils.js';
-import bcrypt from 'bcrypt';
+
 
 
 const router = express.Router();
@@ -56,7 +56,6 @@ router.post('/', upload.single('image'), async (request, response) => {
     // Generate a unique employee ID
     const employeeId = generateEmployeeId();
 
-   
 
     const newEmployee = new Employee({
       employeeId, // Add the generated employee ID
@@ -66,7 +65,7 @@ router.post('/', upload.single('image'), async (request, response) => {
       employeeAddress,
       employeeRoles: employeeRole,
       createdOn,
-     
+
       image: request.file ? path.join('uploads', request.file.filename) : null,
     });
 
