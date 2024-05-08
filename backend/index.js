@@ -28,6 +28,7 @@ import payments from "./routes/payment.js";
 
 import vehicleRoute from './routes/vehicleRoute.js';
 import paymentsEmployee from "./routes/paymentEmployee.js";
+import orderPayments from "./routes/orderPayments.js";
 
 
 ////Import Supplier management model & Route ////
@@ -80,6 +81,7 @@ app.use('/maintenances',maintenanceRoute);
 app.use('/orders',orderRoute);
 app.use('/payments',payments);
 app.use('/paymentsEmployee',paymentsEmployee);
+app.use('/orderPayments',orderPayments );
 
 app.use('/vehicles', vehicleRoute);
 
@@ -104,6 +106,10 @@ app.post('/generate_password', (req, res) => {
     const password = generatePassword(length);
     res.json({ password });
   });
+
+// Serve static files from the 'uploads' directory
+app.use('/uploads', express.static('uploads'));
+//emial
 
 
 

@@ -112,6 +112,9 @@ import PaymentsEmployeeCreate from "./pages/PaymentsEmployeeCreate.jsx";
 import PaymentSupplierEdit from "./pages/PaymentsSupplierEdit.jsx";
 import PaymentsEmployeeEdit from "./pages/PaymentsEmployeeEdit.jsx";
 import Py_home from "./pages/Py_home.jsx";
+import OrderPayments from "./pages/OrderPayments.jsx";
+import OrderPaymentsCreate from "./pages/OrderPaymentsCreate.jsx";
+import OrderPaymentsUpdate from "./pages/OrderPaymentUpdate.jsx";
 
 import V_home from "./pages/V_home.jsx";
 
@@ -279,6 +282,9 @@ const App = () => {
       <Route path = '/payments/supplier/edit/:id' element={<PaymentSupplierEdit/>} />
       <Route path = '/payments/employee/edit/:id' element={<PaymentsEmployeeEdit/>} />
       <Route path = '/Py_home' element={<Py_home/>} />
+      <Route path = '/OrderPayments' element={<OrderPayments/>} />
+      <Route path = '/OrderPaymentsCreate' element={<OrderPaymentsCreate/>} />
+      <Route path = '/OrderPaymentsUpdate/:id' element={<OrderPaymentsUpdate/>} />
 
       <Route path = '/E_home' element={<E_home/>} />
 
