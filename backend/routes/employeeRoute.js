@@ -4,7 +4,7 @@ import multer from 'multer';
 import nodemailer from 'nodemailer';
 import { Employee } from '../models/employeeModel.js';
 import { generatePassword } from '../utils/passwordUtils.js';
-import bcrypt from 'bcrypt';
+
 
 
 const router = express.Router();
@@ -39,58 +39,22 @@ function generateEmployeeId() {
   return employeeId;
 }
 
-// Route for employee login
-router.post('/login', async (request, response) => {
-  try {
-    const { employeeEmail, password } = request.body;
 
-    const employee = await Employee.findOne({ employeeEmail });
-
-    if (!employee) {
-      return response.status(404).json({ message: 'Employee not found' });
-    }
-
-    // Ensure that the password is fetched properly from the database
-    console.log('Comparing password:', password);
-    console.log('Hashed password:', employee.password);
-
-    // Compare provided password with hashed password
-    const isPasswordValid = await bcrypt.compare(password, employee.password);
-
-    if (!isPasswordValid) {
-      return response.status(401).json({ message: 'Invalid email or password' });
-    }
-
-    // If credentials are valid, you can generate a token or simply send a success message
-    return response.status(200).json({ message: 'Login successful' });
-  } catch (error) {
-    console.error('Error during login:', error);
-    return response.status(500).json({ message: 'Internal server error' });
-  }
-});
-// Function to hash the password
-const hashPassword = async (password) => {
-  const saltRounds = 10;
-  return await bcrypt.hash(password, saltRounds);
-};
 
 // Route for adding a new employee with image upload
 router.post('/', upload.single('image'), async (request, response) => {
   try {
-    const { employeeName, employeeEmail, employeeMobile, employeeAddress, employeeRole, createdOn, password } = request.body;
+    const { employeeName, employeeEmail, employeeMobile, employeeAddress, employeeRole, createdOn} = request.body;
 
-    if (!employeeName || !employeeEmail || !employeeMobile || !employeeAddress || !employeeRole || !createdOn || !password) {
+    if (!employeeName || !employeeEmail || !employeeMobile || !employeeAddress || !employeeRole || !createdOn ) {
       return response.status(400).json({
-        message: 'Send all required fields: employeeName, employeeEmail, employeeMobile, employeeAddress, employeeRole, createdOn, password',
+        message: 'Send all required fields: employeeName, employeeEmail, employeeMobile, employeeAddress, employeeRole, createdOn',
       });
     }
     
 
     // Generate a unique employee ID
     const employeeId = generateEmployeeId();
-
-    // Hash the password before saving
-    const hashedPassword = await hashPassword(password);
 
     const newEmployee = new Employee({
       employeeId, // Add the generated employee ID
@@ -100,7 +64,7 @@ router.post('/', upload.single('image'), async (request, response) => {
       employeeAddress,
       employeeRoles: employeeRole,
       createdOn,
-      password: hashedPassword,
+      
       image: request.file ? path.join('uploads', request.file.filename) : null,
     });
 
