@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { PDFDownloadLink, Document, Page, View, Text, StyleSheet } from '@react-pdf/renderer';
+import { PDFDownloadLink, Document, Page, View, Text, StyleSheet, Image } from '@react-pdf/renderer';
 import NavigationBar from '../components/NavigationBar';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
         padding: 20,
     },
     section: {
-        flexGrow: 1
+        flexGrow: 1,
     },
     header: {
         backgroundColor: '#3AC056',
@@ -49,6 +49,31 @@ const styles = StyleSheet.create({
         borderRight: '1px solid #ddd',
         fontSize: 14,
     },
+    logo: {
+        width: 100,
+        height: 100,
+        top:-2,
+        marginTop: 10,
+        left: 800,
+        justifyContent: 'center',
+        alignItems: 'center',
+
+    },
+    signature: {
+        width: 150,
+        height: 50,
+        marginTop: 20,
+        position: 'absolute',
+        right: 80,
+        top: 500,
+    },
+    date: {
+        textAlign: 'left',
+        marginTop: 20,
+        position: 'absolute',
+        left: 40,
+        top: 500,
+    },
 });
 
 const VehicleReport = () => {
@@ -74,6 +99,10 @@ const VehicleReport = () => {
         <Document>
             <Page size="A1" style={styles.page}>
                 <View style={styles.section}>
+                    <View style={styles.logo}>
+                        <Image src="/images/logo.png" style={{ width: 100 }} />
+                        <Text style={styles.companyName}>EVER GREEN TEA</Text>
+                    </View>
                     <Text style={styles.header}>Vehicle Report</Text>
                     <View style={styles.table}>
                         <View style={styles.tableRow}>
@@ -90,6 +119,13 @@ const VehicleReport = () => {
                                 <Text style={styles.tableCol}>{vehicle.AddedYear}</Text>
                             </View>
                         ))}
+                    </View>
+                    <View style={styles.signature}>
+                        <Text>..........................................</Text>
+                        <Text>Signature</Text>
+                    </View>
+                    <View style={styles.date}>
+                        <Text>Date:.......................</Text>
                     </View>
                 </View>
             </Page>

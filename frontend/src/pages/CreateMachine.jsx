@@ -174,7 +174,7 @@ const CreateMachine = () => {
                             <input
                                 id="installationDate"
                                 type="date"
-                                value={installationDate}
+                                value={getCurrentDate()} // Set value to current date
                                 max={getCurrentDate()} // Set max attribute to today's date
                                 onChange={(e) => setInstallationDate(e.target.value)}
                                 className="input-field"
