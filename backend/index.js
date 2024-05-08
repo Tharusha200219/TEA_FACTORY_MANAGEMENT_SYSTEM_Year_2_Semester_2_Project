@@ -6,9 +6,7 @@ import { inventory } from "./models/inventorymodel.js";
 import { orders } from "./models/orderModel.js";
 import { waste } from "./models/wastemodel.js";
 import teaLeavesRoute from './routes/teaLeavesRoute.js';
-import teaLeavesRoute2 from './routes/teaLeavesRoute2.js';
 import TeaLeaves from "./models/teaLeavesModel.js";
-import TeaLeaves2 from "./models/teaLeavesModel2.js";
 
 ////Import production and tea type management model & Route ////
 import Production from './models/production_schedule_model_t.js';
@@ -30,7 +28,6 @@ import payments from "./routes/payment.js";
 
 import vehicleRoute from './routes/vehicleRoute.js';
 import paymentsEmployee from "./routes/paymentEmployee.js";
-import orderPayments from "./routes/orderPayments.js";
 
 
 ////Import Supplier management model & Route ////
@@ -39,13 +36,14 @@ import supplierRoute from "./routes/supplierRoute.js";
 import { SupplyRecord } from "./models/supplyrecordModel.js";
 import supplyrecordRoute from "./routes/supplyrecordRoute.js";
 
-
 import { Department } from "./models/departmentModel.js";
 import { Employee }  from "./models/employeeModel.js";
 import departmentRoute from "./routes/departmentRoute.js";
 import employeeRoute from "./routes/employeeRoute.js";
 //import emailRoutes from './routes/emailRoutes.js'; // Import emailRoutes using ES6 syntax
 import { generatePassword } from './utils/passwordUtils.js';
+
+
 
 const app = express();
 //this allow express to use json or json to express 
@@ -70,7 +68,6 @@ app.get('/',(request, response)=>{
 app.use('/inventory',inventoryRoute);
 app.use('/waste',wasteRoute)
 app.use('/teaLeaves', teaLeavesRoute);
-app.use('/teaLeaves2', teaLeavesRoute2);
 
 
 // Mounting production and tea type management routes
@@ -83,7 +80,6 @@ app.use('/maintenances',maintenanceRoute);
 app.use('/orders',orderRoute);
 app.use('/payments',payments);
 app.use('/paymentsEmployee',paymentsEmployee);
-app.use('/orderPayments',orderPayments );
 
 app.use('/vehicles', vehicleRoute);
 
@@ -92,8 +88,12 @@ app.use('/vehicles', vehicleRoute);
 app.use('/suppliers', supplierRoute);
 app.use('/supplyrecords', supplyrecordRoute);
 
+
 app.use('/departments', departmentRoute);
 app.use('/employees', employeeRoute);
+
+
+
 
 // Serve static files from the 'uploads' directory
 app.use('/uploads', express.static('C:\\Users\\IMASHA\\Documents\\GitHub\\TEA_FACTORY_MANAGEMENT_SYSTEM_Year_2_Semester_2_Project\\backend\\uploads'));
@@ -104,15 +104,6 @@ app.post('/generate_password', (req, res) => {
     const password = generatePassword(length);
     res.json({ password });
   });
-
-
-
-
-// Serve static files from the 'uploads' directory
-app.use('/uploads', express.static('uploads'));
-//emial
-
-
 
 
 

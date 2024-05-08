@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 const DeliveryOrder = () => {
   const location = useLocation();
-  const order = location.state?.order;
+  const orderData = location.state?.orderData;
   const [vehicles, setVehicles] = useState([]);
   const [selectedVehicle, setSelectedVehicle] = useState('');
   const [selectedAddressType, setSelectedAddressType] = useState('');
@@ -21,6 +21,10 @@ const DeliveryOrder = () => {
         console.error('Error fetching vehicles:', error);
       });
   }, []);
+
+  useEffect(() => {
+    console.log('Order data:', orderData);
+  }, [orderData]);
 
   const handleVehicleChange = (event) => {
     const selectedVehicleType = event.target.value;
@@ -48,7 +52,7 @@ const DeliveryOrder = () => {
     navigate('/TrackVehicle');
   };
 
-  if (!order) {
+  if (!orderData) {
     return <div>Order not found</div>;
   }
 
@@ -60,16 +64,14 @@ const DeliveryOrder = () => {
           <tr>
             <th style={tableHeaderStyle}>Order Number</th>
             <th style={tableHeaderStyle}>Quantity</th>
-            <th style={tableHeaderStyle}>Category</th>
             <th style={tableHeaderStyle}>Address</th>
             <th style={tableHeaderStyle}>Vehicle</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td style={tableCellStyle}>{order.orderno}</td>
-            <td style={tableCellStyle}>{order.quantity}</td>
-            <td style={tableCellStyle}>{order.category}</td>
+            <td style={tableCellStyle}>{orderData.orderno}</td>
+            <td style={tableCellStyle}>{orderData.quantity}</td>
             <td style={tableCellStyle}>
               <select value={selectedAddressType} onChange={handleAddressSelection} style={selectStyle}>
                 <option value="">Select address type</option>

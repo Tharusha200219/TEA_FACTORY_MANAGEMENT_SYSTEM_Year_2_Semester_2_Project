@@ -27,12 +27,6 @@ const Py_home = () => {
                                     <p style={styles.featureDescription}>Efficiently manage payments, .</p>
                                     <Link to="/PaymentsHome" style={styles.btn}>Manage Invoices</Link>
                                 </div>
-                                <div style={styles.feature}>
-                                    <img src="https://quickbooks.intuit.com/oidam/intuit/sbseg/en_us/Blog/Graphic/payment-terms-header-image-us-en.jpg" alt="Feature 1" style={styles.featureImage} />
-                                    <h3 style={styles.featureTitle}>Order Payments</h3>
-                                    <p style={styles.featureDescription}>Efficiently manage payments, .</p>
-                                    <Link to="/OrderPayments" style={styles.btn}>Manage Order Payments</Link>
-                                </div>
                                 
                                 {/* Add more features as needed */}
                             </div>

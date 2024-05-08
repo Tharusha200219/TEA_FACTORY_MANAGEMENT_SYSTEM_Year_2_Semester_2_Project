@@ -8,6 +8,7 @@ import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
 import Footer from '../components/Footer';
 import NavigationBar from '../components/NavigationBar';
 
+
 const EmployeeHome = () => {
   const [employees, setEmployees] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -33,10 +34,12 @@ const EmployeeHome = () => {
     setFilteredEmployees(
       employees.filter((employee) =>
         employee.employeeName.toLowerCase().includes(searchTerm.toLowerCase())
+        
       )
     );
   }, [searchTerm, employees]);
 
+  
   return (
     <div>
       <NavigationBar />
@@ -51,6 +54,8 @@ const EmployeeHome = () => {
           </div>
         </div>
       </nav>
+
+     
 
       <div className='p-4'>
         <div className='flex justify-between items-center mb-4'>
@@ -72,8 +77,7 @@ const EmployeeHome = () => {
             <table className='min-w-full divide-y divide-gray-200'>
               <thead className="bg-gray-50">
                 <tr>
-                <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Employee ID</th> {/* New Column */}
-                  
+                  <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>No</th>
                   <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Image</th>
                   <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Employee Name</th>
                   <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Email Address</th>
@@ -87,8 +91,7 @@ const EmployeeHome = () => {
               <tbody className="bg-white divide-y divide-gray-200">
                 {filteredEmployees.map((employee, index) => (
                   <tr key={employee._id} className="bg-white">
-                    
-                    <td className='border px-6 py-4 whitespace-nowrap'>{`EMI${index + 1}`}</td> {/* Display auto-generated employee ID */}
+                    <td className='border px-6 py-4 whitespace-nowrap'>{index + 1}</td>
                     <td className='border px-6 py-4 whitespace-nowrap'>
                       {/* Render image */}
                       {employee.image ? (
@@ -124,6 +127,7 @@ const EmployeeHome = () => {
         )}
       </div>
 
+      
       <Footer />
     </div>
   );

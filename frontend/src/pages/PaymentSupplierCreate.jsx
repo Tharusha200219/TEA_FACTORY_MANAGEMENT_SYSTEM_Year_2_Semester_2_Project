@@ -28,10 +28,6 @@ const PaymentSupplierCreate = () => {
     };
 
     const handleSavePayment = () => {
-        if (endDate && new Date(endDate) < new Date(startDate)) {
-            alert('End date cannot be before start date');
-            return;
-        }
         const data = {
             supplierId,
             amount,
@@ -77,7 +73,7 @@ const PaymentSupplierCreate = () => {
                 <div className='p-4'>
                     <label className='text-xl mr-4 text-gray-500'>Amount</label>
                     <input
-                        type="number"
+                        type="text"
                         value={amount}
                         onChange={(e) => setAmount(e.target.value)}
                         className='border-2 border-gray-500 px-4 py-2 w-full'
@@ -101,9 +97,9 @@ const PaymentSupplierCreate = () => {
                 <div className='p-4'>
                     <label className='text-xl mr-4 text-gray-500'>Start Date</label>
                     <input
-                        type="date" min={new Date().toJSON().slice(0, 10)}
+                        type="date"
                         value={startDate}
-                        onChange={(e) => setStartDate(e.target.value)} 
+                        onChange={(e) => setStartDate(e.target.value)}
                         className='border-2 border-gray-500 px-4 py-2 w-full'
                     />
                 </div>
@@ -112,7 +108,7 @@ const PaymentSupplierCreate = () => {
                     <label className='text-xl mr-4 text-gray-500'>End Date</label>
                     <input
                         type="date"
-                        value={endDate} min={new Date().toJSON().slice(0, 10)}
+                        value={endDate}
                         onChange={(e) => setEndDate(e.target.value)}
                         className='border-2 border-gray-500 px-4 py-2 w-full'
                     />
