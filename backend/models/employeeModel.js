@@ -2,11 +2,7 @@ import mongoose from "mongoose";
 
 const employeeSchema = mongoose.Schema(
     {   
-        password: {
-            type: String,
-            required: true,
-        },
-
+        
 
         employeeId: {
             type: String, // Store auto-generated employee ID
