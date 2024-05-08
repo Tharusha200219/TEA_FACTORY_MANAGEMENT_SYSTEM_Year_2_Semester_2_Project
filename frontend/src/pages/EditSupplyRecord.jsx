@@ -34,18 +34,23 @@ const EditSupplyRecord = () => {
     }, [id, selectedSupplier]);
 
     const validateQuantity = (value) => {
-        console.log(value, 'validate quantity');
+        const isValid = /^\d*\.?\d+$/.test(value);
         if (!value) {
             return 'Quantity is required';
-        } else if (parseInt(value) <= 0) {
+        } else if (!isValid) {
+            return 'Quantity must be a number';
+        } else if (parseFloat(value) <= 0) {
             return 'Quantity must be greater than 0';
         }
         return '';
     };
-
+    
     const validateUnitPrice = (value) => {
+        const isValid = /^\d*\.?\d+$/.test(value);
         if (!value) {
             return 'Unit price is required';
+        } else if (!isValid) {
+            return 'Unit price must be a number';
         } else if (parseFloat(value) <= 0) {
             return 'Unit price must be greater than 0';
         }
@@ -139,7 +144,7 @@ const EditSupplyRecord = () => {
                 <div className='mb-4 w-full'>
                     <label className='text-gray-600 text-xl'>Quantity</label>
                     <input
-                        type="number"
+                        type="text"
                         name="quantity"
                         value={quantity}
                         onChange={(e) => {
@@ -154,7 +159,7 @@ const EditSupplyRecord = () => {
                 <div className='mb-4 w-full'>
                     <label className='text-gray-600 text-xl'>Unit Price</label>
                     <input
-                        type="number"
+                        type="text"
                         name="unitPrice"
                         value={unitPrice}
                         onChange={(e) => {
