@@ -16,6 +16,7 @@ const Createteatypes = () => {
     const [tea_wastage, setTea_wastage] = useState('');
     const [status, setStatus] = useState('pending'); // Added state for status with default value
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -74,6 +75,18 @@ const Createteatypes = () => {
             });
     };
 
+    // Function to handle input change with validation for special characters and spaces
+    const handleInputChange = (setter) => (e) => {
+        const inputValue = e.target.value;
+        // Regular expression to check for special characters and spaces
+        if (/[^a-zA-Z0-9_]/.test(inputValue)) {
+            // If special character or space is found, do nothing (freeze input)
+            setError('Special characters are not allowed.');
+            return;
+        }
+        setter(inputValue);
+    };
+
     return (
         <div>
             <NavigationBar />
@@ -102,7 +115,7 @@ const Createteatypes = () => {
                     {loading && <Spinner />}
 
                     <div className='space-y-4'>
-                        <div className='mb-4'>
+                        <div className='mb-4 hidden'>
                             <label htmlFor='Schedule_no' className='text-lg text-gray-600'>Schedule No</label>
                             <input
                                 id='Schedule_no'
@@ -119,9 +132,10 @@ const Createteatypes = () => {
                                 id='black_tea'
                                 type='number'
                                 value={black_tea}
-                                onChange={(e) => setblack_tea(e.target.value)}
+                                onChange={handleInputChange(setblack_tea)}
                                 className='input-field'
                             />
+                            {error && <p className='text-red-500'>{error}</p>}
                         </div>
 
                         <div className='mb-4'>
@@ -130,9 +144,10 @@ const Createteatypes = () => {
                                 id='green_tea'
                                 type='number'
                                 value={green_tea}
-                                onChange={(e) => setgreen_tea(e.target.value)}
+                                onChange={handleInputChange(setgreen_tea)}
                                 className='input-field'
                             />
+                            {error && <p className='text-red-500'>{error}</p>}
                         </div>
 
                         <div className='mb-4'>
@@ -141,9 +156,10 @@ const Createteatypes = () => {
                                 id='oolong_tea'
                                 type='number'
                                 value={oolong_tea}
-                                onChange={(e) => setoolong_tea(e.target.value)}
+                                onChange={handleInputChange(setoolong_tea)}
                                 className='input-field'
                             />
+                            {error && <p className='text-red-500'>{error}</p>}
                         </div>
 
                         <div className='mb-4'>
@@ -152,9 +168,10 @@ const Createteatypes = () => {
                                 id='white_tea'
                                 type='number'
                                 value={white_tea}
-                                onChange={(e) => setwhite_tea(e.target.value)}
+                                onChange={handleInputChange(setwhite_tea)}
                                 className='input-field'
                             />
+                            {error && <p className='text-red-500'>{error}</p>}
                         </div>
 
                         <div className='mb-4'>
@@ -163,12 +180,13 @@ const Createteatypes = () => {
                                 id='tea_wastage'
                                 type='number'
                                 value={tea_wastage}
-                                onChange={(e) => setTea_wastage(e.target.value)}
+                                onChange={handleInputChange(setTea_wastage)}
                                 className='input-field'
                             />
+                            {error && <p className='text-red-500'>{error}</p>}
                         </div>
 
-                        <div className='mb-4'>
+                        <div className='mb-4 hidden'>
                             <label htmlFor='status' className='text-lg text-gray-600'>Status</label>
                             <input
                                 id='status'

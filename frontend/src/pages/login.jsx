@@ -15,9 +15,16 @@ const Login = () => {
 
       // If the request is successful, store the role and redirect the user
       localStorage.setItem('role', response.data.role);
-      // Redirect logic should be handled based on user's role
-      // For simplicity, let's assume a generic redirect to homepage
-      window.location.href = '/HomePage';
+      
+      // Check if the email matches the specific email address for redirection
+      if (email === 'tha@gmail.com') {
+        // Redirect to P_home page
+        window.location.href = '/P_home';
+      } else {
+        // Redirect to homepage or other pages based on role
+        // For simplicity, let's assume a generic redirect to homepage
+        window.location.href = '/HomePage';
+      }
     } catch (error) {
       // If there's an error, display an error message
       setError('Invalid email or password');
