@@ -25,6 +25,10 @@ import DeleteWaste from "./pages/DeleteWaste"
 import Wastedetails from "./pages/Wastedetails"
 import EditWaste from "./pages/EditWaste"
 import Irawleaves from "./pages/Irawleaves"
+import Rawtealeaves2 from "./pages/Rawtealeaves2.jsx"
+import Rawtealeaves2create from "./pages/Rawtealeaves2create.jsx"
+import Rawtealeaves2update from "./pages/Rawtealeaves2update.jsx"
+import Rawtealeaves2delete from "./pages/Rawtealeaves2delete.jsx"
 
 
 
@@ -104,6 +108,7 @@ import DeleteOrder from './pages/DeleteOrder';
 import OrderHome from './pages/OrderHome';
 import O_home from "./pages/O_home.jsx";
 
+
 //*************Payment***************//
 import PaymentsHome from "./pages/PaymentsHome.jsx";
 import PaymentsEmployee from "./pages/PaymentsEmployee.jsx";
@@ -114,6 +119,7 @@ import PaymentsEmployeeEdit from "./pages/PaymentsEmployeeEdit.jsx";
 import Py_home from "./pages/Py_home.jsx";
 
 import V_home from "./pages/V_home.jsx";
+
 
 
 
@@ -163,6 +169,11 @@ const App = () => {
       <Route path = '/waste/details/:id' element={<Wastedetails/>}  />
       <Route path = '/waste/edit/:id' element={<EditWaste/>}  />
       <Route path = '/Irawleaves' element={<Irawleaves/>} />
+      <Route path = '/Rawtealeaves2' element={<Rawtealeaves2/>} />
+      <Route path = '/Rawtealeaves2create' element={<Rawtealeaves2create/>} />
+      <Route path = '/Rawtealeaves2/edit/:id' element={<Rawtealeaves2update/>} />
+      <Route path = '/Rawtealeaves2/delete/:id' element={<Rawtealeaves2delete/>} />
+      
       
 
       

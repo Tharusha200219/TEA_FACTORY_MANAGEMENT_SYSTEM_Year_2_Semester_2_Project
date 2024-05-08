@@ -2,13 +2,15 @@ import React from 'react';
 
 const OrderSearchBar = ({ searchInput, setSearchInput, handleSearch, handleButtonClick }) => {
   const handleChange = (e) => {
+    const value = e.target.value;
+    if (!/^\d*$/.test(value)) return;
     setSearchInput(e.target.value);
   };
 
   return (
     <div className="flex items-center mb-4">
       <input
-        type="number"
+        type="text"
         placeholder="Search Order ID"
         value={searchInput}
         onChange={handleChange}

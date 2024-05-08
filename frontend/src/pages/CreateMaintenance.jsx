@@ -10,10 +10,20 @@ const CreateMaintenance = () => {
     const [machineNumber, setMachineNumber] = useState('');
     const [machineName, setMachineName] = useState('');
     const [description, setDescription] = useState('');
-    const [maintenanceDate, setMaintenanceDate] = useState('');
+    const [maintenanceDate, setMaintenanceDate] = useState(getTodayDate()); // Get today's date
     const [frequencyInDays, setFrequencyInDays] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+
+    // Function to get today's date in the format yyyy-mm-dd
+    function getTodayDate() {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = (today.getMonth() + 1).toString().padStart(2, '0');
+        const day = today.getDate().toString().padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    }
 
     const handleSaveMaintenances = () => {
         const data = {
@@ -30,7 +40,6 @@ const CreateMaintenance = () => {
                 navigate('/MaintenanceHome');
             })
             .catch((error) => {
-                alert('An error occurred');
                 console.log(error);
                 setLoading(false);
             });
@@ -39,12 +48,49 @@ const CreateMaintenance = () => {
     // Function to handle input change and validate machineNumber
     const handleMachineNumberChange = (e) => {
         const input = e.target.value;
-        if (/^\d*$/.test(input)) {
-            // If input is numeric, set machineNumber
+        if (/^\d*$/.test(input) && input !== '' && input <= 1000) {
             setMachineNumber(input);
+            setErrorMessage('');
         } else {
-            // If input is not numeric, show an alert
-            alert('Machine Number can only contain numbers');
+            setMachineNumber('');
+            setErrorMessage('Machine Number must be a number between 1 and 1000');
+        }
+    };
+
+    // Function to handle input change and validate machineName
+    const handleMachineNameChange = (e) => {
+        const input = e.target.value;
+        if (/^M\d{0,3}$/.test(input) || input === '' || input === 'M') {
+            setMachineName(input);
+            setErrorMessage('');
+        } else {
+            setMachineName('');
+            setErrorMessage('Machine Name must start with "M" followed by up to three digits (e.g., M123)');
+        }
+    };
+
+    // Function to handle input change and validate description
+    const handleDescriptionChange = (e) => {
+        const input = e.target.value;
+        if (/^[a-zA-Z0-9\s]*$/.test(input) && input.length <= 50) {
+            setDescription(input);
+            setErrorMessage('');
+        } else {
+            setDescription('');
+            setErrorMessage('Description can only contain letters, numbers, and spaces, and must be 50 characters or less');
+        }
+    };
+
+    // Function to handle input change and validate frequencyInDays
+    const handleFrequencyInDaysChange = (e) => {
+        const input = e.target.value;
+        if (/^\d+$/.test(input) && input >= 1 && input <= 30) {
+            setFrequencyInDays(input);
+            setErrorMessage('');
+        } else {
+            // Clear input if it's not a valid number
+            setFrequencyInDays('');
+            setErrorMessage('Frequency In Days must be a number between 1 and 30');
         }
     };
 
@@ -55,11 +101,14 @@ const CreateMaintenance = () => {
                 <div className="container mx-auto flex justify-center">
                     <div className="flex justify-between items-center">
                         <div className="flex space-x-4">
-                            <Link to="/" className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
+                            <Link to="/M_home" className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
                             <Link to="/MaintenanceHome" className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Maintenances</Link>
                             <Link to="/maintenances/create" className="text-white bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Create Table</Link>
                             <Link to="/MaintenanceAvailability" className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Maintenance Availability</Link>
                             <Link to="/MaintenanceReport" className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Maintenance Report Generate</Link>
+                            <Link to="/user-profile-page" className="absolute right-10 flex space-x-2">
+                            <img src="/images/user.png" alt="User Profile" className="w-8 h-8 rounded-full" />
+                        </Link>
                         </div>
                     </div>
                 </div>
@@ -69,6 +118,7 @@ const CreateMaintenance = () => {
                 <div className='max-w-md mx-auto bg-white rounded-lg shadow-md p-8 mt-8'>
                     <h1 className='text-3xl mb-4 font-bold text-gray-800 text-center'>Create Maintenance Schedule</h1>
                     {loading && <Spinner />}
+                    {errorMessage && <div className="text-red-500 mb-4">{errorMessage}</div>}
                     <div className='space-y-4'>
                         <div className='mb-4'>
                             <label htmlFor='machineNumber' className='text-lg text-gray-600'>Machine Number</label>
@@ -86,7 +136,7 @@ const CreateMaintenance = () => {
                                 id='machineName'
                                 type='text'
                                 value={machineName}
-                                onChange={(e) => setMachineName(e.target.value)}
+                                onChange={handleMachineNameChange}
                                 className='input-field'
                             />
                         </div>
@@ -96,7 +146,7 @@ const CreateMaintenance = () => {
                                 id='description'
                                 type='text'
                                 value={description}
-                                onChange={(e) => setDescription(e.target.value)}
+                                onChange={handleDescriptionChange}
                                 className='input-field'
                             />
                         </div>
@@ -107,6 +157,8 @@ const CreateMaintenance = () => {
                                 type='date'
                                 value={maintenanceDate}
                                 onChange={(e) => setMaintenanceDate(e.target.value)}
+                                min={getTodayDate()} // Set min date to today
+                                max={getTodayDate()} // Set max date to today
                                 className='input-field'
                             />
                         </div>
@@ -116,7 +168,7 @@ const CreateMaintenance = () => {
                                 id='frequencyInDays'
                                 type='number'
                                 value={frequencyInDays}
-                                onChange={(e) => setFrequencyInDays(e.target.value)}
+                                onChange={handleFrequencyInDaysChange} // Validate input
                                 className='input-field'
                             />
                         </div>

@@ -13,9 +13,24 @@ const CreateInventory = () => {
   const [batchIdError, setBatchIdError] = useState('');
   const [quantityError, setQuantityError] = useState('');
   const navigate = useNavigate();
-
+  const [teatypes, setTeatypes] = useState([]);
+  
   const categories = ['Green Tea', 'Black Tea', 'Oolong Tea', 'White Tea', 'BOPF'];
   const inventoryNumbers = ['1a', '1b', '1c', '2a', '2b', '2c'];
+
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get('http://localhost:5555/teatypes')
+      .then((response) => {
+        setTeatypes(response.data.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+      });
+  }, []);
 
   const handleSaveInventory = () => {
     const data = {
@@ -57,31 +72,49 @@ const CreateInventory = () => {
     }
   }, [quantity]);
 
+  const updateStatus = (id) => {
+    axios.put(`http://localhost:5555/teatypes/${id}`, { status: 'add to the inventory' })
+      .then((response) => {
+        // Update the status in the state
+        setTeatypes(prevState => {
+          return prevState.map(teatype => {
+            if (teatype._id === id) {
+              return { ...teatype, status: 'add to the inventory' };
+            }
+            return teatype;
+          });
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
-    <div className='p-4'>
+    <div className='container mx-auto px-4'>
       <BackButton />
-      <h1 className=' text-3xl my-4'>Create Inventory</h1>
+      <h1 className='text-3xl my-4 text-center font-bold'>Create Inventory</h1>
 
       {loading ? <Spinner /> : ''}
-      <div className='flex flex-col border-2 border-sky-800 rounded-xl w-[600px] p-4 mx-auto'>
+      <div className='bg-white shadow-md rounded-lg px-8 py-6 mb-8'>
 
-        <div className='p-4'>
-          <label className='text-xl mr-4 text-gray-500'>Batch ID</label>
+        <div className='mb-4'>
+          <label className='block text-xl mb-2 text-gray-700'>Batch ID</label>
           <input
             type="text"
             value={batchid}
             onChange={(e) => setBatchId(e.target.value)}
-            className={`border-2 border-gray-500 px-4 py-2 w-full ${batchIdError && 'border-red-500'}`}
+            className={`border-2 border-gray-500 px-4 py-2 w-full rounded-md focus:outline-none focus:border-blue-500 ${batchIdError && 'border-red-500'}`}
           />
           {batchIdError && <div className="text-red-500">{batchIdError}</div>}
         </div>
 
-        <div className='p-4'>
-          <label className='text-xl mr-4 text-gray-500'>Category</label>
+        <div className='mb-4'>
+          <label className='block text-xl mb-2 text-gray-700'>Category</label>
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
-            className='border-2 border-gray-500 px-4 py-2 w-full'
+            className='border-2 border-gray-500 px-4 py-2 w-full rounded-md focus:outline-none focus:border-blue-500'
           >
             <option value="">Select Category</option>
             {categories.map((category, index) => (
@@ -90,12 +123,12 @@ const CreateInventory = () => {
           </select>
         </div>
 
-        <div className='p-4'>
-          <label className='text-xl mr-4 text-gray-500'>Inventory Number</label>
+        <div className='mb-4'>
+          <label className='block text-xl mb-2 text-gray-700'>Inventory Number</label>
           <select
             value={inventorynumber}
             onChange={(e) => setInventoryNumber(e.target.value)}
-            className='border-2 border-gray-500 px-4 py-2 w-full'
+            className='border-2 border-gray-500 px-4 py-2 w-full rounded-md focus:outline-none focus:border-blue-500'
           >
             <option value="">Select Inventory Number</option>
             {inventoryNumbers.map((number, index) => (
@@ -104,22 +137,55 @@ const CreateInventory = () => {
           </select>
         </div>
 
-        <div className='p-4'>
-          <label className='text-xl mr-4 text-gray-500'>Quantity</label>
+        <div className='mb-4'>
+          <label className='block text-xl mb-2 text-gray-700'>Quantity</label>
           <input
             type="number"
             value={quantity}
             onChange={(e) => setQuantity(e.target.value)}
-            className={`border-2 border-gray-500 px-4 py-2 w-full ${quantityError && 'border-red-500'}`}
+            className={`border-2 border-gray-500 px-4 py-2 w-full rounded-md focus:outline-none focus:border-blue-500 ${quantityError && 'border-red-500'}`}
           />
           {quantityError && <div className="text-red-500">{quantityError}</div>}
         </div>
 
-        <button className='p-2 bg-sky-800 m-8' onClick={handleSaveInventory}>
+        <button className='py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600' onClick={handleSaveInventory}>
           Save
         </button>
-
       </div>
+
+      {/* TeaTypeHome Table */}
+      <table className='min-w-full bg-white shadow-md rounded-lg overflow-hidden mb-8'>
+        <thead className="bg-gray-50">
+          <tr>
+            <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Schedule No</th>
+            <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Black Tea (kg)</th>
+            <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Green Tea (kg)</th>
+            <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Oolong Tea (kg)</th>
+            <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>White Tea (kg)</th>
+            <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Tea Wastage</th>
+            <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Status</th>
+            <th className='px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider bg-black'>Actions</th>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-gray-200">
+          {teatypes.map((teatype, index) => (
+            <tr key={teatype._id} className='h-8'>
+              <td className='px-6 py-4 whitespace-nowrap'>{teatype.Schedule_no}</td>
+              <td className='px-6 py-4 whitespace-nowrap'>{teatype.black_tea}</td>
+              <td className='px-6 py-4 whitespace-nowrap'>{teatype.green_tea}</td>
+              <td className='px-6 py-4 whitespace-nowrap'>{teatype.oolong_tea}</td>
+              <td className='px-6 py-4 whitespace-nowrap'>{teatype.white_tea}</td>
+              <td className='px-6 py-4 whitespace-nowrap'>{teatype.tea_wastage}</td>
+              <td className='px-6 py-4 whitespace-nowrap'>{teatype.status}</td>
+              <td className='px-6 py-4 whitespace-nowrap'>
+                <button onClick={() => updateStatus(teatype._id)} className='py-1 px-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md focus:outline-none focus:bg-blue-600'>
+                  Add to Inventory
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
