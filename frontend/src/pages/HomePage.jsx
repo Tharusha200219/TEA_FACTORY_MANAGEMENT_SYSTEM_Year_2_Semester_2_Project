@@ -103,6 +103,17 @@ const HomePage = () => {
                                 employee
                             </button>
                         </Link>
+                        <Link to="/login">
+                            <button
+                                className="bg-white text-black font-bold py-2 px-4 rounded mr-4 hover:bg-gray-200"
+                                style={{
+                                    animation: 'fadeIn 0.5s ease forwards',
+                                    transition: 'transform 0.3s ease'
+                                }}
+                            >
+                                login
+                            </button>
+                        </Link>
                     </div>
                 </div>
             </div>
