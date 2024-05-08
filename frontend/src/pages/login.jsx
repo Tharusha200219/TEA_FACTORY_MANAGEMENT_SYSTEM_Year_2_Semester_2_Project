@@ -20,7 +20,11 @@ const Login = () => {
       if (email === 'tha@gmail.com') {
         // Redirect to P_home page
         window.location.href = '/P_home';
-      } else {
+      }if (email === 'user@gmail.com') {
+        // Redirect to P_home page
+        window.location.href = '/P_home';
+      }
+       else {
         // Redirect to homepage or other pages based on role
         // For simplicity, let's assume a generic redirect to homepage
         window.location.href = '/HomePage';
