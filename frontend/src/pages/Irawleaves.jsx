@@ -18,25 +18,28 @@ const SupplyRecordTable = () => {
         const savedQuantity = localStorage.getItem('teaLeavesQuantity');
         return savedQuantity ? Number(savedQuantity) : 0;
     });
-    const [manualDecreaseAmount, setManualDecreaseAmount] = useState(0); // New state variable for manual decrease
     const tableRef = useRef();
 
     useEffect(() => {
+        getSupplyRecords();
+    }, []);
+
+    const getSupplyRecords = async () => {
         setLoading(true);
         axios.get('http://localhost:5555/supplyrecords')
             .then((response) => {
                 const formattedRecords = response.data.map(record => ({
                     ...record,
-                    date: record.date.split('T')[0]
+                    date: record.date.split('T')[0] 
                 }));
-                setSupplyRecords(formattedRecords);
+                setSupplyRecords(formattedRecords); 
                 setLoading(false);
             })
             .catch((error) => {
                 console.error(error);
                 setLoading(false);
             });
-    }, []);
+    };
 
     useEffect(() => {
         axios.get('http://localhost:5555/teaLeaves')
@@ -70,82 +73,57 @@ const SupplyRecordTable = () => {
             .then((response) => {
                 setTeaLeavesQuantity(prevQuantity => prevQuantity + record.quantity);
                 localStorage.setItem('teaLeavesQuantity', teaLeavesQuantity + record.quantity); // Update local storage
+                handleRecordStatus(record._id);
             })
             .catch((error) => {
                 console.error('Error updating tea leaves quantity:', error);
             });
     };
 
-    const handleReject = (record) => {
-        // Implement reject logic here
-    };
+    const handleRecordStatus = async (recordId) => {
 
-    const downloadPDF = () => {
-        // PDF download logic
-    };
-
-    const handleManualDecrease = () => {
-        if (manualDecreaseAmount <= teaLeavesQuantity) {
-            const newQuantity = teaLeavesQuantity - manualDecreaseAmount;
-            setTeaLeavesQuantity(newQuantity);
-            localStorage.setItem('teaLeavesQuantity', newQuantity);
-            setManualDecreaseAmount(0); // Reset manual decrease amount
-        } else {
-            alert('Cannot decrease more than current quantity');
-        }
-    };
-
-    const sendToProduction = () => {
-        if (manualDecreaseAmount <= teaLeavesQuantity) {
-            // Logic to send the entered amount to production
-            // This could involve an API call or any other backend operation
-            // After sending to production, you may want to update the UI or take further actions
-            // For now, we can simply log a message
-            console.log(`${manualDecreaseAmount} KG sent to production.`);
-        } else {
-            alert('Cannot send more than current quantity to production');
-        }
+            try {
+                const response = await axios.put(`http://localhost:5555/supplyrecords/changeStatus/${recordId}`, { status: 'Inventory' });
+                console.log(response);
+                if(response.status){
+                    getSupplyRecords();
+                }
+            } catch (error) {
+                console.error(error);
+            } 
     };
 
     return (
         <div style={{ minHeight: '100vh', position: 'relative' }}>
-            <NavigationBar />
-            <nav className="bg-green-500 p-4">
-                <div className="container mx-auto flex justify-center">
-                    <div className="flex space-x-4">
-                        <Link to="/HomePage" className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
-                        <Link to="/inventorys" className="text-white  hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">inventory</Link>
-                        <Link to="/waste-management" className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Waste Management</Link>
-                        <Link to="/pending-shipments" className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Pending Shipments</Link>
-                        <Link to="/pending-new-stocks" className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Pending New Stocks</Link>
-                        <Link to="/Irawleaves" className="text-white bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Raw Leaves Management</Link>
-                    </div>
-                </div>
-            </nav>
+            <nav className="bg-gray-800 p-4">
+        <div className="container mx-auto">
+          <div className="flex justify-between items-center">
+            <div className="text-white text-xl font-bold">
+              Ever Green Tea
+            </div>
+            <div className="flex space-x-4">
+              <Link to="/HomePage" className="text-gray-300  hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Home</Link>
+              <Link to="/inventorys" className="text-gray-300    hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">inventory</Link>
+              
+              
+              <Link to="/waste-management" className="text-gray-300  hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Waste Management</Link>
+              
+              <Link to="/pending-shipments" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Pending Shipments</Link>
+              <Link to="/pending-new-stocks" className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Pending New Stocks</Link>
+              <Link to="/Irawleaves" className="text-gray-300 bg-black hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Raw Leaves Management</Link>
+             
+            </div>
+          </div>
+        </div>
+      </nav>
             <div className='p-16' style={{ paddingBottom: '100px' }}>
                 <div className='flex justify-between items-center mb-8'>
                     <h1 className='text-3xl font-bold text-gray-800'>Supply Record Table</h1>
                     <div className="flex items-center">
                         <p className="text-gray-600">Tea Leaves Quantity: {loading ? 'Loading...' : teaLeavesQuantity}</p>
-                        <div>
-                            <input className='ml-3' type="number" value={manualDecreaseAmount} onChange={(e) => setManualDecreaseAmount(parseInt(e.target.value))} />
-                            
-                            
-                            <button className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-2 ml-3' onClick={handleManualDecrease}>Decrease</button>
-                            
-                            <Link to="/Rawtealeaves2" > <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 ml-3' >Send to Production</button>
-                       </Link>
-                            
-                             </div>
                     </div>
                 </div>
-                <SupplierSearch
-                    searchInput={searchInput}
-                    setSearchInput={setSearchInput}
-                    searchType={searchType}
-                    setSearchType={setSearchType}
-                    showSearchType={false}
-                />
+
                 {loading ? (
                     <Spinner />
                 ) : (
@@ -153,10 +131,10 @@ const SupplyRecordTable = () => {
                         <table className='w-full border-collapse border border-gray-300'>
                             <thead className='bg-gray-200'>
                                 <tr>
-                                    <th className='border border-gray-300 p-4 text-left'>SUPPLIER</th>
-                                    <th className='border border-gray-300 p-4 text-left'>SUPPLY DATE</th>
-                                    <th className='border border-gray-300 p-4 text-left'>QUANTITY (KG)</th>
-                                    <th className='border border-gray-300 p-4 text-left'>ACTIONS</th>
+                                    <th className='px-6 py-3 text-sm font-medium border border-gray-300 text-left text-white bg-black'>SUPPLIER</th>
+                                    <th className='px-6 py-3 text-sm font-medium border border-gray-300 text-left text-white bg-black'>SUPPLY DATE</th>
+                                    <th className='px-6 py-3 text-sm font-medium border border-gray-300 text-left text-white bg-black'>QUANTITY (KG)</th>
+                                    <th className='px-6 py-3 text-sm font-medium border border-gray-300 text-left text-white bg-black'>ACTIONS</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -167,7 +145,8 @@ const SupplyRecordTable = () => {
                                         <td className='px-6 py-4 border border-gray-300'>{item.quantity}</td>
                                         <td className='px-6 py-4 border border-gray-300'>
                                             <div className='flex justify-center gap-x-4'>
-                                                <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" onClick={() => handleAccept(item)}>Accept</button>
+                                                <button disabled = {item.status === 'Inventory'} className={item.status === 'Pending' ? "bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" : "bg-gray-500 text-white font-bold py-2 px-4 rounded"} onClick={() => handleAccept(item)}>Accept</button>
+                                                 
                                            </div>
                                         </td>
                                     </tr>
