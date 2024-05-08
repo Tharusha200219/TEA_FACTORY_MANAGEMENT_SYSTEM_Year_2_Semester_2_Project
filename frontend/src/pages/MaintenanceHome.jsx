@@ -62,6 +62,9 @@ const MaintenanceHome = () => {
                         <Link to="/maintenances/creates" className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">create table</Link>
                         <Link to="/MaintenanceAvailability" className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Maintenance Availability</Link>
                         <Link to="/MaintenanceReport" className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Maintenance Report</Link>
+                        <Link to="/user-profile-page" className="absolute right-10 flex space-x-2">
+                            <img src="/images/user.png" alt="User Profile" className="w-8 h-8 rounded-full" />
+                        </Link>
                     </div>
                 </div>
             </nav>

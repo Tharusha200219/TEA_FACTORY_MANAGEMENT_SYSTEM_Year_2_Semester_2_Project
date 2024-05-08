@@ -88,6 +88,9 @@ const MachineReport = () => {
                         <Link to="/MachineHome" className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Machines</Link>
                         <Link to="/machines/creates" className="text-white hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Create Machine</Link>
                         <Link to="/MachineReport" className="text-white bg-gray-900 hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">Machine Report</Link>
+                        <Link to="/user-profile-page" className="absolute right-10 flex space-x-2">
+                            <img src="/images/user.png" alt="User Profile" className="w-8 h-8 rounded-full" />
+                        </Link>
                     </div>
                 </div>
             </nav>

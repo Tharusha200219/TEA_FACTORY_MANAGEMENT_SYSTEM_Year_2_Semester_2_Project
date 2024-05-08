@@ -138,7 +138,8 @@ const CreateMachine = () => {
                         </div>
                     )}
                     <div className="space-y-4">
-                        <div className="mb-4">
+                        <div className="mb-4 hidden">
+                            {/* Hidden machine number field */}
                             <label htmlFor="machineNumber" className="text-lg text-gray-600">Machine Number</label>
                             <input
                                 id="machineNumber"
