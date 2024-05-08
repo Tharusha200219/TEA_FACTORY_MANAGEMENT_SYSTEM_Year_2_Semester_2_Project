@@ -6,9 +6,7 @@ import { inventory } from "./models/inventorymodel.js";
 import { orders } from "./models/orderModel.js";
 import { waste } from "./models/wastemodel.js";
 import teaLeavesRoute from './routes/teaLeavesRoute.js';
-import teaLeavesRoute2 from './routes/teaLeavesRoute2.js';
 import TeaLeaves from "./models/teaLeavesModel.js";
-import TeaLeaves2 from "./models/teaLeavesModel2.js";
 
 ////Import production and tea type management model & Route ////
 import Production from './models/production_schedule_model_t.js';
@@ -38,6 +36,12 @@ import supplierRoute from "./routes/supplierRoute.js";
 import { SupplyRecord } from "./models/supplyrecordModel.js";
 import supplyrecordRoute from "./routes/supplyrecordRoute.js";
 
+import { Department } from "./models/departmentModel.js";
+import { Employee }  from "./models/employeeModel.js";
+import departmentRoute from "./routes/departmentRoute.js";
+import employeeRoute from "./routes/employeeRoute.js";
+//import emailRoutes from './routes/emailRoutes.js'; // Import emailRoutes using ES6 syntax
+import { generatePassword } from './utils/passwordUtils.js';
 
 
 
@@ -64,7 +68,6 @@ app.get('/',(request, response)=>{
 app.use('/inventory',inventoryRoute);
 app.use('/waste',wasteRoute)
 app.use('/teaLeaves', teaLeavesRoute);
-app.use('/teaLeaves2', teaLeavesRoute2);
 
 
 // Mounting production and tea type management routes
@@ -86,13 +89,21 @@ app.use('/suppliers', supplierRoute);
 app.use('/supplyrecords', supplyrecordRoute);
 
 
+app.use('/departments', departmentRoute);
+app.use('/employees', employeeRoute);
+
+
 
 
 // Serve static files from the 'uploads' directory
 app.use('/uploads', express.static('C:\\Users\\IMASHA\\Documents\\GitHub\\TEA_FACTORY_MANAGEMENT_SYSTEM_Year_2_Semester_2_Project\\backend\\uploads'));
 
-//emial
-
+// Example usage of generatePassword function
+app.post('/generate_password', (req, res) => {
+    const length = req.body.length || 8; // You can specify the length in the request body or use a default value
+    const password = generatePassword(length);
+    res.json({ password });
+  });
 
 
 
