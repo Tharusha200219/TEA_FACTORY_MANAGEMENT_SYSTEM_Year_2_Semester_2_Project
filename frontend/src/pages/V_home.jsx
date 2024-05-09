@@ -1,6 +1,12 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
+
+import Spinner from '../components/Spinner';
+import Footer from '../components/Footer';
 import NavigationBar from '../components/NavigationBar';
+import styled from 'styled-components'; // Import styled-components
+
 
 const V_home = () => {
     return (
