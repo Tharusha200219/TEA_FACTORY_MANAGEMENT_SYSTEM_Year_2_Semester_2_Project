@@ -25,7 +25,7 @@ const OrderPayments = () => {
                 setLoading(false);
             })
             .catch((error) => {
-                console.error('Error fetching employee payments:', error);
+                console.error('Error fetching order payments:', error);
                 setLoading(false);
             });
     }, []);
