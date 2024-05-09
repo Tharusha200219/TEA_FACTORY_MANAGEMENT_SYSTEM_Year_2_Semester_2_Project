@@ -8,7 +8,6 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import NavigationBar from '../components/NavigationBar';
 import Footer from '../components/Footer';
-import companyLogo from '/images/logo.png'; 
 
 const OrderPayments = () => {
     const [payments, setPayments] = useState([]);
@@ -21,7 +20,7 @@ const OrderPayments = () => {
         setLoading(true);
         axios.get('http://localhost:5555/orderPayments/')
             .then((response) => {
-                console.log('Fetched order payments:', response.data);
+                console.log('Fetched employee payments:', response.data);
                 setPayments(response.data);
                 setLoading(false);
             })
@@ -38,7 +37,7 @@ const OrderPayments = () => {
             const updatedPayments = payments.filter(payment => payment._id !== id);
             setPayments(updatedPayments);
         } catch (error) {
-            console.error('Error deleting payment:', error);
+            console.error('Error deleting employee payment:', error);
             // Handle error, show message, etc.
         }
     };
@@ -75,28 +74,7 @@ const OrderPayments = () => {
             const doc = new jsPDF();
             let title = '';
             let data = [];
-            const imgData = companyLogo;
-            doc.addImage(imgData, 'PNG', 10, 10, 40, 40);
-    
-            // Set text color to ubber green
-            doc.setTextColor(22, 160, 133);
-    
-            // Add main title "EVER GREEN TEA" with ubber green color
-            doc.setFontSize(20);
-            doc.text("EVER GREEN TEA", doc.internal.pageSize.width / 2, 20, { align: "center" });
-    
-            // Add title "Maintenance Report" with ubber green color
-            doc.setFontSize(20);
-    
-            // Set text color back to black
-            doc.setTextColor(0);
-    
-            // Add current date
-            const date = new Date().toLocaleDateString();
-            doc.setFontSize(10);
-            doc.text(`Date: ${date}`, doc.internal.pageSize.width - 30, 20, { align: "right" });
-    
-            let headers = []; // Define headers variable
+            let headers = [];
     
             if (type === 'income') {
                 title = 'Monthly Income Report';
@@ -108,12 +86,10 @@ const OrderPayments = () => {
                 data = calculateDeliveryLocations(filteredPayments);
             }
     
-            // Add title dynamically with alignment
-            doc.setFontSize(18);
-            doc.text(title, doc.internal.pageSize.width / 2, 60, { align: "center" });
+            doc.text(title, 10, 10);
     
             // Set table position and styling
-            const startY = 70; // Adjusted startY value
+            const startY = 20;
             const tableProps = {
                 margin: { top: 20 },
                 headStyles: { fillColor: [100, 100, 255] }, // Blue color for header
@@ -130,8 +106,8 @@ const OrderPayments = () => {
         } catch (error) {
             console.error('Error generating PDF:', error);
         }
-    };
-    
+    };    
+
     // Function to calculate monthly income
     const calculateMonthlyIncome = (payments) => {
         const monthlyIncomeMap = {};
@@ -143,10 +119,10 @@ const OrderPayments = () => {
                 monthlyIncomeMap[month] = payment.totalPrice;
             }
         });
-    
+
         return Object.entries(monthlyIncomeMap).map(([month, totalIncome]) => [month, totalIncome.toFixed(2)]);
     };
-    
+
     // Function to calculate delivery locations
     const calculateDeliveryLocations = (payments) => {
         const deliveryLocationsMap = {};
@@ -158,10 +134,9 @@ const OrderPayments = () => {
                 deliveryLocationsMap[location] = 1;
             }
         });
-    
+
         return Object.entries(deliveryLocationsMap).map(([location, totalDeliveries]) => [location, totalDeliveries]);
     };
-    
 
     const handleSearch = (e) => {
         const value = e.target.value;
@@ -177,7 +152,7 @@ const OrderPayments = () => {
                 <div className="flex justify-between items-center mb-8">
                     <input
                         type="text"
-                        placeholder="Search by Customer"
+                        placeholder="Search by Order or Status"
                         value={searchTerm}
                         onChange={handleSearch}
                         className='border border-gray-300 p-2'
@@ -191,7 +166,7 @@ const OrderPayments = () => {
 
                 </div>
                 <div className='flex justify-between items-center mb-8'>
-                    <h1 className='text-3xl font-bold text-gray-800'>Order Payment Table</h1>
+                    <h1 className='text-3xl font-bold text-gray-800'>Employee Payment Table</h1>
                     <Link
                         to='/OrderPaymentsCreate'
                         className='bg-yellow-500 text-white py-2 px-4 rounded hover:bg-yellow-600 transition-all flex items-center'>
@@ -232,7 +207,7 @@ const OrderPayments = () => {
                                         <td className='border border-gray-300 p-4'>{item.totalPrice}</td>
                                         <td className='border border-gray-300 p-4'>
                                             {item.slip ? (
-                                                <a href={`http://localhost:5555/uploads/slips/${item.slip}`} rel="noopener noreferrer" className='bg-green-500 text-white py-2 px-4 rounded ml-4 ' >View</a>
+                                                <a href={`http://localhost:5555/uploads/slips/${item.slip}`} rel="noopener noreferrer" className='bg-green-500 text-white py-2 px-4 rounded ml-4' >View Slip</a>
                                             ) : (
                                                 <input type="file" accept=".pdf" onChange={(e) => handleFileUpload(e, item._id)} />
                                             )}
