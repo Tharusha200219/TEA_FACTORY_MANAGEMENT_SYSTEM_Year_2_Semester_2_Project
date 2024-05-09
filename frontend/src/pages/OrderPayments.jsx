@@ -64,8 +64,9 @@ const OrderPayments = () => {
 
     useEffect(() => {
         const filtered = payments.filter(payment =>
-            payment.order.name.toLowerCase().includes(searchTerm.toLowerCase())
+            payment.order?.name.toLowerCase().includes(searchTerm.toLowerCase())
         );
+        
         setFilteredPayments(filtered);
     }, [searchTerm, payments]);
 
@@ -203,7 +204,7 @@ const OrderPayments = () => {
                                         <td className='border border-gray-300 p-4'>{item.order ? new Date(item.order.duedate).toLocaleDateString() : ''}</td>
                                         <td className='border border-gray-300 p-4'>{item.order ? item.order.quantity : ''}</td>
                                         <td className='border border-gray-300 p-4'>{item.order ? item.order.address : ''}</td>
-                                        <td className='border border-gray-300 p-4'>{item.order ? item.order.name : ''}</td>
+                                        <td className='border border-gray-300 p-4'>{item.order?.name || ''}</td>
                                         <td className='border border-gray-300 p-4'>{item.totalPrice}</td>
                                         <td className='border border-gray-300 p-4'>
                                             {item.slip ? (
