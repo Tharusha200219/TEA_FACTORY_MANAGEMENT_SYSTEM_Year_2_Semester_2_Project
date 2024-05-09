@@ -127,9 +127,3 @@ const EmployeeHome = () => {
 };
 
 export default EmployeeHome;
-
-
-import './EmployeeHome.css';
-
-import './EmployeeHome.css';
-
