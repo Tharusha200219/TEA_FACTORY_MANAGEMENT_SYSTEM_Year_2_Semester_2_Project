@@ -208,7 +208,7 @@ const OrderPayments = () => {
                                         <td className='border border-gray-300 p-4'>{item.totalPrice}</td>
                                         <td className='border border-gray-300 p-4'>
                                             {item.slip ? (
-                                                <a href={`http://localhost:5555/uploads/slips/${item.slip}`} rel="noopener noreferrer" className='bg-green-500 text-white py-2 px-4 rounded ml-4' >View Slip</a>
+                                                <a href={`http://localhost:5555/uploads/slips/${item.slip}`} rel="noopener noreferrer" className='bg-green-500 text-white py-2 px-4 rounded ml-4' >View </a>
                                             ) : (
                                                 <input type="file" accept=".pdf" onChange={(e) => handleFileUpload(e, item._id)} />
                                             )}
