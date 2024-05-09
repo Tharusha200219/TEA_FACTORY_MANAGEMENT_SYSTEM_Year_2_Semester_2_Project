@@ -128,8 +128,8 @@ const EmployeeHome = () => {
 
 export default EmployeeHome;
 
-<<<<<<< Updated upstream
+
 import './EmployeeHome.css';
-=======
+
 import './EmployeeHome.css';
->>>>>>> Stashed changes
+
