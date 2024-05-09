@@ -17,13 +17,32 @@ const Login = () => {
       localStorage.setItem('role', response.data.role);
 
       // Check if the email matches the specific email address for redirection
-      if (email === 'tha@gmail.com') {
+      if (email === 'tharusha@gmail.com') {
         // Redirect to P_home page
         window.location.href = '/P_home';
-      } else if (email === 'user@gmail.com') {
+      } else if (email === 'imasha@gmail.com') {
         // Redirect to P_home page
-        window.location.href = '/HomePage';
-      } else {
+        window.location.href = '/E_home';
+      }else if (email === 'ravindu@gmail.com') {
+        // Redirect to P_home page
+        window.location.href = '/V_home';
+      }else if (email === 'nadeen@gmail.com') {
+        // Redirect to P_home page
+        window.location.href = '/O_home';
+      }else if (email === 'dilmi@gmail.com') {
+        // Redirect to P_home page
+        window.location.href = '/M_home';
+      }else if (email === 'kavindu@gmail.com') {
+        // Redirect to P_home page
+        window.location.href = '/S_home';
+      }else if (email === 'susiru@gmail.com') {
+        // Redirect to P_home page
+        window.location.href = '/Py_home';
+      }else if (email === 'yuvindu@gmail.com') {
+        // Redirect to P_home page
+        window.location.href = '/I_home';
+      }
+       else {
         // Redirect to homepage or other pages based on role
         // For simplicity, let's assume a generic redirect to homepage
         window.location.href = '/HomePage';
