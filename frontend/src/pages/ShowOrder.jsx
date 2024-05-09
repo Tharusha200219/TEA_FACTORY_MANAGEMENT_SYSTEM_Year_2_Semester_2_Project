@@ -45,7 +45,13 @@ const ShowOrder = () => {
             <strong>Category:</strong> {order.category}
           </div>
           <div style={styles.infoItem}>
-            <strong>Shipment:</strong> {order.Shipment}
+            <strong>Name:</strong> {order.name}
+          </div>
+          <div style={styles.infoItem}>
+            <strong>Address:</strong> {order.address}
+          </div>
+          <div style={styles.infoItem}>
+            <strong>Telephone:</strong> {order.telephone}
           </div>
 
           <div style={styles.infoItem}>

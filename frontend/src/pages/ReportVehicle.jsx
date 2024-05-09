@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
         flexGrow: 1
     },
     header: {
-        backgroundColor: '#4CAF50',
+        backgroundColor: '#3AC056',
         color: 'white',
         padding: 10,
         fontSize: 18,
@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
         padding: '12px',
         textAlign: 'center',
         borderRight: '1px solid #ddd',
-        backgroundColor: '#4CAF50',
+        backgroundColor: '#3AC056',
         color: 'white',
         fontWeight: 'bold',
         fontSize: 16,
@@ -99,7 +99,7 @@ const VehicleReport = () => {
     return (
         <div>
             <NavigationBar />
-            <nav style={{ backgroundColor: '#3FC060' }} className="p-4">
+            <nav style={{ backgroundColor: '#3AC056' }} className="p-4">
                 <div className="container mx-auto">
                     <div className=" mx-auto flex justify-center items-center">
                         <div className="flex space-x-4">
@@ -141,7 +141,7 @@ const VehicleReport = () => {
                         <div style={{ maxWidth: '100%', margin: 'auto', overflowX: 'auto' }}>
                             <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '20px' }}>
                                 <thead>
-                                    <tr style={{ backgroundColor: '#000000', color: 'white' }}>
+                                    <tr style={{ backgroundColor: '#3AC056', color: 'white' }}>
                                         <th style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid #ddd', width: '25%' }}>No</th>
                                         <th style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid #ddd', width: '25%' }}>Type</th>
                                         <th style={{ padding: '12px', textAlign: 'center', borderBottom: '1px solid #ddd', width: '25%' }}>Reg Num</th>
