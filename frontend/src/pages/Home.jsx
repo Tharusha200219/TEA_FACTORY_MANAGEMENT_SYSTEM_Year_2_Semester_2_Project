@@ -33,7 +33,7 @@ function Home() {
     };
 
     const heroStyles = {
-        backgroundImage: "url('./public/images/homebc.jpg')",
+        backgroundImage: "url('./public/images/ccc.jpg')",
         backgroundSize: 'cover',
         color: 'white',
         fontSize: '16px',
