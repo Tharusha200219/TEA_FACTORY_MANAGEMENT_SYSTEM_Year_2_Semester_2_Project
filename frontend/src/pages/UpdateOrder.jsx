@@ -11,13 +11,16 @@ const UpdateOrder = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  
   const formik = useFormik({
     initialValues: {
       orderno: '',
       duedate: '',
       quantity: '',
       category: '',
-      name:'',
+      name: '',
       address: '',
       telephone: '',
     },
@@ -87,7 +90,7 @@ const UpdateOrder = () => {
       {loading ? <Spinner /> : ''}
       <div className='flex flex-col border-2 border-sky-400 rounded-xl w-[600px] p-4 mx-auto'>
         <form onSubmit={formik.handleSubmit}>
-        <div className='p-4'>
+          <div className='p-4'>
             <label className='text-xl mr-4 text-gray-500'>Order No</label>
             <input
               type="text"
@@ -117,6 +120,9 @@ const UpdateOrder = () => {
             ) : null}
           </div>
 
+
+  
+
           <div className='p-4'>
             <label className='text-xl mr-4 text-gray-500'>DueDate</label>
             <input
@@ -125,6 +131,7 @@ const UpdateOrder = () => {
               value={formik.values.duedate}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
+              min={tomorrow.toISOString().split('T')[0]}
               className='border-2 border-gray-500 px-4 py-2 w-full'
             />
             {formik.touched.duedate && formik.errors.duedate ? (
