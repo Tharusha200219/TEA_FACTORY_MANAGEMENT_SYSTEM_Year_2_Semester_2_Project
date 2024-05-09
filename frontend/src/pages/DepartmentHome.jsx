@@ -7,38 +7,7 @@ import { BsInfoCircle } from 'react-icons/bs';
 import { MdOutlineAddBox, MdOutlineDelete } from 'react-icons/md';
 import Footer from '../components/Footer';
 import NavigationBar from '../components/NavigationBar';
-import { PDFDownloadLink, Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
-
-// Create styles
-const styles = StyleSheet.create({
-  page: {
-    flexDirection: 'column',
-    padding: 10,
-  },
-  section: {
-    margin: 10,
-    padding: 10,
-    flexGrow: 1,
-  },
-  table: {
-    display: 'table',
-    width: 'auto',
-    borderStyle: 'solid',
-    borderWidth: 1,
-    borderRightWidth: 0,
-    borderBottomWidth: 0,
-  },
-  tableRow: { margin: 'auto', flexDirection: 'row' },
-  tableCol: {
-    width: '25%',
-    borderStyle: 'solid',
-    borderWidth: 1,
-    borderLeftWidth: 0,
-    borderTopWidth: 0,
-  },
-  header: { backgroundColor: '#3FC060', padding: 5, color: 'white', fontWeight: 'bold' },
-  cell: { padding: 5 },
-});
+import { PDFDownloadLink, Document, Page, Text, View } from '@react-pdf/renderer';
 
 const DepartmentHome = () => {
   const [departments, setDepartments] = useState([]);
@@ -102,44 +71,17 @@ const DepartmentHome = () => {
   // PDF generation component
   const ReportDocument = () => (
     <Document>
-      <Page size="A1" style={styles.page}>
-        <View style={styles.section}>
+      <Page size="A1">
+        <View>
           <Text style={{ textAlign: 'center', marginBottom: 10 }}>Departments List</Text>
-          <View style={styles.table}>
-            <View style={styles.tableRow}>
-              <View style={[styles.tableCol, styles.header, { width: '5%' }]}>
-                <Text style={styles.cell}>No</Text>
-              </View>
-              <View style={[styles.tableCol, styles.header, { width: '20%' }]}>
-                <Text style={styles.cell}>Department Name</Text>
-              </View>
-              <View style={[styles.tableCol, styles.header, { width: '30%' }]}>
-                <Text style={styles.cell}>Department Details</Text>
-              </View>
-              <View style={[styles.tableCol, styles.header, { width: '15%' }]}>
-                <Text style={styles.cell}>Created On</Text>
-              </View>
-              <View style={[styles.tableCol, styles.header, { width: '15%' }]}>
-                <Text style={styles.cell}>Department Status</Text>
-              </View>
-            </View>
+          <View>
             {filteredDepartments.map((department, index) => (
-              <View style={styles.tableRow} key={department._id}>
-                <View style={[styles.tableCol, styles.cell, { width: '5%' }]}>
-                  <Text>{index + 1}</Text>
-                </View>
-                <View style={[styles.tableCol, styles.cell, { width: '20%' }]}>
-                  <Text>{department.departmentName}</Text>
-                </View>
-                <View style={[styles.tableCol, styles.cell, { width: '30%' }]}>
-                  <Text>{department.departmentDetails}</Text>
-                </View>
-                <View style={[styles.tableCol, styles.cell, { width: '15%' }]}>
-                  <Text>{new Date(department.createdOn).toLocaleString()}</Text>
-                </View>
-                <View style={[styles.tableCol, styles.cell, { width: '15%' }]}>
-                  <Text>{department.departmentStatus}</Text>
-                </View>
+              <View key={department._id}>
+                <Text>No: {index + 1}</Text>
+                <Text>Department Name: {department.departmentName}</Text>
+                <Text>Department Details: {department.departmentDetails}</Text>
+                <Text>Created On: {new Date(department.createdOn).toLocaleString()}</Text>
+                <Text>Department Status: {department.departmentStatus}</Text>
               </View>
             ))}
           </View>
@@ -147,7 +89,6 @@ const DepartmentHome = () => {
       </Page>
     </Document>
   );
-  
 
   return (
     <div className="flex flex-col h-screen">
@@ -166,6 +107,8 @@ const DepartmentHome = () => {
           <div className='flex justify-between items-center mb-4'>
             <h1 className='text-3xl'>Departments List</h1>
             <div className='flex items-center'>
+              
+              
               {generateReport ? (
                 <PDFDownloadLink
                   document={<ReportDocument />}
@@ -203,6 +146,7 @@ const DepartmentHome = () => {
                     value="All"
                     checked={filterOption === 'All'}
                     onChange={() => setFilterOption('All')}
+                    className="status-radio"
                   />
                   All
                 </label>
@@ -214,6 +158,7 @@ const DepartmentHome = () => {
                     value="Active"
                     checked={filterOption === 'Active'}
                     onChange={() => setFilterOption('Active')}
+                    className="status-radio-active"
                   />
                   Active
                 </label>
@@ -225,11 +170,11 @@ const DepartmentHome = () => {
                     value="Inactive"
                     checked={filterOption === 'Inactive'}
                     onChange={() => setFilterOption('Inactive')}
+                    className="status-radio-inactive"
                   />
                   Inactive
                 </label>
               </div>
-
             </div>
           </div>
 
@@ -240,15 +185,16 @@ const DepartmentHome = () => {
               <table className='w-full'>
                 {/* Table header */}
                 <thead>
-                  <tr className='bg-gray-200'>
-                    <th className='px-4 py-2'>No</th>
-                    <th className='px-4 py-2'>Department Name</th>
-                    <th className='px-4 py-2'>Department Details</th>
-                    <th className='px-4 py-2'>Created On</th>
-                    <th className='px-4 py-2'>Department Status</th>
-                    <th className='px-4 py-2'>Action</th>
+                  <tr className='bg-green-100'>
+                    <th className='px-4 py-2' style={{ backgroundColor: '#3FC060' }}>No</th>
+                    <th className='px-4 py-2' style={{ backgroundColor: '#3FC060' }}>Department Name</th>
+                    <th className='px-4 py-2' style={{ backgroundColor: '#3FC060' }}>Department Details</th>
+                    <th className='px-4 py-2' style={{ backgroundColor: '#3FC060' }}>Created On</th>
+                    <th className='px-4 py-2' style={{ backgroundColor: '#3FC060' }}>Department Status</th>
+                    <th className='px-4 py-2' style={{ backgroundColor: '#3FC060' }}>Action</th>
                   </tr>
                 </thead>
+
                 {/* Table body */}
                 <tbody>
                   {filteredDepartments.map((department, index) => (

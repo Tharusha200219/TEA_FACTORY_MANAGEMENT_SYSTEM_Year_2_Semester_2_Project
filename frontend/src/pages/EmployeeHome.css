@@ -1,0 +1,110 @@
+/* EmployeeHome.css */
+
+/* Navigation Links */
+.employee-home-container {
+    background-image: url('./public/images/th29.jpg'); /* Replace 'path_to_your_background_image.jpg' with the actual path to your image */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
+.nav-link {
+    color: #000;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: 0.25rem;
+    transition: all 0.3s ease;
+  }
+  
+  .nav-link:hover {
+    background-color: #4a4a4a;
+    color: #fff;
+  }
+  
+  /* Active Navigation Link */
+  .nav-link.active {
+    background-color: #4a4a4a;
+    color: #fff;
+  }
+  
+  /* Search Input */
+  .search-input {
+    width: 70%;
+    padding: 0.5rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    outline: none;
+  }
+  
+  /* Search Button */
+  .search-button {
+    background-color: #3FC060;
+    color: #fff;
+    border: none;
+    border-radius: 0.25rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .search-button:hover {
+    background-color: #2F8E53;
+  }
+  
+  /* Table Styles */
+  .employee-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .employee-table th,
+  .employee-table td {
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+  }
+  
+  .employee-table th {
+    background-color: #3FC060;
+    color: #fff;
+    text-align: left;
+    font-weight: bold;
+  }
+  
+  .employee-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .employee-table tbody tr:nth-child(odd) {
+    background-color: #f2f2f2;
+  }
+  
+  
+  .employee-table td {
+    font-size: 0.875rem;
+  }
+  
+  /* Employee Image */
+  .employee-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+  
+  /* Action Icons */
+  .action-icons {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  
+  .action-icons svg {
+    cursor: pointer;
+    font-size: 1.25rem;
+    transition: all 0.3s ease;
+  }
+  
+  .action-icons svg:hover {
+    transform: scale(1.2);
+    color: #4a90e2;
+  }
+  

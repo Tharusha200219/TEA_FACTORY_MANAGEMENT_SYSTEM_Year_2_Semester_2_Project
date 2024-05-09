@@ -153,7 +153,7 @@ const AvailableOrders = () => {
                   <TableCell>{order.address}</TableCell>
                   <TableCell>{order.status}</TableCell>
                   <TableCell>
-                    <Button onClick={() => handleSetButtonClick(order)}>Set</Button>
+                    <Button onClick={() => handleSetButtonClick(order)}>delivery Order</Button>
                   </TableCell>
                 </TableRow> 
               ))}
