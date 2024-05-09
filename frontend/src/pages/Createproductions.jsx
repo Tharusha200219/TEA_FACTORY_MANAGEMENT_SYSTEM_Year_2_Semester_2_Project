@@ -109,6 +109,28 @@ const Createproductions = () => {
         return selectedDate >= today;
     };
 
+    // Function to check for special characters
+    const handleInputChange = (e) => {
+        const inputValue = e.target.value;
+        if (/[^a-zA-Z0-9\s]/.test(inputValue)) {
+            setError('Special characters are not allowed.');
+            return;
+        }
+        setError('');
+        setShift_information(inputValue.replace(/\s/g, '')); // Remove spaces
+    };
+
+    // Function to check for special characters in quantity input
+    const handleQuantityChange = (e) => {
+        const inputValue = e.target.value;
+        if (/[^a-zA-Z0-9\s]/.test(inputValue)) {
+            setError('Special characters are not allowed.');
+            return;
+        }
+        setError('');
+        setQuantity(inputValue.replace(/\s/g, '')); // Remove spaces
+    };
+
     return (
         <div className='bg-gray-100 min-h-screen' style={{ backgroundImage: "url('/images/create.png')" }}>
 
@@ -138,7 +160,7 @@ const Createproductions = () => {
                     {loading && <Spinner />}
 
                     <div className='space-y-4'>
-                        <div className='mb-4'>
+                        <div className='mb-4 hidden'>
                             <label htmlFor='Schedule_no' className='text-lg text-gray-600'>Schedule No</label>
                             <input
                                 id='Schedule_no'
@@ -167,10 +189,11 @@ const Createproductions = () => {
                                 id='Quantity'
                                 type='text'
                                 value={Quantity}
-                                onChange={(e) => setQuantity(e.target.value)}
+                                onChange={handleQuantityChange}
                                 placeholder='e.g., 100 kg'
                                 className='input-field'
                             />
+                            {error && <p className='text-red-500'>{error}</p>}
                         </div>
 
                         <div className='mb-4'>
@@ -195,14 +218,14 @@ const Createproductions = () => {
                                 id='shift_information'
                                 type='text'
                                 value={shift_information}
-                                onChange={(e) => setShift_information(e.target.value)}
+                                onChange={handleInputChange}
                                 placeholder='e.g., 8'
                                 className='input-field'
                             />
                             {error && <p className='text-red-500'>{error}</p>}
                         </div>
 
-                        <div className='mb-4'>
+                        <div className='mb-4 hidden'>
                             <label htmlFor='Status' className='text-lg text-gray-600'>Status</label>
                             <input
                                 id='Status'
