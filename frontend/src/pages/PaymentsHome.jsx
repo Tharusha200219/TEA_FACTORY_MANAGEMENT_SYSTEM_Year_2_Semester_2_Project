@@ -177,17 +177,20 @@ const PaymentsHome = () => {
                         <thead className='bg-gray-200'>
                             <tr>
                                 <th className='border border-gray-300 p-4 text-left'>Supplier Name</th>
+                                <th className='border border-gray-300 p-4 text-left'>Order ID</th>
                                 <th className='border border-gray-300 p-4 text-left'>Amount</th>
                                 <th className='border border-gray-300 p-4 text-left'>Method</th>
                                 <th className='border border-gray-300 p-4 text-left'>Start Date</th>
                                 <th className='border border-gray-300 p-4 text-left'>End Date</th>
                                 <th className='border border-gray-300 p-4'>Operations</th>
+
                             </tr>
                         </thead>
                         <tbody>
                             {filteredPayments.map((item) => (
                                 <tr key={item._id} className='border border-gray-300'>
                                     <td className='border border-gray-300 p-4'>{item.supplierId}</td>
+                                    <td className='border border-gray-300 p-4'>{item.orderId}</td>
                                     <td className='border border-gray-300 p-4'>{item.amount}</td>
                                     <td className='border border-gray-300 p-4'>{item.method}</td>
                                     <td className='border border-gray-300 p-4'>{formatDate(item.startDate)}</td>

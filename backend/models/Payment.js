@@ -22,7 +22,11 @@ const PaymentSchema = new Schema({
     endDate: {
         type: Date,
         required: true,
-    }
+    },
+    orderId: {
+        type: String, // Adjust the type according to your requirements
+        required: true,
+    },
 });
 
 const Payment = model('Payment', PaymentSchema);
