@@ -33,11 +33,9 @@ function Home() {
     };
 
     const heroStyles = {
-<<<<<<< HEAD
         backgroundImage: "url('./public/images/th31.jpg')",
-=======
         backgroundImage: "url('./public/images/ccc.jpg')",
->>>>>>> main
+
         backgroundSize: 'cover',
         backgroundPosition: 'center', 
     
@@ -148,7 +146,7 @@ function Home() {
                     <p>Manage relationships with tea suppliers and ensure quality</p>
                 </div>
                 <div className="feature" style={featureItemStyles}>
-                    <img src="./public/images/s.jpg" alt="Order Tracking" style={featureImageStyles} />
+                    <img src="./public/images/vehicle.jpg" alt="Order Tracking" style={featureImageStyles} />
                     <h2 style={featureHeaderStyles}>Orders Tracking</h2>
                     <p>Trust and Safe with next level !</p>
                 </div>

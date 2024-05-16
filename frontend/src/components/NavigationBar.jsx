@@ -4,12 +4,12 @@ import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 
 const StyledAppBar = styled(AppBar)({
-<<<<<<< HEAD
+
     backgroundColor: '#138718',
     padding: '10px 20px', // Adjust padding here
-=======
+
     backgroundColor: '#3FC060',
->>>>>>> main
+
 });
 
 const NavigationBar = () => {
