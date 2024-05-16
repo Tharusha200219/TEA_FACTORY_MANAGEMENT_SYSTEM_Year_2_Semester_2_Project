@@ -33,8 +33,14 @@ function Home() {
     };
 
     const heroStyles = {
+<<<<<<< HEAD
+        backgroundImage: "url('./public/images/th31.jpg')",
+=======
         backgroundImage: "url('./public/images/ccc.jpg')",
+>>>>>>> main
         backgroundSize: 'cover',
+        backgroundPosition: 'center', 
+    
         color: 'white',
         fontSize: '16px',
         textAlign: 'center',
@@ -83,8 +89,8 @@ function Home() {
     };
 
     const featureImageStyles = {
-        width: '100%', 
-        height: 'auto', 
+        width: '100%',
+        height: 'auto',
         borderRadius: '10px',
         marginBottom: '20px',
     };
@@ -141,32 +147,37 @@ function Home() {
                     <h2 style={featureHeaderStyles}>Supplier Relations</h2>
                     <p>Manage relationships with tea suppliers and ensure quality</p>
                 </div>
+                <div className="feature" style={featureItemStyles}>
+                    <img src="./public/images/s.jpg" alt="Order Tracking" style={featureImageStyles} />
+                    <h2 style={featureHeaderStyles}>Orders Tracking</h2>
+                    <p>Trust and Safe with next level !</p>
+                </div>
             </section>
             <div className="container mx-auto px-4 py-8" style={{ maxWidth: '1300px' }}>
-    {/* Hero Section */}
-    <div className="text-center">
-        <p className="text-lg text-gray-700 mb-8">Discover our variety of teas and experience the essence of nature.</p>
-    </div>
-    {/* Tea Types Section */}
-    <div className="grid grid-cols-4 gap-10">
-        <div className="text-center bg-green-500 text-white py-8 rounded-md">
-            <h2 className="text-2xl font-semibold mb-4">Black Tea</h2>
-            <img src="/images/black.jpg" alt="Black Tea" className="w-full h-auto rounded-md" />
-        </div>
-        <div className="text-center bg-green-500 text-white py-8 rounded-md">
-            <h2 className="text-2xl font-semibold mb-4">Green Tea</h2>
-            <img src="/images/green.jpg" alt="Green Tea" className="w-full h-auto rounded-md" />
-        </div>
-        <div className="text-center bg-green-500 text-white py-8 rounded-md">
-            <h2 className="text-2xl font-semibold mb-4">Oolong Tea</h2>
-            <img src="/images/oolong.jpg" alt="Oolong Tea" className="w-full h-auto rounded-md" />
-        </div>
-        <div className="text-center bg-green-500 text-white py-8 rounded-md">
-            <h2 className="text-2xl font-semibold mb-4">White Tea</h2>
-            <img src="/images/white.jpg" alt="White Tea" className="w-full h-auto rounded-md" />
-        </div>
-    </div>
-</div>
+                {/* Hero Section */}
+                <div className="text-center">
+                    <p className="text-lg text-gray-700 mb-8">Discover our variety of teas and experience the essence of nature.</p>
+                </div>
+                {/* Tea Types Section */}
+                <div className="grid grid-cols-4 gap-10">
+                    <div className="text-center bg-green-500 text-white py-8 rounded-md">
+                        <h2 className="text-2xl font-semibold mb-4">Black Tea</h2>
+                        <img src="/images/black.jpg" alt="Black Tea" className="w-full h-auto rounded-md" />
+                    </div>
+                    <div className="text-center bg-green-500 text-white py-8 rounded-md">
+                        <h2 className="text-2xl font-semibold mb-4">Green Tea</h2>
+                        <img src="/images/green.jpg" alt="Green Tea" className="w-full h-auto rounded-md" />
+                    </div>
+                    <div className="text-center bg-green-500 text-white py-8 rounded-md">
+                        <h2 className="text-2xl font-semibold mb-4">Oolong Tea</h2>
+                        <img src="/images/oolong.jpg" alt="Oolong Tea" className="w-full h-auto rounded-md" />
+                    </div>
+                    <div className="text-center bg-green-500 text-white py-8 rounded-md">
+                        <h2 className="text-2xl font-semibold mb-4">White Tea</h2>
+                        <img src="/images/white.jpg" alt="White Tea" className="w-full h-auto rounded-md" />
+                    </div>
+                </div>
+            </div>
 
             <section id="about" className="about" style={aboutStyles}>
                 <div className="about-content" style={aboutContentStyles}>

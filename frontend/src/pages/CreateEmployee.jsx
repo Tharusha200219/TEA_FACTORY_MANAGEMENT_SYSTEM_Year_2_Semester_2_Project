@@ -95,7 +95,7 @@ const CreateEmployee = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-screen" style={{ backgroundImage: `url("./public/images/Vehicle new.jpg")`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
       <NavigationBar />
       <div className="flex-grow">
         <div className="container mx-auto p-4">
