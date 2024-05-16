@@ -19,8 +19,8 @@ const TableContainer = styled.div`
 `;
 
 const Table = styled.table`
-width: calc(100% - 20px); /* Subtract 20px from the width */
-border-collapse: collapse;
+  width: calc(100% - 20px); /* Subtract 20px from the width */
+  border-collapse: collapse;
 `;
 
 const TableHeader = styled.th`
@@ -87,10 +87,20 @@ const AvailableOrders = () => {
   };
 
   const handleSetButtonClick = (order) => {
-    navigate('/DeliveryOrder', { state: { order: order } });
+    const { orderno, quantity, Address, status } = order; // Destructure the required data from the order object
+    navigate('/DeliveryOrder', {
+      state: { 
+        orderData: { // Pass the required data as an object
+          orderno,
+          quantity,
+          Address,
+          status
+        }
+      }
+    });
   };
 
-  const pendingOrders = orders.filter((order) => order.status === 'Pending');
+  const pendingOrders = orders.filter((order) => order.status === 'Delivered');
 
   return (
     <PageContainer>
@@ -123,31 +133,35 @@ const AvailableOrders = () => {
           <Spinner />
         ) : (
           <TableContainer>
-            <Table>
-              <thead>
-                <TableRow>
-                  <TableHeader>Order id</TableHeader>
-                  <TableHeader>Quantity</TableHeader>
-                  <TableHeader>Category</TableHeader>
-                  <TableHeader>Delivery Status</TableHeader>
-                  <TableHeader>Delivery</TableHeader>
-                </TableRow>
-              </thead>
-              <tbody>
-                {(searchInput === '' ? pendingOrders : filteredOrders).map((order, index) => (
-                  <TableRow key={order._id}>
-                    <TableCell>{order.orderno}</TableCell>
-                    <TableCell>{order.quantity}</TableCell>
-                    <TableCell>{order.category}</TableCell>
-                    <TableCell>{order.status}</TableCell>
-                    <TableCell>
-                      <Button onClick={() => handleSetButtonClick(order)}>Set</Button>
-                    </TableCell>
-                  </TableRow> 
-                ))}
-              </tbody>
-            </Table>
-          </TableContainer>
+          <Table>
+            <thead>
+              <TableRow>
+                <TableHeader>Order id</TableHeader>
+                <TableHeader>Quantity</TableHeader>
+                <TableHeader>Category</TableHeader>
+                <TableHeader>Address</TableHeader>
+                <TableHeader>Delivery Status</TableHeader>
+                <TableHeader>Delivery</TableHeader>
+              </TableRow>
+            </thead>
+            <tbody>
+              {(searchInput === '' ? pendingOrders : filteredOrders).map((order, index) => (
+                <TableRow key={order._id}>
+                  <TableCell>{order.orderno}</TableCell>
+                  <TableCell>{order.quantity}</TableCell>
+                  <TableCell>{order.category}</TableCell>
+                  <TableCell>{order.address}</TableCell>
+                  <TableCell>{order.status}</TableCell>
+                  <TableCell>
+                    <Button onClick={() => handleSetButtonClick(order)}>delivery Order</Button>
+                  </TableCell>
+                </TableRow> 
+              ))}
+            </tbody>
+          </Table>
+        </TableContainer>
+        
+          
         )}
       </div>
 

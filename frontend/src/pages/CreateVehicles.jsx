@@ -25,6 +25,7 @@ const Sidebar = styled.div`
   padding: 1rem;
   display: flex;
   flex-direction: column;
+ 
 `;
 
 const SidebarLink = styled(NavLink)`

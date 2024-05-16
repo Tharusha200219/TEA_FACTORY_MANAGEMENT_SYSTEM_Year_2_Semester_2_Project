@@ -18,8 +18,8 @@ const OrderHome = () => {
   const [loading, setLoading] = useState(false);
   const [searchInput, setSearchInput] = useState('');
   const [filteredOrders, setFilteredOrders] = useState([]);
- 
- 
+
+
 
 
   useEffect(() => {
@@ -57,10 +57,10 @@ const OrderHome = () => {
   const handleButtonOnClick = () => {
     try {
       const doc = new jsPDF();
-      const tableData = orders.map(orders => [orders.orderno, new Date(orders.duedate).toLocaleDateString('en-GB'), orders.quantity, orders.category,orders.status,orders.name,orders.address,orders.telephone]);
+      const tableData = orders.map(orders => [orders.orderno, new Date(orders.duedate).toLocaleDateString('en-GB'), orders.quantity, orders.category, orders.status, orders.name, orders.address, orders.telephone]);
 
       doc.autoTable({
-        head: [['Order id', 'Due date', 'Quantity', 'Category', 'Status','Name', 'Address', 'Telephone',]],
+        head: [['Order id', 'Due date', 'Quantity', 'Category', 'Status', 'Name', 'Address', 'Telephone',]],
         body: tableData,
       });
 
@@ -97,54 +97,7 @@ const OrderHome = () => {
     }
   };
 
-  const handleSendStatusAccept = async (orderId, index) => {
-    try {
-      const response = await axios.get(`http://localhost:5555/orders/${orderId}/status`);
-      const currentStatus = response.data.status;
-      if (currentStatus === 'Accepted') {
-        console.log('Order status is already "Accepted"');
-        return;
-      }
-      const updateResponse = await axios.put(`http://localhost:5555/orders/${orderId}/status`, { status: 'Accepted' });
-      console.log("Order status updated successfully:", updateResponse.data);
-      const updatedOrders = orders.map(order => {
-        if (order._id === orderId) {
-          return { ...order, status: 'Accepted' };
-        }
-        return order;
-      });
-      setOrders(updatedOrders);
-      
-    } catch (error) {
-      console.log("Error updating order status:", error);
-    }
-  };
-
-
-  const handleSendStatusDeliver = async (orderId) => {
-    try {
-
-      const response = await axios.get(`http://localhost:5555/orders/${orderId}/status`);
-      const currentStatus = response.data.status;
-      if (currentStatus === 'Delivered') {
-        console.log('Order status is already "Delivered"');
-        return;
-      }
-      const updateResponse = await axios.put(`http://localhost:5555/orders/${orderId}/status`, { status: 'Delivered' });
-      console.log("Order status updated successfully:", updateResponse.data);
-      const updatedOrders = orders.map(order => {
-        if (order._id === orderId) {
-          return { ...order, status: 'Delivered' };
-        }
-        return order;
-      });
-      setOrders(updatedOrders);
-    } catch (error) {
-
-      console.log("Error updating order status:", error);
-
-    }
-  };
+ 
 
 
   useEffect(() => {
@@ -219,25 +172,35 @@ const OrderHome = () => {
                   <td className='px-6 py-4 whitespace-nowrap'>{order.status}</td>
                   <td className='px-6 py-4 whitespace-nowrap'>
                     <div className='flex justify-left gap-x-6'>
-                      <button onClick={() => handleSendStatusAccept(order._id)} className='inline-flex items-center px-6 py-2 border border-transparent rounded-md text-sm font-medium text-white bg-blue-500 hover:bg-blue-700 '>
-                        Accept
-                      </button>
-                      <button onClick={() => handleSendStatusSent(order._id)} className='inline-flex items-center px-6 py-2 border border-transparent rounded-md text-sm font-medium text-white bg-blue-500 hover:bg-blue-700 '>
+                      
+                      <button
+                        onClick={order.status === 'Accepted' ? () => handleSendStatusSent(order._id) : () => { }}
+                        className={`inline-flex items-center px-6 py-2 border border-transparent rounded-md text-sm font-medium text-white bg-blue-500 hover:bg-blue-700 ${order.status !== 'Accepted' ? 'cursor-not-allowed' : ''}`}>
                         Send
                       </button>
-                      <button onClick={() => handleSendStatusDeliver(order._id)} className='inline-flex items-center px-6 py-2 border border-transparent rounded-md text-sm font-medium text-white bg-blue-500 hover:bg-blue-700 '>
-                        Deliver
-                      </button>
+                      
                       <Link to={`/orders/details/${order._id}`}>
                         <BsInfoCircle className='text-2xl text-green-800' />
                       </Link>
-                      <Link to={`/orders/edit/${order._id}`}>
-                        <AiOutlineEdit className='text-2xl text-yellow-800' />
-                      </Link>
-                      <Link to={`/orders/delete/${order._id}`}>
-                        <MdOutlineDelete className='text-2xl text-red-600' />
-                      </Link>
-                    
+                      {order.status === 'Pending' ? (
+                        <Link to={`/orders/edit/${order._id}`}>
+                          <AiOutlineEdit className='text-2xl text-yellow-800' />
+                        </Link>
+                      ) : (
+                        <span onClick={() => { }} className="text-2xl text-gray-400 cursor-not-allowed">
+                          <AiOutlineEdit />
+                        </span>
+                      )}
+                      {order.status === 'Pending' ? (
+                        <Link to={`/orders/delete/${order._id}`}>
+                          <MdOutlineDelete className='text-2xl text-red-600' />
+                        </Link>
+                      ) : (
+                        <span onClick={() => { }} className="text-2xl text-gray-400 cursor-not-allowed">
+                          <MdOutlineDelete />
+                        </span>
+                      )}
+
                     </div>
                   </td>
                 </tr>

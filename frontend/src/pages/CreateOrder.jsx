@@ -10,6 +10,10 @@ const CreateOrder = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+
+
   const formik = useFormik({
     initialValues: {
       orderno: '',
@@ -99,7 +103,7 @@ const CreateOrder = () => {
             ) : null}
           </div>
 
-
+  
 
           <div className='p-4'>
             <label className='text-xl mr-4 text-gray-500'>DueDate</label>
@@ -109,6 +113,7 @@ const CreateOrder = () => {
               value={formik.values.duedate}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
+              min={tomorrow.toISOString().split('T')[0]}
               className='border-2 border-gray-500 px-4 py-2 w-full'
             />
             {formik.touched.duedate && formik.errors.duedate ? (

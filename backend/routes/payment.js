@@ -5,23 +5,25 @@ const router = express.Router();
 
 // Add new payment
 router.post("/add", async (req, res) => {
-  const { supplierId, amount, method, startDate, endDate } = req.body;
+  const { supplierId, amount, method, startDate, endDate, orderId } = req.body;
   const newPayment = new Payment({
-    supplierId,
-    amount,
-    method,
-    startDate,
-    endDate,
+      supplierId,
+      amount,
+      method,
+      startDate,
+      endDate,
+      orderId, // Include the orderId field
   });
 
   try {
-    await newPayment.save();
-    res.json({ message: "Payment added" });
+      await newPayment.save();
+      res.json({ message: "Payment added" });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Error adding payment" });
+      console.error(error);
+      res.status(500).json({ error: "Error adding payment" });
   }
 });
+
 
 // Get all payments
 router.get("/", async (req, res) => {
