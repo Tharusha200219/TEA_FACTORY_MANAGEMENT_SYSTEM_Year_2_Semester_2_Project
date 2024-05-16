@@ -83,6 +83,16 @@ const PaymentSupplierCreate = () => {
                         className='border-2 border-gray-500 px-4 py-2 w-full'
                     />
                 </div>
+                <div className='p-4'>
+    <label className='text-xl mr-4 text-gray-500'>Order Number</label>
+    <input
+        type="text"
+        value={orderNumber}
+        onChange={(e) => setOrderNumber(e.target.value)}
+        className='border-2 border-gray-500 px-4 py-2 w-full'
+    />
+</div>
+
 
                 <div className='p-4'>
                     <label className='text-xl mr-4 text-gray-500'>Method</label>
