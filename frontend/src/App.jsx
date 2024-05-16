@@ -33,6 +33,7 @@ import Rawtealeaves2delete from "./pages/Rawtealeaves2delete.jsx"
 import Pendingshipmentss from "./pages/Pendingshipmentss.jsx"
 
 
+
 import Vehiclehome from './pages/Vehiclehome'; 
 import CreateVehicles from './pages/CreateVehicles';
 import ShowVehicle from './pages/ShowVehicle';
@@ -172,6 +173,7 @@ const App = () => {
       <Route path = '/waste/details/:id' element={<Wastedetails/>}  />
       <Route path = '/waste/edit/:id' element={<EditWaste/>}  />
       <Route path = '/Irawleaves' element={<Irawleaves/>} />
+
       
 
       

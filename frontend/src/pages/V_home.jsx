@@ -5,7 +5,7 @@ import NavigationBar from '../components/NavigationBar';
 const V_home = () => {
     return (
         <div>
-           <NavigationBar />
+            <NavigationBar />
             <div style={styles.background}>
                 <div style={styles.container}>
                     <header style={styles.header}>
@@ -18,25 +18,28 @@ const V_home = () => {
                                 Our system helps streamline vehicle maintenance tasks, manage vehicle inventory, and improve overall fleet efficiency.
                             </p>
                         </section>
-                        <div style={styles.gridContainer}>
-                            <div style={styles.gridItem}>
-                                <img src="./public/images/Vehicle new.jpg" alt="Feature 1" style={styles.featureImage} />
-                                <h3 style={styles.featureTitle}>Add New Vehicle</h3>
-                                <p style={styles.featureDescription}>
-                                    Add vehicles to do and deliver schedules and tasks efficiently.
-                                </p>
-                                <Link to="/Vehiclehome" style={styles.btn}>Vehicle Yard</Link>
-                            </div>
+                        <section style={styles.section}>
+                            <h2 style={styles.sectionTitle}>Key Features</h2>
+                            <div style={styles.featureList}>
+                                <div style={styles.feature}>
+                                    <img src="./public/images/Vehicle new.jpg" alt="Feature 1" style={styles.featureImage} />
+                                    <h3 style={styles.featureTitle}>Add New Vehicle</h3>
+                                    <p style={styles.featureDescription}>
+                                        Add vehicles to do and deliver schedules and tasks efficiently.
+                                    </p>
+                                    <Link to="/Vehiclehome" style={styles.btn}>Vehicle Yard</Link>
+                                </div>
 
-                            <div style={styles.gridItem}>
-                                <img src="./public/images/vehicle.jpg" alt="Feature 1" style={styles.featureImage} />
-                                <h3 style={styles.featureTitle}>Orders Delivery</h3>
-                                <p style={styles.featureDescription}>
-                                    Manage vehicle inventory and improve overall fleet efficiency.
-                                </p>
-                                <Link to="/AvailableOrders" style={styles.btn}>Orders</Link>
+                                <div style={styles.feature}>
+                                    <img src="./public/images/vehicle.jpg" alt="Feature 1" style={styles.featureImage} />
+                                    <h3 style={styles.featureTitle}>Orders Delivery</h3>
+                                    <p style={styles.featureDescription}>
+                                        Manage vehicle inventory and improve overall fleet efficiency.
+                                    </p>
+                                    <Link to="/AvailableOrders" style={styles.btn}>Orders</Link>
+                                </div>
                             </div>
-                        </div>
+                        </section>
                     </main>
                     <footer style={styles.footer}>
                         <p style={styles.footerText}>© {new Date().getFullYear()} Vehicle Management</p>
@@ -65,7 +68,7 @@ const styles = {
     },
     title: {
         fontSize: '2.5rem',
-        color: 'white',
+        color: '#333',
     },
     main: {
         display: 'flex',
@@ -80,44 +83,41 @@ const styles = {
     },
     sectionDescription: {
         fontSize: '1.1rem',
-        color: 'white',
+        color: '#555',
         marginBottom: '20px',
     },
     btn: {
         display: 'inline-block',
         padding: '10px 20px',
-        backgroundColor: 'black',
-        color: 'white',
+        backgroundColor: '#007bff',
+        color: '#fff',
         textDecoration: 'none',
         borderRadius: '5px',
     },
-    gridContainer: {
-        display: 'grid',
-        gridTemplateColumns: '1fr 1fr',
-        gap: '20px', // Adjust the gap between items as needed
+    featureList: {
+        display: 'flex',
+        flexWrap: 'wrap',
     },
-    gridItem: {
-        textAlign: 'center',
-        padding: '20px',
-    // Semi-transparent background to make text readable
-        borderRadius: '5px',
+    feature: {
+        flex: '1 1 300px',
+        marginRight: '20px',
+        marginBottom: '20px',
     },
     featureImage: {
-        width: '70%',
+        width: '40%',
         borderRadius: '5px',
-        margin: '0 auto', // Center the image horizontally
     },
     featureTitle: {
         fontSize: '1.2rem',
         marginTop: '10px',
     },
     featureDescription: {
-        color: 'white',
+        color: '#555',
     },
     footer: {
         marginTop: '40px',
         textAlign: 'center',
-        color: 'white',
+        color: '#777',
     },
     footerText: {
         fontSize: '0.9rem',

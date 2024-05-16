@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 const UpdateTeaLeavesEntry = () => {
     const { id } = useParams();
@@ -22,7 +22,9 @@ const UpdateTeaLeavesEntry = () => {
 
     return (
         <div className="container">
+            
             <h2 className="text-center text-2xl font-bold mt-8 mb-4">Update Tea Leaves Entry</h2>
+            
             <form onSubmit={handleSubmit} className="form w-1/2 mx-auto">
                 <div className="mb-4">
                     <label className="block mb-2">Quantity:</label>
@@ -38,8 +40,10 @@ const UpdateTeaLeavesEntry = () => {
                 </div>
                 <div className="flex justify-center">
                     <button type="submit" className="btn bg-blue-500 text-white hover:bg-blue-600 px-6 py-2 rounded">Update</button>
+                    <Link to="/Rawtealeaves2" className="btn bg-gray-500 text-white hover:bg-gray-600 px-6 py-2 rounded ml-4">cancel</Link>
                 </div>
             </form>
+            
         </div>
     );
 };

@@ -59,8 +59,8 @@ const DeliveryOrder = () => {
   return (
     <div style={{ fontFamily: 'Arial, sans-serif', padding: '20px' }}>
       <h1 style={{ fontSize: '24px', marginBottom: '20px' }}>Delivery Order</h1>
-      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-        <thead style={{ backgroundColor: '#f2f2f2' }}>
+      <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '20px' }}>
+        <thead style={{ backgroundColor: '#3FC060' }}>
           <tr>
             <th style={tableHeaderStyle}>Order Number</th>
             <th style={tableHeaderStyle}>Quantity</th>
@@ -75,8 +75,8 @@ const DeliveryOrder = () => {
             <td style={tableCellStyle}>
               <select value={selectedAddressType} onChange={handleAddressSelection} style={selectStyle}>
                 <option value="">Select address type</option>
-                <option value="factory">Factory</option>
-                <option value="branch">Branch</option>
+                <option value="factory">23/34, Heenkenda Mawatha, Baththaramulla</option>
+                <option value="branch">Malabe place, Kaduwela</option>
               </select>
             </td>
             <td style={tableCellStyle}>
@@ -90,7 +90,32 @@ const DeliveryOrder = () => {
           </tr>
         </tbody>
       </table>
-      <button onClick={handleDeliverClick} style={deliverButtonStyle}>Deliver</button>
+      {/* Additional Information */}
+      <div style={{ marginTop: '20px' }}>
+        <h2 style={{ fontSize: '20px', marginBottom: '10px' }}>Additional Information</h2>
+        <div style={{ backgroundColor: '#3FC060', padding: '15px', borderRadius: '8px' }}>
+          <p>Customer Name:<input type="text" style={{ borderRadius: '4px', border: '1px solid black', padding: '5px' }} /></p>
+          <p>Contact Number: <input type="int" style={{ borderRadius: '4px', border: '1px solid black', padding: '5px' }} /></p>
+          <p>Delivery Date:   <input type="date" style={{ borderRadius: '4px', border: '1px solid black', padding: '5px' }} /></p>
+          <p>Delivery Time: <input type="time" style={{ borderRadius: '4px', border: '1px solid black', padding: '5px' }} /></p>
+          <p>Special Instructions:</p>
+          <textarea rows="4" style={{ width: '100%', borderRadius: '4px', border: '1px solid #ddd', padding: '8px' }}></textarea>
+        </div>
+      </div>
+      {/* Delivery Summary */}
+      <div style={{ marginTop: '20px' }}>
+        <h2 style={{ fontSize: '20px', marginBottom: '10px' }}>Order Summary</h2>
+        <div style={{ backgroundColor: '#3FC060', padding: '15px', borderRadius: '8px' }}>
+          <p>Total Items: {orderData.quantity}</p>
+          <p>Total Amount: $100.00</p>
+        </div>
+      </div>
+      <button
+        onClick={handleDeliverClick}
+        style={{ ...deliverButtonStyle, ...(selectedVehicle && selectedAddress ? deliverButtonHoverStyle : null) }}
+      >
+        Deliver
+      </button>
     </div>
   );
 };
@@ -98,31 +123,39 @@ const DeliveryOrder = () => {
 // CSS styles
 const tableHeaderStyle = {
   border: '1px solid #ddd',
-  padding: '10px',
+  padding: '12px',
   textAlign: 'left',
 };
 
 const tableCellStyle = {
   border: '1px solid #ddd',
-  padding: '10px',
+  padding: '12px',
   textAlign: 'left',
 };
 
 const selectStyle = {
   border: '1px solid #ddd',
-  padding: '5px',
+  padding: '8px',
   width: '100%',
   borderRadius: '4px',
 };
 
 const deliverButtonStyle = {
   marginTop: '20px',
-  padding: '10px 20px',
+  padding: '12px 24px',
   backgroundColor: '#3FC060',
   color: '#fff',
   border: 'none',
   borderRadius: '4px',
   cursor: 'pointer',
+  fontSize: '16px',
+  fontWeight: 'bold',
+  transition: 'background-color 0.3s',
+};
+
+const deliverButtonHoverStyle = {
+  backgroundColor: '#36A854',
 };
 
 export default DeliveryOrder;
+

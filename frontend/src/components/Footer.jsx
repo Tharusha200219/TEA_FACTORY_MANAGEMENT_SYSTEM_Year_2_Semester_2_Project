@@ -28,7 +28,7 @@ const styles = {
     footer: {
         backgroundColor: '#3FC060',
         color: '#fff',
-        padding: '50px',
+        padding: '30px',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
