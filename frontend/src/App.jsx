@@ -28,6 +28,7 @@ import Irawleaves from "./pages/Irawleaves"
 
 
 
+
 import Vehiclehome from './pages/Vehiclehome'; 
 import CreateVehicles from './pages/CreateVehicles';
 import ShowVehicle from './pages/ShowVehicle';
@@ -167,6 +168,7 @@ const App = () => {
       <Route path = '/waste/details/:id' element={<Wastedetails/>}  />
       <Route path = '/waste/edit/:id' element={<EditWaste/>}  />
       <Route path = '/Irawleaves' element={<Irawleaves/>} />
+
       
 
       

@@ -25,7 +25,7 @@ const CreateTeaLeavesEntry = () => {
             <div className="container">
                 <h2 className="text-center text-green-600 text-2xl font-bold mt-8 mb-4">Tea Leaves Entry created successfully!</h2>
                 <div className="flex justify-center">
-                    <Link to="/Rawtealeaves2" className="btn bg-green-500 text-white hover:bg-green-600 px-6 py-2 rounded">Go to Rawtealeaves2</Link>
+                    <Link to="/Rawtealeaves2" className="btn bg-green-500 text-white hover:bg-green-600 px-6 py-2 rounded">return to home</Link>
                 </div>
             </div>
         );
@@ -34,6 +34,8 @@ const CreateTeaLeavesEntry = () => {
     // Render the form for creating a tea leaves entry
     return (
         <div className="container">
+             <Link to="/Rawtealeaves2" className="btn btn-primary" style={{ background: '#008CBA', color: 'white', border: 'none', borderRadius: '5px', padding: '10px 20px', textDecoration: 'none', display: 'inline-block', marginBottom: '20px' }}>Back</Link>
+            
             <h2 className="text-center text-2xl font-bold mt-8 mb-4">Create Tea Leaves Entry</h2>
             <form onSubmit={handleSubmit} className="form w-1/2 mx-auto">
                 <div className="mb-4">

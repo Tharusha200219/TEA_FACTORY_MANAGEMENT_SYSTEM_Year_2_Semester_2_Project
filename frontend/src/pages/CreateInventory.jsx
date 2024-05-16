@@ -33,6 +33,11 @@ const CreateInventory = () => {
   }, []);
 
   const handleSaveInventory = () => {
+    if (batchIdError || quantityError || batchid.length < 5 ||!batchid || !category || !inventorynumber || !quantity) {
+      alert('Please fill all fields correctly');
+      return;
+    }
+
     const data = {
       batchid,
       category,
@@ -53,11 +58,9 @@ const CreateInventory = () => {
 
   useEffect(() => {
     // Real-time validation for batchid
-    const pattern = /^[A-Za-z0-9#]*$/;
+    const pattern = /^#[A-Za-z]{0,2}(?:\d{0,4})$/;
     if (!pattern.test(batchid)) {
-      setBatchIdError('Batch ID can only contain letters, numbers, and # sign');
-    } else if (batchid.length > 10) {
-      setBatchIdError('Batch ID must not exceed 10 characters');
+      setBatchIdError('Batch ID must start with # followed by up to two letters and up to four numbers');
     } else {
       setBatchIdError('');
     }
@@ -71,6 +74,13 @@ const CreateInventory = () => {
       setQuantityError('');
     }
   }, [quantity]);
+
+  const handleQuantityChange = (e) => {
+    const value = e.target.value;
+    if (value.length <= 6) {
+      setQuantity(value);
+    }
+  };
 
   const updateStatus = (id) => {
     axios.put(`http://localhost:5555/teatypes/${id}`, { status: 'add to the inventory' })
@@ -103,7 +113,12 @@ const CreateInventory = () => {
           <input
             type="text"
             value={batchid}
-            onChange={(e) => setBatchId(e.target.value)}
+            onChange={(e) => {
+              const value = e.target.value;
+              if (value === '' || /^#[A-Za-z]{0,2}(?:\d{0,4})$/.test(value)) {
+                setBatchId(value);
+              }
+            }}
             className={`border-2 border-gray-500 px-4 py-2 w-full rounded-md focus:outline-none focus:border-blue-500 ${batchIdError && 'border-red-500'}`}
           />
           {batchIdError && <div className="text-red-500">{batchIdError}</div>}
@@ -142,7 +157,7 @@ const CreateInventory = () => {
           <input
             type="number"
             value={quantity}
-            onChange={(e) => setQuantity(e.target.value)}
+            onChange={handleQuantityChange}
             className={`border-2 border-gray-500 px-4 py-2 w-full rounded-md focus:outline-none focus:border-blue-500 ${quantityError && 'border-red-500'}`}
           />
           {quantityError && <div className="text-red-500">{quantityError}</div>}
