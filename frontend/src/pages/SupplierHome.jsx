@@ -67,14 +67,26 @@ const SupplierHome = () => {
             const logoY = 10;
     
             doc.addImage(companyLogo, 'PNG', logoX, logoY, logoWidth, logoHeight);
+
+            doc.setFontSize(12);
+            const mainTopic = 'EVER GREEN TEA';
+            
+            // Position text to right to logo
+            const textPadding = 5; 
+            const mainTopicX = logoX + logoWidth + textPadding;
+            const mainTopicY = logoY + (logoHeight / 2); 
+            
+            doc.text(mainTopic, mainTopicX, mainTopicY);
     
             doc.setFontSize(16);
-            const topic = 'Suppliers Report';
-            const topicWidth = doc.getTextWidth(topic);
-            const topicX = (pageWidth - topicWidth) / 2;
-            const topicY = logoY + logoHeight + 5;
+            const secondaryTopic = 'Suppliers Report';
+            const secondaryTopicWidth = doc.getTextWidth(secondaryTopic);
+            
+            // Center second topic on page
+            const secondaryTopicX = (pageWidth - secondaryTopicWidth) / 2;
+            const secondaryTopicY = mainTopicY + logoHeight;
     
-            doc.text(topic, topicX, topicY);
+            doc.text(secondaryTopic, secondaryTopicX, secondaryTopicY);
     
             const tableData = suppliers.map(supplier => [
                 supplier.supplierid,
@@ -87,7 +99,7 @@ const SupplierHome = () => {
             doc.autoTable({
                 head: [['Supplier ID', 'Name', 'Address', 'Contact No', 'Email']],
                 body: tableData,
-                margin: { top: topicY + 10 },
+                margin: { top: secondaryTopicY  + 10 },
                 columnStyles: {
                     0: { cellWidth: 30 },
                 },
@@ -97,9 +109,17 @@ const SupplierHome = () => {
             const signatureX = 15;
             const signatureY = finalY + 30;
     
+            const dateX = pageWidth - 40;
+            const dateY = signatureY;
+    
             doc.setFontSize(12);
-            doc.text('.....................', signatureX, signatureY);
+            doc.text('....................', signatureX, signatureY);
             doc.text('Authorized Signature', signatureX, signatureY + 5);
+
+            doc.text('....................', dateX, dateY);
+            doc.text('Date', dateX, signatureY + 5);
+            doc.text('Authorized Signature', signatureX, signatureY + 5);
+
     
             doc.save('Suppliers Report.pdf');
         } catch (error) {
