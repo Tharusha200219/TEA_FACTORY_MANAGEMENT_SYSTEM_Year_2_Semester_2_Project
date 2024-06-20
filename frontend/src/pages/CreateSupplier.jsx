@@ -17,9 +17,9 @@ const CreateSupplier = () => {
     const navigate = useNavigate();
 
     const validateName = (value) => {
-        const minLength = 5; 
-        const maxlength = 20; 
-    
+        const minLength = 5;
+        const maxlength = 20;
+
         if (!value.trim()) {
             return 'Name is required';
         } else if (value.trim().length < minLength || value.trim().length > maxlength) {
@@ -27,11 +27,11 @@ const CreateSupplier = () => {
         }
         return '';
     };
-    
+
     const validateAddress = (value) => {
-        const minLength = 15; 
+        const minLength = 15;
         const maxlength = 50;
-    
+
         if (!value.trim()) {
             return 'Address is required';
         } else if (value.trim().length < minLength || value.trim().length > maxlength) {
@@ -39,7 +39,7 @@ const CreateSupplier = () => {
         }
         return '';
     };
-    
+
     const validateContact = (value) => {
         if (!value.trim()) {
             return 'Contact number is required';
@@ -54,7 +54,7 @@ const CreateSupplier = () => {
         if (!value.trim()) {
             return 'Email is required';
         } else if (!emailCheck.test(value)) {
-            return 'Invalid email format (e.g., example@gmail.com)';
+            return 'Invalid email format';
         }
         return '';
     };
@@ -66,6 +66,22 @@ const CreateSupplier = () => {
             ...prevErrors,
             [name]: error,
         }));
+    };
+
+    const handleNameKeyDown = (e) => {
+        const charCode = e.keyCode || e.which;
+        const char = String.fromCharCode(charCode);
+
+     
+        if (
+            (charCode >= 65 && charCode <= 90) || 
+            (charCode >= 97 && charCode <= 122) || 
+            [8, 9, 37, 39, 46].includes(charCode) 
+        ) {
+            return;
+        }
+
+        e.preventDefault();
     };
 
     const validate = () => {
@@ -86,7 +102,7 @@ const CreateSupplier = () => {
 
         setErrors((prevErrors) => ({
             ...prevErrors,
-            ...errors
+            ...errors,
         }));
     };
 
@@ -118,10 +134,10 @@ const CreateSupplier = () => {
         const isValid = Object.values(errors).every((error) => error === '');
 
         if (isValid) {
-            const data = { 
+            const data = {
                 supplierid,
                 name,
-                address, 
+                address,
                 contact,
                 email,
             };
@@ -134,7 +150,7 @@ const CreateSupplier = () => {
                 .catch(error => {
                     setLoading(false);
                     console.error(error);
-                });          
+                });
         }
     };
 
@@ -144,7 +160,7 @@ const CreateSupplier = () => {
             <div className='m-5'>
                 <BackButtonSupplierHome/>
             </div>
-            
+
             {loading ? <Spinner /> : ''}
             <div className='flex flex-col items-center justify-center border border-sky-400 bg-white rounded-lg shadow-md px-8 py-5 mx-auto mt-4 max-w-lg'>
                 <h1 className='text-3xl font-bold mb-8 mt-2'>Add New Supplier</h1>
@@ -172,6 +188,7 @@ const CreateSupplier = () => {
                             setName(e.target.value);
                             handleInputChange(e, validateName);
                         }}
+                        onKeyDown={handleNameKeyDown}
                         className='input-field mt-1'
                     />
                     {errors.name && <p className="text-red-500 mt-1">{errors.name}</p>}
@@ -190,7 +207,7 @@ const CreateSupplier = () => {
                     />
                     {errors.address && <p className="text-red-500 mt-1">{errors.address}</p>}
                 </div>
-                <div className='mb-4 w-full'>
+                <div class='mb-4 w-full'>
                     <label className='text-gray-600 text-xl'>Contact No</label>
                     <input
                         type="text"
@@ -204,7 +221,7 @@ const CreateSupplier = () => {
                     />
                     {errors.contact && <p className="text-red-500 mt-1">{errors.contact}</p>}
                 </div>
-                <div className='mb-4 w-full'>
+                <div class='mb-4 w-full'>
                     <label className='text-gray-600 text-xl'>Email</label>
                     <input
                         type="text"

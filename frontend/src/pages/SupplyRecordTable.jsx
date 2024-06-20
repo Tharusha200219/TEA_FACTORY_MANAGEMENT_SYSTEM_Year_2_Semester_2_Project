@@ -68,18 +68,29 @@ const SupplyRecordTable = () => {
             const logoHeight = 20;
             const logoX = 15;
             const logoY = 10;
-    
+
             doc.addImage(companyLogo, 'PNG', logoX, logoY, logoWidth, logoHeight);
     
+            doc.setFontSize(12);
+            const mainTopic = 'EVER GREEN TEA';
+            
+            const textPadding = 5; 
+            const mainTopicX = logoX + logoWidth + textPadding;
+            const mainTopicY = logoY + (logoHeight / 2); 
+            
+            doc.text(mainTopic, mainTopicX, mainTopicY);
+    
             doc.setFontSize(16);
-            const topic = 'Supply Records Report';
-            const topicWidth = doc.getTextWidth(topic);
-            const topicX = (pageWidth - topicWidth) / 2;
-            const topicY = logoY + logoHeight + 5;
+            const secondaryTopic = 'Supply Records Report';
+            const secondaryTopicWidth = doc.getTextWidth(secondaryTopic);
+            
+            // Center second topic on page
+            const secondaryTopicX = (pageWidth - secondaryTopicWidth) / 2;
+            const secondaryTopicY = mainTopicY + logoHeight;
     
-            doc.text(topic, topicX, topicY);
+            doc.text(secondaryTopic, secondaryTopicX, secondaryTopicY);
     
-            const tableData = supplyrecords.map(supplyrecord => [
+            const tableData = supplyrecords.map((supplyrecord) => [
                 supplyrecord.supplier,
                 supplyrecord.date,
                 supplyrecord.quantity,
@@ -89,17 +100,27 @@ const SupplyRecordTable = () => {
             doc.autoTable({
                 head: [['Supplier', 'Date', 'Quantity', 'UnitPrice']],
                 body: tableData,
-                margin: { top: topicY + 10 },
+                margin: { top: secondaryTopicY + 10 },
+                columnStyles: {
+                    0: { cellWidth: 30 },
+                },
             });
     
             const finalY = doc.autoTable.previous.finalY;
             const signatureX = 15;
-            const signatureY = finalY + 50;
+            const signatureY = finalY + 40;
+
+            const dateX = pageWidth - 40;
+            const dateY = signatureY;
     
             doc.setFontSize(12);
             doc.text('....................', signatureX, signatureY);
             doc.text('Authorized Signature', signatureX, signatureY + 5);
-    
+
+            doc.text('....................', dateX, dateY);
+            doc.text('Date', dateX, signatureY + 5);
+
+
             doc.save('Supply Report.pdf');
         } catch (error) {
             console.error('Error generating PDF:', error);

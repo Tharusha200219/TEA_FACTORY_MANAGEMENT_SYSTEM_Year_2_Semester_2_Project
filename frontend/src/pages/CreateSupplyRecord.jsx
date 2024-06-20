@@ -60,7 +60,7 @@ const CreateSupplyRecord = () => {
             return 'Quantity must be a number';
         } else if (parseFloat(value) <= 0) {
             return 'Quantity must be greater than 0';
-        }
+        } 
         return '';
     };
     
@@ -168,9 +168,9 @@ const CreateSupplyRecord = () => {
                         type="date"
                         name="date"
                         value={date}
-                        readOnly
+                        max={getCurrentDate()}
                         className='input-field mt-1 w-full'
-                        style={{ backgroundColor: '#f2f2f2' }}
+                        // style={{ backgroundColor: '#f2f2f2' }}
                     />
                     {errors.date && <p className="text-red-500">{errors.date}</p>}
                 </div>
